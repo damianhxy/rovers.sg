@@ -17,14 +17,14 @@ app.use("/dep", express.static(__dirname + "/dep"));
 
 app.get("/", function(req, res) {
     res.render("home", {
-        title: "Home | The Singapore Scout Association",
+        title: "Home",
         home: 1
     });
 });
 
 app.get("/nrr", function(req, res) {
     res.render("nrr", {
-        title: "NRR | The Singapore Scout Association",
+        title: "NRR",
         nrr: 1
     })
 });
@@ -34,7 +34,10 @@ app.get("/about", function(req, res) {
 });
 
 app.get("/links", function(req, res) {
-
+    res.render("links", {
+        title: "Links",
+        links: 1
+    })
 });
 
 app.get("/resources", function(req, res) {
@@ -64,7 +67,10 @@ app.get("/search", function(req, res) {
 */
 
 app.use(function(req, res) {
-    // 404
+    res.render("404", {
+        title: "404",
+        error: 1
+    })
 });
 
 app.listen(8080);

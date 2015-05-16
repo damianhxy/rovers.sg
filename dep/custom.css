@@ -1,97 +1,219 @@
-/* default.handlebars */
+@import url(http://fonts.googleapis.com/css?family=Roboto);
+
+/* Custom Navbar */
+
+.navbar-default,
+.navbar-default .navbar-nav > .active > a {
+	background-image: none;
+}
+
+.navbar-default {
+  background-color: #f7f7f7;
+  border-color: #fb0000;
+}
+
+.navbar-default .navbar-brand {
+  color: #ee1e1e;
+}
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+  color: #ccc7c7;
+}
+
+.navbar-default .navbar-text {
+  color: #ee1e1e;
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: #ee1e1e;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #ccc7c7;
+}
+
+.navbar-default .navbar-nav > li > .dropdown-menu {
+  background-color: #f7f7f7;
+}
+
+.navbar-default .navbar-nav > li > .dropdown-menu > li > a {
+  color: #ee1e1e;
+}
+
+.navbar-default .navbar-nav > li > .dropdown-menu > li > a:hover,
+.navbar-default .navbar-nav > li > .dropdown-menu > li > a:focus {
+  background-color: #fb0000;
+  color: #ccc7c7;
+}
+
+.navbar-default .navbar-nav > li > .dropdown-menu > li > .divider {
+  background-color: #f7f7f7;
+}
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+    background-color: #fb0000;
+color: #ccc7c7;
+}
+
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+  background-color: #fb0000;
+  color: #ccc7c7;
+}
+
+.navbar-default .navbar-toggle {
+  border-color: #fb0000;
+}
+
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+  background-color: #fb0000;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #ee1e1e;
+}
+
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+  border-color: #ee1e1e;
+}
+
+.navbar-default .navbar-link {
+  color: #ee1e1e;
+}
+
+.navbar-default .navbar-link:hover {
+  color: #ccc7c7;
+}
+
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #ee1e1e;
+  }
+
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #ccc7c7;
+  }
+
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+    background-color: #fb0000;
+    color: #ccc7c7;
+  }
+}
+
+/* Template */
+
 body {
-    margin-top: 50px;
-    font-family: 'Roboto', sans-serif;
-    line-height: 18px;
-    font-size: 13px;
+	font-family: 'Roboto', sans-serif;
+	font-size: 13px;
+	line-height: 18px;
+	margin-top: 50px;
 }
+
 .banner {
-    margin-top: 20px;
-    height: 128px;
-    width: 500px;
+	height: 128px;
+	margin-top: 20px;
+	width: 500px;
 }
+
 footer {
-    margin-top: 70px;
+	margin-top: 70px;
 }
+
 footer a:hover {
-    color: #EEE;
-    text-decoration: none;
+	color: #ccc7c7;
+	text-decoration: none;
 }
+
 #copyright {
-    text-align: center;
-    background-color: #222;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    border-top: 1px solid #2F2F2F;
+	background-color: #fb0000;
+	border-top: 5px solid #ee1e1e;
+	padding-bottom: 8px;
+	padding-top: 8px;
+	text-align: center;
 }
+
 .signature {
-    margin-top: 8px;
-    margin-bottom: 2px;
+	margin-bottom: 2px;
+	margin-top: 8px;
 }
+
 .signature a {
-    color: #aeaeae;
-    font-size: 1.5em;
-    transition: color 0.2s ease 0s;
+	color: #f7f7f7;
+	font-size: 1.5em;
+	transition: color 0.2s ease 0s;
 }
+
 .signature-links {
-    margin-top: 2px;
-    margin-bottom: 2px;
+	margin-bottom: 2px;
+	margin-top: 2px;
 }
+
 .signature-links,
 .signature-links a,
 .footer-links,
 .footer-links a {
-    color: #888;
-    transition: color 0.2s ease 0s;
+	color: #f7f7f7;
+	transition: color 0.2s ease 0s;
 }
+
 .footer-links {
-    margin-top: 2px;
-    margin-bottom: 8px;
+	margin-bottom: 8px;
+	margin-top: 2px;
 }
 
 /* Others */
 
 .shortcuts {
-    font-size: 22px;
-    line-height: 30px;
-    list-style-type: none;
-    padding-left: 0; /* I wonder why */
+	font-size: 22px;
+	line-height: 30px;
+	list-style-type: none;
+	padding-left: 0; /* Fill width */
 }
 
 .shortcuts li {
-    border-top: 1px dashed black;
-    padding-top: 5px;
-    padding-bottom: 5px;
+	border-top: 1px dashed black;
+	padding-bottom: 5px;
+	padding-top: 5px;
 }
 
 .shortcuts li a {
-    color: #000;
-    transition: color 0.2s ease 0s;
+	color: #000;
+	transition: color 0.2s ease 0s;
 }
 
 .shortcuts li a:hover {
-    color: red;
-    text-decoration: none;
+	color: red;
+	text-decoration: none;
 }
 
 .shortcuts li:last-child {
-    border-bottom: 1px dashed black;
+	border-bottom: 1px dashed black;
 }
 
 .anchor {
-    display: block;
-    position: relative;
-    top: -60px;
-    visibility: hidden;
+	display: block;
+	position: relative;
+	top: -60px;
+	visibility: hidden;
 }
 
 .thumbnail {
-    width: 100%;
+	width: 100%;
 }
 
 figcaption {
-    text-align: center;
-    background-color: gray;
-    color: #FFF;
-    padding: 5px;
+	background-color: gray;
+	color: #FFF;
+	padding: 5px;
+	text-align: center;
 }

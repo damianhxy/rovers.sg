@@ -4,7 +4,7 @@
 	"description": "rover.sg site",
 	"main": "index.js",
 	"scripts": {
-		"test": "node index.js"
+		"start": "node index.js"
 	},
 	"author": "Damian Ho",
 	"license": "ISC",

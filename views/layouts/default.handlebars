@@ -4,17 +4,17 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>{{title}}</title>
-    <link rel="icon" href="./media/favicon.png">
-    <link rel="stylesheet" href="./dep/font-awesome-4.3.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="./dep/bootstrap-3.3.4-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./dep/bootstrap-3.3.4-dist/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto">
-    <link rel="stylesheet" href="./dep/custom.css">
+    <title>{{title}} | The Singapore Scout Association</title>
+    <link rel="icon" href="/media/favicon.png">
+    <link rel="stylesheet" href="/dep/font-awesome-4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/dep/bootstrap-3.3.4-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/dep/bootstrap-3.3.4-dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/dep/fancyapps-fancyBox-18d1712/source/jquery.fancybox.css">
+    <link rel="stylesheet" href="/dep/custom.css">
 </head>
 <body>
     <!-- NAVBAR -->
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -64,6 +64,13 @@
                             <i class="fa fa-paper-plane"></i>&nbsp;Join Us
                         </a>
                     </li>
+                    {{#if error}}
+                    <li class="active">
+                        <a href="javascript:location.reload()">
+                            <i class="fa fa-ban" aria-hidden="true"></i>&nbsp;Error
+                        </a>
+                    </li>
+                    {{/if}}
                 </ul>
                 <!--form class="navbar-form navbar-left" method="POST" action="/search">
                     <div class="input-group">
@@ -76,15 +83,17 @@
             </div> <!-- /.navbar-collapse -->
         </div> <!-- /.container -->
     </nav> <!-- /.navbar -->
+    <!-- /NAVBAR -->
     <!-- BANNERS -->
     <header id="banners" class="container">
         <div class="col-lg-6">
-            <img class="banner" src="./media/placeholderbanner.png">
+            <img class="banner" src="/media/placeholderbanner.png">
         </div>
         <div class="col-lg-6">
-            <img class="banner" src="./media/betterworld.jpg">
+            <img class="banner" src="/media/betterworld.jpg">
         </div>
     </header> <!-- /.container -->
+    <!-- /BANNERS -->
     <!-- PAGE CONTENT -->
     {{{body}}}
     <!-- /PAGE CONTENT -->
@@ -104,13 +113,16 @@
                 </p>
                 <p class="footer-links">
                     <small>
-                        <a href="/sitemap"><i class="fa fa-sitemap"></i>&nbsp;Sitemap</a>
-                        &nbsp;·&nbsp;<a href="/contact"><i class="fa fa-phone-square"></i>&nbsp;Contact us</a>
+                        <i class="fa fa-sitemap"></i><a href="/sitemap">&nbsp;Sitemap</a>
+                        &nbsp;·&nbsp;<i class="fa fa-phone-square"></i><a href="/contact">&nbsp;Contact us</a>
                     </small>
                 </p>
             </div> <!-- /.container -->
         </div>  <!-- /#copright -->
     </footer> <!-- /.footer -->
-    <script src="./dep/jquery-2.1.4.min.js"></script>
-    <script src="./dep/bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
+    <script src="/dep/jquery-2.1.4.min.js"></script>
+    <script src="/dep/bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
+    <script src="/dep/fancyapps-fancyBox-18d1712/source/jquery.fancybox.js"></script>
+    <script src="/dep/custom.js"></script>
+    <!-- /PAGE FOOTER -->
 </body>
