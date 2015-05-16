@@ -1,0 +1,97 @@
+/* default.handlebars */
+body {
+    margin-top: 50px;
+    font-family: 'Roboto', sans-serif;
+    line-height: 18px;
+    font-size: 13px;
+}
+.banner {
+    margin-top: 20px;
+    height: 128px;
+    width: 500px;
+}
+footer {
+    margin-top: 70px;
+}
+footer a:hover {
+    color: #EEE;
+    text-decoration: none;
+}
+#copyright {
+    text-align: center;
+    background-color: #222;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-top: 1px solid #2F2F2F;
+}
+.signature {
+    margin-top: 8px;
+    margin-bottom: 2px;
+}
+.signature a {
+    color: #aeaeae;
+    font-size: 1.5em;
+    transition: color 0.2s ease 0s;
+}
+.signature-links {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+.signature-links,
+.signature-links a,
+.footer-links,
+.footer-links a {
+    color: #888;
+    transition: color 0.2s ease 0s;
+}
+.footer-links {
+    margin-top: 2px;
+    margin-bottom: 8px;
+}
+
+/* Others */
+
+.shortcuts {
+    font-size: 22px;
+    line-height: 30px;
+    list-style-type: none;
+    padding-left: 0; /* I wonder why */
+}
+
+.shortcuts li {
+    border-top: 1px dashed black;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.shortcuts li a {
+    color: #000;
+    transition: color 0.2s ease 0s;
+}
+
+.shortcuts li a:hover {
+    color: red;
+    text-decoration: none;
+}
+
+.shortcuts li:last-child {
+    border-bottom: 1px dashed black;
+}
+
+.anchor {
+    display: block;
+    position: relative;
+    top: -60px;
+    visibility: hidden;
+}
+
+.thumbnail {
+    width: 100%;
+}
+
+figcaption {
+    text-align: center;
+    background-color: gray;
+    color: #FFF;
+    padding: 5px;
+}

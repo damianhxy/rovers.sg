@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>{{title}}</title>
+    <link rel="icon" href="./media/favicon.png">
+    <link rel="stylesheet" href="./dep/font-awesome-4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./dep/bootstrap-3.3.4-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./dep/bootstrap-3.3.4-dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="./dep/custom.css">
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">
+                    Singapore Rovers
+                </a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li {{#if home}}class="active"{{/if}}>
+                        <a href="/">
+                            <i class="fa fa-home" aria-hidden="true"></i>&nbsp;Home
+                        </a>
+                    </li>
+                    <li {{#if nrr}}class="active"{{/if}}>
+                        <a href="/nrr">
+                            <i class="fa fa-comments" aria-hidden="true"></i>&nbsp;NRR/NCC
+                        </a>
+                    </li>
+                    <li {{#if about}}class="active"{{/if}}>
+                        <a href="/about">
+                            <i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;About
+                        </a>
+                    </li>
+                    <li {{#if links}}class="active"{{/if}}>
+                        <a href="/links">
+                            <i class="fa fa-external-link" aria-hidden="true"></i>&nbsp;Links
+                        </a>
+                    </li>
+                    <li {{#if resources}}class="active"{{/if}}>
+                        <a href="/resources">
+                            <i class="fa fa-archive" aria-hidden="true"></i>&nbsp;Resources
+                        </a>
+                    </li>
+                    <li {{#if faq}}class="active"{{/if}}>
+                        <a href="/faq">
+                            <i class="fa fa-question-circle" aria-hidden="true"></i>&nbsp;FAQ
+                        </a>
+                    </li {{#if join}}class="active"{{/if}}>
+                    <li>
+                        <a href="/join">
+                            <i class="fa fa-paper-plane"></i>&nbsp;Join Us
+                        </a>
+                    </li>
+                </ul>
+                <!--form class="navbar-form navbar-left" method="POST" action="/search">
+                    <div class="input-group">
+                        <input type="text" label="request" class="form-control" placeholder="Search" required>
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </form-->
+            </div> <!-- /.navbar-collapse -->
+        </div> <!-- /.container -->
+    </nav> <!-- /.navbar -->
+    <!-- BANNERS -->
+    <header id="banners" class="container">
+        <div class="col-lg-6">
+            <img class="banner" src="./media/placeholderbanner.png">
+        </div>
+        <div class="col-lg-6">
+            <img class="banner" src="./media/betterworld.jpg">
+        </div>
+    </header> <!-- /.container -->
+    <!-- PAGE CONTENT -->
+    {{{body}}}
+    <!-- /PAGE CONTENT -->
+    <!-- PAGE FOOTER -->
+    <footer id="footer" class="footer">
+        <div id="copyright">
+            <div class="container">
+                <p class="signature">
+                    <a href="/">rovers.sg</a>
+                </p>
+                <p class="signature-links">
+                    <small>
+                        The Singapore Scout Association &copy; 2015
+                        &nbsp;·&nbsp;Made with <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a>
+                        &nbsp;·&nbsp;Powered by <a href="https://nodejs.org/" target="_blank">Node.js</a>
+                    </small>
+                </p>
+                <p class="footer-links">
+                    <small>
+                        <a href="/sitemap"><i class="fa fa-sitemap"></i>&nbsp;Sitemap</a>
+                        &nbsp;·&nbsp;<a href="/contact"><i class="fa fa-phone-square"></i>&nbsp;Contact us</a>
+                    </small>
+                </p>
+            </div> <!-- /.container -->
+        </div>  <!-- /#copright -->
+    </footer> <!-- /.footer -->
+    <script src="./dep/jquery-2.1.4.min.js"></script>
+    <script src="./dep/bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
+</body>
