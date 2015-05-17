@@ -1,16 +1,17 @@
 {
-	"name": "RoverSG",
-	"version": "1.0.0",
-	"description": "rover.sg site",
-	"main": "index.js",
-	"scripts": {
-		"start": "node index.js"
-	},
-	"author": "Damian Ho",
-	"license": "ISC",
-	"dependencies": {
-		"express": "^4.10.4",
-		"express-handlebars": "^1.1.0",
-		"body-parser": "^1.10.0"
-	}
+  "name": "RoverSG",
+  "version": "1.0.0",
+  "description": "rover.sg site",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Damian Ho",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.10.0",
+    "bytes": "^2.0.1",
+    "express": "^4.10.4",
+    "express-handlebars": "^1.1.0"
+  }
 }
