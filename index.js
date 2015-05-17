@@ -75,10 +75,11 @@ app.get("/resources(/:type)?", function(req, res) {
     else {
         var files = fs.readdirSync(path)
             .map(function(e) {
+                var info = fs.statSync(path + e);
                 return {
                     name: e,
-                    time: fs.statSync(path + e).mtime,
-                    size: fs.statSync(path + e).size
+                    time: info.mtime,
+                    size: info.size
                 }
             })
             .sort(function(a, b) {
@@ -95,14 +96,16 @@ app.get("/resources(/:type)?", function(req, res) {
             title: "Resources",
             header_title: headertitle,
             header_subtitle: headersubtitle,
-            filelist: files || [],
+            filelist: files,
             path: path
         });
     }
 });
 
 app.get("/faq", function(req, res) {
-
+    res.render("faq", {
+        title: "FAQ"
+    });
 });
 
 app.get("/join", function(req, res) {
@@ -125,7 +128,8 @@ app.get("/search", function(req, res) {
 
 app.use(function(req, res) {
     res.status(404).render("404", {
-        title: "404"
+        title: "404",
+        error: true
     });
 });
 
