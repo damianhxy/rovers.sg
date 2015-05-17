@@ -29,17 +29,19 @@ app.get("/", function(req, res) {
 app.get("/nrr", function(req, res) {
     res.render("nrr", {
         title: "NRR"
-    })
+    });
 });
 
 app.get("/about", function(req, res) {
-
+    res.render("about", {
+        title: "About"
+    });
 });
 
 app.get("/links", function(req, res) {
     res.render("links", {
         title: "Links"
-    })
+    });
 });
 
 app.get("/resources(/:type)?", function(req, res) {
@@ -124,7 +126,7 @@ app.get("/search", function(req, res) {
 app.use(function(req, res) {
     res.status(404).render("404", {
         title: "404"
-    })
+    });
 });
 
 app.listen(8080);
