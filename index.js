@@ -22,15 +22,13 @@ app.use(morgan("combined", {
 
 app.get("/", function(req, res) {
     res.render("home", {
-        title: "Home",
-        home: 1
+        title: "Home"
     });
 });
 
 app.get("/nrr", function(req, res) {
     res.render("nrr", {
-        title: "NRR",
-        nrr: 1
+        title: "NRR"
     })
 });
 
@@ -40,15 +38,14 @@ app.get("/about", function(req, res) {
 
 app.get("/links", function(req, res) {
     res.render("links", {
-        title: "Links",
-        links: 1
+        title: "Links"
     })
 });
 
 app.get("/resources(/:type)?", function(req, res) {
-    var headertitle, headersubtitle, path;
+    var headertitle, headersubtitle, path = __dirname + "/resources/";
     if (req.params.type) {
-        path = __dirname + "/resources/" + req.params.type + "/";
+        path += req.params.type + "/";
         switch (req.params.type) {
             case "forms":
                 headertitle = "Forms";
@@ -66,9 +63,8 @@ app.get("/resources(/:type)?", function(req, res) {
                 headertitle = "Others";
                 headersubtitle = "Miscellaneous";
         }
-    }
-    else {
-        path = __dirname + "/resources/latest_information/";
+    } else {
+        path += "latest_information/";
         headertitle = "Latest Information";
         headersubtitle = "News";
     }
@@ -95,11 +91,10 @@ app.get("/resources(/:type)?", function(req, res) {
             });
         res.render("resources", {
             title: "Resources",
-            resources: 1,
             header_title: headertitle,
             header_subtitle: headersubtitle,
             filelist: files || [],
-            pathname: path
+            path: path
         });
     }
 });
@@ -128,8 +123,7 @@ app.get("/search", function(req, res) {
 
 app.use(function(req, res) {
     res.status(404).render("404", {
-        title: "404",
-        error: 1
+        title: "404"
     })
 });
 

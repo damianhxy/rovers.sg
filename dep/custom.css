@@ -8,106 +8,106 @@
 }
 
 .navbar-default {
-  background-color: #f7f7f7;
-  border-color: #fb0000;
+	background-color: #f7f7f7;
+	border-color: #fb0000;
 }
 
 .navbar-default .navbar-brand {
-  color: #ee1e1e;
+	color: #ee1e1e;
 }
 
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
-  color: #ccc7c7;
+	color: #ccc7c7;
 }
 
 .navbar-default .navbar-text {
-  color: #ee1e1e;
+	color: #ee1e1e;
 }
 
 .navbar-default .navbar-nav > li > a {
-  color: #ee1e1e;
+	color: #ee1e1e;
 }
 
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
-  color: #ccc7c7;
+	color: #ccc7c7;
 }
 
 .navbar-default .navbar-nav > li > .dropdown-menu {
-  background-color: #f7f7f7;
+	background-color: #f7f7f7;
 }
 
 .navbar-default .navbar-nav > li > .dropdown-menu > li > a {
-  color: #ee1e1e;
+	color: #ee1e1e;
 }
 
 .navbar-default .navbar-nav > li > .dropdown-menu > li > a:hover,
 .navbar-default .navbar-nav > li > .dropdown-menu > li > a:focus {
-  background-color: #fb0000;
-  color: #ccc7c7;
+	background-color: #fb0000;
+	color: #ccc7c7;
 }
 
 .navbar-default .navbar-nav > li > .dropdown-menu > li > .divider {
-  background-color: #f7f7f7;
+	background-color: #f7f7f7;
 }
 
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
-    background-color: #fb0000;
-color: #ccc7c7;
+	background-color: #fb0000;
+	color: #ccc7c7;
 }
 
 .navbar-default .navbar-nav > .open > a,
 .navbar-default .navbar-nav > .open > a:hover,
 .navbar-default .navbar-nav > .open > a:focus {
-  background-color: #fb0000;
-  color: #ccc7c7;
+	background-color: #fb0000;
+	color: #ccc7c7;
 }
 
 .navbar-default .navbar-toggle {
-  border-color: #fb0000;
+	border-color: #fb0000;
 }
 
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus {
-  background-color: #fb0000;
+	background-color: #fb0000;
 }
 
 .navbar-default .navbar-toggle .icon-bar {
-  background-color: #ee1e1e;
+	background-color: #ee1e1e;
 }
 
 .navbar-default .navbar-collapse,
 .navbar-default .navbar-form {
-  border-color: #ee1e1e;
+	border-color: #ee1e1e;
 }
 
 .navbar-default .navbar-link {
-  color: #ee1e1e;
+	color: #ee1e1e;
 }
 
 .navbar-default .navbar-link:hover {
-  color: #ccc7c7;
+	color: #ccc7c7;
 }
 
 @media (max-width: 767px) {
-  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
-    color: #ee1e1e;
-  }
+	.navbar-default .navbar-nav .open .dropdown-menu > li > a {
+		color: #ee1e1e;
+	}
 
-  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
-  .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
-    color: #ccc7c7;
-  }
+	.navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+	.navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+		color: #ccc7c7;
+	}
 
-  .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
-  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
-  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
-    background-color: #fb0000;
-    color: #ccc7c7;
-  }
+	.navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+	.navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
+	.navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+		background-color: #fb0000;
+		color: #ccc7c7;
+	}
 }
 
 /* Template */
@@ -148,9 +148,7 @@ footer a:hover {
 }
 
 .signature a {
-	color: #f7f7f7;
 	font-size: 1.5em;
-	transition: color 0.2s ease 0s;
 }
 
 .signature-links {
@@ -158,6 +156,7 @@ footer a:hover {
 	margin-top: 2px;
 }
 
+.signature a,
 .signature-links,
 .signature-links a,
 .footer-links,
@@ -185,13 +184,14 @@ footer a:hover {
 	padding-top: 5px;
 }
 
-.shortcuts li a {
+.shortcuts li a:not(.highlight) {
 	color: #000;
 	transition: color 0.2s ease 0s;
 }
 
+.shortcuts li a.highlight,
 .shortcuts li a:hover {
-	color: red;
+	color: #FB0000;
 	text-decoration: none;
 }
 
@@ -210,9 +210,14 @@ footer a:hover {
 	width: 100%;
 }
 
+th {
+	font-weight: bold;
+}
+
 figcaption {
 	background-color: gray;
 	color: #FFF;
 	padding: 5px;
 	text-align: center;
+	border-radius: 50px 50px;
 }
