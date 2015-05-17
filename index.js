@@ -1,23 +1,24 @@
 var express = require("express");
 var app = express();
 var exphbs = require("express-handlebars");
-var bodyParser = require("body-parser");
 var fs = require("fs");
 var moment = require("moment.js");
 var bytes = require("bytes");
+var morgan = require("morgan");
 var hbs = exphbs.create({
     defaultLayout: "default"
 });
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
-//app.set("env", "development");
 
 app.use("/media", express.static(__dirname + "/media"));
 app.use("/dep", express.static(__dirname + "/dep"));
 app.use("/resources", express.static(__dirname + "/resources"));
+
+app.use(morgan("combined", {
+    skip: function(req, res) { return res.statusCode < 400; }
+}));
 
 app.get("/", function(req, res) {
     res.render("home", {
@@ -44,27 +45,32 @@ app.get("/links", function(req, res) {
     })
 });
 
-app.get("/resources", function(req, res) {
-    res.render("resources", {
-        title: "Resources",
-        resources: 1
-    })
-});
-
-app.get("/resources/:type", function(req, res) {
-    var headertitle, headersubtitle, path = __dirname + "/resources/" + req.params.type + "/";
-    if (req.params.type === "forms") {
-        headertitle = "Forms";
-        headersubtitle = "NRR/NCC";
-    } else if (req.params.type === "policies") {
-        headertitle = "Policies";
-        headersubtitle = "Governing Rules";
-    } else if (req.params.type === "progress_scheme") {
-        headertitle = "Progress Scheme";
-        headersubtitle = "For Rovers"
-    } else {
-        headertitle = "Others";
-        headersubtitle = "Miscellaneous";
+app.get("/resources(/:type)?", function(req, res) {
+    var headertitle, headersubtitle, path;
+    if (req.params.type) {
+        path = __dirname + "/resources/" + req.params.type + "/";
+        switch (req.params.type) {
+            case "forms":
+                headertitle = "Forms";
+                headersubtitle = "NRR/NCC";
+                break;
+            case "policies":
+                headertitle = "Policies";
+                headersubtitle = "Governing Rules";
+                break;
+            case "progress_scheme":
+                headertitle = "Progress Scheme";
+                headersubtitle = "For Rovers"
+                break;
+            default:
+                headertitle = "Others";
+                headersubtitle = "Miscellaneous";
+        }
+    }
+    else {
+        path = __dirname + "/resources/latest_information/";
+        headertitle = "Latest Information";
+        headersubtitle = "News";
     }
     if (!fs.statSync(path).isDirectory())
         res.redirect("/404");
@@ -87,7 +93,7 @@ app.get("/resources/:type", function(req, res) {
                     size: bytes(e.size)
                 }
             });
-        res.render("filelist", {
+        res.render("resources", {
             title: "Resources",
             resources: 1,
             header_title: headertitle,
@@ -121,11 +127,11 @@ app.get("/search", function(req, res) {
 */
 
 app.use(function(req, res) {
-    res.render("404", {
+    res.status(404).render("404", {
         title: "404",
         error: 1
     })
 });
 
 app.listen(8080);
-console.log("Listening on port 8080.");
+console.log("Listening on port 8080 in " + app.get("env") + " mode.");
