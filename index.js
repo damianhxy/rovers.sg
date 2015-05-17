@@ -5,15 +5,15 @@ var bodyParser = require("body-parser");
 var fs = require("fs");
 var moment = require("moment.js");
 var bytes = require("bytes");
-
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 var hbs = exphbs.create({
     defaultLayout: "default"
 });
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
-//app.enable('view cache');
+//app.set("env", "development");
 
 app.use("/media", express.static(__dirname + "/media"));
 app.use("/dep", express.static(__dirname + "/dep"));
