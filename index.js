@@ -16,9 +16,7 @@ app.use("/media", express.static(__dirname + "/media"));
 app.use("/dep", express.static(__dirname + "/dep"));
 app.use("/resources", express.static(__dirname + "/resources"));
 
-app.use(morgan("combined", {
-    skip: function(req, res) { return res.statusCode < 400; }
-}));
+app.use(morgan("dev"));
 
 app.get("/", function(req, res) {
     res.render("home", {
@@ -44,10 +42,10 @@ app.get("/links", function(req, res) {
     });
 });
 
-app.get("/resources(/:type)?", function(req, res) {
-    var headertitle, headersubtitle, path = __dirname + "/resources";
+app.get("/resources/(:type)?", function(req, res) {
+    var headertitle, headersubtitle, path = __dirname + "/resources", valid = true;
     if (req.params.type) {
-        path += req.params.type + "/";
+        path += "/" + req.params.type + "/";
         switch (req.params.type) {
             case "forms":
                 headertitle = "Forms";
@@ -61,18 +59,25 @@ app.get("/resources(/:type)?", function(req, res) {
                 headertitle = "Progress Scheme";
                 headersubtitle = "For Rovers"
                 break;
-            default:
+            case "others":
                 headertitle = "Others";
                 headersubtitle = "Miscellaneous";
+                break;
+            default:
+                valid = false;
         }
     } else {
         path += "/latest_information/";
         headertitle = "Latest Information";
         headersubtitle = "News";
     }
-    if (!fs.statSync(path).isDirectory())
-        res.redirect("/404");
-    else {
+    try {
+        if (!fs.statSync(path).isDirectory())
+            valid = false;
+    } catch (e) {
+        valid = false;
+    }
+    if (valid) {
         var files = fs.readdirSync(path)
             .map(function(e) {
                 var info = fs.statSync(path + e);
@@ -99,7 +104,8 @@ app.get("/resources(/:type)?", function(req, res) {
             filelist: files,
             path: path
         });
-    }
+    } else
+        res.redirect("/404");
 });
 
 app.get("/faq", function(req, res) {
@@ -126,10 +132,14 @@ app.get("/contact", function(req, res) {
     });
 });
 
-app.use(function(req, res) {
+app.get("/404", function(req, res) {
     res.status(404).render("404", {
         title: "404"
     });
+});
+
+app.use(function(req, res) {
+    res.redirect("/404");
 });
 
 app.listen(8080);
