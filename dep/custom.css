@@ -1,4 +1,4 @@
-/* @import url(http://fonts.googleapis.com/css?family=Roboto); */
+@import url(http://fonts.googleapis.com/css?family=Roboto);
 
 /* Custom Navbar */
 
@@ -122,7 +122,7 @@ body {
 .banner {
 	height: 128px;
 	margin-top: 20px;
-	width: 500px;
+	width: 100%;
 }
 
 footer {
@@ -162,7 +162,8 @@ footer a:hover {
 .footer-links,
 .footer-links a {
 	color: #f7f7f7;
-	transition: color 0.2s ease 0s;
+	-webkit-transition: color 0.2s ease 0s;
+	        transition: color 0.2s ease 0s;
 }
 
 .footer-links {
@@ -186,7 +187,8 @@ footer a:hover {
 
 .shortcuts li a:not(.highlight) {
 	color: #000;
-	transition: color 0.2s ease 0s;
+	-webkit-transition: color 0.2s ease 0s;
+	        transition: color 0.2s ease 0s;
 }
 
 .shortcuts li a.highlight,
@@ -220,4 +222,9 @@ figcaption {
 	padding: 5px;
 	text-align: center;
 	border-radius: 50px 50px;
+}
+
+#map-canvas {
+	height: 400px;
+	width: 400px;
 }
