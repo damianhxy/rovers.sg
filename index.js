@@ -45,7 +45,7 @@ app.get("/links", function(req, res) {
 });
 
 app.get("/resources(/:type)?", function(req, res) {
-    var headertitle, headersubtitle, path = __dirname + "/resources/";
+    var headertitle, headersubtitle, path = __dirname + "/resources";
     if (req.params.type) {
         path += req.params.type + "/";
         switch (req.params.type) {
@@ -66,7 +66,7 @@ app.get("/resources(/:type)?", function(req, res) {
                 headersubtitle = "Miscellaneous";
         }
     } else {
-        path += "latest_information/";
+        path += "/latest_information/";
         headertitle = "Latest Information";
         headersubtitle = "News";
     }
@@ -109,27 +109,26 @@ app.get("/faq", function(req, res) {
 });
 
 app.get("/join", function(req, res) {
-
+    res.render("join", {
+        title: "Join us"
+    });
 });
 
 app.get("/sitemap", function(req, res) {
-
+    res.render("sitemap", {
+        title: "Sitemap"
+    });
 });
 
 app.get("/contact", function(req, res) {
-
+    res.render("contact", {
+        title: "Contact"
+    });
 });
-
-/*
-app.get("/search", function(req, res) {
-
-});
-*/
 
 app.use(function(req, res) {
     res.status(404).render("404", {
-        title: "404",
-        error: true
+        title: "404"
     });
 });
 
