@@ -89,10 +89,6 @@ app.get("/resources/(:type)?", function(req, res) {
                     time: moment(info.mtime.getTime()).format("DD MMMM YYYY, hh:mm:ss a"),
                     size: bytes(info.size)
                 }
-            })
-            .sort(function(a, b) {
-                return moment(a.time, "DD MMMM YYYY, hh:mm:ss a").format() -
-                       moment(b.time, "DD MMMM YYYY, hh:mm:ss a").format();
             });
         res.render("resources", {
             title: "Resources",

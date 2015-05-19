@@ -15,27 +15,30 @@
         <div class="page-header">
             <span class="h1">{{header_title}} <small>{{header_subtitle}}</small></span>
         </div>
-        {{#if filelist}}
         <table class="table table-striped table-bordered">
-            <tr>
-                <th class="col-lg-4">File Name</th>
-                <th class="col-lg-4">File Size</th>
-                <th class="col-lg-4">Last Modified</th>
-            </tr>
-            {{#each filelist}}
-            <tr>
-                <td><a href="{{path}}{{this.name}}" target="_blank">{{this.name}}</a></td>
-                <td>{{this.size}}</td>
-                <td>{{this.time}}</td>
-            </tr>
-            {{/each}}
+            <thead>
+                <tr>
+                    <th class="col-lg-4">File Name</th>
+                    <th class="col-lg-4">File Size</th>
+                    <th class="col-lg-4">Last Modified</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each filelist}}
+                <tr>
+                    <td><a href="{{path}}{{this.name}}" target="_blank">{{this.name}}</a></td>
+                    <td>{{this.size}}</td>
+                    <td>{{this.time}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th class="col-lg-4">File Name</th>
+                    <th class="col-lg-4">File Size</th>
+                    <th class="col-lg-4">Last Modified</th>
+                </tr>
+            </tfoot>
         </table> <!-- /.table -->
-        {{else}}
-        <div class="well">
-            <p>
-                There are currently no files of this category.
-            </p>
-        </div> <!-- ./well -->
-        {{/if}}
     </div> <!-- /.col-lg-9 -->
 </main> <!-- /.container -->
