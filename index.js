@@ -79,23 +79,20 @@ app.get("/resources/(:type)?", function(req, res) {
     }
     if (valid) {
         var files = fs.readdirSync(path)
+            .filter(function(e) {
+                return !(/(^|.\/)\.+[^\/\.]/.test(e));
+            })
             .map(function(e) {
                 var info = fs.statSync(path + e);
                 return {
                     name: e,
-                    time: info.mtime,
-                    size: info.size
+                    time: moment(info.mtime.getTime()).format("DD MMMM YYYY, hh:mm:ss a"),
+                    size: bytes(info.size)
                 }
             })
             .sort(function(a, b) {
-                return a.time.getTime() - b.time.getTime();
-            })
-            .map(function(e) {
-                return {
-                    name: e.name,
-                    time: moment(e.time).format("DD MMMM YYYY, hh:mm:ss a"),
-                    size: bytes(e.size)
-                }
+                return moment(a.time, "DD MMMM YYYY, hh:mm:ss a").format() -
+                       moment(b.time, "DD MMMM YYYY, hh:mm:ss a").format();
             });
         res.render("resources", {
             title: "Resources",
