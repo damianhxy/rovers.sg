@@ -16,8 +16,12 @@ app.set("view engine", "handlebars");
 app.use("/media", express.static(__dirname + "/media"));
 app.use("/dep", express.static(__dirname + "/dep"));
 app.use("/resources", express.static(__dirname + "/resources"));
-
 app.use(morgan("dev"));
+
+app.get("/robots.txt", function(req, res) {
+	res.type("text/plain");
+	res.send("User-agent: *\nAllow: /");
+});
 
 app.get("/", function(req, res) {
 	res.render("home", {
@@ -43,63 +47,46 @@ app.get("/links", function(req, res) {
 	});
 });
 
-app.get("/resources/(:type)?", function(req, res) {
-	var headertitle, headersubtitle, path = __dirname + "/resources", valid = true;
-	if (req.params.type) {
-		path += "/" + req.params.type + "/";
-		switch (req.params.type) {
-			case "forms":
-				headertitle = "Forms";
-				headersubtitle = "NRR/NCC";
-				break;
-			case "policies":
-				headertitle = "Policies";
-				headersubtitle = "Governing Rules";
-				break;
-			case "progress_scheme":
-				headertitle = "Progress Scheme";
-				headersubtitle = "For Rovers"
-				break;
-			case "others":
-				headertitle = "Others";
-				headersubtitle = "Miscellaneous";
-				break;
-			default:
-				valid = false;
+app.get(/^\/resources\/(?:(forms|policies|progress_scheme|others)\/)?$/, function(req, res) {
+	var headertitle = "Others",
+		headersubtitle = "Miscellaneous",
+		path = __dirname + "/resources";
+	if (req.params[0]) {
+		path += "/" + req.params[0] + "/";
+		if (req.params[0] === "forms") {
+			headertitle = "Forms";
+			headersubtitle = "NRR/NCC";
+		} else if (req.params[0] === "policies") {
+			headertitle = "Policies";
+			headersubtitle = "Governing Rules";
+		} else if (req.params[0] === "progress_scheme") {
+			headertitle = "Progress Scheme";
+			headersubtitle = "For Rovers";
 		}
 	} else {
 		path += "/latest_information/";
 		headertitle = "Latest Information";
 		headersubtitle = "News";
 	}
-	try {
-		if (!fs.statSync(path).isDirectory())
-			valid = false;
-	} catch (e) {
-		valid = false;
-	}
-	if (valid) {
-		var files = fs.readdirSync(path)
-		.filter(function(e) {
-			return !(/(^|.\/)\.+[^\/\.]/.test(e));
-		})
-		.map(function(e) {
-			var info = fs.statSync(path + e);
-			return {
-				name: e,
-				time: moment(info.mtime.getTime()).format("DD MMMM YYYY, hh:mm:ss a"),
-				size: bytes(info.size)
-			}
-		});
-		res.render("resources", {
-			title: "Resources",
-			header_title: headertitle,
-			header_subtitle: headersubtitle,
-			filelist: files,
-			path: path
-		});
-	} else
-	res.redirect("/404");
+	var files = fs.readdirSync(path)
+	.filter(function(e) {
+		return !(/(^|.\/)\.+[^\/\.]/.test(e));
+	})
+	.map(function(e) {
+		var info = fs.statSync(path + e);
+		return {
+			name: e,
+			time: moment(info.mtime.getTime()).format("DD MMMM YYYY, hh:mm:ss a"),
+			size: bytes(info.size)
+		}
+	});
+	res.render("resources", {
+		title: "Resources",
+		header_title: headertitle,
+		header_subtitle: headersubtitle,
+		filelist: files,
+		path: path
+	});
 });
 
 app.get("/faq", function(req, res) {
@@ -126,14 +113,10 @@ app.get("/contact", function(req, res) {
 	});
 });
 
-app.get("/404", function(req, res) {
+app.use(function(req, res) {
 	res.status(404).render("404", {
 		title: "404"
 	});
-});
-
-app.use(function(req, res) {
-	res.redirect("/404");
 });
 
 app.listen(PORT);
