@@ -76,7 +76,7 @@ app.get(/^\/resources\/(?:(forms|policies|progress_scheme|others)\/)?$/, functio
 		var info = fs.statSync(path + e);
 		return {
 			name: e,
-			time: moment(info.mtime.getTime()).format("DD MMMM YYYY, hh:mm:ss a"),
+			time: moment(info.ctime.getTime()).format("DD MMMM YYYY, hh:mm:ss a"),
 			size: bytes(info.size)
 		}
 	});
