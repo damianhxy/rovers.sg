@@ -1,4 +1,5 @@
 var PORT = 8080;
+var async = require("async");
 var express = require("express");
 var app = express();
 var exphbs = require("express-handlebars");
@@ -68,24 +69,30 @@ app.get(/^\/resources\/(?:(forms|policies|progress_scheme|others)\/)?$/, functio
 		headertitle = "Latest Information";
 		headersubtitle = "News";
 	}
-	var files = fs.readdirSync(path)
-	.filter(function(e) {
-		return !(/(^|.\/)\.+[^\/\.]/.test(e));
-	})
-	.map(function(e) {
-		var info = fs.statSync(path + e);
-		return {
-			name: e,
-			time: moment(info.ctime.getTime()).format("DD MMMM YYYY, hh:mm:ss a"),
-			size: bytes(info.size)
-		}
-	});
-	res.render("resources", {
-		title: "Resources",
-		header_title: headertitle,
-		header_subtitle: headersubtitle,
-		filelist: files,
-		path: path
+	fs.readdir(path, function(err, files) {
+		if (err) throw err;
+		files = files.filter(function(e) {
+			return !(/(^|.\/)\.+[^\/\.]/.test(e));
+		});
+		async.map(files, function(item, callback) {
+			fs.stat(path + item, function(err, stats) {
+				if (err) throw err;
+				callback(null, {
+					name: item,
+					size: bytes(stats.size),
+					time: moment(stats.ctime.getTime()).format("DD MMMM YYYY, hh:mm:ss a")
+				});
+			});
+		}, function(err, files) {
+			if (err) throw err;
+			res.render("resources", {
+				title: "Resources",
+				header_title: headertitle,
+				header_subtitle: headersubtitle,
+				filelist: files,
+				path: path
+			});
+		});
 	});
 });
 
