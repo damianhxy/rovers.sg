@@ -51,9 +51,8 @@ app.get("/links", function(req, res) {
 app.get(/^\/resources\/(?:(forms|policies|progress_scheme|others)\/)?$/, function(req, res) {
 	var headertitle = "Others",
 		headersubtitle = "Miscellaneous",
-		path = __dirname + "/resources";
+		path = "/resources/" + (req.params[0] || "latest_information") + "/";
 	if (req.params[0]) {
-		path += "/" + req.params[0] + "/";
 		if (req.params[0] === "forms") {
 			headertitle = "Forms";
 			headersubtitle = "NRR/NCC";
@@ -65,17 +64,16 @@ app.get(/^\/resources\/(?:(forms|policies|progress_scheme|others)\/)?$/, functio
 			headersubtitle = "For Rovers";
 		}
 	} else {
-		path += "/latest_information/";
 		headertitle = "Latest Information";
 		headersubtitle = "News";
 	}
-	fs.readdir(path, function(err, files) {
+	fs.readdir(__dirname + path, function(err, files) {
 		if (err) throw err;
 		files = files.filter(function(e) {
 			return !(/(^|.\/)\.+[^\/\.]/.test(e));
 		});
 		async.map(files, function(item, callback) {
-			fs.stat(path + item, function(err, stats) {
+			fs.stat(__dirname + path + item, function(err, stats) {
 				if (err) throw err;
 				callback(null, {
 					name: item,
