@@ -1,0 +1,22 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+	Damian Ho
+	Email: damian_ho_xu_yang@yahoo.com
+	Twitter: @damianhxy
+	Location: Singapore, Singapore
+
+# THANKS
+
+	Seah Kia Wee
+	Email: kia.wee.seah.92@gmail.com
+	Location: Singapore, Singapore
+
+# TECHNOLOGY COLOPHON
+
+Last update: 23/05/2015
+Standards: HTML5, CSS3
+Components: jQuery, Node.js, Express.js, Bootstrap, DataTables, Fancybox, Font Awesome, html5shiv, Reset CSS
+Software: Sublime Text 3

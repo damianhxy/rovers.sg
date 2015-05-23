@@ -19,9 +19,8 @@ app.use("/dep", express.static(__dirname + "/dep"));
 app.use("/resources", express.static(__dirname + "/resources"));
 app.use(morgan("dev"));
 
-app.get("/robots.txt", function(req, res) {
-	res.type("text/plain");
-	res.send("User-agent: *\nAllow: /");
+app.get(/^\/(robots|humans)\.txt$/, function(req, res) {
+	res.sendFile(__dirname + "/" + req.params[0] + ".txt");
 });
 
 app.get("/", function(req, res) {
