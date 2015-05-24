@@ -115,7 +115,6 @@
 body {
 	font-family: 'Roboto', sans-serif;
 	font-size: 13px;
-	line-height: 18px;
 	margin-top: 50px;
 }
 
@@ -175,7 +174,6 @@ footer a:hover {
 
 .shortcuts {
 	font-size: 22px;
-	line-height: 30px;
 	list-style-type: none;
 }
 
