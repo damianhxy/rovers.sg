@@ -23,57 +23,55 @@ app.get(/^\/(robots|humans)\.txt$/, function(req, res) {
 	res.sendFile(__dirname + "/" + req.params[0] + ".txt");
 });
 
-app.get("/", function(req, res) {
+app.get("/", function(req, res, next) {
 	res.render("home", {
 		title: "Home"
 	});
 });
 
-app.get("/nrr", function(req, res) {
+app.get("/nrr", function(req, res, next) {
 	res.render("nrr", {
 		title: "NRR"
 	});
 });
 
-app.get("/about", function(req, res) {
+app.get("/about", function(req, res, next) {
 	res.render("about", {
 		title: "About"
 	});
 });
 
-app.get("/links", function(req, res) {
+app.get("/links", function(req, res, next) {
 	res.render("links", {
 		title: "Links"
 	});
 });
 
-app.get(/^\/resources\/(?:(forms|policies|progress_scheme|others)\/)?$/, function(req, res) {
+app.get(/^\/resources\/(?:(forms|policies|progress_scheme|others)\/)?$/, function(req, res, next) {
 	var headertitle = "Others",
 		headersubtitle = "Miscellaneous",
 		path = "/resources/" + (req.params[0] || "latest_information") + "/";
-	if (req.params[0]) {
-		if (req.params[0] === "forms") {
-			headertitle = "Forms";
-			headersubtitle = "NRR/NCC";
-		} else if (req.params[0] === "policies") {
-			headertitle = "Policies";
-			headersubtitle = "Governing Rules";
-		} else if (req.params[0] === "progress_scheme") {
-			headertitle = "Progress Scheme";
-			headersubtitle = "For Rovers";
-		}
+	if (req.params[0] === "forms") {
+		headertitle = "Forms";
+		headersubtitle = "NRR/NCC";
+	} else if (req.params[0] === "policies") {
+		headertitle = "Policies";
+		headersubtitle = "Governing Rules";
+	} else if (req.params[0] === "progress_scheme") {
+		headertitle = "Progress Scheme";
+		headersubtitle = "For Rovers";
 	} else {
 		headertitle = "Latest Information";
 		headersubtitle = "News";
 	}
 	fs.readdir(__dirname + path, function(err, files) {
-		if (err) throw err;
+		if (err) return next(err);
 		files = files.filter(function(e) {
-			return !(/(^|.\/)\.+[^\/\.]/.test(e));
+			return e[0] !== '.';
 		});
 		async.map(files, function(item, callback) {
 			fs.stat(__dirname + path + item, function(err, stats) {
-				if (err) throw err;
+				if (err) return next(err);
 				callback(null, {
 					name: item,
 					size: bytes(stats.size),
@@ -81,7 +79,7 @@ app.get(/^\/resources\/(?:(forms|policies|progress_scheme|others)\/)?$/, functio
 				});
 			});
 		}, function(err, files) {
-			if (err) throw err;
+			if (err) return next(err);
 			res.render("resources", {
 				title: "Resources",
 				header_title: headertitle,
@@ -93,33 +91,41 @@ app.get(/^\/resources\/(?:(forms|policies|progress_scheme|others)\/)?$/, functio
 	});
 });
 
-app.get("/faq", function(req, res) {
+app.get("/faq", function(req, res, next) {
 	res.render("faq", {
 		title: "FAQ"
 	});
 });
 
-app.get("/join", function(req, res) {
+app.get("/join", function(req, res, next) {
 	res.render("join", {
 		title: "Join us"
 	});
 });
 
-app.get("/sitemap", function(req, res) {
+app.get("/sitemap", function(req, res, next) {
 	res.render("sitemap", {
 		title: "Sitemap"
 	});
 });
 
-app.get("/contact", function(req, res) {
+app.get("/contact", function(req, res, next) {
 	res.render("contact", {
 		title: "Contact"
 	});
 });
 
-app.use(function(req, res) {
+app.use(function(req, res, next) {
 	res.status(404).render("404", {
 		title: "404"
+	});
+});
+
+app.use(function(err, req, res, next) {
+	console.log(err.stack);
+	res.status(500).render("500", {
+		error: err,
+		title: "500"
 	});
 });
 
