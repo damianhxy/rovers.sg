@@ -10,14 +10,20 @@ var app = express();
 var hbs = exphbs.create({
 	defaultLayout: "default"
 });
+morgan.token("date", function(req, res) {
+	return require("console-stamp/node_modules/dateformat")(new Date(), "dd mmm HH:MM:ss");
+});
+require("console-stamp")(console, "dd mmm HH:MM:ss");
 
+app.enable("case sensitive routing");
+app.enable("strict routing");
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 
-app.use("/media", express.static(__dirname + "/media"));
 app.use("/dep", express.static(__dirname + "/dep"));
+app.use("/media", express.static(__dirname + "/media"));
 app.use("/resources", express.static(__dirname + "/resources"));
-app.use(morgan("combined"));
+app.use(morgan("[:date] :method :url :status :res[content-length] - :remote-addr - :response-time ms"));
 
 app.get(/^\/(robots|humans)\.txt$/, function(req, res) {
 	res.sendFile(__dirname + "/" + req.params[0] + ".txt");
@@ -47,7 +53,7 @@ app.get("/links", function(req, res, next) {
 	});
 });
 
-app.get(/^\/resources\/(?:(forms|policies|progress_scheme|others)\/)?$/, function(req, res, next) {
+app.get(/^\/resource(\/(forms|policies|progress_scheme|others))?$/, function(req, res, next) {
 	var headertitle = "Others",
 		headersubtitle = "Miscellaneous",
 		path = "/resources/" + (req.params[0] || "latest_information") + "/";
@@ -75,7 +81,7 @@ app.get(/^\/resources\/(?:(forms|policies|progress_scheme|others)\/)?$/, functio
 				callback(null, {
 					name: item,
 					size: bytes(stats.size),
-					time: moment(stats.ctime.getTime()).format("DD MMMM YYYY, hh:mm:ss a")
+					time: moment(stats.ctime.getTime()).format("DD MMMM YYYY, h:mm:ss a")
 				});
 			});
 		}, function(err, files) {
@@ -122,7 +128,8 @@ app.use(function(req, res, next) {
 });
 
 app.use(function(err, req, res, next) {
-	console.log(err);
+	console.error(err);
+	console.trace();
 	res.status(500).render("500", {
 		error: err,
 		title: "500"
@@ -130,4 +137,4 @@ app.use(function(err, req, res, next) {
 });
 
 app.listen(8080);
-console.log("Listening on port 8080 in " + app.get("env") + " mode.");
+console.info("Listening on port 8080 in " + app.get("env") + " mode.");
