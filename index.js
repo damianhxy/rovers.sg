@@ -1,12 +1,12 @@
-var PORT = 8080;
 var async = require("async");
-var express = require("express");
-var app = express();
+var bytes = require("bytes");
 var exphbs = require("express-handlebars");
+var express = require("express");
 var fs = require("fs");
 var moment = require("./dep/moment.js");
-var bytes = require("bytes");
 var morgan = require("morgan");
+
+var app = express();
 var hbs = exphbs.create({
 	defaultLayout: "default"
 });
@@ -17,7 +17,7 @@ app.set("view engine", "handlebars");
 app.use("/media", express.static(__dirname + "/media"));
 app.use("/dep", express.static(__dirname + "/dep"));
 app.use("/resources", express.static(__dirname + "/resources"));
-app.use(morgan("dev"));
+app.use(morgan("combined"));
 
 app.get(/^\/(robots|humans)\.txt$/, function(req, res) {
 	res.sendFile(__dirname + "/" + req.params[0] + ".txt");
@@ -122,12 +122,12 @@ app.use(function(req, res, next) {
 });
 
 app.use(function(err, req, res, next) {
-	console.log(err.stack);
+	console.log(err);
 	res.status(500).render("500", {
 		error: err,
 		title: "500"
 	});
 });
 
-app.listen(PORT);
-console.log("Listening on port " + PORT + " in " + app.get("env") + " mode.");
+app.listen(8080);
+console.log("Listening on port 8080 in " + app.get("env") + " mode.");
