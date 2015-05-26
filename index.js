@@ -3,7 +3,7 @@ var bytes = require("bytes");
 var exphbs = require("express-handlebars");
 var express = require("express");
 var fs = require("fs");
-var moment = require("./dep/moment.js");
+var moment = require("./public/lib/moment.js");
 var morgan = require("morgan");
 
 var app = express();
@@ -20,9 +20,7 @@ app.enable("strict routing");
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 
-app.use("/dep", express.static(__dirname + "/dep"));
-app.use("/media", express.static(__dirname + "/media"));
-app.use("/resources", express.static(__dirname + "/resources"));
+app.use(express.static(__dirname + "/public"));
 app.use(morgan("[:date] :method :url :status :res[content-length] - :remote-addr - :response-time ms"));
 
 app.get(/^\/(robots|humans)\.txt$/, function(req, res) {
@@ -54,21 +52,24 @@ app.get("/links", function(req, res, next) {
 });
 
 app.get(/^\/resource(\/(forms|policies|progress_scheme|others))?$/, function(req, res, next) {
-	var headertitle = "Others",
-		headersubtitle = "Miscellaneous",
-		path = "/resources/" + (req.params[0] || "latest_information") + "/";
-	if (req.params[0] === "forms") {
-		headertitle = "Forms";
-		headersubtitle = "NRR/NCC";
-	} else if (req.params[0] === "policies") {
-		headertitle = "Policies";
-		headersubtitle = "Governing Rules";
-	} else if (req.params[0] === "progress_scheme") {
-		headertitle = "Progress Scheme";
-		headersubtitle = "For Rovers";
+	var header;
+	var subtitle;
+	var path = "/public/resources/" + (req.params[1] || "latest_information") + "/";
+	if (req.params[1] === "forms") {
+		header = "Forms";
+		subtitle = "NRR/NCC";
+	} else if (req.params[1] === "policies") {
+		header = "Policies";
+		subtitle = "Governing Rules";
+	} else if (req.params[1] === "progress_scheme") {
+		header = "Progress Scheme";
+		subtitle = "For Rovers";
+	} else if (req.params[1] === "others") {
+		header = "Others";
+		subtitle = "Miscellaneous";
 	} else {
-		headertitle = "Latest Information";
-		headersubtitle = "News";
+		header = "Latest Information";
+		subtitle = "News";
 	}
 	fs.readdir(__dirname + path, function(err, files) {
 		if (err) return next(err);
@@ -88,8 +89,8 @@ app.get(/^\/resource(\/(forms|policies|progress_scheme|others))?$/, function(req
 			if (err) return next(err);
 			res.render("resources", {
 				title: "Resources",
-				header_title: headertitle,
-				header_subtitle: headersubtitle,
+				header_title: header,
+				header_subtitle: subtitle,
 				filelist: files,
 				path: path
 			});
