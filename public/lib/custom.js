@@ -11,7 +11,7 @@ $.fn.dataTable.ext.type.order["file-size-pre"] = function (e) {
 
 $(document).ready(function() {
 	$(".fancybox").fancybox();
-	var loc = location.href.split("/");
+	var loc = location.pathname.split("/");
 	if (loc[3] === "resources") {
 		$(".table").DataTable({
 			"columnDefs": [{
@@ -34,6 +34,6 @@ $(document).ready(function() {
 			}
 		});
 	}
-	$("li a[href='/" + loc[3] + "']").eq(0).parent().addClass("active");
-	$(".shortcuts a[href='/" + loc[3] + (loc[4] ? '/' + loc[4] : '') + "']").addClass("highlight");
+	$("li a[href='/" + loc[1] + "']").eq(0).parent().addClass("active");
+	$(".shortcuts a[href='/" + loc[1] + (loc[2] ? '/' + loc[2] : '') + "']").addClass("highlight");
 });

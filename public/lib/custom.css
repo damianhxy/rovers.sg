@@ -7,109 +7,80 @@
 
 .navbar-default,
 .navbar-default .navbar-nav > .active > a {
-	background-image: none;
+	background-image: none; /* Remove gradient */
 }
 
-.navbar-default {
+.navbar-default { /* Main theme */
 	background-color: #f7f7f7;
 	border-color: #fb0000;
 }
 
-.navbar-default .navbar-brand {
-	color: #ee1e1e;
+.navbar-default .navbar-brand, /* Title */
+.navbar-default .navbar-text, /* Text */
+.navbar-default .navbar-nav > li > a, /* Links */
+.navbar-default .navbar-nav > li > .dropdown-menu > li > a, /* Dropdown links */
+.navbar-default .navbar-link { /* Non-nav link */
+	color: #ee1e1e; /* Default colour of links */
 }
 
-.navbar-default .navbar-brand:hover,
-.navbar-default .navbar-brand:focus {
-	color: #ccc7c7;
+.navbar-default .navbar-brand:hover, /* Title */
+.navbar-default .navbar-brand:focus,
+.navbar-default .navbar-nav > li > a:hover, /* Links */
+.navbar-default .navbar-nav > li > a:focus,
+.navbar-default .navbar-link:hover { /* Non-nav link */
+	color: #b20d0d; /* Hover colour of links */
 }
 
-.navbar-default .navbar-text {
-	color: #ee1e1e;
-}
-
-.navbar-default .navbar-nav > li > a {
-	color: #ee1e1e;
-}
-
-.navbar-default .navbar-nav > li > a:hover,
-.navbar-default .navbar-nav > li > a:focus {
-	color: #ccc7c7;
-}
-
-.navbar-default .navbar-nav > li > .dropdown-menu {
+.navbar-default .navbar-nav > li > .dropdown-menu, /* Dropdown menu */
+.navbar-default .navbar-nav > li > .dropdown-menu > li > .divider { /* Divider */
 	background-color: #f7f7f7;
 }
 
-.navbar-default .navbar-nav > li > .dropdown-menu > li > a {
-	color: #ee1e1e;
-}
-
-.navbar-default .navbar-nav > li > .dropdown-menu > li > a:hover,
-.navbar-default .navbar-nav > li > .dropdown-menu > li > a:focus {
-	background-color: #fb0000;
-	color: #ccc7c7;
-}
-
-.navbar-default .navbar-nav > li > .dropdown-menu > li > .divider {
-	background-color: #f7f7f7;
-}
-
-.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > li > .dropdown-menu > li > a:hover, /* Dropdown menu links */
+.navbar-default .navbar-nav > li > .dropdown-menu > li > a:focus,
+.navbar-default .navbar-nav > .active > a, /* Active link */
 .navbar-default .navbar-nav > .active > a:hover,
-.navbar-default .navbar-nav > .active > a:focus {
-	background-color: #fb0000;
-	color: #ccc7c7;
-}
-
-.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .active > a:focus,
+.navbar-default .navbar-nav > .open > a, /* Dropdown Open */
 .navbar-default .navbar-nav > .open > a:hover,
 .navbar-default .navbar-nav > .open > a:focus {
 	background-color: #fb0000;
-	color: #ccc7c7;
+	color: #fff;
 }
 
-.navbar-default .navbar-toggle {
+.navbar-default .navbar-toggle { /* Toggle button */
 	border-color: #fb0000;
 }
 
-.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:hover, /* Toggle button */
 .navbar-default .navbar-toggle:focus {
-	background-color: #fb0000;
+	background-color: #fff;
 }
 
-.navbar-default .navbar-toggle .icon-bar {
+.navbar-default .navbar-toggle .icon-bar { /* Hamburger lines */
 	background-color: #ee1e1e;
 }
 
-.navbar-default .navbar-collapse,
-.navbar-default .navbar-form {
+.navbar-default .navbar-collapse, /* Collapsed Navbar */
+.navbar-default .navbar-form { /* Form */
 	border-color: #ee1e1e;
 }
 
-.navbar-default .navbar-link {
-	color: #ee1e1e;
-}
-
-.navbar-default .navbar-link:hover {
-	color: #ccc7c7;
-}
-
-@media (max-width: 767px) {
+@media (max-width: 767px) { /* Dropdown Open */
 	.navbar-default .navbar-nav .open .dropdown-menu > li > a {
 		color: #ee1e1e;
 	}
 
 	.navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
 	.navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
-		color: #ccc7c7;
+		color: #b20d0d;
 	}
 
 	.navbar-default .navbar-nav .open .dropdown-menu > .active > a,
 	.navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
 	.navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
 		background-color: #fb0000;
-		color: #ccc7c7;
+		color: #fff;
 	}
 }
 
@@ -117,8 +88,8 @@
 
 body {
 	font-family: 'Roboto', sans-serif;
-	font-size: 13px;
-	margin-top: 50px;
+	font-size: 14px;
+	margin-top: 70px;
 }
 
 .banner {
@@ -225,7 +196,7 @@ figcaption {
 	border-radius: 50px 50px;
 }
 
-#map-canvas {
+#map {
 	height: 400px;
 	width: 400px;
 }

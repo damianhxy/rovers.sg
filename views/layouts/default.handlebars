@@ -1,136 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <title>{{title}} | The Singapore Scout Association</title>
-    <link rel="author" type="text/plain" href="/humans.txt">
-    <link rel="shortcut icon" href="/media/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="/media/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/lib/reset.css">
-    <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/lib/bootstrap-3.3.4/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/lib/bootstrap-3.3.4/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="/lib/fancyBox/jquery.fancybox.css">
-    <link rel="stylesheet" href="/lib/DataTables-1.10.7/dataTables.bootstrap.css">
-    <link rel="stylesheet" href="/lib/custom.css">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>{{title}} | The Singapore Scout Association</title>
+	<link rel="author" type="text/plain" href="/humans.txt">
+	<link rel="shortcut icon" href="/media/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/media/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" href="/lib/reset.css">
+	<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="/lib/fancyBox/jquery.fancybox.css">
+	<link rel="stylesheet" href="/lib/DataTables/dataTables.bootstrap.css">
+	<link rel="stylesheet" href="/lib/custom.css">
+	<link rel="stylesheet" href="/lib/pace/minimal.css">
 </head>
 <body>
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle Navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">
-                    Singapore Rovers
-                </a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="/">
-                            <i class="fa fa-home" aria-hidden="true"></i> Home
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/nrr">
-                            <i class="fa fa-comments" aria-hidden="true"></i> NRR/NRC
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/about">
-                            <i class="fa fa-info-circle" aria-hidden="true"></i> About
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/links">
-                            <i class="fa fa-external-link" aria-hidden="true"></i> Links
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/resource">
-                            <i class="fa fa-archive" aria-hidden="true"></i> Resources
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/faq">
-                            <i class="fa fa-question-circle" aria-hidden="true"></i> FAQ
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/join">
-                            <i class="fa fa-paper-plane"></i> Join Us
-                        </a>
-                    </li>
-                </ul>
-            </div> <!-- /.navbar-collapse -->
-        </div> <!-- /.container -->
-    </nav> <!-- /.navbar -->
-    <!-- /NAVBAR -->
-    <!-- BANNERS -->
-    <header class="container">
-        <a class="fancybox" rel="banner" href="/media/Sample Banner.png" title="Placeholder Banner">
-            <div class="col-lg-6">
-                <img class="banner" alt="Placeholder Banner" src="/media/Sample Banner.png">
-            </div>
-        </a>
-        <a class="fancybox" rel="banner" href="/media/Sample Banner.png" title="Placeholder Banner">
-            <div class="col-lg-6">
-                <img class="banner" alt="Placeholder Banner" src="/media/Sample Banner.png">
-            </div>
-        </a>
-    </header> <!-- /.container -->
-    <!-- /BANNERS -->
-    <!-- PAGE CONTENT -->
+	<!-- NAVBAR -->
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle Navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/">
+					Singapore Rovers
+				</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li>
+						<a href="/">
+							<i class="fa fa-home" aria-hidden="true"></i> Home
+						</a>
+					</li>
+					<li>
+						<a href="/nrr">
+							<i class="fa fa-comments" aria-hidden="true"></i> NRR/NRC
+						</a>
+					</li>
+					<li>
+						<a href="/about">
+							<i class="fa fa-info-circle" aria-hidden="true"></i> About
+						</a>
+					</li>
+					<li>
+						<a href="/links">
+							<i class="fa fa-external-link" aria-hidden="true"></i> Links
+						</a>
+					</li>
+					<li>
+						<a href="/resource">
+							<i class="fa fa-archive" aria-hidden="true"></i> Resources
+						</a>
+					</li>
+					<li>
+						<a href="/faq">
+							<i class="fa fa-question-circle" aria-hidden="true"></i> FAQ
+						</a>
+					</li>
+					<li>
+						<a href="/join">
+							<i class="fa fa-paper-plane"></i> Join Us
+						</a>
+					</li>
+				</ul>
+			</div> <!-- /.navbar-collapse -->
+		</div> <!-- /.container -->
+	</nav> <!-- /.navbar -->
+	<!-- /NAVBAR -->
+	<!-- BANNERS -->
+	<header class="container">
+		<a class="fancybox" rel="banner" href="/media/Sample Banner.png" title="Placeholder Banner">
+			<div class="col-lg-6">
+				<img class="banner" alt="Placeholder Banner" src="/media/Sample Banner.png">
+			</div>
+		</a>
+		<a class="fancybox" rel="banner" href="/media/Sample Banner.png" title="Placeholder Banner">
+			<div class="col-lg-6">
+				<img class="banner" alt="Placeholder Banner" src="/media/Sample Banner.png">
+			</div>
+		</a>
+	</header> <!-- /.container -->
+	<!-- /BANNERS -->
+	<!-- PAGE CONTENT -->
 {{{body}}}
-    <!-- /PAGE CONTENT -->
-    <!-- PAGE FOOTER -->
-    <footer>
-        <div id="copyright">
-            <div class="container">
-                <p class="signature">
-                    <a href="/">rover.sg</a>
-                </p>
-                <p class="signature-links">
-                    <small>
-                        The Singapore Scout Association &copy; 2015
-                         · Made with <a href="http://getbootstrap.com/">Bootstrap</a>
-                         · Powered by <a href="http://expressjs.com/">Express.js</a>
-                    </small>
-                </p>
-                <p class="footer-links">
-                    <small>
-                        <i class="fa fa-sitemap" aria-hidden="true"></i>
-                        <a href="/sitemap"> Sitemap</a>
-                         · <i class="fa fa-phone-square" aria-hidden="true"></i>
-                        <a href="/contact"> Contact us</a>
-                         · <i class="fa fa-toggle-up" aria-hidden="true"></i>
-                        <a href="#"> Back to top</a>
-                    </small>
-                </p>
-            </div> <!-- /.container -->
-        </div>  <!-- /#copright -->
-    </footer> <!-- /.footer -->
-    <!--[if lte IE8]>
-    <script src="/lib/html5shiv/html5shiv.min.js"></script>
-    <script src="/lib/html5shiv/html5shiv-printshiv.min.js"></script>
-    <script src="/lib/jquery-1.11.3.min.js"></script>
-    <![endif]-->
-    <!--[if gt IE8]> -->
-    <script src="/lib/jquery-2.1.4.min.js"></script>
-    <!-- <![endif]-->
-    <script src="/lib/bootstrap-3.3.4/js/bootstrap.min.js"></script>
-    <script src="/lib/fancyBox/jquery.fancybox.pack.js"></script>
-    <script src="/lib/DataTables-1.10.7/media/js/jquery.dataTables.min.js"></script>
-    <script src="/lib/DataTables-1.10.7/dataTables.bootstrap.min.js"></script>
-    <script src="/lib/custom.js"></script>
-    <!-- /PAGE FOOTER -->
+	<!-- /PAGE CONTENT -->
+	<!-- PAGE FOOTER -->
+	<footer>
+		<div id="copyright">
+			<div class="container">
+				<p class="signature">
+					<a href="/">rover.sg</a>
+				</p>
+				<p class="signature-links">
+					<small>
+						The Singapore Scout Association &copy; 2015
+						 · Made with <a href="http://getbootstrap.com/">Bootstrap</a>
+						 · Powered by <a href="http://expressjs.com/">Express.js</a>
+					</small>
+				</p>
+				<p class="footer-links">
+					<small>
+						<i class="fa fa-sitemap" aria-hidden="true"></i>
+						<a href="/sitemap"> Sitemap</a>
+						 · <i class="fa fa-phone-square" aria-hidden="true"></i>
+						<a href="/contact"> Contact us</a>
+						 · <i class="fa fa-toggle-up" aria-hidden="true"></i>
+						<a href="#"> Back to top</a>
+					</small>
+				</p>
+			</div> <!-- /.container -->
+		</div>  <!-- /#copright -->
+	</footer> <!-- /.footer -->
+	<!--[if lte IE8]>
+	<script src="/lib/jquery-1.11.3.min.js"></script>
+	<script src="/lib/html5shiv/html5shiv.min.js"></script>
+	<script src="/lib/html5shiv/html5shiv-printshiv.min.js"></script>
+	<![endif]-->
+	<!--[if gt IE8]> -->
+	<script src="/lib/jquery-2.1.4.min.js"></script>
+	<!-- <![endif]-->
+	<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+	<script src="/lib/fancyBox/jquery.fancybox.pack.js"></script>
+	<script src="/lib/DataTables/media/js/jquery.dataTables.min.js"></script>
+	<script src="/lib/DataTables/dataTables.bootstrap.min.js"></script>
+	<script src="/lib/custom.js"></script>
+	<script src="/lib/pace/pace.min.js"></script>
+	<!-- /PAGE FOOTER -->
 </body>
