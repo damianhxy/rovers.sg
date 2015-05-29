@@ -1,6 +1,6 @@
 @font-face {
 	font-family: Roboto;
-	src: url("/lib/Roboto-Regular.ttf");
+	src: url("/lib/Roboto-Regular.ttf") format("truetype");
 }
 
 /* Custom Navbar */
@@ -100,18 +100,15 @@ body {
 
 footer {
 	margin-top: 70px;
+	background-color: #fb0000;
+	padding-bottom: 8px;
+	padding-top: 8px;
+	text-align: center;
 }
 
 footer a:hover {
 	color: #ccc7c7;
 	text-decoration: none;
-}
-
-#copyright {
-	background-color: #fb0000;
-	padding-bottom: 8px;
-	padding-top: 8px;
-	text-align: center;
 }
 
 .signature {
@@ -134,8 +131,7 @@ footer a:hover {
 .footer-links,
 .footer-links a {
 	color: #f7f7f7;
-	-webkit-transition: color 0.2s ease 0s;
-	        transition: color 0.2s ease 0s;
+    transition: color 0.2s ease 0s;
 }
 
 .footer-links {
@@ -158,11 +154,10 @@ footer a:hover {
 
 .shortcuts li a:not(.highlight) {
 	color: #000;
-	-webkit-transition: color 0.2s ease 0s;
-	        transition: color 0.2s ease 0s;
+    transition: color 0.2s ease 0s;
 }
 
-.shortcuts li a.highlight,
+.shortcuts li .highlight,
 .shortcuts li a:hover {
 	color: #FB0000;
 	text-decoration: none;
@@ -174,13 +169,14 @@ footer a:hover {
 
 /* Misc */
 
-/* a[title="Permalink"] {
-	visibility: hidden;
+.fa-chain {
+	color: gray;
+	transition: color 0.2s ease 0s;
 }
 
-.page-header:hover a[title="Permalink"] {
-	visibility: visible;
-} */
+.fa-chain:hover {
+	color: black;
+}
 
 .anchor {
 	display: block;
@@ -197,9 +193,9 @@ figcaption {
 	border-radius: 50px 50px;
 }
 
-#map {
+.map {
 	height: 400px;
-	width: 400px;
+	width: 500px;
 }
 
 th {

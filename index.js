@@ -54,7 +54,7 @@ app.get("/links", function(req, res, next) {
 app.get(/^\/resource(\/(forms|policies|progress_scheme|others))?$/, function(req, res, next) {
 	var header;
 	var subtitle;
-	var path = "/public/resources/" + (req.params[1] || "latest_information") + "/";
+	var dir = "/public/resources/" + (req.params[1] || "latest_information") + "/";
 	if (req.params[1] === "forms") {
 		header = "Forms";
 		subtitle = "NRR/NCC";
@@ -71,13 +71,13 @@ app.get(/^\/resource(\/(forms|policies|progress_scheme|others))?$/, function(req
 		header = "Latest Information";
 		subtitle = "News";
 	}
-	fs.readdir(__dirname + path, function(err, files) {
+	fs.readdir(__dirname + dir, function(err, files) {
 		if (err) return next(err);
 		files = files.filter(function(e) {
 			return e[0] !== '.';
 		});
 		async.map(files, function(item, callback) {
-			fs.stat(__dirname + path + item, function(err, stats) {
+			fs.stat(__dirname + dir + item, function(err, stats) {
 				if (err) return next(err);
 				callback(null, {
 					name: item,
@@ -92,7 +92,7 @@ app.get(/^\/resource(\/(forms|policies|progress_scheme|others))?$/, function(req
 				header_title: header,
 				header_subtitle: subtitle,
 				filelist: files,
-				path: path.slice(6) // Remove "public"
+				path: dir.slice(7)
 			});
 		});
 	});
