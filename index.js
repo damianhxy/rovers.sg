@@ -92,7 +92,7 @@ app.get(/^\/resource(\/(forms|policies|progress_scheme|others))?$/, function(req
 				header_title: header,
 				header_subtitle: subtitle,
 				filelist: files,
-				path: path
+				path: path.slice(6) // Remove "public"
 			});
 		});
 	});
