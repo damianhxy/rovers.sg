@@ -174,13 +174,13 @@ footer a:hover {
 
 /* Misc */
 
-a[title="Permalink"] {
+/* a[title="Permalink"] {
 	visibility: hidden;
 }
 
 .page-header:hover a[title="Permalink"] {
 	visibility: visible;
-}
+} */
 
 .anchor {
 	display: block;
