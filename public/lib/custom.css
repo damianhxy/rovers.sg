@@ -1,6 +1,6 @@
 @font-face {
 	font-family: Roboto;
-	src: url("/dep/Roboto-Regular.ttf");
+	src: url("/lib/Roboto-Regular.ttf");
 }
 
 /* Custom Navbar */
@@ -173,6 +173,14 @@ footer a:hover {
 }
 
 /* Misc */
+
+a[title="Permalink"] {
+	visibility: hidden;
+}
+
+.page-header:hover a[title="Permalink"] {
+	visibility: visible;
+}
 
 .anchor {
 	display: block;
