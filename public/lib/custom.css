@@ -1,8 +1,3 @@
-@font-face {
-	font-family: Roboto;
-	src: url("/lib/Roboto-Regular.ttf") format("truetype");
-}
-
 /* Custom Navbar */
 
 .navbar-default,
@@ -85,6 +80,11 @@
 }
 
 /* Template */
+
+@font-face {
+	font-family: Roboto;
+	src: url("/lib/Roboto-Regular.ttf") format("truetype");
+}
 
 body {
 	font-family: 'Roboto', sans-serif;

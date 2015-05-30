@@ -1,18 +1,17 @@
-$.fn.dataTable.ext.type.order["file-size-pre"] = function (e) {
-	var units = e.replace(/[\d\.]/g, '').toLowerCase()
+$.fn.dataTable.ext.type.order["file-size-pre"] = function(e) {
+	var units = e.replace(/[\d\.]/g, '').toLowerCase();
 	var map = {
 		"b": 1,
 		"kb": 1 << 10,
 		"mb": 1 << 20,
 		"gb": 1 << 30
-	}
+	};
 	return parseFloat(e) * map[units];
-}
+};
 
 $(document).ready(function() {
 	$(".fancybox").fancybox();
-	var loc = location.pathname.split("/");
-	if (loc[3] === "resources") {
+	if (location.pathname.split("/")[1] === "resource") {
 		$(".table").DataTable({
 			"columnDefs": [{
 				"type": "file-size",
@@ -34,6 +33,6 @@ $(document).ready(function() {
 			}
 		});
 	}
-	$("li a[href='/" + loc[1] + "']").eq(0).parent().addClass("active");
-	$(".shortcuts a[href='/" + loc[1] + (loc[2] ? '/' + loc[2] : '') + "']").addClass("highlight");
+	$("nav a[href='" + location.pathname + "']").parent().addClass("active");
+	$(".shortcuts a[href='" + location.pathname + "']").addClass("highlight");
 });

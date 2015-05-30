@@ -16,7 +16,7 @@
 
 # TECHNOLOGY COLOPHON
 
-Last update: 29/05/2015
-Standards: HTML5, CSS3
+Last update: 30/05/2015
+Standards: HTML5, CSS3, ES5
 Components: jQuery, Node.js, Express.js, Bootstrap, DataTables, Fancybox, Font Awesome, html5shiv, Reset CSS
 Software: Sublime Text 3
