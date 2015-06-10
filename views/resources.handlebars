@@ -27,7 +27,10 @@
                 {{#each filelist}}
                 <tr>
                     <td>
-                        <a class="fancybox" href="{{../path}}{{this.name}}" title="{{name}}" rel="media">{{this.name}}</a>
+                        <a class="fancybox" href="{{../path}}{{this.name}}" title="{{name}}" rel="media">
+                            <i class="fa fa-{{fileType this.name}}"></i>
+                            {{this.name}}
+                        </a>
                     </td>
                     <td>{{this.size}}</td>
                     <td>{{this.time}}</td>

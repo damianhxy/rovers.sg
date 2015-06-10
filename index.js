@@ -6,9 +6,33 @@ var fs = require("fs");
 var moment = require("./public/lib/moment.js");
 var morgan = require("morgan");
 
+// Resources Page
+var pages = [{path:"forms",header:"Forms",subtitle:"NRR/NCC"},
+		     {path:"policies",header:"Policies",subtitle:"Governing Rules"},
+		     {path:"progress_scheme",header:"Progress Scheme",subtitle:"For Rovers"},
+		     {path:"others",header:"Others",subtitle:"Miscellaneous"}];
+
+// Filetype Icons
+var files = [{pattern:"xlsx?",icon:"file-excel-o"},{pattern:"pptx?",icon:"file-powerpoint-o"},
+			 {pattern:"docx?",icon:"file-word-o"},{pattern:"pdf",icon:"file-pdf-o"},
+			 {pattern:"(png|jpg|gif)",icon:"file-picture-o"}];
+
 var app = express();
 var hbs = exphbs.create({
-	defaultLayout: "default"
+	defaultLayout: "default",
+	helpers: {
+		fileType: function(file) {
+			var ext = file.split(".").pop();
+			var icon = "file-o";
+			files.some(function(e) {
+				var re = new RegExp(e.pattern);
+				if (re.test(ext))
+					return icon = e.icon;
+				return false;
+			});
+			return icon;
+		}
+	}
 });
 morgan.token("date", function(req, res) {
 	return require("console-stamp/node_modules/dateformat")(new Date(), "dd mmm HH:MM:ss");
@@ -52,25 +76,15 @@ app.get("/links", function(req, res, next) {
 });
 
 app.get(/^\/resource(\/(forms|policies|progress_scheme|others))?$/, function(req, res, next) {
-	var header;
-	var subtitle;
+	var header = "Latest Information";
+	var subtitle = "News";
 	var dir = "/public/resources/" + (req.params[1] || "latest_information") + "/";
-	if (req.params[1] === "forms") {
-		header = "Forms";
-		subtitle = "NRR/NCC";
-	} else if (req.params[1] === "policies") {
-		header = "Policies";
-		subtitle = "Governing Rules";
-	} else if (req.params[1] === "progress_scheme") {
-		header = "Progress Scheme";
-		subtitle = "For Rovers";
-	} else if (req.params[1] === "others") {
-		header = "Others";
-		subtitle = "Miscellaneous";
-	} else {
-		header = "Latest Information";
-		subtitle = "News";
-	}
+	pages.some(function(e) {
+		if (req.params[1] === e.path) {
+			header = e.header;
+			return subtitle = e.subtitle;
+		} return false;
+	});
 	fs.readdir(__dirname + dir, function(err, files) {
 		if (err) return next(err);
 		files = files.filter(function(e) {
@@ -130,7 +144,6 @@ app.use(function(req, res, next) {
 
 app.use(function(err, req, res, next) {
 	console.error(err);
-	console.trace();
 	res.status(500).render("500", {
 		error: err,
 		title: "500"

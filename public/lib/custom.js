@@ -10,29 +10,28 @@ $.fn.dataTable.ext.type.order["file-size-pre"] = function(e) {
 };
 
 $(document).ready(function() {
-	$(".fancybox").fancybox();
-	if (location.pathname.split("/")[1] === "resource") {
+	if (location.pathname.split("/")[1] === "resource")
 		$(".table").DataTable({
 			"columnDefs": [{
 				"type": "file-size",
 				"targets": 1
 			}],
 			"order": [[2, "desc"]],
-			"pagingType": "full_numbers",
+			"deferRender": true,
 			"language": {
 				"emptyTable": "No files found",
 				"zeroRecords": "No matching files found"
 			}
 		});
-	} else { // Links || Contact Us
+	else // Links || Contact Us
 		$(".table").DataTable({
-			"pagingType": "full_numbers",
+			"deferRender": true,
 			"language": {
 				"emptyTable": "No files found",
 				"zeroRecords": "No matching files found"
 			}
 		});
-	}
+	$(".fancybox").fancybox();
 	$("nav a[href='" + location.pathname + "']").parent().addClass("active");
 	$(".shortcuts a[href='" + location.pathname + "']").addClass("highlight");
 });
