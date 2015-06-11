@@ -13,9 +13,9 @@ var pages = [{path:"forms",header:"Forms",subtitle:"NRR/NCC"},
 		     {path:"others",header:"Others",subtitle:"Miscellaneous"}];
 
 // Filetype Icons
-var files = [{pattern:"xlsx?",icon:"file-excel-o"},{pattern:"pptx?",icon:"file-powerpoint-o"},
-			 {pattern:"docx?",icon:"file-word-o"},{pattern:"pdf",icon:"file-pdf-o"},
-			 {pattern:"(png|jpg|gif)",icon:"file-picture-o"}];
+var files = [{pattern:"xlsx?",icon:"excel"},{pattern:"pptx?",icon:"powerpoint"},
+			 {pattern:"docx?",icon:"word"},{pattern:"pdf",icon:"pdf"},
+			 {pattern:"(png|jpg|gif)",icon:"picture"},{pattern:"(zip|rar)",icon:"zip"}];
 
 var app = express();
 var hbs = exphbs.create({
@@ -27,7 +27,7 @@ var hbs = exphbs.create({
 			files.some(function(e) {
 				var re = new RegExp(e.pattern);
 				if (re.test(ext))
-					return icon = e.icon;
+					return icon = "file-" + e.icon + "-o";
 				return false;
 			});
 			return icon;
