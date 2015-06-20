@@ -1,10 +1,21 @@
-var async = require("async");
-var bytes = require("bytes");
+var bodyParser = require("body-parser");
+var cookieParser = require("cookie-parser");
 var exphbs = require("express-handlebars");
 var express = require("express");
-var fs = require("fs");
+var func = require("./lib/functions.js");
+var passport = require("passport");
+var localStrategy = require("passport-local");
+var methodOverride = require("method-override");
 var moment = require("./public/lib/moment.js");
 var morgan = require("morgan");
+var multer = require("multer");
+var nedb = require("nedb");
+var session = require("express-session");
+var users = new nedb({filename: "./database/users", autoload: true});
+
+// Constants
+var PORT = 8080;
+var SECRET = "roversingapore";
 
 // Resources Page
 var pages = [{path:"forms",header:"Forms",subtitle:"NRR/NCC"},
@@ -18,15 +29,58 @@ var files = [{pattern:"xlsx?",icon:"excel"},{pattern:"pptx?",icon:"powerpoint"},
 			 {pattern:"(png|jpg|gif)",icon:"picture"},{pattern:"(zip|rar)",icon:"zip"}];
 
 var app = express();
+
+// Auth
+passport.use("local-signin", new localStrategy(
+    function(username, password, done) {
+        users.findOne({ username: username }, function(err, user) {
+            if (err) done(err);
+            else if (!user) done(null, false);
+            else func.checkUser(user, password) // Make sure this works!
+                .then(function() {
+                    done(null, user);
+                })
+                .fail(function() {
+                    done(null, false);
+                });
+        });
+    }
+));
+
+passport.use("local-signup", new localStrategy( // Temporary
+    { passReqToCallback: true },
+    function(req, username, password, done) {
+        users.findOne({ username: username }, function(err, user) {
+            if (err) done(err);
+            else if (user) done(null, false);
+            else func.addUser(req, username, password)
+                .then(function(user) {
+                    done(null, user);
+                })
+                .fail(function() {
+                    done(null, false);
+                });
+        });
+    }
+));
+
+// Session
+passport.serializeUser(function(user, done) {
+    done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+    done(null, user);
+});
+
+// Handlebars
 var hbs = exphbs.create({
 	defaultLayout: "default",
 	helpers: {
 		fileType: function(file) {
-			var ext = file.split(".").pop();
 			var icon = "file-o";
 			files.some(function(e) {
-				var re = new RegExp(e.pattern);
-				if (re.test(ext))
+				if (RegExp(e.pattern).test(file.split(".").pop()))
 					return icon = "file-" + e.icon + "-o";
 				return false;
 			});
@@ -34,121 +88,179 @@ var hbs = exphbs.create({
 		}
 	}
 });
-morgan.token("date", function(req, res) {
-	return require("console-stamp/node_modules/dateformat")(new Date(), "dd mmm HH:MM:ss");
-});
+
+// Time stamp
 require("console-stamp")(console, "dd mmm HH:MM:ss");
 
+// Middleware
+app.use(cookieParser(SECRET));
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
+app.use(bodyParser.json());
+app.use(methodOverride("X-HTTP-Method-Override"));
+app.use(session({
+    secret: SECRET,
+    saveUninitialized: true,
+    resave: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Settings
 app.enable("case sensitive routing");
 app.enable("strict routing");
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 
+// Public folder
 app.use(express.static(__dirname + "/public"));
+
+// Request logger
+morgan.token("date", function(req, res) {
+    return require("console-stamp/node_modules/dateformat")(new Date(), "dd mmm HH:MM:ss");
+});
 app.use(morgan("[:date] :method :url :status :res[content-length] - :remote-addr - :response-time ms"));
 
-app.get(/^\/(robots|humans)\.txt$/, function(req, res) {
-	res.sendFile(__dirname + "/" + req.params[0] + ".txt");
+// File uploading
+app.use(multer({
+    dest: "./public/files",
+    rename: function() {
+        return "upload" + Date.now();
+    },
+    onFileUploadStart: function(file) {
+        console.log("Uploading " + file.originalname);
+    },
+    onFileUploadComplete: function(file) {
+        console.log(file.originalname + " uploaded to " + file.path);
+    }
+}));
+
+// Routes
+// Message middleware
+app.use(function(req, res, next) {
+    ["error", "notice", "success"].forEach(function(e) {
+        if (req.session[e]) {
+            res.locals[e] = req.session[e];
+            delete req.session[e];
+        }
+    });
+    next();
 });
 
+// Navbar
 app.get("/", function(req, res, next) {
-	res.render("home", {
-		title: "Home"
-	});
+    res.render("home", {
+        title: "Home"
+    });
 });
 
 app.get("/nrr", function(req, res, next) {
-	res.render("nrr", {
-		title: "NRR"
-	});
+    res.render("nrr", {
+        title: "NRR"
+    });
 });
 
 app.get("/about", function(req, res, next) {
-	res.render("about", {
-		title: "About"
-	});
+    res.render("about", {
+        title: "About"
+    });
 });
 
 app.get("/links", function(req, res, next) {
-	res.render("links", {
-		title: "Links"
-	});
+    res.render("links", {
+        title: "Links"
+    });
 });
 
-app.get(/^\/resource(\/(forms|policies|progress_scheme|others))?$/, function(req, res, next) {
-	var header = "Latest Information";
-	var subtitle = "News";
-	var dir = "/public/resources/" + (req.params[1] || "latest_information") + "/";
-	pages.some(function(e) {
-		if (req.params[1] === e.path) {
-			header = e.header;
-			return subtitle = e.subtitle;
-		} return false;
-	});
-	fs.readdir(__dirname + dir, function(err, files) {
-		if (err) return next(err);
-		files = files.filter(function(e) {
-			return e[0] !== '.';
-		});
-		async.map(files, function(item, callback) {
-			fs.stat(__dirname + dir + item, function(err, stats) {
-				if (err) return next(err);
-				callback(null, {
-					name: item,
-					size: bytes(stats.size),
-					time: moment(stats.ctime.getTime()).format("DD MMMM YYYY, h:mm:ss a")
-				});
-			});
-		}, function(err, files) {
-			if (err) return next(err);
-			res.render("resources", {
-				title: "Resources",
-				header_title: header,
-				header_subtitle: subtitle,
-				filelist: files,
-				path: dir.slice(7)
-			});
-		});
-	});
+app.get(/^\/resource(\/(forms|policies|progress_scheme|others))?$/, function(req, res, next) {/*
+    var header = "Latest Information";
+    var subtitle = "News";
+    var dir = "/public/resources/" + (req.params[1] || "latest_information") + "/";
+    pages.some(function(e) {
+        if (req.params[1] === e.path) {
+            header = e.header;
+            return subtitle = e.subtitle;
+        } return false;
+    });
+    fs.readdir(__dirname + dir, function(err, files) {
+        if (err) return next(err);
+        files = files.filter(function(e) {
+            return e[0] !== '.';
+        });
+        async.map(files, function(item, callback) {
+            fs.stat(__dirname + dir + item, function(err, stats) {
+                if (err) return next(err);
+                callback(null, {
+                    name: item,
+                    size: bytes(stats.size),
+                    time: moment(stats.mtime.getTime()).format("DD MMMM YYYY, h:mm:ss a")
+                });
+            });
+        }, function(err, files) {
+            if (err) return next(err);
+            res.render("resources", {
+                title: "Resources",
+                header_title: header,
+                header_subtitle: subtitle,
+                filelist: files,
+                path: dir.slice(7)
+            });
+        });
+    });*/
+    res.render("resources", {
+        title: "Resources"
+    });
 });
 
 app.get("/faq", function(req, res, next) {
-	res.render("faq", {
-		title: "FAQ"
-	});
+    res.render("faq", {
+        title: "FAQ"
+    });
 });
 
 app.get("/join", function(req, res, next) {
-	res.render("join", {
-		title: "Join us"
-	});
+    res.render("join", {
+        title: "Join us"
+    });
 });
 
 app.get("/sitemap", function(req, res, next) {
-	res.render("sitemap", {
-		title: "Sitemap"
-	});
+    res.render("sitemap", {
+        title: "Sitemap"
+    });
 });
 
 app.get("/contact", function(req, res, next) {
-	res.render("contact", {
-		title: "Contact"
-	});
+    res.render("contact", {
+        title: "Contact"
+    });
 });
 
+// Others
+app.post("/signin", passport.authenticate("local-signin", {
+    successRedirect: "/",
+    failureRedirect: "/"
+}));
+
+app.post("/signup", passport.authenticate("local-signup", {
+    successRedirect: "/",
+    failureRedirect: "/"
+}));
+
 app.use(function(req, res, next) {
-	res.status(404).render("404", {
-		title: "404"
-	});
+    res.status(404).render("404", {
+        title: "404"
+    });
 });
 
 app.use(function(err, req, res, next) {
-	console.error(err);
-	res.status(500).render("500", {
-		error: err,
-		title: "500"
-	});
+    console.error(err);
+    res.status(500).render("500", {
+        error: err,
+        title: "500"
+    });
 });
 
-app.listen(8080);
-console.info("Listening on port 8080 in " + app.get("env") + " mode.");
+app.listen(PORT);
+console.info("Listening on port " + PORT + " in " + app.get("env") + " mode.");

@@ -73,6 +73,63 @@
 						</a>
 					</li>
 				</ul>
+				<ul class="nav navbar-nav navbar-right">
+				{{#if user}}
+					<p class="navbar-text">Signed in as <a href="#" class="navbar-link">Admin</a></p>
+					<li>
+						<a href="#">
+							<i class="fa fa-sign-out"></i> Sign Out
+						</a>
+					</li>
+				{{else}}
+					<li class="dropdown">
+						<a class="dropdown-toggle" href="#" data-toggle="dropdown">
+							<i class="fa fa-sign-in"></i> Sign In
+							<span class="caret"></span>
+						</a>
+						<div class="dropdown-menu">
+							<form action="/signin" method="post" accept-charset="UTF-8">
+								<div class="form-group">
+									<label for="username">Username</label>
+									<input id="username" name="username" class="form-control" type="text" placeholder="Username">
+								</div>
+								<div class="form-group">
+									<label for="password">Password</label>
+									<input id="password" name="password" class="form-control" type="password" placeholder="Password">
+								</div>
+								<div class="form-group">
+									<button class="form-control btn btn-default">Login</button>
+								</div>
+							</form>
+						</div>
+					</li>
+					<li class="dropdown">
+						<a class="dropdown-toggle" href="#" data-toggle="dropdown">
+							<i class="fa fa-user-plus"></i> Sign Up
+							<span class="caret"></span>
+						</a>
+						<div class="dropdown-menu">
+							<form action="/signup" method="post" accept-charset="UTF-8">
+								<div class="form-group">
+									<label for="username">Name</label>
+									<input id="name" name="name" class="form-control" type="text" placeholder="Name">
+								</div>
+								<div class="form-group">
+									<label for="username">Username</label>
+									<input id="username" name="username" class="form-control" type="text" placeholder="Username">
+								</div>
+								<div class="form-group">
+									<label for="password">Password</label>
+									<input id="password" name="password" class="form-control" type="password" placeholder="Password">
+								</div>
+								<div class="form-group">
+									<button class="form-control btn btn-default">Sign Up</button>
+								</div>
+							</form>
+						</div>
+					</li>
+				{{/if}}
+				</ul> <!-- /.navbar-right -->
 			</div> <!-- /.navbar-collapse -->
 		</div> <!-- /.container -->
 	</nav> <!-- /.navbar -->
