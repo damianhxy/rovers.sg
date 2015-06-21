@@ -75,9 +75,9 @@
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 				{{#if user}}
-					<p class="navbar-text">Signed in as <a href="#" class="navbar-link">Admin</a></p>
+					<p class="navbar-text">Signed in as <a href="#" class="navbar-link">{{user.username}}</a></p>
 					<li>
-						<a href="#">
+						<a href="/logout">
 							<i class="fa fa-sign-out"></i> Sign Out
 						</a>
 					</li>

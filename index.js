@@ -11,7 +11,6 @@ var morgan = require("morgan");
 var multer = require("multer");
 var nedb = require("nedb");
 var session = require("express-session");
-var users = new nedb({filename: "./database/users", autoload: true});
 
 // Constants
 var PORT = 8080;
@@ -33,16 +32,16 @@ var app = express();
 // Auth
 passport.use("local-signin", new localStrategy(
     function(username, password, done) {
-        users.findOne({ username: username }, function(err, user) {
-            if (err) done(err);
-            else if (!user) done(null, false);
-            else func.checkUser(user, password) // Make sure this works!
-                .then(function() {
-                    done(null, user);
-                })
-                .fail(function() {
-                    done(null, false);
-                });
+        console.info("Signing in...");
+        func.signIn(username, password)
+        .then(function(user) {
+            console.info("Success!");
+            done(null, user);
+        })
+        .fail(function(err) {
+            console.error("Failed!");
+            console.error(err);
+            done(null, false);
         });
     }
 ));
@@ -50,16 +49,16 @@ passport.use("local-signin", new localStrategy(
 passport.use("local-signup", new localStrategy( // Temporary
     { passReqToCallback: true },
     function(req, username, password, done) {
-        users.findOne({ username: username }, function(err, user) {
-            if (err) done(err);
-            else if (user) done(null, false);
-            else func.addUser(req, username, password)
-                .then(function(user) {
-                    done(null, user);
-                })
-                .fail(function() {
-                    done(null, false);
-                });
+        console.log("Signing up...");
+        func.signUp(req.body.name, username, password)
+        .then(function(user) {
+            console.info("Success!");
+            done(null, user);
+        })
+        .fail(function(err) {
+            console.error("Failed!");
+            console.error(err);
+            done(null, false);
         });
     }
 ));
@@ -151,7 +150,8 @@ app.use(function(req, res, next) {
 // Navbar
 app.get("/", function(req, res, next) {
     res.render("home", {
-        title: "Home"
+        title: "Home",
+        user: req.user
     });
 });
 
@@ -173,6 +173,7 @@ app.get("/links", function(req, res, next) {
     });
 });
 
+// Remember to change to tab form!
 app.get(/^\/resource(\/(forms|policies|progress_scheme|others))?$/, function(req, res, next) {/*
     var header = "Latest Information";
     var subtitle = "News";
@@ -237,7 +238,7 @@ app.get("/contact", function(req, res, next) {
     });
 });
 
-// Others
+// Auth
 app.post("/signin", passport.authenticate("local-signin", {
     successRedirect: "/",
     failureRedirect: "/"
@@ -248,6 +249,12 @@ app.post("/signup", passport.authenticate("local-signup", {
     failureRedirect: "/"
 }));
 
+app.get("/logout", function(req, res, next) {
+    req.logout();
+    res.redirect("/");
+});
+
+// Others
 app.use(function(req, res, next) {
     res.status(404).render("404", {
         title: "404"
