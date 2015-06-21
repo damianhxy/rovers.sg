@@ -31,16 +31,18 @@ var app = express();
 
 // Auth
 passport.use("local-signin", new localStrategy(
-    function(username, password, done) {
+    { passReqToCallback: true },
+    function(req, username, password, done) {
         console.info("Signing in...");
         func.signIn(username, password)
         .then(function(user) {
             console.info("Success!");
+            req.session.success = "Welcome back, " + user.username + "!";
             done(null, user);
         })
         .fail(function(err) {
-            console.error("Failed!");
             console.error(err);
+            req.session.error = err;
             done(null, false);
         });
     }
@@ -53,11 +55,12 @@ passport.use("local-signup", new localStrategy( // Temporary
         func.signUp(req.body.name, username, password)
         .then(function(user) {
             console.info("Success!");
+            req.session.success = "Welcome, " + user.username + "!";
             done(null, user);
         })
         .fail(function(err) {
-            console.error("Failed!");
             console.error(err);
+            req.session.error = err;
             done(null, false);
         });
     }
@@ -157,24 +160,27 @@ app.get("/", function(req, res, next) {
 
 app.get("/nrr", function(req, res, next) {
     res.render("nrr", {
-        title: "NRR"
+        title: "NRR",
+        user: req.user
     });
 });
 
 app.get("/about", function(req, res, next) {
     res.render("about", {
-        title: "About"
+        title: "About",
+        user: req.user
     });
 });
 
 app.get("/links", function(req, res, next) {
     res.render("links", {
-        title: "Links"
+        title: "Links",
+        user: req.user
     });
 });
 
-// Remember to change to tab form!
-app.get(/^\/resource(\/(forms|policies|progress_scheme|others))?$/, function(req, res, next) {/*
+app.get(/^\/resource(\/(forms|policies|progress_scheme|others))?$/, function(req, res, next) {
+    /*
     var header = "Latest Information";
     var subtitle = "News";
     var dir = "/public/resources/" + (req.params[1] || "latest_information") + "/";
@@ -210,48 +216,69 @@ app.get(/^\/resource(\/(forms|policies|progress_scheme|others))?$/, function(req
         });
     });*/
     res.render("resources", {
-        title: "Resources"
+        title: "Resources",
+        user: req.user,
+        category: category
     });
 });
 
 app.get("/faq", function(req, res, next) {
     res.render("faq", {
-        title: "FAQ"
+        title: "FAQ",
+        user: req.user
     });
 });
 
 app.get("/join", function(req, res, next) {
     res.render("join", {
-        title: "Join us"
+        title: "Join us",
+        user: req.user
     });
 });
 
 app.get("/sitemap", function(req, res, next) {
     res.render("sitemap", {
-        title: "Sitemap"
+        title: "Sitemap",
+        user: req.user
     });
 });
 
 app.get("/contact", function(req, res, next) {
     res.render("contact", {
-        title: "Contact"
+        title: "Contact",
+        user: req.user
     });
 });
 
 // Auth
-app.post("/signin", passport.authenticate("local-signin", {
-    successRedirect: "/",
-    failureRedirect: "/"
-}));
+app.post("/signin", function(req, res, next) {
+    passport.authenticate("local-signin", function(err, user, info) {
+        if (err) return next(err);
+        req.login(user, function(err) {
+            if (err) return next(err);
+            return res.redirect(req.headers.referer || "/");
+        });
+    })(req, res, next);
+});
 
-app.post("/signup", passport.authenticate("local-signup", {
-    successRedirect: "/",
-    failureRedirect: "/"
-}));
+app.post("/signup", function(req, res, next) {
+    passport.authenticate("local-signup", function(err, user, info) {
+        if (err) return next(err);
+        req.login(user, function(err) {
+            if (err) return next(err);
+            return res.redirect(req.headers.referer || "/");
+        });
+    })(req, res, next);
+});
 
 app.get("/logout", function(req, res, next) {
     req.logout();
-    res.redirect("/");
+    res.redirect(req.headers.referer || "/");
+});
+
+// Admin
+app.post("/upload", function(req, res, next) {
+
 });
 
 // Others

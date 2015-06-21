@@ -1,3 +1,4 @@
+// File Size Sorting
 $.fn.dataTable.ext.type.order["file-size-pre"] = function(e) {
 	var units = e.replace(/[\d\.]/g, '').toLowerCase();
 	var map = {
@@ -10,7 +11,8 @@ $.fn.dataTable.ext.type.order["file-size-pre"] = function(e) {
 };
 
 $(document).ready(function() {
-	if (location.pathname.split("/")[1] === "resource")
+	// DataTables
+	if (location.pathname.split("/")[1] === "resource") {
 		$(".table").DataTable({
 			"columnDefs": [{
 				"type": "file-size",
@@ -23,7 +25,8 @@ $(document).ready(function() {
 				"zeroRecords": "No matching files found"
 			}
 		});
-	else // Links || Contact Us
+		$("tab-pane").eq(0).addClass("in active"); // Set first tab to be active
+	} else // Links || Contact Us
 		$(".table").DataTable({
 			"deferRender": true,
 			"language": {
@@ -31,7 +34,13 @@ $(document).ready(function() {
 				"zeroRecords": "No matching files found"
 			}
 		});
+
+	// Fancybox
 	$(".fancybox").fancybox();
+
+	// Active Links
 	$("nav a[href='" + location.pathname + "']").parent().addClass("active");
-	$(".shortcuts a[href='" + location.pathname + "']").addClass("highlight");
+
+	// Alerts
+	/* Code */
 });

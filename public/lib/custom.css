@@ -1,7 +1,7 @@
 /* Custom Navbar */
-.navbar-default,
-.navbar-default .navbar-nav > .active > a,
-.navbar-default .navbar-nav > .open > a {
+.navbar-default, /* Navbar */
+.navbar-default .navbar-nav > .active > a, /* Active Link */
+.navbar-default .navbar-nav > .open > a { /* Dropdown */
 	background-image: none; /* Remove gradient */
 }
 
@@ -78,7 +78,13 @@
 		color: #fff;
 	}
 }
-
+/* Show dropdown on hover
+@media only screen and (min-width: 768px) {
+	.dropdown:hover .dropdown-menu {
+		display: block;
+	}
+}
+*/
 /* Template */
 
 @font-face {
@@ -98,8 +104,12 @@ body {
 	width: 100%;
 }
 
+main {
+	margin-top: 20px;
+	margin-bottom: 30px;
+}
+
 footer {
-	margin-top: 70px;
 	background-color: #fb0000;
 	padding-bottom: 8px;
 	padding-top: 8px;
@@ -131,7 +141,8 @@ footer a:hover {
 .footer-links,
 .footer-links a {
 	color: #f7f7f7;
-    transition: color 0.2s ease 0s;
+    -webkit-transition: color 0.2s ease 0s;
+            transition: color 0.2s ease 0s;
 }
 
 .footer-links {
@@ -154,7 +165,8 @@ footer a:hover {
 
 .shortcuts li a:not(.highlight) {
 	color: #000;
-    transition: color 0.2s ease 0s;
+    -webkit-transition: color 0.2s ease 0s;
+            transition: color 0.2s ease 0s;
 }
 
 .shortcuts li .highlight,
@@ -167,6 +179,24 @@ footer a:hover {
 	border-bottom: 1px dashed black;
 }
 
+/* Alerts */
+/*
+.alert {
+
+}
+
+.alert.success {
+	background-color:;
+}
+
+.alert.error {
+	background-color:;
+}
+
+.alert.hidden {
+
+}
+*/
 /* Misc */
 
 .anchor {
@@ -176,13 +206,14 @@ footer a:hover {
 	visibility: hidden;
 }
 
-.dropdown-menu > form {
-	padding: 10px;
+.dropdown-menu form {
+	padding: 15px;
 }
 
 .fa-chain {
 	color: gray;
-	transition: color 0.2s ease 0s;
+	-webkit-transition: color 0.2s ease 0s;
+			transition: color 0.2s ease 0s;
 }
 
 .fa-chain:hover {
@@ -199,7 +230,8 @@ figcaption {
 
 .map {
 	height: 400px;
-	width: 500px;
+	width: 400px;
+	margin: auto;
 }
 
 th {

@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<title>{{title}} | The Singapore Scout Association</title>
+	<title>{{title}} | Rover.sg</title>
 	<link rel="author" type="text/plain" href="/humans.txt">
 	<link rel="shortcut icon" href="/media/favicon.ico" type="image/x-icon">
 	<link rel="apple-touch-icon" href="/media/favicon.ico" type="image/x-icon">
@@ -22,8 +22,8 @@
 </head>
 <body>
 	<!-- NAVBAR -->
-	<nav class="navbar navbar-default navbar-fixed-top">
-		<div class="container">
+	<nav class="navbar navbar-default navbar-fixed-top"> <!-- Navbar collapsing in segments intended -->
+		<div class="container-fluid">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
 					<span class="sr-only">Toggle Navigation</span>
@@ -38,63 +38,50 @@
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
 					<li>
-						<a href="/">
-							<i class="fa fa-home" aria-hidden="true"></i> Home
-						</a>
+						<a href="/"><i class="fa fa-home" aria-hidden="true"></i>&nbsp;Home</a>
 					</li>
 					<li>
-						<a href="/nrr">
-							<i class="fa fa-comments" aria-hidden="true"></i> NRR/NRC
-						</a>
+						<a href="/nrr"><i class="fa fa-comments" aria-hidden="true"></i>&nbsp;NRR/NRC</a>
 					</li>
 					<li>
-						<a href="/about">
-							<i class="fa fa-info-circle" aria-hidden="true"></i> About
-						</a>
+						<a href="/about"><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;About</a>
 					</li>
 					<li>
-						<a href="/links">
-							<i class="fa fa-external-link" aria-hidden="true"></i> Links
-						</a>
+						<a href="/links"><i class="fa fa-external-link" aria-hidden="true"></i>&nbsp;Links</a>
 					</li>
 					<li>
-						<a href="/resource">
-							<i class="fa fa-archive" aria-hidden="true"></i> Resources
-						</a>
+						<a href="/resource"><i class="fa fa-archive" aria-hidden="true"></i>&nbsp;Resources</a>
 					</li>
 					<li>
-						<a href="/faq">
-							<i class="fa fa-question-circle" aria-hidden="true"></i> FAQ
-						</a>
+						<a href="/faq"><i class="fa fa-question-circle" aria-hidden="true"></i>&nbsp;FAQ</a>
 					</li>
 					<li>
-						<a href="/join">
-							<i class="fa fa-paper-plane"></i> Join Us
-						</a>
+						<a href="/join"><i class="fa fa-paper-plane"></i>&nbsp;Join Us</a>
 					</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 				{{#if user}}
-					<p class="navbar-text">Signed in as <a href="#" class="navbar-link">{{user.username}}</a></p>
+					<p class="navbar-text">
+						<span>Signed in as </span>
+						<a href="/panel/{{user.username}}" class="navbar-link">{{user.username}}</a>
+					</p>
 					<li>
-						<a href="/logout">
-							<i class="fa fa-sign-out"></i> Sign Out
-						</a>
+						<a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Sign Out</a>
 					</li>
 				{{else}}
 					<li class="dropdown">
 						<a class="dropdown-toggle" href="#" data-toggle="dropdown">
-							<i class="fa fa-sign-in"></i> Sign In
+							<i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;Sign In
 							<span class="caret"></span>
 						</a>
 						<div class="dropdown-menu">
 							<form action="/signin" method="post" accept-charset="UTF-8">
 								<div class="form-group">
-									<label for="username">Username</label>
+									<label class="sr-only" for="username">Username</label>
 									<input id="username" name="username" class="form-control" type="text" placeholder="Username">
 								</div>
 								<div class="form-group">
-									<label for="password">Password</label>
+									<label class="sr-only" for="password">Password</label>
 									<input id="password" name="password" class="form-control" type="password" placeholder="Password">
 								</div>
 								<div class="form-group">
@@ -105,21 +92,21 @@
 					</li>
 					<li class="dropdown">
 						<a class="dropdown-toggle" href="#" data-toggle="dropdown">
-							<i class="fa fa-user-plus"></i> Sign Up
+							<i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;Sign Up
 							<span class="caret"></span>
 						</a>
 						<div class="dropdown-menu">
 							<form action="/signup" method="post" accept-charset="UTF-8">
 								<div class="form-group">
-									<label for="username">Name</label>
+									<label class="sr-only" for="username">Name</label>
 									<input id="name" name="name" class="form-control" type="text" placeholder="Name">
 								</div>
 								<div class="form-group">
-									<label for="username">Username</label>
+									<label class="sr-only" for="username">Username</label>
 									<input id="username" name="username" class="form-control" type="text" placeholder="Username">
 								</div>
 								<div class="form-group">
-									<label for="password">Password</label>
+									<label class="sr-only" for="password">Password</label>
 									<input id="password" name="password" class="form-control" type="password" placeholder="Password">
 								</div>
 								<div class="form-group">
@@ -135,7 +122,7 @@
 	</nav> <!-- /.navbar -->
 	<!-- /NAVBAR -->
 	<!-- BANNERS -->
-	<header class="container">
+	<header class="container-fluid">
 		<a class="fancybox" rel="banner" href="/media/Sample Banner.png" title="Placeholder Banner">
 			<div class="col-lg-6">
 				<img class="banner" alt="Placeholder Banner" src="/media/Sample Banner.png">
@@ -153,25 +140,26 @@
 	<!-- /PAGE CONTENT -->
 	<!-- PAGE FOOTER -->
 	<footer>
-		<div class="container">
+		<div class="container-fluid">
 			<p class="signature">
 				<a href="/">rover.sg</a>
 			</p>
 			<p class="signature-links">
 				<small>
-					The Singapore Scout Association &copy; 2015
-					 · Made with <a href="http://getbootstrap.com/">Bootstrap</a>
-					 · Powered by <a href="http://expressjs.com/">Express.js</a>
+					<span>The Singapore Scout Association &copy; 2015</span>
+					<span>·&nbsp;Made with </span>
+					<a href="http://getbootstrap.com/">Bootstrap</a>
+					<span>·&nbsp;Powered by </span>
+					<a href="http://expressjs.com/">Express.js</a>
 				</small>
 			</p>
 			<p class="footer-links">
 				<small>
-					<i class="fa fa-sitemap" aria-hidden="true"></i>
-					<a href="/sitemap"> Sitemap</a>
-					 · <i class="fa fa-phone-square" aria-hidden="true"></i>
-					<a href="/contact"> Contact us</a>
-					 · <i class="fa fa-toggle-up" aria-hidden="true"></i>
-					<a href="#"> Back to top</a>
+					<a href="/sitemap"><i class="fa fa-sitemap" aria-hidden="true"></i>&nbsp;Sitemap</a>
+					<span>·&nbsp;</span>
+					<a href="/contact"><i class="fa fa-phone-square" aria-hidden="true"></i>&nbsp;Contact us</a>
+					<span>·&nbsp;</span>
+					<a href="#"><i class="fa fa-toggle-up" aria-hidden="true"></i>&nbsp;Back to top</a>
 				</small>
 			</p>
 		</div> <!-- /.container -->
