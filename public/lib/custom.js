@@ -1,24 +1,27 @@
-// File Size Sorting
-$.fn.dataTable.ext.type.order["file-size-pre"] = function(e) {
-	var units = e.replace(/[\d\.]/g, '').toLowerCase();
-	var map = {
-		"b": 1,
-		"kb": 1 << 10,
-		"mb": 1 << 20,
-		"gb": 1 << 30
-	};
-	return parseFloat(e) * map[units];
-};
-
 $(document).ready(function() {
+	// File Size Sorting
+	$.fn.dataTable.ext.type.order["file-size-pre"] = function(e) {
+		var units = e.replace(/[\d\.]/g, '').toLowerCase();
+		var map = {
+			"b": 1,
+			"kb": 1 << 10,
+			"mb": 1 << 20,
+			"gb": 1 << 30
+		};
+		return parseFloat(e) * map[units];
+	};
+
+	// Date Sorting
+	$.fn.dataTable.moment("DD MMMM YYYY, h:mm:ss a");
+
 	// DataTables
 	if (location.pathname.split("/")[1] === "resource") {
 		$(".table").DataTable({
-			"columnDefs": [{
-				"type": "file-size",
-				"targets": 1
-			}],
-			"order": [[2, "desc"]],
+			"columnDefs": [
+				{ "type": "file-size", "targets": 1 },
+				{ "orderable": false, "targets": "no-sort"}
+			],
+			"order": [[2, "desc"]], // Sort by date first
 			"deferRender": true,
 			"language": {
 				"emptyTable": "No files found",
@@ -42,6 +45,7 @@ $(document).ready(function() {
 		$(document).on("change", ".btn-file :file", function() {
 			var label = $(this).val().replace(/\\/g, '/').replace(/.*\//, '');
 			$("#filename").val(label);
+			$("#filetitle").val() || $("#filetitle").val(label);
 		});
 	} else // Links || Contact Us
 		$(".table").DataTable({

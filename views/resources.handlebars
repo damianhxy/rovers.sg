@@ -36,7 +36,7 @@
                         <th class="col-lg-3">File Name</th>
                         <th class="col-lg-3">File Size</th>
                         <th class="col-lg-3">Last Modified</th>
-                        <th class="col-lg-3">Actions</th>
+                        <th class="col-lg-3 no-sort">Actions</th>
                         {{else}}
                         <th class="col-lg-4">File Name</th>
                         <th class="col-lg-4">File Size</th>
@@ -54,8 +54,15 @@
                         </td>
                         <td>{{this.size}}</td>
                         <td>{{this.time}}</td>
-                        {{#if user}}
-                        <td> <!-- Some Buttons Here... --> </td>
+                        {{#if ../../user}}
+                        <td>
+                            <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#editModal">
+                                <i class="fa fa-edit">&nbsp;Edit Details</i>
+                            </button>
+                            <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteModal">
+                                <i class="fa fa-close">&nbsp;Delete File</i>
+                            </button>
+                        </td>
                         {{/if}}
                     </tr>
                     {{/each}}
