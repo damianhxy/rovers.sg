@@ -17,15 +17,20 @@ var PORT = 8080;
 var SECRET = "roversingapore";
 
 // Resources Page
-var pages = [{path:"forms",header:"Forms",subtitle:"NRR/NCC"},
-		     {path:"policies",header:"Policies",subtitle:"Governing Rules"},
-		     {path:"progress_scheme",header:"Progress Scheme",subtitle:"For Rovers"},
-		     {path:"others",header:"Others",subtitle:"Miscellaneous"}];
+var pages = {
+                "Latest Information": {name: "info"},
+                "Forms": {name: "forms"},
+    		    "Policies": {name: "policies"},
+    		    "Progress Scheme": {name: "scheme"},
+    		    "Others": {name: "others"}
+            };
 
 // Filetype Icons
-var files = [{pattern:"xlsx?",icon:"excel"},{pattern:"pptx?",icon:"powerpoint"},
-			 {pattern:"docx?",icon:"word"},{pattern:"pdf",icon:"pdf"},
-			 {pattern:"(png|jpg|gif)",icon:"picture"},{pattern:"(zip|rar)",icon:"zip"}];
+var files = [
+                {pattern: "xlsx?", icon: "excel"}, {pattern: "pptx?", icon: "powerpoint"},
+    			{pattern: "docx?", icon: "word"}, {pattern :"pdf", icon: "pdf"},
+    			{pattern: "(png|jpg|gif)", icon: "picture"}, {pattern: "(zip|rar)", icon: "zip"}
+            ];
 
 var app = express();
 
@@ -127,14 +132,16 @@ app.use(morgan("[:date] :method :url :status :res[content-length] - :remote-addr
 // File uploading
 app.use(multer({
     dest: "./public/files",
-    rename: function() {
-        return "upload" + Date.now();
-    },
-    onFileUploadStart: function(file) {
+    onFileUploadStart: function(file, req) {
+        if (!req.user)
+            return false; // Not an admin
         console.log("Uploading " + file.originalname);
     },
     onFileUploadComplete: function(file) {
         console.log(file.originalname + " uploaded to " + file.path);
+    },
+    rename: function(fieldname, filename) {
+        return filename + Date.now();
     }
 }));
 
@@ -179,46 +186,24 @@ app.get("/links", function(req, res, next) {
     });
 });
 
-app.get(/^\/resource(\/(forms|policies|progress_scheme|others))?$/, function(req, res, next) {
-    /*
-    var header = "Latest Information";
-    var subtitle = "News";
-    var dir = "/public/resources/" + (req.params[1] || "latest_information") + "/";
-    pages.some(function(e) {
-        if (req.params[1] === e.path) {
-            header = e.header;
-            return subtitle = e.subtitle;
-        } return false;
-    });
-    fs.readdir(__dirname + dir, function(err, files) {
-        if (err) return next(err);
-        files = files.filter(function(e) {
-            return e[0] !== '.';
+app.get("/resource", function(req, res, next) {
+    func.getFiles()
+    .then(function(files) {
+        var category = pages; // Avoid contamination
+        for (var page in category)
+            category[page].filelist = [];
+        files.forEach(function(e) {
+            e.time = moment(e.time).format("DD MMMM YYYY, h:mm:ss a");
+            category[e.category].filelist.push(e);
         });
-        async.map(files, function(item, callback) {
-            fs.stat(__dirname + dir + item, function(err, stats) {
-                if (err) return next(err);
-                callback(null, {
-                    name: item,
-                    size: bytes(stats.size),
-                    time: moment(stats.mtime.getTime()).format("DD MMMM YYYY, h:mm:ss a")
-                });
-            });
-        }, function(err, files) {
-            if (err) return next(err);
-            res.render("resources", {
-                title: "Resources",
-                header_title: header,
-                header_subtitle: subtitle,
-                filelist: files,
-                path: dir.slice(7)
-            });
+        res.render("resources", {
+            title: "Resources",
+            user: req.user,
+            category: category
         });
-    });*/
-    res.render("resources", {
-        title: "Resources",
-        user: req.user,
-        category: category
+    })
+    .fail(function(err) {
+        return next(err);
     });
 });
 
@@ -278,20 +263,32 @@ app.get("/logout", function(req, res, next) {
 
 // Admin
 app.post("/upload", function(req, res, next) {
-
+    if (!req.user)
+        return res.redirect(req.headers.referer || "/");
+    func.addFile(req)
+    .then(function() {
+        res.redirect("/resource");
+    })
+    .fail(function(err) {
+        console.info("Upload failed.");
+        console.error(err.stack);
+        res.redirect("/resource#upload");
+    });
 });
 
 // Others
 app.use(function(req, res, next) {
     res.status(404).render("404", {
+        user: req.user,
         title: "404"
     });
 });
 
 app.use(function(err, req, res, next) {
-    console.error(err);
+    // Perhaps write errors to a file?
+    console.error(err.stack);
     res.status(500).render("500", {
-        error: err,
+        user: req.user,
         title: "500"
     });
 });

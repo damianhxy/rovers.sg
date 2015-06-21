@@ -1,7 +1,12 @@
 <main class="container-fluid">
+    <div class="col-lg-12">
+        <div class="page-header">
+            <span class="h1">Resources <small>Files</small></span>
+        </div>
+    </div>
     <div class="col-lg-3">
         <ul class="nav nav-pills nav-stacked">
-            <li role="presentation" class="active">
+            <li role="presentation">
                 <a href="#info" data-toggle="pill"><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;Latest Information</a>
             </li>
             <li role="presentation">
@@ -24,89 +29,82 @@
     <div class="col-lg-9 tab-content">
         {{#each category}}
         <div id="{{this.name}}" class="tab-pane fade">
-            <div class="page-header">
-                <span class="h1">{{this.title}} <small>{{this.subtitle}}</small></span>
-            </div>
             <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
+                        {{#if ../user}}
+                        <th class="col-lg-3">File Name</th>
+                        <th class="col-lg-3">File Size</th>
+                        <th class="col-lg-3">Last Modified</th>
+                        <th class="col-lg-3">Actions</th>
+                        {{else}}
                         <th class="col-lg-4">File Name</th>
                         <th class="col-lg-4">File Size</th>
                         <th class="col-lg-4">Last Modified</th>
+                        {{/if}}
                     </tr>
                 </thead>
                 <tbody>
                     {{#each this.filelist}}
                     <tr>
                         <td>
-                            <a class="fancybox" href="/files/{{this.name}}" title="{{this.title}}" rel="media"></a>
-                            <i class="fa fa-{{fileType this.name}}"></i>&nbsp;{{this.title}}
+                            <a class="fancybox" href="/files/{{this.name}}" title="{{this.title}}" rel="media">
+                                <i class="fa fa-{{fileType this.name}}"></i>&nbsp;{{this.title}}
+                            </a>
                         </td>
                         <td>{{this.size}}</td>
                         <td>{{this.time}}</td>
+                        {{#if user}}
+                        <td> <!-- Some Buttons Here... --> </td>
+                        {{/if}}
                     </tr>
                     {{/each}}
                 </tbody>
                 <tfoot>
                     <tr>
+                        {{#if ../user}}
+                        <th class="col-lg-3">File Name</th>
+                        <th class="col-lg-3">File Size</th>
+                        <th class="col-lg-3">Last Modified</th>
+                        <th class="col-lg-3">Actions</th>
+                        {{else}}
                         <th class="col-lg-4">File Name</th>
                         <th class="col-lg-4">File Size</th>
                         <th class="col-lg-4">Last Modified</th>
+                        {{/if}}
                     </tr>
                 </tfoot>
-            </table>
+            </table> <!-- /table -->
         </div>
         {{/each}}
         {{#if user}}
-        <div id="upload" class="tab-pane fade">
+        <div id="upload" class="tab-pane fade col-lg-12">
+            <form action="/upload" method="post" accept-charset="UTF-8" role="form" enctype="multipart/form-data">
+                <legend>File Upload</legend>
+                <h4>Title</h4>
+                <input id="filetitle" name="title" class="form-control" type="text" placeholder="File Title" required>
+                <h4>Category</h4>
+                <select name="category" class="form-control" required> <!-- Category -->
+                    <option value="Latest Information">Latest Information</option>
+                    <option value="Forms">Forms</option>
+                    <option value="Policies">Policies</option>
+                    <option value="Progress Scheme">Progress Scheme</option>
+                    <option value="Others">Others</option>
+                </select>
+                <h4>File</h4>
+                <div class="input-group">
+                    <input id="filename" class="form-control" type="text" value="No File Selected." readonly>
+                    <span class="input-group-btn">
+                        <span class="btn btn-info btn-file">
+                            <span>Browse...</span>
+                            <input type="file" name="file" required>
+                        </span>
+                    </span>
+                </div>
+                <h4>Options</h4>
+                <button class="form-control btn btn-success">Upload</button>
+            </form>
         </div>
         {{/if}}
     </div> <!-- /.col-lg-9 -->
-    <!-- div class="col-lg-3">
-        <div class="page-header">
-            <span class="h1">Categories</span>
-        </div>
-        <ul class="shortcuts">
-            <li><a href="/resource">Latest Information</a></li>
-            <li><a href="/resource/forms">Forms</a></li>
-            <li><a href="/resource/policies">Policies</a></li>
-            <li><a href="/resource/progress_scheme">Progress Scheme</a></li>
-            <li><a href="/resource/others">Others</a></li>
-        </ul>
-    </div>
-    <div class="col-lg-9">
-        <div class="page-header">
-            <span class="h1">{{header_title}} <small>{{header_subtitle}}</small></span>
-        </div>
-        <table class="table table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th class="col-lg-4">File Name</th>
-                    <th class="col-lg-4">File Size</th>
-                    <th class="col-lg-4">Last Modified</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#each filelist}}
-                <tr>
-                    <td>
-                        <a class="fancybox" href="{{../path}}{{this.name}}" title="{{this.name}}" rel="media">
-                            <i class="fa fa-{{fileType this.name}}"></i>
-                            {{this.name}}
-                        </a>
-                    </td>
-                    <td>{{this.size}}</td>
-                    <td>{{this.time}}</td>
-                </tr>
-                {{/each}}
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th class="col-lg-4">File Name</th>
-                    <th class="col-lg-4">File Size</th>
-                    <th class="col-lg-4">Last Modified</th>
-                </tr>
-            </tfoot>
-        </table> <!-- /.table -->
-    <!-- /div> <!-- /.col-lg-9 -->
 </main> <!-- /.container -->

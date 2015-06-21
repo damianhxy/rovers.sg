@@ -99,18 +99,14 @@ body {
 }
 
 .banner {
-	height: 128px;
+	height: 100%;
 	margin-top: 20px;
 	width: 100%;
 }
 
-main {
-	margin-top: 20px;
-	margin-bottom: 30px;
-}
-
 footer {
 	background-color: #fb0000;
+	margin-top: 30px;
 	padding-bottom: 8px;
 	padding-top: 8px;
 	text-align: center;
@@ -177,6 +173,28 @@ footer a:hover {
 
 .shortcuts li:last-child {
 	border-bottom: 1px dashed black;
+}
+
+/* File Upload */
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0); /* IE 4 ~ 9 */
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
 }
 
 /* Alerts */

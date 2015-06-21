@@ -25,7 +25,24 @@ $(document).ready(function() {
 				"zeroRecords": "No matching files found"
 			}
 		});
-		$("tab-pane").eq(0).addClass("in active"); // Set first tab to be active
+		// Set first tab to be active
+		$(".nav-pills li:eq(0) a").tab("show");
+
+		// Target tabs by hash
+		var url = document.URL.toString();
+		if (url.match("#"))
+			$(".nav-pills a[href='#" + url.split("#")[1] + "']").tab("show");
+
+		// Change hash
+		$(".nav-pills a").on("show.bs.tab", function(e) {
+			window.location.hash = e.target.hash;
+		});
+
+		// Change uploaded file name text
+		$(document).on("change", ".btn-file :file", function() {
+			var label = $(this).val().replace(/\\/g, '/').replace(/.*\//, '');
+			$("#filename").val(label);
+		});
 	} else // Links || Contact Us
 		$(".table").DataTable({
 			"deferRender": true,
