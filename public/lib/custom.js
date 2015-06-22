@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	// File Size Sorting
 	$.fn.dataTable.ext.type.order["file-size-pre"] = function(e) {
-		var units = e.replace(/[\d\.]/g, '').toLowerCase();
+		var units = e.replace(/[\d\.]/g, '');
 		var map = {
 			"b": 1,
 			"kb": 1 << 10,
@@ -12,13 +12,16 @@ $(document).ready(function() {
 	};
 
 	// Date Sorting
-	$.fn.dataTable.moment("DD MMMM YYYY, h:mm:ss a");
+	$.fn.dataTable.ext.type.order["file-time-pre"] = function(e) {
+		return moment(e).format();
+	};
 
 	// DataTables
 	if (location.pathname.split("/")[1] === "resource") {
 		$(".table").DataTable({
 			"columnDefs": [
 				{ "type": "file-size", "targets": 1 },
+				{ "type": "file-time", "targets": 2 },
 				{ "orderable": false, "targets": "no-sort"}
 			],
 			"order": [[2, "desc"]], // Sort by date first
