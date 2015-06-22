@@ -13,7 +13,7 @@ $(document).ready(function() {
 
 	// Date Sorting
 	$.fn.dataTable.ext.type.order["file-time-pre"] = function(e) {
-		return moment(e).format();
+		return moment(e, "DD MMMM YYYY, h:mm:ss a").format();
 	};
 
 	// DataTables
@@ -31,6 +31,7 @@ $(document).ready(function() {
 				"zeroRecords": "No matching files found"
 			}
 		});
+
 		// Set first tab to be active
 		$(".nav-pills li:eq(0) a").tab("show");
 
@@ -45,10 +46,32 @@ $(document).ready(function() {
 		});
 
 		// Change uploaded file name text
-		$(document).on("change", ".btn-file :file", function() {
+		$(document).change(".btn-file :file", function() {
 			var label = $(this).val().replace(/\\/g, '/').replace(/.*\//, '');
 			$("#filename").val(label);
 			$("#filetitle").val() || $("#filetitle").val(label);
+		});
+
+		// Edit Modal
+		/* Add Toggle, Pointer */
+		$(".edit-btn").click(function() {
+			var fileid = $(this).parent().data("id");
+			$("#edit-" + fileid).editable({
+				type: "text",
+				pk: fileid,
+				name: "title",
+				url: "/edit"
+			});
+		});
+
+		// Delete Modal
+		$("#deleteModal").on("show.bs.modal", function(e) {
+			var data = $(e.relatedTarget).parent();
+			$(this).find(".btn-danger").data("_id", data.data("_id"));
+			$(this).find(".file-name").html("File Name: <strong>" + data.data("original") + "</strong>");
+		});
+		$("#deleteModal .btn-danger").click(function(e) {
+			/* Send DELETE request, delete row */
 		});
 	} else // Links || Contact Us
 		$(".table").DataTable({

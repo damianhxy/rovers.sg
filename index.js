@@ -5,7 +5,6 @@ var express = require("express");
 var func = require("./lib/functions.js");
 var passport = require("passport");
 var localStrategy = require("passport-local");
-var methodOverride = require("method-override");
 var moment = require("./public/lib/moment.js");
 var morgan = require("morgan");
 var multer = require("multer");
@@ -101,7 +100,6 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 app.use(bodyParser.json());
-app.use(methodOverride("X-HTTP-Method-Override"));
 app.use(session({
     secret: SECRET,
     saveUninitialized: true,

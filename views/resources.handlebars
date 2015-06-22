@@ -33,80 +33,39 @@
                 <thead>
                     <tr>
                         {{#if ../user}}
-                        <th class="col-lg-3">File Name</th>
-                        <th class="col-lg-3">File Size</th>
+                        <th class="col-lg-2">Title</th>
+                        <th class="col-lg-2">File</th>
+                        <th class="col-lg-2">File Size</th>
                         <th class="col-lg-3">Last Modified</th>
                         <th class="col-lg-3 no-sort">Actions</th>
                         {{else}}
-                        <th class="col-lg-4">File Name</th>
-                        <th class="col-lg-4">File Size</th>
-                        <th class="col-lg-4">Last Modified</th>
+                        <th class="col-lg-3">Title</th>
+                        <th class="col-lg-3">File</th>
+                        <th class="col-lg-3">File Size</th>
+                        <th class="col-lg-3">Last Modified</th>
                         {{/if}}
                     </tr>
                 </thead>
                 <tbody>
                     {{#each this.filelist}}
                     <tr>
+                        <td><a id="edit-{{this._id}}">{{this.title}}</a></td>
                         <td>
                             <a class="fancybox" href="/files/{{this.name}}" title="{{this.title}}" rel="media">
-                                <i class="fa fa-{{fileType this.name}}"></i>&nbsp;{{this.title}}
+                                <i class="fa fa-{{fileType this.name}}"></i>&nbsp;{{this.original}}
                             </a>
                         </td>
                         <td>{{this.size}}</td>
                         <td>{{this.time}}</td>
                         {{#if ../../user}}
-                        <td>
-                            <a href="#editModal" role="button" class="btn btn-success btn-xs" data-toggle="modal">
+                        <td data-original="{{this.original}}" data-id="{{this._id}}">
+                            <button class="edit-btn btn btn-success btn-xs" role="button">
                                 <i class="fa fa-edit" aria-hidden="true">&nbsp;Edit Details</i>
-                            </a>
+                            </button>
                             <a href="#deleteModal" role="button" class="btn btn-danger btn-xs" data-toggle="modal">
                                 <i class="fa fa-close" aria-hidden="true">&nbsp;Delete File</i>
                             </a>
                         </td>
-                        <!-- x-editable! -->
-                        <div id="editModal" class="modal fade" tabindex="-1" role="dialog">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <i class="fa fa-times" aria-hidden="true"></i>
-                                        </button>
-                                        <h4 class="modal-title">Edit File Details</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <h4>Title</h4>
-                                        <a id="editFileTitle" class="editable editable-click" data-title="Enter Title">File Name</a>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                        <button type="button" class="btn btn-primary">Save Changes</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- deleteModal -->
-                        <div id="deleteModal" class="modal fade" tabindex="-1" role="dialog">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <i class="fa fa-times" aria-hidden="true"></i>
-                                        </button>
-                                        <h4 class="modal-title">Delete File</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p>Are you sure? The file will be permanently deleted.</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                        <button type="button" class="btn btn-danger">Delete</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- deleteModal -->
-                        <div id="deleteModal" class="modal fade">
-                        </div>
                         {{/if}}
                     </tr>
                     {{/each}}
@@ -114,14 +73,16 @@
                 <tfoot>
                     <tr>
                         {{#if ../user}}
-                        <th class="col-lg-3">File Name</th>
+                        <th class="col-lg-2">Title</th>
+                        <th class="col-lg-2">File</th>
+                        <th class="col-lg-2">File Size</th>
+                        <th class="col-lg-3">Last Modified</th>
+                        <th class="col-lg-3 no-sort">Actions</th>
+                        {{else}}
+                        <th class="col-lg-3">Title</th>
+                        <th class="col-lg-3">File</th>
                         <th class="col-lg-3">File Size</th>
                         <th class="col-lg-3">Last Modified</th>
-                        <th class="col-lg-3">Actions</th>
-                        {{else}}
-                        <th class="col-lg-4">File Name</th>
-                        <th class="col-lg-4">File Size</th>
-                        <th class="col-lg-4">Last Modified</th>
                         {{/if}}
                     </tr>
                 </tfoot>
@@ -129,6 +90,27 @@
         </div>
         {{/each}}
         {{#if user}}
+        <!-- deleteModal -->
+        <div id="deleteModal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </button>
+                        <h4 class="modal-title">Delete File</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p class="file-name"></p>
+                        <p>Are you sure? The file will be permanently deleted.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-danger">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div id="upload" class="tab-pane fade col-lg-12">
             <form action="/upload" method="post" accept-charset="UTF-8" role="form" enctype="multipart/form-data">
                 <legend>File Upload</legend>
