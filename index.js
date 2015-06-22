@@ -38,16 +38,14 @@ var app = express();
 passport.use("local-signin", new localStrategy(
     { passReqToCallback: true },
     function(req, username, password, done) {
-        console.info("Signing in...");
-        func.signIn(username, password)
+        return func.signIn(username, password)
         .then(function(user) {
-            console.info("Success!");
-            req.session.success = "Welcome back, " + user.username + "!";
+            // req.session.success = "Welcome back, " + user.username + "!";
             done(null, user);
         })
         .fail(function(err) {
             console.error(err);
-            req.session.error = err;
+            // req.session.error = err;
             done(null, false);
         });
     }
@@ -56,16 +54,14 @@ passport.use("local-signin", new localStrategy(
 passport.use("local-signup", new localStrategy( // Temporary
     { passReqToCallback: true },
     function(req, username, password, done) {
-        console.log("Signing up...");
-        func.signUp(req.body.name, username, password)
+        return func.signUp(req.body.name, username, password)
         .then(function(user) {
-            console.info("Success!");
-            req.session.success = "Welcome, " + user.username + "!";
+            // req.session.success = "Welcome, " + user.username + "!";
             done(null, user);
         })
         .fail(function(err) {
             console.error(err);
-            req.session.error = err;
+            // req.session.error = err;
             done(null, false);
         });
     }
@@ -187,7 +183,7 @@ app.get("/links", function(req, res, next) {
 });
 
 app.get("/resource", function(req, res, next) {
-    func.getFiles()
+    return func.getFiles()
     .then(function(files) {
         var category = pages; // Avoid contamination
         for (var page in category)
@@ -265,7 +261,7 @@ app.get("/logout", function(req, res, next) {
 app.post("/upload", function(req, res, next) {
     if (!req.user)
         return res.redirect(req.headers.referer || "/");
-    func.addFile(req)
+    return func.addFile(req)
     .then(function() {
         res.redirect("/resource");
     })
