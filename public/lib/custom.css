@@ -197,6 +197,11 @@ footer a:hover {
     display: block;
 }
 
+/* File Management */
+.edit-title {
+	cursor: pointer;
+}
+
 /* Alerts */
 /*
 .alert {

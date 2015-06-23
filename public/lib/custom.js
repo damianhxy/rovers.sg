@@ -18,7 +18,7 @@ $(document).ready(function() {
 
 	// DataTables
 	if (location.pathname.split("/")[1] === "resource") {
-		$(".table").DataTable({
+		var table = $(".table").DataTable({
 			"columnDefs": [
 				{ "type": "file-size", "targets": 1 },
 				{ "type": "file-time", "targets": 2 },
@@ -46,32 +46,55 @@ $(document).ready(function() {
 		});
 
 		// Change uploaded file name text
-		$(document).change(".btn-file :file", function() {
+		$(document).on("change", ".btn-file :file", function() {
 			var label = $(this).val().replace(/\\/g, '/').replace(/.*\//, '');
 			$("#filename").val(label);
 			$("#filetitle").val() || $("#filetitle").val(label);
 		});
 
 		// Edit Modal
-		/* Add Toggle, Pointer */
-		$(".edit-btn").click(function() {
-			var fileid = $(this).parent().data("id");
-			$("#edit-" + fileid).editable({
+		$(".edit-title").each(function() {
+			$(this).editable({
 				type: "text",
-				pk: fileid,
+				pk: $(this).attr("id"),
 				name: "title",
-				url: "/edit"
+				url: "/edit",
+				disabled: true
 			});
+		});
+
+		/* Add Toggle */
+		$(".edit-btn").click(function() {
+			$("#" + $(this).parent().data("id")).editable("toggleDisabled");
 		});
 
 		// Delete Modal
 		$("#deleteModal").on("show.bs.modal", function(e) {
 			var data = $(e.relatedTarget).parent();
-			$(this).find(".btn-danger").data("_id", data.data("_id"));
+			$(this).find(".btn-danger").data("id", data.data("id"));
 			$(this).find(".file-name").html("File Name: <strong>" + data.data("original") + "</strong>");
 		});
+
 		$("#deleteModal .btn-danger").click(function(e) {
-			/* Send DELETE request, delete row */
+			$.ajax({
+				method: "POST",
+				url: "/delete",
+				data: {
+					id: $(this).data("id")
+				}
+			})
+			.done(function() {
+				$("#deleteModal").modal("hide");
+				table
+				.row($("#" + $(e.target).data("id")).parent().parent())
+				.remove()
+				.draw();
+			})
+			.fail(function(err) {
+				/* Error */
+				$("#deleteModal").modal("hide");
+				alert("An error occured");
+			});
 		});
 	} else // Links || Contact Us
 		$(".table").DataTable({

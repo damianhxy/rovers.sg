@@ -269,6 +269,34 @@ app.post("/upload", function(req, res, next) {
         res.redirect("/resource#upload");
     });
 });
+/* Note: Causes error "no element found" in FF as a result of an empty response body */
+app.post("/edit", function(req, res, next) {
+    if (!req.user)
+        return res.status(400).end();
+    return func.editFile(req.body.pk, req.body.name, req.body.value)
+    .then(function() {
+        return res.end();
+    })
+    .fail(function(err) {
+        console.info("Edit failed.");
+        console.error(err.stack);
+        res.status(400).end();
+    });
+});
+
+app.post("/delete", function(req, res, next) {
+    if (!req.user)
+        return res.status(400).end();
+    return func.deleteFile(req.body.id)
+    .then(function() {
+        return res.end();
+    })
+    .fail(function(err) {
+        console.info("Delete failed.");
+        console.error(err.stack);
+        res.status(400).end();
+    });
+});
 
 // Others
 app.use(function(req, res, next) {

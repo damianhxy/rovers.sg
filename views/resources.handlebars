@@ -49,7 +49,7 @@
                 <tbody>
                     {{#each this.filelist}}
                     <tr>
-                        <td><a id="edit-{{this._id}}">{{this.title}}</a></td>
+                        <td><a id="{{this._id}}" class="edit-title">{{this.title}}</a></td>
                         <td>
                             <a class="fancybox" href="/files/{{this.name}}" title="{{this.title}}" rel="media">
                                 <i class="fa fa-{{fileType this.name}}"></i>&nbsp;{{this.original}}
@@ -60,10 +60,10 @@
                         {{#if ../../user}}
                         <td data-original="{{this.original}}" data-id="{{this._id}}">
                             <button class="edit-btn btn btn-success btn-xs" role="button">
-                                <i class="fa fa-edit" aria-hidden="true">&nbsp;Edit Details</i>
+                                <i class="fa fa-edit" aria-hidden="true">&nbsp;Edit</i>
                             </button>
                             <a href="#deleteModal" role="button" class="btn btn-danger btn-xs" data-toggle="modal">
-                                <i class="fa fa-close" aria-hidden="true">&nbsp;Delete File</i>
+                                <i class="fa fa-close" aria-hidden="true">&nbsp;Delete</i>
                             </a>
                         </td>
                         {{/if}}
