@@ -39,12 +39,12 @@ passport.use("local-signin", new localStrategy(
     function(req, username, password, done) {
         return func.signIn(username, password)
         .then(function(user) {
-            // req.session.success = "Welcome back, " + user.username + "!";
+            req.session.success = "Welcome back, " + user.username + "!";
             done(null, user);
         })
         .fail(function(err) {
             console.error(err);
-            // req.session.error = err;
+            req.session.error = err;
             done(null, false);
         });
     }
@@ -55,12 +55,12 @@ passport.use("local-signup", new localStrategy( // Temporary
     function(req, username, password, done) {
         return func.signUp(req.body.name, username, password)
         .then(function(user) {
-            // req.session.success = "Welcome, " + user.username + "!";
+            req.session.success = "Welcome, " + user.username + "!";
             done(null, user);
         })
         .fail(function(err) {
             console.error(err);
-            // req.session.error = err;
+            req.session.error = err;
             done(null, false);
         });
     }
@@ -128,7 +128,7 @@ app.use(multer({
     dest: "./public/files",
     onFileUploadStart: function(file, req) {
         if (!req.user)
-            return false; // Not an admin
+            return false;
         console.log("Uploading " + file.originalname);
     },
     onFileUploadComplete: function(file) {
@@ -142,7 +142,7 @@ app.use(multer({
 // Routes
 // Message middleware
 app.use(function(req, res, next) {
-    ["error", "notice", "success"].forEach(function(e) {
+    ["success", "error"].forEach(function(e) {
         if (req.session[e]) {
             res.locals[e] = req.session[e];
             delete req.session[e];
@@ -183,7 +183,7 @@ app.get("/links", function(req, res, next) {
 app.get("/resource", function(req, res, next) {
     return func.getFiles()
     .then(function(files) {
-        var category = pages; // Avoid contamination
+        var category = pages;
         for (var page in category)
             category[page].filelist = [];
         files.forEach(function(e) {
@@ -251,20 +251,22 @@ app.post("/signup", function(req, res, next) {
 });
 
 app.get("/logout", function(req, res, next) {
+    req.session.success = "Successfully logged out.";
     req.logout();
     res.redirect(req.headers.referer || "/");
 });
 
-// Admin
+// File Management
 app.post("/upload", function(req, res, next) {
     if (!req.user)
         return res.redirect(req.headers.referer || "/");
     return func.addFile(req)
     .then(function() {
+        req.session.success = "File uploaded";
         res.redirect("/resource");
     })
     .fail(function(err) {
-        console.info("Upload failed.");
+        req.session.error = err;
         console.error(err.stack);
         res.redirect("/resource#upload");
     });
@@ -278,7 +280,6 @@ app.post("/edit", function(req, res, next) {
         return res.end();
     })
     .fail(function(err) {
-        console.info("Edit failed.");
         console.error(err.stack);
         res.status(400).end();
     });
@@ -292,11 +293,17 @@ app.post("/delete", function(req, res, next) {
         return res.end();
     })
     .fail(function(err) {
-        console.info("Delete failed.");
         console.error(err.stack);
         res.status(400).end();
     });
 });
+
+// Admin
+app.get("/profile/:username", function(req, res, next) {
+    if (!req.user)
+        return res.status(400).redirect(req.headers.referer || "/");
+    /* Render Page */
+})
 
 // Others
 app.use(function(req, res, next) {

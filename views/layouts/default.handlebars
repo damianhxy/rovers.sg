@@ -7,7 +7,7 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<title>{{title}} | Rover.sg</title>
-	<link rel="author" type="text/plain" href="/humans.txt">
+	<link rel="author" href="/humans.txt">
 	<link rel="shortcut icon" href="/media/favicon.ico" type="image/x-icon">
 	<link rel="apple-touch-icon" href="/media/favicon.ico" type="image/x-icon">
 	<script src="/lib/pace/pace.min.js"></script>
@@ -17,8 +17,10 @@
 	<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap-theme.min.css">
 	<link rel="stylesheet" href="/lib/fancyBox/jquery.fancybox.css">
-	<link rel="stylesheet" href="/lib/DataTables/dataTables.bootstrap.css">
+	<link rel="stylesheet" href="/lib/dataTables/dataTables.bootstrap.css">
 	<link rel="stylesheet" href="/lib/x-editable/css/bootstrap-editable.css">
+	<link rel="stylesheet" href="/lib/messenger/css/messenger.css">
+	<link rel="stylesheet" href="/lib/messenger/css/messenger-theme-future.css">
 	<link rel="stylesheet" href="/lib/custom.css">
 </head>
 <body>
@@ -64,7 +66,7 @@
 				{{#if user}}
 					<p class="navbar-text">
 						<span>Signed in as </span>
-						<a href="/panel/{{user.username}}" class="navbar-link">{{user.username}}</a>
+						<a href="/profile/{{user.username}}" class="navbar-link">{{user.username}}</a>
 					</p>
 					<li>
 						<a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Sign Out</a>
@@ -175,10 +177,33 @@
 	<!-- <![endif]-->
 	<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
 	<script src="/lib/fancyBox/jquery.fancybox.pack.js"></script>
-	<script src="/lib/DataTables/media/js/jquery.dataTables.min.js"></script>
+	<script src="/lib/dataTables/media/js/jquery.dataTables.min.js"></script>
 	<script src="/lib/moment.js"></script>
-	<script src="/lib/DataTables/dataTables.bootstrap.min.js"></script>
+	<script src="/lib/dataTables/dataTables.bootstrap.min.js"></script>
 	<script src="/lib/x-editable/js/bootstrap-editable.min.js"></script>
+	<script src="/lib/messenger/js/messenger.min.js"></script>
+	<script src="/lib/messenger/js/messenger-theme-future.js"></script>
+	<script>
+		Messenger.options = {
+			extraClasses: "messenger-fixed messenger-on-bottom messenger-on-left",
+			messageDefaults: {
+				hideAfter: 5,
+				showCloseButton: true
+			}
+		};
+		{{#if success}}
+		Messenger().success({
+			message: "{{success}}",
+			id: "session"
+		});
+		{{/if}}
+		{{#if error}}
+		Messenger().error({
+			message: "{{error}}",
+			id: "session"
+		});
+		{{/if}}
+	</script>
 	<script src="/lib/custom.js"></script>
 	<!-- /PAGE FOOTER -->
 </body>

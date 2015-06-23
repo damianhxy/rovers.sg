@@ -20,11 +20,11 @@ $(document).ready(function() {
 	if (location.pathname.split("/")[1] === "resource") {
 		var table = $(".table").DataTable({
 			"columnDefs": [
-				{ "type": "file-size", "targets": 1 },
-				{ "type": "file-time", "targets": 2 },
+				{ "type": "file-size", "targets": 2 },
+				{ "type": "file-time", "targets": 3 },
 				{ "orderable": false, "targets": "no-sort"}
 			],
-			"order": [[2, "desc"]], // Sort by date first
+			"order": [[3, "desc"]], // Sort by date first
 			"deferRender": true,
 			"language": {
 				"emptyTable": "No files found",
@@ -85,15 +85,20 @@ $(document).ready(function() {
 			})
 			.done(function() {
 				$("#deleteModal").modal("hide");
+				Messenger().success({
+					message: "Deleted file",
+					id: "page"
+				});
 				table
 				.row($("#" + $(e.target).data("id")).parent().parent())
 				.remove()
 				.draw();
 			})
 			.fail(function(err) {
-				/* Error */
-				$("#deleteModal").modal("hide");
-				alert("An error occured");
+				Messenger().error({
+				    message: "Failed to delete file",
+				    id: "page"
+				});
 			});
 		});
 	} else // Links || Contact Us
@@ -110,7 +115,4 @@ $(document).ready(function() {
 
 	// Active Links
 	$("nav a[href='" + location.pathname + "']").parent().addClass("active");
-
-	// Alerts
-	/* Code */
 });
