@@ -48,11 +48,14 @@
                     <span class="h2">Resources</span>
                 </div>
                 <ul>
-                    <li class="h3"><a href="/resources#info">Latest Information</a></li>
-                    <li class="h3"><a href="/resources#forms">Forms</a></li>
-                    <li class="h3"><a href="/resources#policies">Policies</a></li>
-                    <li class="h3"><a href="/resources#scheme">Progress Scheme</a></li>
-                    <li class="h3"><a href="/resources#others">Others</a></li>
+                    <li class="h3"><a href="/resource#info">Latest Information</a></li>
+                    <li class="h3"><a href="/resource#forms">Forms</a></li>
+                    <li class="h3"><a href="/resource#policies">Policies</a></li>
+                    <li class="h3"><a href="/resource#scheme">Progress Scheme</a></li>
+                    <li class="h3"><a href="/resource#others">Others</a></li>
+                    {{#if user}}
+                    <li class="h3"><a href="/resource#upload">Upload</a></li>
+                    {{/if}}
                 </ul>
             </div>
             <div class="col-lg-4">

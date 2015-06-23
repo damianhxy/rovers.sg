@@ -146,35 +146,6 @@ footer a:hover {
 	margin-top: 2px;
 }
 
-/* Shortcuts */
-
-.shortcuts {
-	font-size: 22px;
-	list-style-type: none;
-}
-
-.shortcuts li {
-	border-top: 1px dashed black;
-	padding-bottom: 5px;
-	padding-top: 5px;
-}
-
-.shortcuts li a:not(.highlight) {
-	color: #000;
-    -webkit-transition: color 0.2s ease 0s;
-            transition: color 0.2s ease 0s;
-}
-
-.shortcuts li .highlight,
-.shortcuts li a:hover {
-	color: #FB0000;
-	text-decoration: none;
-}
-
-.shortcuts li:last-child {
-	border-bottom: 1px dashed black;
-}
-
 /* File Upload */
 .btn-file {
     position: relative;
@@ -201,25 +172,6 @@ footer a:hover {
 .edit-title {
 	cursor: pointer;
 }
-
-/* Alerts */
-/*
-.alert {
-
-}
-
-.alert.success {
-	background-color:;
-}
-
-.alert.error {
-	background-color:;
-}
-
-.alert.hidden {
-
-}
-*/
 
 /* Misc */
 .anchor {
