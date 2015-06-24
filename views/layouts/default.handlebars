@@ -60,13 +60,15 @@
 					<li>
 						<a href="/join"><i class="fa fa-paper-plane"></i>&nbsp;Join Us</a>
 					</li>
+					{{#if user}}
+					<li>
+						<a href="/profile"><i class="fa fa-user"></i>&nbsp;Profile</a>
+					</li>
+					{{/if}}
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 				{{#if user}}
-					<p class="navbar-text">
-						<span>Signed in as </span>
-						<a href="/profile/{{user.username}}" class="navbar-link">{{user.username}}</a>
-					</p>
+					<p class="navbar-text">Signed in as {{user.username}}</p>
 					<li>
 						<a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Sign Out</a>
 					</li>

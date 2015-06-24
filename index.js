@@ -258,8 +258,14 @@ app.get("/logout", function(req, res, next) {
 
 // File Management
 app.post("/upload", function(req, res, next) {
-    if (!req.user)
-        return res.redirect(req.headers.referer || "/");
+    if (!req.user) {
+        req.session.error = "Unauthorised to upload";
+        return res.status(401).redirect(req.headers.referer || "/");
+    }
+    if (!req.files.file) {
+        req.session.error = "Please select a file";
+        return res.status(400).redirect(req.headers.referer || "/");
+    }
     return func.addFile(req)
     .then(function() {
         req.session.success = "File uploaded";
@@ -271,45 +277,54 @@ app.post("/upload", function(req, res, next) {
         res.redirect("/resource#upload");
     });
 });
-/* Note: Causes error "no element found" in FF as a result of an empty response body */
+/* "no element found" in FF as a result of an empty response body */
 app.post("/edit", function(req, res, next) {
-    if (!req.user)
-        return res.status(400).end();
+    if (!req.user) {
+        req.session.error = "Unauthorised to edit";
+        return res.status(401).redirect(req.headers.referer || "/");
+    }
     return func.editFile(req.body.pk, req.body.name, req.body.value)
     .then(function() {
         return res.end();
     })
     .fail(function(err) {
+        req.session.error = err;
         console.error(err.stack);
         res.status(400).end();
     });
 });
 
 app.post("/delete", function(req, res, next) {
-    if (!req.user)
-        return res.status(400).end();
+    if (!req.user) {
+        req.session.error = "Unauthorised to delete";
+        return res.status(401).redirect(req.headers.referer || "/");
+    }
     return func.deleteFile(req.body.id)
     .then(function() {
         return res.end();
     })
     .fail(function(err) {
+        req.session.error = err;
         console.error(err.stack);
         res.status(400).end();
     });
 });
 
 // Admin
-app.get("/profile/:username", function(req, res, next) {
+app.get("/profile", function(req, res, next) {
     if (!req.user)
-        return res.status(400).redirect(req.headers.referer || "/");
-    /* Render Page */
+        return res.status(401).end();
+    return res.render("profile", {
+        title: "Profile",
+        user: req.user
+    });
 })
 
 // Others
 app.use(function(req, res, next) {
     res.status(404).render("404", {
-        user: req.user,
-        title: "404"
+        title: "404",
+        user: req.user
     });
 });
 
@@ -317,8 +332,8 @@ app.use(function(err, req, res, next) {
     // Perhaps write errors to a file?
     console.error(err.stack);
     res.status(500).render("500", {
-        user: req.user,
-        title: "500"
+        title: "500",
+        user: req.user
     });
 });
 

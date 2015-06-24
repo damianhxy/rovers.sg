@@ -90,6 +90,52 @@
         </div>
         {{/each}}
         {{#if user}}
+        <div id="upload" class="tab-pane fade">
+            <form class="form-horizontal" action="/upload" method="post" accept-charset="UTF-8" role="form" enctype="multipart/form-data">
+                <legend>File Upload</legend>
+                <div class="form-group">
+                    <span class="col-lg-2 control-label">Title</span>
+                    <div class="col-lg-10">
+                        <input id="fileTitle" name="title" class="form-control" type="text" placeholder="File Title" required>
+                    </div>
+                </div> <!-- /.form-group -->
+                <div class="form-group">
+                    <span class="col-lg-2 control-label">Category</span>
+                    <div class="col-lg-10">
+                        <select name="category" class="form-control" required>
+                            <option value="Latest Information">Latest Information</option>
+                            <option value="Forms">Forms</option>
+                            <option value="Policies">Policies</option>
+                            <option value="Progress Scheme">Progress Scheme</option>
+                            <option value="Others">Others</option>
+                        </select>
+                    </div> <!-- /.col-lg-10 -->
+                </div> <!-- /.form-group -->
+                <div class="form-group">
+                    <span class="col-lg-2 control-label">File</span>
+                    <div class="col-lg-10">
+                        <div class="input-group">
+                            <input id="fileName" class="form-control" type="text" value="No File Selected." readonly>
+                            <span class="input-group-btn">
+                                <span class="btn btn-info btn-file">
+                                    <span>Browse...</span>
+                                    <input type="file" name="file">
+                                </span>
+                            </span>
+                        </div>
+                    </div> <!-- /.col-lg-10 -->
+                </div> <!-- /.form-group -->
+                <div class="form-group">
+                    <span class="col-lg-2 control-label">Actions</span>
+                    <div class="col-lg-10">
+                        <div class="btn-group" role="group">
+                            <button type="submit" class="btn btn-success">Upload</button>
+                            <button type="reset" class="btn btn-danger">Clear</button>
+                        </div> <!-- /.btn-group -->
+                    </div> <!-- /.col-lg-10 -->
+                </div> <!-- /.form-group -->
+            </form>
+        </div>
         <!-- deleteModal -->
         <div id="deleteModal" class="modal fade" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
@@ -101,7 +147,7 @@
                         <h4 class="modal-title">Delete File</h4>
                     </div>
                     <div class="modal-body">
-                        <p class="file-name"></p>
+                        <p id="modalFileName"></p>
                         <p>Are you sure? The file will be permanently deleted.</p>
                     </div>
                     <div class="modal-footer">
@@ -111,34 +157,6 @@
                 </div>
             </div>
         </div>
-        <div id="upload" class="tab-pane fade col-lg-12">
-            <form action="/upload" method="post" accept-charset="UTF-8" role="form" enctype="multipart/form-data">
-                <legend>File Upload</legend>
-                <h4>Title</h4>
-                <input id="filetitle" name="title" class="form-control" type="text" placeholder="File Title" required>
-                <h4>Category</h4>
-                <select name="category" class="form-control" required>
-                    <option value="Latest Information">Latest Information</option>
-                    <option value="Forms">Forms</option>
-                    <option value="Policies">Policies</option>
-                    <option value="Progress Scheme">Progress Scheme</option>
-                    <option value="Others">Others</option>
-                </select>
-                <h4>File</h4>
-                <div class="input-group">
-                    <input id="filename" class="form-control" type="text" value="No File Selected." readonly>
-                    <span class="input-group-btn">
-                        <span class="btn btn-info btn-file">
-                            <span>Browse...</span>
-                            <input type="file" name="file" required>
-                        </span>
-                    </span>
-                </div>
-                <br>
-                <button type="submit" class="btn btn-success">Upload</button>
-                <button type="reset" class="btn btn-danger">Clear</button>
-            </form>
-        </div> <!-- /.col-lg-12 -->
         {{/if}}
-    </div> <!-- /.col-lg-9 -->
+        </div> <!-- /.col-lg-9 -->
 </main> <!-- /.container -->

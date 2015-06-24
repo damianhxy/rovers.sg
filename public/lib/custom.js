@@ -48,8 +48,8 @@ $(document).ready(function() {
 		// Change uploaded file name text
 		$(document).on("change", ".btn-file :file", function() {
 			var label = $(this).val().replace(/\\/g, '/').replace(/.*\//, '');
-			$("#filename").val(label);
-			$("#filetitle").val() || $("#filetitle").val(label);
+			$("#fileName").val(label);
+			$("#fileTitle").val() || $("#fileTitle").val(label);
 		});
 
 		// Edit Modal
@@ -63,7 +63,6 @@ $(document).ready(function() {
 			});
 		});
 
-		/* Add Toggle */
 		$(".edit-btn").click(function() {
 			$("#" + $(this).parent().data("id")).editable("toggleDisabled");
 		});
@@ -72,7 +71,7 @@ $(document).ready(function() {
 		$("#deleteModal").on("show.bs.modal", function(e) {
 			var data = $(e.relatedTarget).parent();
 			$(this).find(".btn-danger").data("id", data.data("id"));
-			$(this).find(".file-name").html("File Name: <strong>" + data.data("original") + "</strong>");
+			$("#modalFileName").html("File Name: <strong>" + data.data("original") + "</strong>");
 		});
 
 		$("#deleteModal .btn-danger").click(function(e) {
