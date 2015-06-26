@@ -2,18 +2,19 @@ var bodyParser = require("body-parser");
 var cookieParser = require("cookie-parser");
 var exphbs = require("express-handlebars");
 var express = require("express");
+var fs = require("fs");
 var func = require("./lib/functions.js");
-var passport = require("passport");
 var localStrategy = require("passport-local");
 var moment = require("./public/lib/moment.js");
 var morgan = require("morgan");
 var multer = require("multer");
-var nedb = require("nedb");
+var passport = require("passport");
 var session = require("express-session");
 
 // Constants
 var PORT = 8080;
 var SECRET = "roversingapore";
+var FILE_SIZE_LIMIT = 25;
 
 // Resources Page
 var pages = {
@@ -39,28 +40,28 @@ passport.use("local-signin", new localStrategy(
     function(req, username, password, done) {
         return func.signIn(username, password)
         .then(function(user) {
-            req.session.success = "Welcome back, " + user.username + "!";
+            req.session.success = "Welcome back, " + user.username + ".";
             done(null, user);
         })
         .fail(function(err) {
-            console.error(err);
-            req.session.error = err;
+            console.error(err.stack);
+            req.session.error = "Error encountered while signing in.";
             done(null, false);
         });
     }
 ));
 
-passport.use("local-signup", new localStrategy( // Temporary
+passport.use("local-signup", new localStrategy(
     { passReqToCallback: true },
     function(req, username, password, done) {
         return func.signUp(req.body.name, username, password)
         .then(function(user) {
-            req.session.success = "Welcome, " + user.username + "!";
+            req.session.success = "Welcome, " + user.username + ".";
             done(null, user);
         })
         .fail(function(err) {
-            console.error(err);
-            req.session.error = err;
+            console.error(err.stack);
+            req.session.error = "Error encountered while signing up.";
             done(null, false);
         });
     }
@@ -68,12 +69,25 @@ passport.use("local-signup", new localStrategy( // Temporary
 
 // Session
 passport.serializeUser(function(user, done) {
-    done(null, user);
+    done(null, user._id);
 });
 
-passport.deserializeUser(function(user, done) {
-    done(null, user);
+passport.deserializeUser(function(id, done) {
+    func.findUser(id)
+    .then(function(user) {
+        done(null, user);
+    })
+    .fail(function(err) {
+        done(err, false);
+    });
 });
+
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated())
+        return next();
+    req.session.error = "Unauthorised.";
+    res.status(401).redirect("/");
+}
 
 // Handlebars
 var hbs = exphbs.create({
@@ -81,11 +95,10 @@ var hbs = exphbs.create({
 	helpers: {
 		fileType: function(file) {
 			var icon = "file-o";
-			files.some(function(e) {
-				if (RegExp(e.pattern).test(file.split(".").pop()))
-					return icon = "file-" + e.icon + "-o";
-				return false;
-			});
+            files.forEach(function(e) {
+                if (RegExp(e.pattern).test(file.split(".").pop()))
+                    icon = "file-" + e.icon + "-o";
+            });
 			return icon;
 		}
 	}
@@ -126,6 +139,11 @@ app.use(morgan("[:date] :method :url :status :res[content-length] - :remote-addr
 // File uploading
 app.use(multer({
     dest: "./public/files",
+    limits: {
+        files: 1,
+        fileSize: FILE_SIZE_LIMIT * 1048576
+    },
+    putSingleFilesInArray: true,
     onFileUploadStart: function(file, req) {
         if (!req.user)
             return false;
@@ -136,6 +154,14 @@ app.use(multer({
     },
     rename: function(fieldname, filename) {
         return filename + Date.now();
+    },
+    onError: function(err, next) {
+        console.error(err.stack);
+        next(err);
+    },
+    onFileSizeLimit: function(file) {
+        console.error("File size limit exceeded: " + file.originalname);
+        fs.unlink("./" + file.path);
     }
 }));
 
@@ -181,15 +207,20 @@ app.get("/links", function(req, res, next) {
 });
 
 app.get("/resource", function(req, res, next) {
-    return func.getFiles()
+    func.getFiles()
     .then(function(files) {
         var category = pages;
-        for (var page in category)
-            category[page].filelist = [];
+        var page;
+        for (page in category)
+            if (category.hasOwnProperty(page))
+                category[page].filelist = [];
         files.forEach(function(e) {
-            e.time = moment(e.time).format("DD MMMM YYYY, h:mm:ss a");
+            e.formattedTime = moment(e.time).format("DD MMMM YYYY, h:mm:ss a");
             category[e.category].filelist.push(e);
         });
+        for (page in category)
+            if (category.hasOwnProperty(page))
+                category[page].isEmpty = !category[page].filelist.length;
         res.render("resources", {
             title: "Resources",
             user: req.user,
@@ -197,7 +228,7 @@ app.get("/resource", function(req, res, next) {
         });
     })
     .fail(function(err) {
-        return next(err);
+        next(err);
     });
 });
 
@@ -235,57 +266,53 @@ app.post("/signin", function(req, res, next) {
         if (err) return next(err);
         req.login(user, function(err) {
             if (err) return next(err);
-            return res.redirect(req.headers.referer || "/");
+            res.redirect(req.headers.referer || "/");
         });
     })(req, res, next);
 });
 
 app.post("/signup", function(req, res, next) {
+    /*
     passport.authenticate("local-signup", function(err, user, info) {
         if (err) return next(err);
         req.login(user, function(err) {
             if (err) return next(err);
-            return res.redirect(req.headers.referer || "/");
+            res.redirect(req.headers.referer || "/");
         });
     })(req, res, next);
+    */
+    req.session.error = "There is no signup.";
+    res.redirect(req.headers.referer || "/");
 });
 
 app.get("/logout", function(req, res, next) {
-    req.session.success = "Successfully logged out.";
     req.logout();
     res.redirect(req.headers.referer || "/");
 });
 
 // File Management
-app.post("/upload", function(req, res, next) {
-    if (!req.user) {
-        req.session.error = "Unauthorised to upload";
-        return res.status(401).redirect(req.headers.referer || "/");
-    }
+app.post("/upload", ensureAuthenticated, function(req, res, next) {
     if (!req.files.file) {
-        req.session.error = "Please select a file";
-        return res.status(400).redirect(req.headers.referer || "/");
+        req.session.error = "Please select a file.";
+        res.status(400).redirect("/resource#upload");
     }
-    return func.addFile(req)
+    func.addFile(req)
     .then(function() {
-        req.session.success = "File uploaded";
-        res.redirect("/resource");
+        req.session.success = "File uploaded.";
     })
     .fail(function(err) {
         req.session.error = err;
         console.error(err.stack);
+    })
+    .fin(function() {
         res.redirect("/resource#upload");
     });
 });
 /* "no element found" in FF as a result of an empty response body */
-app.post("/edit", function(req, res, next) {
-    if (!req.user) {
-        req.session.error = "Unauthorised to edit";
-        return res.status(401).redirect(req.headers.referer || "/");
-    }
-    return func.editFile(req.body.pk, req.body.name, req.body.value)
+app.post("/edit", ensureAuthenticated, function(req, res, next) {
+    func.editFile(req.body.pk, req.body.name, req.body.value)
     .then(function() {
-        return res.end();
+        res.end();
     })
     .fail(function(err) {
         req.session.error = err;
@@ -294,14 +321,10 @@ app.post("/edit", function(req, res, next) {
     });
 });
 
-app.post("/delete", function(req, res, next) {
-    if (!req.user) {
-        req.session.error = "Unauthorised to delete";
-        return res.status(401).redirect(req.headers.referer || "/");
-    }
-    return func.deleteFile(req.body.id)
+app.post("/delete", ensureAuthenticated, function(req, res, next) {
+    func.deleteFile(req.body.id)
     .then(function() {
-        return res.end();
+        res.end();
     })
     .fail(function(err) {
         req.session.error = err;
@@ -311,28 +334,29 @@ app.post("/delete", function(req, res, next) {
 });
 
 // Admin
-app.get("/profile", function(req, res, next) {
-    if (!req.user)
-        return res.status(401).end();
-    return res.render("profile", {
+app.get("/profile", ensureAuthenticated, function(req, res, next) {
+    res.render("profile", {
         title: "Profile",
         user: req.user
     });
-})
+});
+
+app.post("/updatePassword", ensureAuthenticated, function(req, res, next) {
+    /* Code */
+});
 
 // Others
 app.use(function(req, res, next) {
     res.status(404).render("404", {
-        title: "404",
+        title: "Page Not Found",
         user: req.user
     });
 });
 
 app.use(function(err, req, res, next) {
-    // Perhaps write errors to a file?
     console.error(err.stack);
     res.status(500).render("500", {
-        title: "500",
+        title: "Internal Server Error",
         user: req.user
     });
 });

@@ -7,24 +7,23 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<title>{{title}} | Rover.sg</title>
+	<script src="/lib/pace/pace.min.js"></script>
+	<link rel="stylesheet" href="/lib/pace/minimal.css">
 	<link rel="author" href="/humans.txt">
 	<link rel="shortcut icon" href="/media/favicon.ico" type="image/x-icon">
 	<link rel="apple-touch-icon" href="/media/favicon.ico" type="image/x-icon">
-	<script src="/lib/pace/pace.min.js"></script>
-	<link rel="stylesheet" href="/lib/pace/minimal.css">
-	<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
-	<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap-theme.min.css">
-	<link rel="stylesheet" href="/lib/fancyBox/jquery.fancybox.css">
-	<link rel="stylesheet" href="/lib/dataTables/dataTables.bootstrap.css">
+	<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/lib/lightbox/ekko-lightbox.min.css">
+	<link rel="stylesheet" href="/lib/pnotify/pnotify.custom.min.css">
+	<link rel="stylesheet" href="/lib/sortable/sortable-theme-bootstrap.css">
 	<link rel="stylesheet" href="/lib/x-editable/css/bootstrap-editable.css">
-	<link rel="stylesheet" href="/lib/messenger/css/messenger.css">
-	<link rel="stylesheet" href="/lib/messenger/css/messenger-theme-flat.css">
 	<link rel="stylesheet" href="/lib/custom.css">
 </head>
 <body>
 	<!-- NAVBAR -->
-	<nav class="navbar navbar-default navbar-fixed-top"> <!-- Navbar collapsing in segments intended -->
+	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -80,19 +79,20 @@
 						</a>
 						<div class="dropdown-menu">
 							<form action="/signin" method="post" accept-charset="UTF-8" role="form">
-								<legend>Sign In</legend>
 								<div class="form-group">
 									<label class="sr-only" for="username">Username</label>
-									<input id="username" name="username" class="form-control" type="text" placeholder="Username">
+									<input id="username" name="username" class="form-control" type="text" placeholder="Username" required>
 								</div>
 								<div class="form-group">
 									<label class="sr-only" for="password">Password</label>
-									<input id="password" name="password" class="form-control" type="password" placeholder="Password">
+									<input id="password" name="password" class="form-control" type="password" placeholder="Password" required>
 								</div>
 								<button type="submit" class="form-control btn btn-primary">Login</button>
 							</form>
 						</div>
 					</li>
+					{{!--
+					<!-- For development purposes, hidden from public -->
 					<li class="dropdown">
 						<a class="dropdown-toggle" href="#" data-toggle="dropdown">
 							<i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;Sign Up
@@ -100,18 +100,17 @@
 						</a>
 						<div class="dropdown-menu">
 							<form action="/signup" method="post" accept-charset="UTF-8" role="form">
-								<legend>Sign Up</legend>
 								<div class="form-group">
 									<label class="sr-only" for="username">Name</label>
-									<input id="name" name="name" class="form-control" type="text" placeholder="Name">
+									<input id="name" name="name" class="form-control" type="text" placeholder="Name" required>
 								</div>
 								<div class="form-group">
 									<label class="sr-only" for="username">Username</label>
-									<input id="username" name="username" class="form-control" type="text" placeholder="Username">
+									<input id="username" name="username" class="form-control" type="text" placeholder="Username" required>
 								</div>
 								<div class="form-group">
 									<label class="sr-only" for="password">Password</label>
-									<input id="password" name="password" class="form-control" type="password" placeholder="Password">
+									<input id="password" name="password" class="form-control" type="password" placeholder="Password" required>
 								</div>
 								<div class="form-group">
 									<button type="submit" class="form-control btn btn-primary">Sign Up</button>
@@ -119,6 +118,7 @@
 							</form>
 						</div>
 					</li>
+					--}}
 				{{/if}}
 				</ul> <!-- /.navbar-right -->
 			</div> <!-- /.navbar-collapse -->
@@ -127,13 +127,13 @@
 	<!-- /NAVBAR -->
 	<!-- BANNERS -->
 	<header class="container-fluid">
-		<a class="fancybox" rel="banner" href="/media/Sample Banner.png" title="Placeholder Banner">
-			<div class="col-lg-6">
+		<a data-toggle="lightbox" href="/media/Sample Banner.png" data-title="Placeholder Banner">
+			<div class="col-md-6">
 				<img class="banner" alt="Placeholder Banner" src="/media/Sample Banner.png">
 			</div>
 		</a>
-		<a class="fancybox" rel="banner" href="/media/Sample Banner.png" title="Placeholder Banner">
-			<div class="col-lg-6">
+		<a data-toggle="lightbox" href="/media/Sample Banner.png" data-title="Placeholder Banner">
+			<div class="col-md-6">
 				<img class="banner" alt="Placeholder Banner" src="/media/Sample Banner.png">
 			</div>
 		</a>
@@ -168,43 +168,34 @@
 			</p>
 		</div> <!-- /.container -->
 	</footer> <!-- /.footer -->
-	<!--[if lte IE8]>
-	<script src="/lib/jquery-1.11.3.min.js"></script>
-	<script src="/lib/html5shiv/html5shiv.min.js"></script>
-	<script src="/lib/html5shiv/html5shiv-printshiv.min.js"></script>
-	<![endif]-->
-	<!--[if gt IE8]> -->
 	<script src="/lib/jquery-2.1.4.min.js"></script>
-	<!-- <![endif]-->
 	<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
-	<script src="/lib/fancyBox/jquery.fancybox.pack.js"></script>
+	<script src="/lib/lightbox/ekko-lightbox.min.js"></script>
 	<script src="/lib/dataTables/media/js/jquery.dataTables.min.js"></script>
 	<script src="/lib/moment.js"></script>
-	<script src="/lib/dataTables/dataTables.bootstrap.min.js"></script>
 	<script src="/lib/x-editable/js/bootstrap-editable.min.js"></script>
-	<script src="/lib/messenger/js/messenger.min.js"></script>
-	<script>
-		Messenger.options = {
-			extraClasses: "messenger-fixed messenger-on-bottom messenger-on-left",
-			theme: "flat",
-			messageDefaults: {
-				hideAfter: 5,
-				showCloseButton: true
-			}
-		};
-		{{#if success}}
-		Messenger().success({
-			message: "{{success}}",
-			id: "session"
-		});
-		{{/if}}
-		{{#if error}}
-		Messenger().error({
-			message: "{{error}}",
-			id: "session"
-		});
-		{{/if}}
-	</script>
+	<script src="/lib/pnotify/pnotify.custom.min.js"></script>
+	<script src="/lib/sortable/sortable.min.js"></script>
 	<script src="/lib/custom.js"></script>
+	<script>
+		$(document).ready(function() {
+			PNotify.prototype.options.styling = "fontawesome";
+			PNotify.prototype.options.delay = 5000;
+			{{#if success}}
+			new PNotify({
+				title: "Success",
+				text: "{{success}}",
+				type: "success"
+			});
+			{{/if}}
+			{{#if error}}
+			new PNotify({
+				title: "Error",
+				text: "{{error}}",
+				type: "error"
+			});
+			{{/if}}
+		});
+	</script>
 	<!-- /PAGE FOOTER -->
 </body>

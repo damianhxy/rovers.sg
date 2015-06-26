@@ -1,36 +1,5 @@
 $(document).ready(function() {
-	// File Size Sorting
-	$.fn.dataTable.ext.type.order["file-size-pre"] = function(e) {
-		var units = e.replace(/[\d\.]/g, '');
-		var map = {
-			"b": 1,
-			"kb": 1 << 10,
-			"mb": 1 << 20,
-			"gb": 1 << 30
-		};
-		return parseFloat(e) * map[units];
-	};
-
-	// Date Sorting
-	$.fn.dataTable.ext.type.order["file-time-pre"] = function(e) {
-		return moment(e, "DD MMMM YYYY, h:mm:ss a").format();
-	};
-
-	// DataTables
 	if (location.pathname.split("/")[1] === "resource") {
-		var table = $(".table").DataTable({
-			"columnDefs": [
-				{ "type": "file-size", "targets": 2 },
-				{ "type": "file-time", "targets": 3 },
-				{ "orderable": false, "targets": "no-sort"}
-			],
-			"order": [[3, "desc"]], // Sort by date first
-			"deferRender": true,
-			"language": {
-				"emptyTable": "No files found",
-				"zeroRecords": "No matching files found"
-			}
-		});
 
 		// Set first tab to be active
 		$(".nav-pills li:eq(0) a").tab("show");
@@ -84,33 +53,28 @@ $(document).ready(function() {
 			})
 			.done(function() {
 				$("#deleteModal").modal("hide");
-				Messenger().success({
-					message: "Deleted file",
-					id: "page"
+				new PNotify({
+					title: "Success",
+					text: "Deleted file",
+					type: "success"
 				});
-				table
-				.row($("#" + $(e.target).data("id")).parent().parent())
-				.remove()
-				.draw();
+				$("#" + $(e.target).data("id")).parent().parent().remove();
 			})
 			.fail(function(err) {
-				Messenger().error({
-				    message: "Failed to delete file",
-				    id: "page"
+				new PNotify({
+					title: "Error",
+					text: "Failed to delete file",
+					type: "error"
 				});
 			});
 		});
-	} else // Links || Contact Us
-		$(".table").DataTable({
-			"deferRender": true,
-			"language": {
-				"emptyTable": "No files found",
-				"zeroRecords": "No matching files found"
-			}
-		});
+	}
 
-	// Fancybox
-	$(".fancybox").fancybox();
+	// Lightbox
+	$(document).delegate('[data-toggle="lightbox"]', 'click', function(e) {
+	    e.preventDefault();
+	    $(this).ekkoLightbox();
+	});
 
 	// Active Links
 	$("nav a[href='" + location.pathname + "']").parent().addClass("active");
