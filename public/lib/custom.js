@@ -1,13 +1,13 @@
 $(document).ready(function() {
 	if (location.pathname.split("/")[1] === "resource") {
-
 		// Set first tab to be active
 		$(".nav-pills li:eq(0) a").tab("show");
 
 		// Target tabs by hash
 		var url = document.URL.toString();
-		if (url.match("#"))
+		if (url.match("#")) {
 			$(".nav-pills a[href='#" + url.split("#")[1] + "']").tab("show");
+		}
 
 		// Change hash
 		$(".nav-pills a").on("show.bs.tab", function(e) {
@@ -15,10 +15,12 @@ $(document).ready(function() {
 		});
 
 		// Change uploaded file name text
-		$(document).on("change", ".btn-file :file", function() {
+		$(".btn-file :file").on("change", function() {
 			var label = $(this).val().replace(/\\/g, '/').replace(/.*\//, '');
 			$("#fileName").val(label);
-			$("#fileTitle").val() || $("#fileTitle").val(label);
+			if (!$("#fileTitle").val()) {
+				$("#fileTitle").val(label);
+			}
 		});
 
 		// Edit Modal
@@ -28,7 +30,14 @@ $(document).ready(function() {
 				pk: $(this).attr("id"),
 				name: "title",
 				url: "/edit",
-				disabled: true
+				disabled: true,
+				error: function(res) {
+					new PNotify({
+						title: "Error",
+						text: res.responseText,
+						type: "error"
+					});
+				}
 			});
 		});
 
@@ -63,7 +72,7 @@ $(document).ready(function() {
 			.fail(function(err) {
 				new PNotify({
 					title: "Error",
-					text: "Failed to delete file",
+					text: err,
 					type: "error"
 				});
 			});
@@ -71,7 +80,7 @@ $(document).ready(function() {
 	}
 
 	// Lightbox
-	$(document).delegate('[data-toggle="lightbox"]', 'click', function(e) {
+	$("[data-toggle='lightbox']").on("click", function(e) {
 	    e.preventDefault();
 	    $(this).ekkoLightbox();
 	});

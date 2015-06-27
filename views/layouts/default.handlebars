@@ -65,13 +65,15 @@
 					</li>
 					{{/if}}
 				</ul>
-				<ul class="nav navbar-nav navbar-right">
 				{{#if user}}
-					<p class="navbar-text">Signed in as {{user.username}}</p>
+                <ul class="nav navbar-nav navbar-right">
 					<li>
 						<a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Sign Out</a>
 					</li>
+                </ul> <!-- /.navbar-right -->
+                <p class="navbar-text navbar-right">Signed in as {{user.username}}</p>
 				{{else}}
+                <ul class="nav navbar-nav navbar-right">
 					<li class="dropdown">
 						<a class="dropdown-toggle" href="#" data-toggle="dropdown">
 							<i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;Sign In
@@ -119,22 +121,22 @@
 						</div>
 					</li>
 					--}}
+                </ul> <!-- /.navbar-right -->
 				{{/if}}
-				</ul> <!-- /.navbar-right -->
 			</div> <!-- /.navbar-collapse -->
 		</div> <!-- /.container -->
 	</nav> <!-- /.navbar -->
 	<!-- /NAVBAR -->
 	<!-- BANNERS -->
 	<header class="container-fluid">
-		<a data-toggle="lightbox" href="/media/Sample Banner.png" data-title="Placeholder Banner">
+		<a data-toggle="lightbox" href="/media/Banner.png" data-title="Placeholder Banner">
 			<div class="col-md-6">
-				<img class="banner" alt="Placeholder Banner" src="/media/Sample Banner.png">
+				<img class="banner" alt="Placeholder Banner" src="/media/Banner.png">
 			</div>
 		</a>
-		<a data-toggle="lightbox" href="/media/Sample Banner.png" data-title="Placeholder Banner">
+		<a data-toggle="lightbox" href="/media/Banner.png" data-title="Placeholder Banner">
 			<div class="col-md-6">
-				<img class="banner" alt="Placeholder Banner" src="/media/Sample Banner.png">
+				<img class="banner" alt="Placeholder Banner" src="/media/Banner.png">
 			</div>
 		</a>
 	</header> <!-- /.container -->
@@ -171,7 +173,6 @@
 	<script src="/lib/jquery-2.1.4.min.js"></script>
 	<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
 	<script src="/lib/lightbox/ekko-lightbox.min.js"></script>
-	<script src="/lib/dataTables/media/js/jquery.dataTables.min.js"></script>
 	<script src="/lib/moment.js"></script>
 	<script src="/lib/x-editable/js/bootstrap-editable.min.js"></script>
 	<script src="/lib/pnotify/pnotify.custom.min.js"></script>

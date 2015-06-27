@@ -1,4 +1,4 @@
-/* Custom Navbar */
+/* Navbar */
 .navbar-default, /* Navbar */
 .navbar-default .navbar-nav > .active > a, /* Active Link */
 .navbar-default .navbar-nav > .open > a { /* Dropdown */
@@ -78,18 +78,17 @@
 		color: #fff;
 	}
 }
-/* Show dropdown on hover
-@media only screen and (min-width: 768px) {
-	.dropdown:hover .dropdown-menu {
-		display: block;
-	}
-}
-*/
-/* Template */
 
+/* Template */
 @font-face {
 	font-family: Roboto;
-	src: url("/lib/Roboto-Regular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 400;
+	src: local("Roboto"),
+         local("Roboto-Regular"),
+         url("/lib/roboto/Roboto-Regular.woff2") format("woff2"),
+         url("/lib/roboto/Roboto-Regular.woff") format("woff"),
+         url("/lib/roboto/Roboto-Regular.ttf") format("truetype");
 }
 
 body {
@@ -105,11 +104,11 @@ body {
 }
 
 footer {
-	background-color: #fb0000;
-	margin-top: 30px;
-	padding-bottom: 8px;
-	padding-top: 8px;
-	text-align: center;
+    background-color: #fb0000;
+    margin-top: 30px;
+    padding-bottom: 8px;
+    padding-top: 8px;
+    text-align: center;
 }
 
 footer a:hover {
@@ -153,19 +152,18 @@ footer a:hover {
 }
 
 .btn-file input[type=file] {
-    position: absolute;
-    top: 0;
-    right: 0;
-    min-width: 100%;
-    min-height: 100%;
-    font-size: 100px;
-    text-align: right;
-    filter: alpha(opacity=0); /* IE 4 ~ 9 */
-    opacity: 0;
-    outline: none;
     background: white;
     cursor: inherit;
     display: block;
+    font-size: 100px;
+    min-height: 100%;
+    min-width: 100%;
+    opacity: 0;
+    outline: none;
+    position: absolute;
+    right: 0;
+    text-align: right;
+    top: 0;
 }
 
 /* File Management */
@@ -175,10 +173,10 @@ footer a:hover {
 
 /* Misc */
 .anchor {
-	display: block;
-	position: relative;
-	top: -70px;
-	visibility: hidden;
+    display: block;
+    position: relative;
+    top: -70px;
+    visibility: hidden;
 }
 
 .dropdown-menu form {
@@ -196,17 +194,17 @@ footer a:hover {
 }
 
 figcaption {
-	background-color: gray;
-	color: #FFF;
-	padding: 5px;
-	text-align: center;
-	border-radius: 50px 50px;
+    background-color: gray;
+    border-radius: 50px;
+    color: #FFF;
+    padding: 5px;
+    text-align: center;
 }
 
 .map {
-	height: 400px;
-	width: 400px;
-	margin: auto;
+    height: 400px;
+    margin: auto;
+    width: 400px;
 }
 
 th {

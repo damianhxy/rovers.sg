@@ -308,28 +308,27 @@ app.post("/upload", ensureAuthenticated, function(req, res, next) {
         res.redirect("/resource#upload");
     });
 });
-/* "no element found" in FF as a result of an empty response body */
+
 app.post("/edit", ensureAuthenticated, function(req, res, next) {
     func.editFile(req.body.pk, req.body.name, req.body.value)
     .then(function() {
-        res.end();
+        res.send("Success");
     })
     .fail(function(err) {
         req.session.error = err;
         console.error(err.stack);
-        res.status(400).end();
+        res.status(400).send(err);
     });
 });
 
 app.post("/delete", ensureAuthenticated, function(req, res, next) {
     func.deleteFile(req.body.id)
     .then(function() {
-        res.end();
+        res.send("Success");
     })
     .fail(function(err) {
-        req.session.error = err;
         console.error(err.stack);
-        res.status(400).end();
+        res.status(400).send(err);
     });
 });
 
