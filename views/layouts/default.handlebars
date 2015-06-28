@@ -1,200 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<title>{{title}} | Rover.sg</title>
-	<script src="/lib/pace/pace.min.js"></script>
-	<link rel="stylesheet" href="/lib/pace/minimal.css">
-	<link rel="author" href="/humans.txt">
-	<link rel="shortcut icon" href="/media/favicon.ico" type="image/x-icon">
-	<link rel="apple-touch-icon" href="/media/favicon.ico" type="image/x-icon">
-	<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap-theme.min.css">
-	<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
-	<link rel="stylesheet" href="/lib/lightbox/ekko-lightbox.min.css">
-	<link rel="stylesheet" href="/lib/pnotify/pnotify.custom.min.css">
-	<link rel="stylesheet" href="/lib/sortable/sortable-theme-bootstrap.css">
-	<link rel="stylesheet" href="/lib/x-editable/css/bootstrap-editable.css">
-	<link rel="stylesheet" href="/lib/custom.css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>{{title}} | Rover.sg</title>
+    <script src="/lib/pace/pace.min.js"></script>
+    <link rel="stylesheet" href="/lib/pace/minimal.css">
+    <link rel="author" href="/humans.txt">
+    <link rel="shortcut icon" href="/media/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="/media/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/lib/lightbox/ekko-lightbox.min.css">
+    <link rel="stylesheet" href="/lib/pnotify/pnotify.custom.min.css">
+    <link rel="stylesheet" href="/lib/sortable/sortable-theme-bootstrap.css">
+    <link rel="stylesheet" href="/lib/x-editable/css/bootstrap-editable.css">
+    <link rel="stylesheet" href="/lib/custom.css">
 </head>
 <body>
-	<!-- NAVBAR -->
-	<nav class="navbar navbar-default navbar-fixed-top">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-					<span class="sr-only">Toggle Navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="/">
-					Singapore Rovers
-				</a>
-			</div>
-			<div id="navbar" class="navbar-collapse collapse">
-				<ul class="nav navbar-nav">
-					<li>
-						<a href="/"><i class="fa fa-home" aria-hidden="true"></i>&nbsp;Home</a>
-					</li>
-					<li>
-						<a href="/nrr"><i class="fa fa-comments" aria-hidden="true"></i>&nbsp;NRR/NRC</a>
-					</li>
-					<li>
-						<a href="/about"><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;About</a>
-					</li>
-					<li>
-						<a href="/links"><i class="fa fa-external-link" aria-hidden="true"></i>&nbsp;Links</a>
-					</li>
-					<li>
-						<a href="/resource"><i class="fa fa-archive" aria-hidden="true"></i>&nbsp;Resources</a>
-					</li>
-					<li>
-						<a href="/faq"><i class="fa fa-question-circle" aria-hidden="true"></i>&nbsp;FAQ</a>
-					</li>
-					<li>
-						<a href="/join"><i class="fa fa-paper-plane"></i>&nbsp;Join Us</a>
-					</li>
-					{{#if user}}
-					<li>
-						<a href="/profile"><i class="fa fa-user"></i>&nbsp;Profile</a>
-					</li>
-					{{/if}}
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-				{{#if user}}
-                	<li><p class="navbar-text">Signed in as {{user.username}}</p></li>
-					<li>
-						<a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Sign Out</a>
-					</li>
-				{{else}}
-					<li class="dropdown">
-						<a class="dropdown-toggle" href="#" data-toggle="dropdown">
-							<i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;Sign In
-							<span class="caret"></span>
-						</a>
-						<div class="dropdown-menu">
-							<form action="/signin" method="post" accept-charset="UTF-8" role="form">
-								<div class="form-group">
-									<label class="sr-only" for="username">Username</label>
-									<input id="username" name="username" class="form-control" type="text" placeholder="Username" required>
-								</div>
-								<div class="form-group">
-									<label class="sr-only" for="password">Password</label>
-									<input id="password" name="password" class="form-control" type="password" placeholder="Password" required>
-								</div>
-								<button type="submit" class="form-control btn btn-primary">Login</button>
-							</form>
-						</div>
-					</li>
-					{{!--
-					<!-- For development purposes, hidden from public -->
-					<li class="dropdown">
-						<a class="dropdown-toggle" href="#" data-toggle="dropdown">
-							<i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;Sign Up
-							<span class="caret"></span>
-						</a>
-						<div class="dropdown-menu">
-							<form action="/signup" method="post" accept-charset="UTF-8" role="form">
-								<div class="form-group">
-									<label class="sr-only" for="username">Name</label>
-									<input id="name" name="name" class="form-control" type="text" placeholder="Name" required>
-								</div>
-								<div class="form-group">
-									<label class="sr-only" for="username">Username</label>
-									<input id="username" name="username" class="form-control" type="text" placeholder="Username" required>
-								</div>
-								<div class="form-group">
-									<label class="sr-only" for="password">Password</label>
-									<input id="password" name="password" class="form-control" type="password" placeholder="Password" required>
-								</div>
-								<div class="form-group">
-									<button type="submit" class="form-control btn btn-primary">Sign Up</button>
-								</div>
-							</form>
-						</div>
-					</li>
-					--}}
-				{{/if}}
-				</ul> <!-- /.navbar-right -->
-			</div> <!-- /.navbar-collapse -->
-		</div> <!-- /.container -->
-	</nav> <!-- /.navbar -->
-	<!-- /NAVBAR -->
-	<!-- BANNERS -->
-	<header class="container-fluid">
-		<a data-toggle="lightbox" href="/media/Banner.png" data-title="Placeholder Banner">
-			<div class="col-md-6">
-				<img class="banner" alt="Placeholder Banner" src="/media/Banner.png">
-			</div>
-		</a>
-		<a data-toggle="lightbox" href="/media/Banner.png" data-title="Placeholder Banner">
-			<div class="col-md-6">
-				<img class="banner" alt="Placeholder Banner" src="/media/Banner.png">
-			</div>
-		</a>
-	</header> <!-- /.container -->
-	<!-- /BANNERS -->
-	<!-- PAGE CONTENT -->
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">
+                    Singapore Rovers
+                </a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="/"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+                    </li>
+                    <li>
+                        <a href="/nrr"><i class="fa fa-comments" aria-hidden="true"></i> NRR/NRC</a>
+                    </li>
+                    <li>
+                        <a href="/about"><i class="fa fa-info-circle" aria-hidden="true"></i> About</a>
+                    </li>
+                    <li>
+                        <a href="/links"><i class="fa fa-external-link" aria-hidden="true"></i> Links</a>
+                    </li>
+                    <li>
+                        <a href="/resource"><i class="fa fa-archive" aria-hidden="true"></i> Resources</a>
+                    </li>
+                    <li>
+                        <a href="/faq"><i class="fa fa-question-circle" aria-hidden="true"></i> FAQ</a>
+                    </li>
+                    <li>
+                        <a href="/join"><i class="fa fa-paper-plane"></i> Join Us</a>
+                    </li>
+                    {{#if user}}
+                    <li>
+                        <a href="/profile"><i class="fa fa-user"></i> Profile</a>
+                    </li>
+                    {{/if}}
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                {{#if user}}
+                    <li><p class="navbar-text">Signed in as {{user.username}}</p></li>
+                    <li>
+                        <a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out</a>
+                    </li>
+                {{else}}
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                            <i class="fa fa-sign-in" aria-hidden="true"></i> Sign In
+                            <span class="caret"></span>
+                        </a>
+                        <div class="dropdown-menu">
+                            <form action="/signin" method="post" accept-charset="UTF-8" role="form">
+                                <div class="form-group">
+                                    <label class="sr-only" for="username">Username</label>
+                                    <input id="username" name="username" class="form-control" type="text" placeholder="Username" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="password">Password</label>
+                                    <input id="password" name="password" class="form-control" type="password" placeholder="Password" required>
+                                </div>
+                                <button type="submit" class="form-control btn btn-primary">Login</button>
+                            </form>
+                        </div>
+                    </li>
+                    {{!--
+                    <!-- For development purposes, hidden from public -->
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                            <i class="fa fa-user-plus" aria-hidden="true"></i> Sign Up
+                            <span class="caret"></span>
+                        </a>
+                        <div class="dropdown-menu">
+                            <form action="/signup" method="post" accept-charset="UTF-8" role="form">
+                                <div class="form-group">
+                                    <label class="sr-only" for="username">Name</label>
+                                    <input id="name" name="name" class="form-control" type="text" placeholder="Name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="username">Username</label>
+                                    <input id="username" name="username" class="form-control" type="text" placeholder="Username" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="password">Password</label>
+                                    <input id="password" name="password" class="form-control" type="password" placeholder="Password" required>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="form-control btn btn-primary">Sign Up</button>
+                                </div>
+                            </form>
+                        </div>
+                    </li>
+                    --}}
+                {{/if}}
+                </ul> <!-- /.navbar-right -->
+            </div> <!-- /.navbar-collapse -->
+        </div> <!-- /.container -->
+    </nav> <!-- /.navbar -->
+    <!-- /NAVBAR -->
+    <!-- BANNERS -->
+    <header class="container-fluid">
+        <a data-toggle="lightbox" href="/media/Banner.png" data-title="Placeholder Banner">
+            <div class="col-md-6">
+                <img class="banner" alt="Placeholder Banner" src="/media/Banner.png">
+            </div>
+        </a>
+        <a data-toggle="lightbox" href="/media/Banner.png" data-title="Placeholder Banner">
+            <div class="col-md-6">
+                <img class="banner" alt="Placeholder Banner" src="/media/Banner.png">
+            </div>
+        </a>
+    </header> <!-- /.container -->
+    <!-- /BANNERS -->
+    <!-- PAGE CONTENT -->
 {{{body}}}
-	<!-- /PAGE CONTENT -->
-	<!-- PAGE FOOTER -->
-	<footer>
-		<div class="container-fluid">
-			<p class="signature">
-				<a href="/">rover.sg</a>
-			</p>
-			<p class="signature-links">
-				<small>
-					<span>The Singapore Scout Association &copy; 2015</span>
-					<span>·&nbsp;Made with </span>
-					<a href="http://getbootstrap.com/">Bootstrap</a>
-					<span>·&nbsp;Powered by </span>
-					<a href="http://expressjs.com/">Express.js</a>
-				</small>
-			</p>
-			<p class="footer-links">
-				<small>
-					<a href="/sitemap"><i class="fa fa-sitemap" aria-hidden="true"></i>&nbsp;Sitemap</a>
-					<span>·&nbsp;</span>
-					<a href="/contact"><i class="fa fa-phone-square" aria-hidden="true"></i>&nbsp;Contact us</a>
-					<span>·&nbsp;</span>
-					<a href="#"><i class="fa fa-toggle-up" aria-hidden="true"></i>&nbsp;Back to top</a>
-				</small>
-			</p>
-		</div> <!-- /.container -->
-	</footer> <!-- /.footer -->
-	<script src="/lib/jquery-2.1.4.min.js"></script>
-	<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
-	<script src="/lib/lightbox/ekko-lightbox.min.js"></script>
-	<script src="/lib/moment.js"></script>
-	<script src="/lib/x-editable/js/bootstrap-editable.min.js"></script>
-	<script src="/lib/pnotify/pnotify.custom.min.js"></script>
-	<script src="/lib/sortable/sortable.min.js"></script>
-	<script src="/lib/custom.js"></script>
-	<script>
-		$(document).ready(function() {
-			PNotify.prototype.options.styling = "fontawesome";
-			PNotify.prototype.options.delay = 5000;
-			{{#if success}}
-			new PNotify({
-				title: "Success",
-				text: "{{success}}",
-				type: "success"
-			});
-			{{/if}}
-			{{#if error}}
-			new PNotify({
-				title: "Error",
-				text: "{{error}}",
-				type: "error"
-			});
-			{{/if}}
-		});
-	</script>
-	<!-- /PAGE FOOTER -->
+    <!-- /PAGE CONTENT -->
+    <!-- PAGE FOOTER -->
+    <footer>
+        <div class="container-fluid">
+            <p class="signature">
+                <a href="/">rover.sg</a>
+            </p>
+            <p class="signature-links">
+                <small>
+                    The Singapore Scout Association &copy; 2015 &middot; Made with <a href="http://getbootstrap.com/">Bootstrap</a> &middot; Powered by <a href="http://expressjs.com/">Express.js</a>
+                </small>
+            </p>
+            <p class="footer-links">
+                <small>
+                    <a href="/sitemap"><i class="fa fa-sitemap" aria-hidden="true"></i> Sitemap &middot; </a>
+                    <a href="/contact"><i class="fa fa-phone-square" aria-hidden="true"></i> Contact us &middot; </a>
+                    <a href="#"><i class="fa fa-toggle-up" aria-hidden="true"></i> Back to top</a>
+                </small>
+            </p>
+        </div> <!-- /.container -->
+    </footer> <!-- /.footer -->
+    <script src="/lib/jquery-2.1.4.min.js"></script>
+    <script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/lib/lightbox/ekko-lightbox.min.js"></script>
+    <script src="/lib/moment.js"></script>
+    <script src="/lib/x-editable/js/bootstrap-editable.min.js"></script>
+    <script src="/lib/pnotify/pnotify.custom.min.js"></script>
+    <script src="/lib/sortable/sortable.min.js"></script>
+    <script src="/lib/custom.js"></script>
+    <script>
+        $(document).ready(function() {
+            PNotify.prototype.options.styling = "fontawesome";
+            PNotify.prototype.options.delay = 5000;
+            {{#if success}}
+            new PNotify({
+                title: "Success",
+                text: "{{success}}",
+                type: "success"
+            });
+            {{/if}}
+            {{#if error}}
+            new PNotify({
+                title: "Error",
+                text: "{{error}}",
+                type: "error"
+            });
+            {{/if}}
+        });
+    </script>
+    <!-- /PAGE FOOTER -->
 </body>

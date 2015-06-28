@@ -7,22 +7,22 @@
     <div class="col-md-3">
         <ul class="nav nav-pills nav-stacked">
             <li role="presentation">
-                <a href="#info" data-toggle="pill"><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;Latest Information</a>
+                <a href="#info" data-toggle="pill"><i class="fa fa-info-circle" aria-hidden="true"></i> Latest Information</a>
             </li>
             <li role="presentation">
-                <a href="#forms" data-toggle="pill"><i class="fa fa-edit" aria-hidden="true"></i>&nbsp;Forms</a>
+                <a href="#forms" data-toggle="pill"><i class="fa fa-edit" aria-hidden="true"></i> Forms</a>
             </li>
             <li role="presentation">
-                <a href="#policies" data-toggle="pill"><i class="fa fa-university" aria-hidden="true"></i>&nbsp;Policies</a>
+                <a href="#policies" data-toggle="pill"><i class="fa fa-university" aria-hidden="true"></i> Policies</a>
             </li>
             <li role="presentation">
-                <a href="#scheme" data-toggle="pill"><i class="fa fa-bullseye" aria-hidden="true"></i>&nbsp;Progress Scheme</a>
+                <a href="#scheme" data-toggle="pill"><i class="fa fa-bullseye" aria-hidden="true"></i> Progress Scheme</a>
             </li>
             <li role="presentation">
-                <a href="#others" data-toggle="pill"><i class="fa fa-certificate" aria-hidden="true"></i>&nbsp;Others</a>
+                <a href="#others" data-toggle="pill"><i class="fa fa-certificate" aria-hidden="true"></i> Others</a>
             </li>
             {{#if user}}
-            <li><a href="#upload" data-toggle="pill"><i class="fa fa-upload" aria-hidden="true"></i>&nbsp;Upload File</a></li>
+            <li><a href="#upload" data-toggle="pill"><i class="fa fa-upload" aria-hidden="true"></i> Upload File</a></li>
             {{/if}}
         </ul>
     </div> <!-- /.col-md-3 -->
@@ -53,17 +53,17 @@
                         <td><a id="{{this._id}}" class="edit-title">{{this.title}}</a></td>
                         <td>
                             <a class="fancybox" href="/files/{{this.name}}" title="{{this.title}}" rel="media">
-                                <i class="fa fa-{{fileType this.name}}"></i>&nbsp;{{this.original}}
+                                <i class="fa fa-{{fileType this.name}}"></i> {{this.original}}
                             </a>
                         </td>
                         <td>{{this.formattedTime}}</td>
                         {{#if ../../../user}}
                         <td data-original="{{this.original}}" data-id="{{this._id}}">
                             <button class="edit-btn btn btn-success btn-xs" role="button">
-                                <i class="fa fa-edit" aria-hidden="true">&nbsp;Edit</i>
+                                <i class="fa fa-edit" aria-hidden="true"> Edit</i>
                             </button>
                             <a href="#deleteModal" role="button" class="btn btn-danger btn-xs" data-toggle="modal">
-                                <i class="fa fa-close" aria-hidden="true">&nbsp;Delete</i>
+                                <i class="fa fa-close" aria-hidden="true"> Delete</i>
                             </a>
                         </td>
                         {{/if}}
