@@ -65,15 +65,13 @@
 					</li>
 					{{/if}}
 				</ul>
+				<ul class="nav navbar-nav navbar-right">
 				{{#if user}}
-                <ul class="nav navbar-nav navbar-right">
+                	<li><p class="navbar-text">Signed in as {{user.username}}</p></li>
 					<li>
 						<a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Sign Out</a>
 					</li>
-                </ul> <!-- /.navbar-right -->
-                <p class="navbar-text navbar-right">Signed in as {{user.username}}</p>
 				{{else}}
-                <ul class="nav navbar-nav navbar-right">
 					<li class="dropdown">
 						<a class="dropdown-toggle" href="#" data-toggle="dropdown">
 							<i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;Sign In
@@ -121,8 +119,8 @@
 						</div>
 					</li>
 					--}}
-                </ul> <!-- /.navbar-right -->
 				{{/if}}
+				</ul> <!-- /.navbar-right -->
 			</div> <!-- /.navbar-collapse -->
 		</div> <!-- /.container -->
 	</nav> <!-- /.navbar -->
