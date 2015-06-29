@@ -127,6 +127,7 @@ app.use(passport.session());
 // Settings
 app.enable("case sensitive routing");
 app.enable("strict routing");
+app.disable("x-powered-by");
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 
@@ -140,7 +141,7 @@ morgan.token("date", function(req, res) {
 app.use(morgan("[:date] :method :url :status :res[content-length] - :remote-addr - :response-time ms"));
 
 // File uploading
-app.use(multer({
+var uploadFile = multer({
     dest: "./public/files",
     limits: {
         files: 1,
@@ -166,7 +167,7 @@ app.use(multer({
         console.error("File size limit exceeded: " + file.originalname);
         fs.unlink("./" + file.path);
     }
-}));
+});
 
 // Routes
 // Message middleware
@@ -296,7 +297,7 @@ app.get("/logout", ensureAuthenticated, function(req, res, next) {
 });
 
 // File Management
-app.post("/upload", ensureAuthenticated, function(req, res, next) {
+app.post("/upload", ensureAuthenticated, uploadFile, function(req, res, next) {
     if (!req.files.file) {
         req.session.error = "Please select a file.";
         res.status(400).redirect("/resource#upload");
@@ -308,6 +309,7 @@ app.post("/upload", ensureAuthenticated, function(req, res, next) {
     .fail(function(err) {
         req.session.error = err;
         console.error(err.stack);
+        fs.unlink(req.files.file[0].path);
     })
     .fin(function() {
         res.redirect("/resource#upload");
