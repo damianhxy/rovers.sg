@@ -40,12 +40,14 @@ passport.use("local-signin", new localStrategy(
     function(req, username, password, done) {
         return func.signIn(username, password)
         .then(function(user) {
+            console.info("Signed in " + user.username);
             req.session.success = "Welcome back, " + user.username + ".";
             done(null, user);
         })
         .fail(function(err) {
+            console.error(err);
             console.error(err.stack);
-            req.session.error = "Error encountered while signing in.";
+            req.session.error = err;
             done(null, false);
         });
     }
@@ -56,12 +58,13 @@ passport.use("local-signup", new localStrategy(
     function(req, username, password, done) {
         return func.signUp(req.body.name, username, password)
         .then(function(user) {
+            console.info("Signed up " + user.username);
             req.session.success = "Welcome, " + user.username + ".";
             done(null, user);
         })
         .fail(function(err) {
             console.error(err.stack);
-            req.session.error = "Error encountered while signing up.";
+            req.session.error = err;
             done(null, false);
         });
     }
@@ -264,10 +267,12 @@ app.get("/contact", function(req, res, next) {
 app.post("/signin", function(req, res, next) {
     passport.authenticate("local-signin", function(err, user, info) {
         if (err) return next(err);
-        req.login(user, function(err) {
-            if (err) return next(err);
-            res.redirect(req.headers.referer || "/");
-        });
+        if (user)
+            return req.login(user, function(err) {
+                if (err) return next(err);
+                res.redirect(req.headers.referer || "/");
+            });
+        return res.redirect(req.headers.referer || "/");
     })(req, res, next);
 });
 
@@ -285,9 +290,9 @@ app.post("/signup", function(req, res, next) {
     res.redirect(req.headers.referer || "/");
 });
 
-app.get("/logout", function(req, res, next) {
+app.get("/logout", ensureAuthenticated, function(req, res, next) {
     req.logout();
-    res.redirect(req.headers.referer || "/");
+    res.redirect("/");
 });
 
 // File Management
@@ -341,7 +346,16 @@ app.get("/profile", ensureAuthenticated, function(req, res, next) {
 });
 
 app.post("/updatePassword", ensureAuthenticated, function(req, res, next) {
-    /* Code */
+    func.editPassword(req)
+    .then(function() {
+        req.session.success = "Password Updated.";
+        res.redirect("/profile");
+    })
+    .fail(function(err) {
+        req.session.error = err;
+        console.error(err.stack);
+        res.status(400).redirect("/profile");
+    });
 });
 
 // Others
