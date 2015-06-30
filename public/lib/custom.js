@@ -1,35 +1,43 @@
+PNotify.prototype.options.styling = "fontawesome";
+PNotify.prototype.options.delay = 5000;
+
 $(document).ready(function() {
-	if (location.pathname.split("/")[1] === "resource") {
-		// Set first tab to be active
-		$(".nav-pills li:eq(0) a").tab("show");
+	// Set first tab to be active
+	$(".nav-pills li:eq(0) a").tab("show");
 
-		// Target tabs by hash
-		var url = document.URL.toString();
-		if (url.match("#")) {
-			$(".nav-pills a[href='#" + url.split("#")[1] + "']").tab("show");
-		}
+	// Change hash
+	$(".nav-pills a").on("show.bs.tab", function(e) {
+		window.location.hash = e.target.hash;
+	});
 
-		// Change hash
-		$(".nav-pills a").on("show.bs.tab", function(e) {
-			window.location.hash = e.target.hash;
+	// Target tabs by hash
+	var url = document.URL.toString();
+	if (url.match("#")) {
+		$(".nav-pills a[href='#" + url.split("#")[1] + "']").tab("show");
+	}
+
+	// Lightbox
+	$("[data-toggle='lightbox']").on("click", function(e) {
+	    e.preventDefault();
+	    $(this).ekkoLightbox();
+	});
+
+	// Active Links
+	$("nav a[href='" + location.pathname + "']").parent().addClass("active");
+
+	if (location.pathname === "/resource") {
+		// Edit file name
+		$(".edit-btn").click(function() {
+			$("#" + $(this).parent().data("id")).editable("toggleDisabled");
 		});
 
-		// Change uploaded file name text
-		$(".btn-file :file").on("change", function() {
-			var label = $(this).val().replace(/\\/g, '/').replace(/.*\//, '');
-			$("#fileName").val(label);
-			if (!$("#fileTitle").val()) {
-				$("#fileTitle").val(label);
-			}
-		});
-
-		// Edit Modal
+		// Edit
 		$(".edit-title").each(function() {
 			$(this).editable({
 				type: "text",
 				pk: $(this).attr("id"),
 				name: "title",
-				url: "/edit",
+				url: "/editFileName",
 				disabled: true,
 				error: function(res) {
 					new PNotify({
@@ -41,11 +49,7 @@ $(document).ready(function() {
 			});
 		});
 
-		$(".edit-btn").click(function() {
-			$("#" + $(this).parent().data("id")).editable("toggleDisabled");
-		});
-
-		// Delete Modal
+		// Delete modal
 		$("#deleteModal").on("show.bs.modal", function(e) {
 			var data = $(e.relatedTarget).parent();
 			$(this).find(".btn-danger").data("id", data.data("id"));
@@ -67,7 +71,7 @@ $(document).ready(function() {
 					text: "Deleted file",
 					type: "success"
 				});
-				$("#" + $(e.target).data("id")).parent().parent().remove();
+				$("#" + $(e.target).data("id")).closest("tr").remove();
 			})
 			.fail(function(err) {
 				new PNotify({
@@ -77,14 +81,14 @@ $(document).ready(function() {
 				});
 			});
 		});
+
+		// Change uploaded file name text
+		$(".btn-file :file").on("change", function() {
+			var label = $(this).val().replace(/\\/g, '/').replace(/.*\//, '');
+			$("#fileName").val(label);
+			if (!$("#fileTitle").val()) {
+				$("#fileTitle").val(label);
+			}
+		});
 	}
-
-	// Lightbox
-	$("[data-toggle='lightbox']").on("click", function(e) {
-	    e.preventDefault();
-	    $(this).ekkoLightbox();
-	});
-
-	// Active Links
-	$("nav a[href='" + location.pathname + "']").parent().addClass("active");
 });

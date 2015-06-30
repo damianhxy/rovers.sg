@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/lib/lightbox/ekko-lightbox.min.css">
     <link rel="stylesheet" href="/lib/pnotify/pnotify.custom.min.css">
-    <link rel="stylesheet" href="/lib/sortable/sortable-theme-bootstrap.css">
+    <link rel="stylesheet" href="/lib/sortable/bootstrap-sortable.css">
     <link rel="stylesheet" href="/lib/x-editable/css/bootstrap-editable.css">
     <link rel="stylesheet" href="/lib/custom.css">
 </head>
@@ -170,12 +170,11 @@
     <script src="/lib/moment.js"></script>
     <script src="/lib/x-editable/js/bootstrap-editable.min.js"></script>
     <script src="/lib/pnotify/pnotify.custom.min.js"></script>
-    <script src="/lib/sortable/sortable.min.js"></script>
+    <script src="/lib/sortable/bootstrap-sortable.js"></script>
+    <script src="/lib/livestamp.min.js"></script>
     <script src="/lib/custom.js"></script>
     <script>
         $(document).ready(function() {
-            PNotify.prototype.options.styling = "fontawesome";
-            PNotify.prototype.options.delay = 5000;
             {{#if success}}
             new PNotify({
                 title: "Success",

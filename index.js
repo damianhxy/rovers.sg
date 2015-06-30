@@ -5,34 +5,17 @@ var express = require("express");
 var fs = require("fs");
 var func = require("./lib/functions.js");
 var localStrategy = require("passport-local");
-var moment = require("./public/lib/moment.js");
 var morgan = require("morgan");
 var multer = require("multer");
 var passport = require("passport");
 var session = require("express-session");
 
+var app = express();
+
 // Constants
 var PORT = 8080;
 var SECRET = "roversingapore";
 var FILE_SIZE_LIMIT = 25;
-
-// Resources Page
-var pages = {
-                "Latest Information": {name: "info"},
-                "Forms": {name: "forms"},
-    		    "Policies": {name: "policies"},
-    		    "Progress Scheme": {name: "scheme"},
-    		    "Others": {name: "others"}
-            };
-
-// Filetype Icons
-var files = [
-                {pattern: "xlsx?", icon: "excel"}, {pattern: "pptx?", icon: "powerpoint"},
-    			{pattern: "docx?", icon: "word"}, {pattern :"pdf", icon: "pdf"},
-    			{pattern: "(png|jpg|gif)", icon: "picture"}, {pattern: "(zip|rar)", icon: "zip"}
-            ];
-
-var app = express();
 
 // Auth
 passport.use("local-signin", new localStrategy(
@@ -97,13 +80,22 @@ var hbs = exphbs.create({
 	defaultLayout: "default",
 	helpers: {
 		fileType: function(file) {
-			var icon = "file-o";
+            // Patterns and Icons
+            var files = [
+                { pattern: "xlsx?", icon: "excel" }, { pattern: "pptx?", icon: "powerpoint" },
+                { pattern: "docx?", icon: "word" }, { pattern :"pdf", icon: "pdf" },
+                { pattern: "(png|jpg|gif)", icon: "picture" }, { pattern: "(zip|rar)", icon: "zip" }
+            ];
+			var icon = "file-text-o";
             files.forEach(function(e) {
                 if (RegExp(e.pattern).test(file.split(".").pop()))
                     icon = "file-" + e.icon + "-o";
             });
 			return icon;
-		}
+		},
+        toSeconds: function(timestamp) {
+            return Math.floor(timestamp / 1000);
+        }
 	}
 });
 
@@ -154,7 +146,7 @@ var uploadFile = multer({
         console.log("Uploading " + file.originalname);
     },
     onFileUploadComplete: function(file) {
-        console.log(file.originalname + " uploaded to " + file.path);
+        console.log(file.originalname + " was uploaded to " + file.path);
     },
     rename: function(fieldname, filename) {
         return filename + Date.now();
@@ -169,7 +161,7 @@ var uploadFile = multer({
     }
 });
 
-// Routes
+/* Routes */
 // Message middleware
 app.use(function(req, res, next) {
     ["success", "error"].forEach(function(e) {
@@ -189,13 +181,6 @@ app.get("/", function(req, res, next) {
     });
 });
 
-app.get("/nrr", function(req, res, next) {
-    res.render("nrr", {
-        title: "NRR",
-        user: req.user
-    });
-});
-
 app.get("/about", function(req, res, next) {
     res.render("about", {
         title: "About",
@@ -203,36 +188,10 @@ app.get("/about", function(req, res, next) {
     });
 });
 
-app.get("/links", function(req, res, next) {
-    res.render("links", {
-        title: "Links",
+app.get("/contact", function(req, res, next) {
+    res.render("contact", {
+        title: "Contact",
         user: req.user
-    });
-});
-
-app.get("/resource", function(req, res, next) {
-    func.getFiles()
-    .then(function(files) {
-        var category = pages;
-        var page;
-        for (page in category)
-            if (category.hasOwnProperty(page))
-                category[page].filelist = [];
-        files.forEach(function(e) {
-            e.formattedTime = moment(e.time).format("DD MMMM YYYY, h:mm:ss a");
-            category[e.category].filelist.push(e);
-        });
-        for (page in category)
-            if (category.hasOwnProperty(page))
-                category[page].isEmpty = !category[page].filelist.length;
-        res.render("resources", {
-            title: "Resources",
-            user: req.user,
-            category: category
-        });
-    })
-    .fail(function(err) {
-        next(err);
     });
 });
 
@@ -250,6 +209,45 @@ app.get("/join", function(req, res, next) {
     });
 });
 
+app.get("/links", function(req, res, next) {
+    res.render("links", {
+        title: "Links",
+        user: req.user
+    });
+});
+
+app.get("/nrr", function(req, res, next) {
+    res.render("nrr", {
+        title: "NRR",
+        user: req.user
+    });
+});
+
+app.get("/resource", function(req, res, next) {
+    func.getFiles()
+    .then(function(files) {
+        var pages = {
+            "Latest Information": { name: "info", fileList: [], isEmpty: true },
+            "Forms": { name: "forms", fileList: [], isEmpty: true },
+            "Policies": { name: "policies", fileList: [], isEmpty: true },
+            "Progress Scheme": { name: "scheme", fileList: [], isEmpty: true },
+            "Others": { name: "others", fileList: [], isEmpty: true }
+        };
+        files.forEach(function(e) {
+            pages[e.category].fileList.push(e);
+            pages[e.category].isEmpty = false;
+        });
+        res.render("resources", {
+            title: "Resources",
+            user: req.user,
+            category: pages
+        });
+    })
+    .fail(function(err) {
+        next(err);
+    });
+});
+
 app.get("/sitemap", function(req, res, next) {
     res.render("sitemap", {
         title: "Sitemap",
@@ -257,14 +255,12 @@ app.get("/sitemap", function(req, res, next) {
     });
 });
 
-app.get("/contact", function(req, res, next) {
-    res.render("contact", {
-        title: "Contact",
-        user: req.user
-    });
+// Auth
+app.get("/logout", ensureAuthenticated, function(req, res, next) {
+    req.logout();
+    res.redirect("/");
 });
 
-// Auth
 app.post("/signin", function(req, res, next) {
     passport.authenticate("local-signin", function(err, user, info) {
         if (err) return next(err);
@@ -277,26 +273,42 @@ app.post("/signin", function(req, res, next) {
     })(req, res, next);
 });
 
-app.post("/signup", function(req, res, next) {
-    /*
-    passport.authenticate("local-signup", function(err, user, info) {
+app.post("/signup", ensureAuthenticated, function(req, res, next) {
+    /*passport.authenticate("local-signup", function(err, user, info) {
         if (err) return next(err);
         req.login(user, function(err) {
             if (err) return next(err);
             res.redirect(req.headers.referer || "/");
         });
-    })(req, res, next);
-    */
-    req.session.error = "There is no signup.";
-    res.redirect(req.headers.referer || "/");
-});
-
-app.get("/logout", ensureAuthenticated, function(req, res, next) {
-    req.logout();
-    res.redirect("/");
+    })(req, res, next);*/
+    res.session.error = "Sign Up is closed.";
+    res.status(400).redirect(req.headers.referer || "/");
 });
 
 // File Management
+app.post("/delete", ensureAuthenticated, function(req, res, next) {
+    func.deleteFile(req.body.id)
+    .then(function() {
+        res.send("Success");
+    })
+    .fail(function(err) {
+        console.error(err.stack);
+        res.status(400).send(err);
+    });
+});
+
+app.post("/editFileName", ensureAuthenticated, function(req, res, next) {
+    func.editFile(req.body.pk, req.body.name, req.body.value)
+    .then(function() {
+        res.send("Success");
+    })
+    .fail(function(err) {
+        req.session.error = err;
+        console.error(err.stack);
+        res.status(400).send(err);
+    });
+});
+
 app.post("/upload", ensureAuthenticated, uploadFile, function(req, res, next) {
     if (!req.files.file) {
         req.session.error = "Please select a file.";
@@ -313,29 +325,6 @@ app.post("/upload", ensureAuthenticated, uploadFile, function(req, res, next) {
     })
     .fin(function() {
         res.redirect("/resource#upload");
-    });
-});
-
-app.post("/edit", ensureAuthenticated, function(req, res, next) {
-    func.editFile(req.body.pk, req.body.name, req.body.value)
-    .then(function() {
-        res.send("Success");
-    })
-    .fail(function(err) {
-        req.session.error = err;
-        console.error(err.stack);
-        res.status(400).send(err);
-    });
-});
-
-app.post("/delete", ensureAuthenticated, function(req, res, next) {
-    func.deleteFile(req.body.id)
-    .then(function() {
-        res.send("Success");
-    })
-    .fail(function(err) {
-        console.error(err.stack);
-        res.status(400).send(err);
     });
 });
 
@@ -360,7 +349,7 @@ app.post("/updatePassword", ensureAuthenticated, function(req, res, next) {
     });
 });
 
-// Others
+// 404 & 500
 app.use(function(req, res, next) {
     res.status(404).render("404", {
         title: "Page Not Found",
