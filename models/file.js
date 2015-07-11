@@ -16,7 +16,7 @@ exports.add = function(req) {
         };
         return Q.ninvoke(files, "insert", fileinfo)
         .then(function() {
-            resolve("File info saved.");
+            resolve();
         })
         .fail(function(err) {
             reject(err);
@@ -44,7 +44,7 @@ exports.delete = function(id) {
         })
         .then(Q.ninvoke(files, "remove", { _id: id }))
         .then(function() {
-            resolve("Success");
+            resolve();
         })
         .fail(function(err) {
             reject(err);
@@ -60,7 +60,7 @@ exports.edit = function(id, field, value) {
             return Q.ninvoke(files, "update", { _id: id }, { $set: file });
         })
         .then(function() {
-            resolve("Success");
+            resolve();
         })
         .fail(function(err) {
             reject(err);

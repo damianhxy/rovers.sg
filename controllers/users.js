@@ -11,8 +11,8 @@ router.post("/changePassword", auth, function(req, res, next) {
         res.redirect("/users/profile");
     })
     .fail(function(err) {
-        req.session.error = "Failed to update password.";
         console.error(err.stack);
+        req.session.error = err.message;
         res.status(400).redirect("/users/profile");
     });
 });
@@ -50,6 +50,7 @@ router.post("/signup", auth, function(req, res, next) { /* Auth to prevent signu
             res.redirect(req.headers.referer || "/");
         });
     })(req, res, next);*/
+    console.warn("Illegal attempt to access sign up.");
     res.session.error = "Nice Try.";
     res.status(400).redirect(req.headers.referer || "/");
 });

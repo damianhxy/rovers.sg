@@ -47,8 +47,8 @@ module.exports = function(app, express) {
                 done(null, user);
             })
             .fail(function(err) {
-                console.error(err);
-                req.session.error = "An error was encountered";
+                console.error(err.stack);
+                req.session.error = err.message;
                 done(null, false);
             });
         }
@@ -64,8 +64,8 @@ module.exports = function(app, express) {
                 done(null, user);
             })
             .fail(function(err) {
-                console.error(err);
-                req.session.error = "An error was encountered";
+                console.error(err.stack);
+                req.session.error = err.message;
                 done(null, false);
             });
         }

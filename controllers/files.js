@@ -33,22 +33,22 @@ router.get("/", function(req, res, next) {
 router.post("/delete", auth, function(req, res, next) {
     file.delete(req.body.id)
     .then(function() {
-        res.send("Success");
+        res.end();
     })
     .fail(function(err) {
         console.error(err.stack);
-        res.status(400).send("Failed");
+        res.status(400).end();
     });
 });
 
 router.post("/edit", auth, function(req, res, next) {
     file.edit(req.body.pk, req.body.name, req.body.value)
     .then(function() {
-        res.send("Success");
+        res.end();
     })
     .fail(function(err) {
         console.error(err.stack);
-        res.status(400).send("Failed");
+        res.status(400).end();
     });
 });
 
@@ -60,14 +60,13 @@ router.post("/upload", auth, upload, function(req, res, next) {
     file.add(req)
     .then(function() {
         req.session.success = "File uploaded.";
+        res.redirect("/resource#upload");
     })
     .fail(function(err) {
         console.error(err.stack);
-        req.session.error = "Failed to upload file.";
+        req.session.error = err.message;
         fs.unlink(req.files.file[0].path);
-    })
-    .fin(function() {
-        res.redirect("/resource#upload");
+        res.status(400).redirect("/resource#upload");
     });
 });
 
