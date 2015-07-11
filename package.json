@@ -2,9 +2,9 @@
   "name": "RoverSG",
   "version": "1.0.0",
   "description": "rover.sg site",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",

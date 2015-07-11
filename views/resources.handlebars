@@ -29,10 +29,20 @@
     <div class="col-md-9 tab-content">
         {{#each category}}
         <div id="{{this.name}}" class="tab-pane fade">
+            {{#if this.isEmpty}}
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">No Files</h3>
+                </div>
+                <div class="panel-body">
+                    There are currently no files in this category.
+                </div>
+            </div> <!-- /.panel -->
+            {{else}}
             <table class="table table-striped table-bordered sortable">
                 <thead>
                     <tr>
-                        {{#if ../user}}
+                        {{#if ../../user}}
                         <th class="col-md-3">Title</th>
                         <th class="col-md-3">File</th>
                         <th class="col-md-3" data-defaultsort="desc" data-firstsort="asc">Last Modified</th>
@@ -45,18 +55,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{#if this.isEmpty}}
-                    <tr><td colspan="{{#if ../../user}}4{{else}}3{{/if}}">No files found</td></tr>
-                    {{else}}
                     {{#each this.fileList}}
                     <tr>
                         <td><a id="{{this._id}}" class="edit-title">{{this.title}}</a></td>
                         <td>
-                            <a class="fancybox" href="/files/{{this.name}}" title="{{this.title}}" rel="media">
+                            <a data-toggle="lightbox" href="/uploads/{{this.name}}" data-title="{{this.title}}">
                                 <i class="fa fa-{{fileType this.name}}"></i> {{this.original}}
                             </a>
                         </td>
-                        <td data-value="{{this.time}}" data-livestamp="{{toSeconds this.time}}">
+                        <td data-value="{{this.time}}" data-livestamp="{{this.time}}">
                         </td>
                         {{#if ../../../user}}
                         <td data-original="{{this.original}}" data-id="{{this._id}}">
@@ -70,14 +77,14 @@
                         {{/if}}
                     </tr>
                     {{/each}}
-                    {{/if}}
                 </tbody>
             </table> <!-- /table -->
+            {{/if}}
         </div>
         {{/each}}
         {{#if user}}
         <div id="upload" class="tab-pane fade">
-            <form class="form-horizontal" action="/upload" method="post" accept-charset="UTF-8" role="form" enctype="multipart/form-data">
+            <form class="form-horizontal" action="/resource/upload" method="post" accept-charset="UTF-8" role="form" enctype="multipart/form-data">
                 <legend>File Upload</legend>
                 <div class="form-group">
                     <span class="col-md-2 control-label">Title</span>

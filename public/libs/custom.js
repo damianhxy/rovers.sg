@@ -1,5 +1,11 @@
+// PNotify defaults
 PNotify.prototype.options.styling = "fontawesome";
 PNotify.prototype.options.delay = 5000;
+PNotify.prototype.options.addclass = "stack-bottomleft";
+PNotify.prototype.options.nonblock = {
+	nonblock: true,
+	nonblock_opacity: .5
+}
 
 $(document).ready(function() {
 	// Set first tab to be active
@@ -22,7 +28,7 @@ $(document).ready(function() {
 	    $(this).ekkoLightbox();
 	});
 
-	// Active Links
+	// Active Link
 	$("nav a[href='" + location.pathname + "']").parent().addClass("active");
 
 	if (location.pathname === "/resource") {
@@ -37,7 +43,7 @@ $(document).ready(function() {
 				type: "text",
 				pk: $(this).attr("id"),
 				name: "title",
-				url: "/editFileName",
+				url: "/resource/edit",
 				disabled: true,
 				error: function(res) {
 					new PNotify({
@@ -59,7 +65,7 @@ $(document).ready(function() {
 		$("#deleteModal .btn-danger").click(function(e) {
 			$.ajax({
 				method: "POST",
-				url: "/delete",
+				url: "/resource/delete",
 				data: {
 					id: $(this).data("id")
 				}

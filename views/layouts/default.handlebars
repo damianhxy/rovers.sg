@@ -7,19 +7,19 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <title>{{title}} | Rover.sg</title>
-    <script src="/lib/pace/pace.min.js"></script>
-    <link rel="stylesheet" href="/lib/pace/minimal.css">
+    <script src="/css/pace/pace.min.js"></script>
+    <link rel="stylesheet" href="/css/pace/minimal.css">
     <link rel="author" href="/humans.txt">
-    <link rel="shortcut icon" href="/media/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="/media/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/lib/lightbox/ekko-lightbox.min.css">
-    <link rel="stylesheet" href="/lib/pnotify/pnotify.custom.min.css">
-    <link rel="stylesheet" href="/lib/sortable/bootstrap-sortable.css">
-    <link rel="stylesheet" href="/lib/x-editable/css/bootstrap-editable.css">
-    <link rel="stylesheet" href="/lib/custom.css">
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="/img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/bootstrap/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/lightbox/ekko-lightbox.min.css">
+    <link rel="stylesheet" href="/css/pnotify/pnotify.custom.min.css">
+    <link rel="stylesheet" href="/libs/sortable/bootstrap-sortable.css">
+    <link rel="stylesheet" href="/libs/x-editable/css/bootstrap-editable.css">
+    <link rel="stylesheet" href="/css/custom.css">
 </head>
 <body>
     <!-- NAVBAR -->
@@ -62,15 +62,15 @@
                         </li>
                         {{#if user}}
                         <li>
-                            <a href="/profile"><i class="fa fa-user"></i> Profile</a>
+                            <a href="/users/profile"><i class="fa fa-user"></i> Profile</a>
                         </li>
                         {{/if}}
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                     {{#if user}}
-                        <li><p class="navbar-text">Signed in as {{user.username}}</p></li>
+                        <li><p class="navbar-text">Signed in as <strong>{{user.username}}</strong></p></li>
                         <li>
-                            <a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out</a>
+                            <a href="/users/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out</a>
                         </li>
                     {{else}}
                         <li class="dropdown">
@@ -79,7 +79,7 @@
                                 <span class="caret"></span>
                             </a>
                             <div class="dropdown-menu">
-                                <form action="/signin" method="post" accept-charset="UTF-8" role="form">
+                                <form action="/users/signin" method="post" accept-charset="UTF-8" role="form">
                                     <div class="form-group">
                                         <label class="sr-only" for="username">Username</label>
                                         <input id="username" name="username" class="form-control" type="text" placeholder="Username" required>
@@ -100,7 +100,7 @@
                                 <span class="caret"></span>
                             </a>
                             <div class="dropdown-menu">
-                                <form action="/signup" method="post" accept-charset="UTF-8" role="form">
+                                <form action="/users/signup" method="post" accept-charset="UTF-8" role="form">
                                     <div class="form-group">
                                         <label class="sr-only" for="username">Name</label>
                                         <input id="name" name="name" class="form-control" type="text" placeholder="Name" required>
@@ -130,13 +130,13 @@
     <!-- BANNERS -->
     <header class="container-fluid">
         <div class="col-md-6">
-            <a data-toggle="lightbox" href="/media/Banner.png" data-title="Placeholder Banner">
-                <img class="banner" alt="Placeholder Banner" src="/media/Banner.png">
+            <a data-toggle="lightbox" href="/img/Banner.png" data-title="Placeholder Banner">
+                <img class="banner" alt="Placeholder Banner" src="/img/Banner.png">
             </a>
         </div> <!-- /.col-md-6 -->
         <div class="col-md-6">
-            <a data-toggle="lightbox" href="/media/Banner.png" data-title="Placeholder Banner">
-                <img class="banner" alt="Placeholder Banner" src="/media/Banner.png">
+            <a data-toggle="lightbox" href="/img/Banner.png" data-title="Placeholder Banner">
+                <img class="banner" alt="Placeholder Banner" src="/img/Banner.png">
             </a>
         </div> <!-- /.col-md-6 -->
     </header> <!-- /.container-fluid -->
@@ -152,7 +152,7 @@
             </p>
             <p class="signature-links">
                 <small>
-                    The Singapore Scout Association &copy; 2015 &middot; Made with <a href="http://getbootstrap.com/">Bootstrap</a> &middot; Powered by <a href="http://expressjs.com/">Express.js</a>
+                    The Singapore Scout Association &copy; 2015 &middot; Built with <a href="http://getbootstrap.com/">Bootstrap</a> &middot; Powered by <a href="http://expressjs.com/">Express.js</a>
                 </small>
             </p>
             <p class="footer-links">
@@ -164,15 +164,15 @@
             </p>
         </div> <!-- /.container-fluid -->
     </footer> <!-- /.footer -->
-    <script src="/lib/jquery-2.1.4.min.js"></script>
-    <script src="/lib/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/lib/lightbox/ekko-lightbox.min.js"></script>
-    <script src="/lib/moment.js"></script>
-    <script src="/lib/x-editable/js/bootstrap-editable.min.js"></script>
-    <script src="/lib/pnotify/pnotify.custom.min.js"></script>
-    <script src="/lib/sortable/bootstrap-sortable.js"></script>
-    <script src="/lib/livestamp.min.js"></script>
-    <script src="/lib/custom.js"></script>
+    <script src="/libs/jquery-2.1.4.min.js"></script>
+    <script src="/css/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/css/lightbox/ekko-lightbox.min.js"></script>
+    <script src="/libs/moment.js"></script>
+    <script src="/libs/x-editable/js/bootstrap-editable.min.js"></script>
+    <script src="/css/pnotify/pnotify.custom.min.js"></script>
+    <script src="/libs/sortable/bootstrap-sortable.js"></script>
+    <script src="/libs/livestamp.min.js"></script>
+    <script src="/libs/custom.js"></script>
     <script>
         $(document).ready(function() {
             {{#if success}}

@@ -86,9 +86,9 @@
     font-weight: 400;
     src: local("Roboto"),
          local("Roboto-Regular"),
-         url("/lib/roboto/Roboto-Regular.woff2") format("woff2"),
-         url("/lib/roboto/Roboto-Regular.woff") format("woff"),
-         url("/lib/roboto/Roboto-Regular.ttf") format("truetype");
+         url("/css/roboto/Roboto-Regular.woff2") format("woff2"),
+         url("/css/roboto/Roboto-Regular.woff") format("woff"),
+         url("/css/roboto/Roboto-Regular.ttf") format("truetype");
 }
 
 body {
