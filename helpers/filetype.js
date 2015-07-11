@@ -10,4 +10,4 @@ module.exports = function(file) {
             icon = "file-" + e.icon + "-o";
     });
     return icon;
-}
+};

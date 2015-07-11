@@ -1,4 +1,5 @@
 var multer = require("multer");
+var fs = require("fs");
 var settings = require("../controllers/settings.js");
 
 module.exports = multer({
@@ -25,6 +26,6 @@ module.exports = multer({
     },
     onFileSizeLimit: function(file) {
         console.error("File size limit exceeded: " + file.originalname);
-        fs.unlink("./" + file.path);
+        fs.unlink(file.path);
     }
 });

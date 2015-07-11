@@ -4,8 +4,8 @@ PNotify.prototype.options.delay = 5000;
 PNotify.prototype.options.addclass = "stack-bottomleft";
 PNotify.prototype.options.nonblock = {
 	nonblock: true,
-	nonblock_opacity: .5
-}
+	nonblock_opacity: 0.5
+};
 
 $(document).ready(function() {
 	// Set first tab to be active

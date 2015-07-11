@@ -27,7 +27,7 @@ router.get("/profile", auth, function(req, res, next) {
     res.render("profile", {
         title: "Profile",
         user: req.user
-    })
+    });
 });
 
 router.post("/signin", function(req, res, next) {
@@ -52,6 +52,6 @@ router.post("/signup", auth, function(req, res, next) { /* Auth to prevent signu
     })(req, res, next);*/
     res.session.error = "Nice Try.";
     res.status(400).redirect(req.headers.referer || "/");
-})
+});
 
 module.exports = router;

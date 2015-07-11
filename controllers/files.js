@@ -1,5 +1,6 @@
 var express = require("express");
 var router = express.Router();
+var fs = require("fs");
 var file = require("../models/file.js");
 var auth = require("../middlewares/auth.js");
 var upload = require("../middlewares/upload.js");

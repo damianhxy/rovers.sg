@@ -1,7 +1,6 @@
 var Q = require("q");
 var nedb = require("nedb");
 var bcryptjs = require("bcryptjs");
-// User Object: Name / Username / Salt / Hash
 var users = new nedb({filename: "./database/users", autoload: true});
 
 exports.all = function() {
@@ -68,9 +67,9 @@ exports.create = function(name, username, password) {
                     "username": username,
                     "hash": hash,
                     "salt": salt
-                }
+                };
                 return Q.ninvoke(users, "insert", user);
-            })
+            });
         })
         .then(function(user) {
             resolve(user);

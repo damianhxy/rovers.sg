@@ -1,25 +1,20 @@
 var Q = require("q");
 var nedb = require("nedb");
 var fs = require("fs");
-var multer = require("multer");
-// File Object: File Name / Title Name / Size / Last Modified / Category / Uploader (ID)
 var files = new nedb({filename: "./database/files", autoload: true});
 
 exports.add = function(req) {
     return Q.promise(function(resolve, reject, notify) {
-        return Q.nfcall(fs.stat, req.files.file[0].path)
-        .then(function(stats) {
-            var fileinfo = {
-                name: req.files.file[0].name,
-                original: req.files.file[0].originalname,
-                path: req.files.file[0].path,
-                title: req.body.title,
-                time: Math.floor(Date.now() / 1000),
-                category: req.body.category,
-                uploader: req.user._id
-            };
-            return Q.ninvoke(files, "insert", fileinfo);
-        })
+        var fileinfo = {
+            name: req.files.file[0].name,
+            original: req.files.file[0].originalname,
+            path: req.files.file[0].path,
+            title: req.body.title,
+            time: Math.floor(Date.now() / 1000),
+            category: req.body.category,
+            uploader: req.user._id
+        };
+        return Q.ninvoke(files, "insert", fileinfo)
         .then(function() {
             resolve("File info saved.");
         })
