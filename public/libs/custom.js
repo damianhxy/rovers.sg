@@ -96,5 +96,16 @@ $(document).ready(function() {
 				$("#fileTitle").val(label);
 			}
 		});
+	} else if (location.pathname === "/contact") {
+		function initialize() {
+			var mapCanvas = document.getElementById('map');
+			var mapOptions = {
+		  		center: new google.maps.LatLng(1.347588, 103.850139),
+		  		zoom: 17,
+		  		mapTypeId: google.maps.MapTypeId.HYBRID
+			}
+			var map = new google.maps.Map(mapCanvas, mapOptions)
+	  	}
+	  	google.maps.event.addDomListener(window, 'load', initialize);
 	}
 });

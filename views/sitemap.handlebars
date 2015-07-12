@@ -1,99 +1,97 @@
-<main class="container-fluid">
-    <div class="col-md-12">
-        <div class="page-header">
-            <span class="h1">Sitemap <small>Summary</small></span>
+<div class="col-md-12">
+    <div class="page-header">
+        <span class="h1">Sitemap <small>Summary</small></span>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="page-header">
+                <span class="h2">Home</span>
+            </div>
+            <ul>
+                <li class="h3"><a href="/">Home</a></li>
+            </ul>
+        </div> <!-- /.col-md-4 -->
+        <div class="col-md-4">
+            <div class="page-header">
+                <span class="h2">NRR/NRC</span>
+            </div>
+            <ul>
+                <li class="h3"><a href="/nrr#forms">Forms</a></li>
+                <li class="h3"><a href="/nrr#history">History</a></li>
+                <li class="h3"><a href="/nrr#org">Organisation</a></li>
+            </ul>
+        </div> <!-- /.col-md-4 -->
+        <div class="col-md-4">
+            <div class="page-header">
+                <span class="h2">About</span>
+            </div>
+            <ul>
+                <li class="h3"><a href="/about#trivia">Trivia</a></li>
+                <li class="h3"><a href="/about#general">General Info</a></li>
+                <li class="h3"><a href="/about#media">Media</a></li>
+                <li class="h3"><a href="/about#workplan">Workplan</a></li>
+            </ul>
+        </div> <!-- /.col-md-4 -->
+    </div> <!-- /.row -->
+    <div class="row">
+        <div class="col-md-4">
+            <div class="page-header">
+                <span class="h2">Links</span>
+            </div>
+            <ul>
+                <li class="h3"><a href="/links">Links</a></li>
+            </ul>
         </div>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="page-header">
-                    <span class="h2">Home</span>
-                </div>
-                <ul>
-                    <li class="h3"><a href="/">Home</a></li>
-                </ul>
-            </div> <!-- /.col-md-4 -->
-            <div class="col-md-4">
-                <div class="page-header">
-                    <span class="h2">NRR/NRC</span>
-                </div>
-                <ul>
-                    <li class="h3"><a href="/nrr#forms">Forms</a></li>
-                    <li class="h3"><a href="/nrr#history">History</a></li>
-                    <li class="h3"><a href="/nrr#org">Organisation</a></li>
-                </ul>
-            </div> <!-- /.col-md-4 -->
-            <div class="col-md-4">
-                <div class="page-header">
-                    <span class="h2">About</span>
-                </div>
-                <ul>
-                    <li class="h3"><a href="/about#trivia">Trivia</a></li>
-                    <li class="h3"><a href="/about#general">General Info</a></li>
-                    <li class="h3"><a href="/about#media">Media</a></li>
-                    <li class="h3"><a href="/about#workplan">Workplan</a></li>
-                </ul>
-            </div> <!-- /.col-md-4 -->
-        </div> <!-- /.row -->
-        <div class="row">
-            <div class="col-md-4">
-                <div class="page-header">
-                    <span class="h2">Links</span>
-                </div>
-                <ul>
-                    <li class="h3"><a href="/links">Links</a></li>
-                </ul>
+        <div class="col-md-4">
+            <div class="page-header">
+                <span class="h2">Resources</span>
             </div>
-            <div class="col-md-4">
-                <div class="page-header">
-                    <span class="h2">Resources</span>
-                </div>
-                <ul>
-                    <li class="h3"><a href="/resource#info">Latest Information</a></li>
-                    <li class="h3"><a href="/resource#forms">Forms</a></li>
-                    <li class="h3"><a href="/resource#policies">Policies</a></li>
-                    <li class="h3"><a href="/resource#scheme">Progress Scheme</a></li>
-                    <li class="h3"><a href="/resource#others">Others</a></li>
-                    {{#if user}}
-                    <li class="h3"><a href="/resource#upload">Upload</a></li>
-                    {{/if}}
-                </ul>
+            <ul>
+                <li class="h3"><a href="/resource#info">Latest Information</a></li>
+                <li class="h3"><a href="/resource#forms">Forms</a></li>
+                <li class="h3"><a href="/resource#policies">Policies</a></li>
+                <li class="h3"><a href="/resource#scheme">Progress Scheme</a></li>
+                <li class="h3"><a href="/resource#others">Others</a></li>
+                {{#if user}}
+                <li class="h3"><a href="/resource#upload">Upload</a></li>
+                {{/if}}
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <div class="page-header">
+                <span class="h2">FAQ</span>
             </div>
-            <div class="col-md-4">
-                <div class="page-header">
-                    <span class="h2">FAQ</span>
-                </div>
-                <ul>
-                    <li class="h3"><a href="/faq#general">General</a></li>
-                    <li class="h3"><a href="/faq#commitment">Commitment</a></li>
-                    <li class="h3"><a href="/faq#responsibility">Responsibility</a></li>
-                </ul>
+            <ul>
+                <li class="h3"><a href="/faq#general">General</a></li>
+                <li class="h3"><a href="/faq#commitment">Commitment</a></li>
+                <li class="h3"><a href="/faq#responsibility">Responsibility</a></li>
+            </ul>
+        </div>
+    </div> <!-- /.row -->
+    <div class="row">
+        <div class="col-md-4">
+            <div class="page-header">
+                <span class="h2">Join Us</span>
             </div>
-        </div> <!-- /.row -->
-        <div class="row">
-            <div class="col-md-4">
-                <div class="page-header">
-                    <span class="h2">Join Us</span>
-                </div>
-                <ul>
-                    <li class="h3"><a href="/join">Join Us</a></li>
-                </ul>
+            <ul>
+                <li class="h3"><a href="/join">Join Us</a></li>
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <div class="page-header">
+                <span class="h2">Contact Us</span>
             </div>
-            <div class="col-md-4">
-                <div class="page-header">
-                    <span class="h2">Contact Us</span>
-                </div>
-                <ul>
-                    <li class="h3"><a href="/contact">Contact Us</a></li>
-                </ul>
+            <ul>
+                <li class="h3"><a href="/contact">Contact Us</a></li>
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <div class="page-header">
+                <span class="h2">Sitemap</span>
             </div>
-            <div class="col-md-4">
-                <div class="page-header">
-                    <span class="h2">Sitemap</span>
-                </div>
-                <ul>
-                    <li class="h3"><a href="/sitemap">Sitemap</a></li>
-                </ul>
-            </div>
-        </div> <!-- /.row -->
-    </div> <!-- /.col-md-12 -->
-</main> <!-- /.container-fluid -->
+            <ul>
+                <li class="h3"><a href="/sitemap">Sitemap</a></li>
+            </ul>
+        </div>
+    </div> <!-- /.row -->
+</div> <!-- /.col-md-12 -->

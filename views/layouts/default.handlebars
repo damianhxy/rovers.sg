@@ -25,145 +25,153 @@
     <!-- NAVBAR -->
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
-            <div class="col-md-12">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="/">
-                        Singapore Rovers
-                    </a>
-                </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li>
-                            <a href="/"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
-                        </li>
-                        <li>
-                            <a href="/nrr"><i class="fa fa-comments" aria-hidden="true"></i> NRR/NRC</a>
-                        </li>
-                        <li>
-                            <a href="/about"><i class="fa fa-info-circle" aria-hidden="true"></i> About</a>
-                        </li>
-                        <li>
-                            <a href="/links"><i class="fa fa-external-link" aria-hidden="true"></i> Links</a>
-                        </li>
-                        <li>
-                            <a href="/resource"><i class="fa fa-archive" aria-hidden="true"></i> Resources</a>
-                        </li>
-                        <li>
-                            <a href="/faq"><i class="fa fa-question-circle" aria-hidden="true"></i> FAQ</a>
-                        </li>
-                        <li>
-                            <a href="/join"><i class="fa fa-paper-plane"></i> Join Us</a>
-                        </li>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle Navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="/">
+                            Singapore Rovers
+                        </a>
+                    </div>
+                    <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li>
+                                <a href="/"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+                            </li>
+                            <li>
+                                <a href="/nrr"><i class="fa fa-comments" aria-hidden="true"></i> NRR/NRC</a>
+                            </li>
+                            <li>
+                                <a href="/about"><i class="fa fa-info-circle" aria-hidden="true"></i> About</a>
+                            </li>
+                            <li>
+                                <a href="/links"><i class="fa fa-external-link" aria-hidden="true"></i> Links</a>
+                            </li>
+                            <li>
+                                <a href="/resource"><i class="fa fa-archive" aria-hidden="true"></i> Resources</a>
+                            </li>
+                            <li>
+                                <a href="/faq"><i class="fa fa-question-circle" aria-hidden="true"></i> FAQ</a>
+                            </li>
+                            <li>
+                                <a href="/join"><i class="fa fa-paper-plane"></i> Join Us</a>
+                            </li>
+                            {{#if user}}
+                            <li>
+                                <a href="/users/profile"><i class="fa fa-user"></i> Profile</a>
+                            </li>
+                            {{/if}}
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
                         {{#if user}}
-                        <li>
-                            <a href="/users/profile"><i class="fa fa-user"></i> Profile</a>
-                        </li>
+                            <li><p class="navbar-text">Signed in as <strong>{{user.username}}</strong></p></li>
+                            <li>
+                                <a href="/users/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out</a>
+                            </li>
+                        {{else}}
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                                    <i class="fa fa-sign-in" aria-hidden="true"></i> Sign In
+                                    <span class="caret"></span>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <form action="/users/signin" method="post" accept-charset="UTF-8" role="form">
+                                        <div class="form-group">
+                                            <label class="sr-only" for="username">Username</label>
+                                            <input id="username" name="username" class="form-control" type="text" placeholder="Username" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only" for="password">Password</label>
+                                            <input id="password" name="password" class="form-control" type="password" placeholder="Password" required>
+                                        </div>
+                                        <button type="submit" class="form-control btn btn-primary">Login</button>
+                                    </form>
+                                </div>
+                            </li>
+                            {{!--
+                            <!-- For development purposes, hidden from public -->
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                                    <i class="fa fa-user-plus" aria-hidden="true"></i> Sign Up
+                                    <span class="caret"></span>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <form action="/users/signup" method="post" accept-charset="UTF-8" role="form">
+                                        <div class="form-group">
+                                            <label class="sr-only" for="username">Name</label>
+                                            <input id="name" name="name" class="form-control" type="text" placeholder="Name" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only" for="username">Username</label>
+                                            <input id="username" name="username" class="form-control" type="text" placeholder="Username" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only" for="password">Password</label>
+                                            <input id="password" name="password" class="form-control" type="password" placeholder="Password" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="form-control btn btn-primary">Sign Up</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </li>
+                            --}}
                         {{/if}}
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                    {{#if user}}
-                        <li><p class="navbar-text">Signed in as <strong>{{user.username}}</strong></p></li>
-                        <li>
-                            <a href="/users/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out</a>
-                        </li>
-                    {{else}}
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-                                <i class="fa fa-sign-in" aria-hidden="true"></i> Sign In
-                                <span class="caret"></span>
-                            </a>
-                            <div class="dropdown-menu">
-                                <form action="/users/signin" method="post" accept-charset="UTF-8" role="form">
-                                    <div class="form-group">
-                                        <label class="sr-only" for="username">Username</label>
-                                        <input id="username" name="username" class="form-control" type="text" placeholder="Username" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="sr-only" for="password">Password</label>
-                                        <input id="password" name="password" class="form-control" type="password" placeholder="Password" required>
-                                    </div>
-                                    <button type="submit" class="form-control btn btn-primary">Login</button>
-                                </form>
-                            </div>
-                        </li>
-                        {{!--
-                        <!-- For development purposes, hidden from public -->
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-                                <i class="fa fa-user-plus" aria-hidden="true"></i> Sign Up
-                                <span class="caret"></span>
-                            </a>
-                            <div class="dropdown-menu">
-                                <form action="/users/signup" method="post" accept-charset="UTF-8" role="form">
-                                    <div class="form-group">
-                                        <label class="sr-only" for="username">Name</label>
-                                        <input id="name" name="name" class="form-control" type="text" placeholder="Name" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="sr-only" for="username">Username</label>
-                                        <input id="username" name="username" class="form-control" type="text" placeholder="Username" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="sr-only" for="password">Password</label>
-                                        <input id="password" name="password" class="form-control" type="password" placeholder="Password" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="submit" class="form-control btn btn-primary">Sign Up</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </li>
-                        --}}
-                    {{/if}}
-                    </ul> <!-- /.navbar-right -->
-                </div> <!-- /.navbar-collapse -->
-            </div> <!-- /.col-md-12 -->
+                        </ul> <!-- /.navbar-right -->
+                    </div> <!-- /.navbar-collapse -->
+                </div> <!-- /.col-md-12 -->
+            </div> <!-- /.row -->
         </div> <!-- /.container-fluid -->
     </nav> <!-- /.navbar -->
     <!-- /NAVBAR -->
-    <!-- BANNERS -->
-    <header class="container-fluid">
-        <div class="col-md-6">
-            <a data-toggle="lightbox" href="/img/Banner.png" data-title="Placeholder Banner">
-                <img class="banner" alt="Placeholder Banner" src="/img/Banner.png">
-            </a>
-        </div> <!-- /.col-md-6 -->
-        <div class="col-md-6">
-            <a data-toggle="lightbox" href="/img/Banner.png" data-title="Placeholder Banner">
-                <img class="banner" alt="Placeholder Banner" src="/img/Banner.png">
-            </a>
-        </div> <!-- /.col-md-6 -->
-    </header> <!-- /.container-fluid -->
-    <!-- /BANNERS -->
-    <!-- PAGE CONTENT -->
+    <div class="container-fluid">
+        <!-- BANNERS -->
+        <div class="row">
+            <div class="col-md-6">
+                <a data-toggle="lightbox" href="/img/banner.png" data-title="Placeholder Banner">
+                    <img class="banner" alt="Placeholder Banner" src="/img/banner.png">
+                </a>
+            </div> <!-- /.col-md-6 -->
+            <div class="col-md-6">
+                <a data-toggle="lightbox" href="/img/banner.png" data-title="Placeholder Banner">
+                    <img class="banner" alt="Placeholder Banner" src="/img/banner.png">
+                </a>
+            </div> <!-- /.col-md-6 -->
+        </div> <!-- /.row -->
+        <!-- /BANNERS -->
+        <!-- PAGE CONTENT -->
+        <div class="row">
 {{{body}}}
-    <!-- /PAGE CONTENT -->
-    <!-- PAGE FOOTER -->
-    <footer class="container-fluid">
-        <div class="col-md-12">
-            <p class="signature">
-                <a href="/">rover.sg</a>
-            </p>
-            <p class="signature-links">
-                <small>
-                    The Singapore Scout Association &copy; 2015 &middot; Built with <a href="http://getbootstrap.com/">Bootstrap</a> &middot; Powered by <a href="http://expressjs.com/">Express.js</a>
-                </small>
-            </p>
-            <p class="footer-links">
-                <small>
-                    <a href="/sitemap"><i class="fa fa-sitemap" aria-hidden="true"></i> Sitemap &middot; </a>
-                    <a href="/contact"><i class="fa fa-phone-square" aria-hidden="true"></i> Contact us &middot; </a>
-                    <a href="#"><i class="fa fa-toggle-up" aria-hidden="true"></i> Back to top</a>
-                </small>
-            </p>
-        </div> <!-- /.container-fluid -->
-    </footer> <!-- /.footer -->
+        </div>
+        <!-- /PAGE CONTENT -->
+        <!-- PAGE FOOTER -->
+        <footer class="row">
+            <div class="col-md-12">
+                <p class="signature">
+                    <a href="/">rover.sg</a>
+                </p>
+                <p class="signature-links">
+                    <small>
+                        The Singapore Scout Association &copy; 2015 &middot; Built with <a href="http://getbootstrap.com/">Bootstrap</a> &middot; Powered by <a href="http://expressjs.com/">Express.js</a>
+                    </small>
+                </p>
+                <p class="footer-links">
+                    <small>
+                        <a href="/sitemap"><i class="fa fa-sitemap" aria-hidden="true"></i> Sitemap &middot; </a>
+                        <a href="/contact"><i class="fa fa-phone-square" aria-hidden="true"></i> Contact us &middot; </a>
+                        <a href="#"><i class="fa fa-toggle-up" aria-hidden="true"></i> Back to top</a>
+                    </small>
+                </p>
+            </div> <!-- /.col-md-12 -->
+        </footer> <!-- /.footer -->
+        <!-- /PAGE FOOTER -->
+    </div> <!-- /.container-fluid -->
+    <!-- SCRIPTS -->
     <script src="/libs/jquery-2.1.4.min.js"></script>
     <script src="/css/bootstrap/js/bootstrap.min.js"></script>
     <script src="/css/lightbox/ekko-lightbox.min.js"></script>
@@ -181,6 +189,8 @@
                 text: "{{success}}",
                 type: "success"
             });
+            {{else}}
+            /* No success alerts */
             {{/if}}
             {{#if error}}
             new PNotify({
@@ -188,8 +198,10 @@
                 text: "{{error}}",
                 type: "error"
             });
+            {{else}}
+            /* No error alerts */
             {{/if}}
         });
     </script>
-    <!-- /PAGE FOOTER -->
+    <!-- /SCRIPTS -->
 </body>

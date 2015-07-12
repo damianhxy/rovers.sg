@@ -1,43 +1,41 @@
-<main class="container-fluid">
-    <div class="col-md-12">
-        <div class="page-header">
-            <span class="h1">Account Details <small>Settings</small></span>
+<div class="col-md-12">
+    <div class="page-header">
+        <span class="h1">Account Details <small>Settings</small></span>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title"><i class="fa fa-edit"></i>&nbsp;Password Change</h4>
         </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title"><i class="fa fa-edit"></i>&nbsp;Password Change</h4>
-            </div>
-            <div class="panel-body">
-                <form class="form-horizontal" action="/users/changePassword" method="post" accept-charset="UTF-8" role="form">
-                    <div class="form-group">
-                        <span class="col-md-2 control-label">Current Password</span>
-                        <div class="col-md-10">
-                            <input name="currentPassword" class="form-control" type="password" placeholder="Password" required>
-                        </div>
-                    </div> <!-- /.form-group -->
-                    <div class="form-group">
-                        <span class="col-md-2 control-label">New Password</span>
-                        <div class="col-md-10">
-                            <input name="newPassword" class="form-control" type="password" placeholder="New Password" required>
-                        </div>
-                    </div> <!-- /.form-group -->
-                    <div class="form-group">
-                        <span class="col-md-2 control-label">Repeat New Password</span>
-                        <div class="col-md-10">
-                            <input name="newPasswordRepeat" class="form-control" type="password" placeholder="Password Again" required>
-                        </div>
-                    </div> <!-- /.form-group -->
-                    <div class="form-group">
-                        <span class="col-md-2 control-label">Actions</span>
-                        <div class="col-md-10">
-                            <div class="btn-group" role="group">
-                                <button type="submit" class="btn btn-success">Update</button>
-                                <button type="reset" class="btn btn-danger">Clear</button>
-                            </div> <!-- /.btn-group -->
-                        </div> <!-- /.col-md-10 -->
-                    </div> <!-- /.form-group -->
-                </form>
-            </div>
-        </div> <!-- /.panel -->
-    </div> <!-- /.col-md-12 -->
-</main> <!-- /.container-fluid -->
+        <div class="panel-body">
+            <form class="form-horizontal" action="/users/changePassword" method="post" accept-charset="UTF-8" role="form">
+                <div class="form-group">
+                    <span class="col-md-2 control-label">Current Password</span>
+                    <div class="col-md-10">
+                        <input name="currentPassword" class="form-control" type="password" placeholder="Password" required>
+                    </div>
+                </div> <!-- /.form-group -->
+                <div class="form-group">
+                    <span class="col-md-2 control-label">New Password</span>
+                    <div class="col-md-10">
+                        <input name="newPassword" class="form-control" type="password" placeholder="New Password" required>
+                    </div>
+                </div> <!-- /.form-group -->
+                <div class="form-group">
+                    <span class="col-md-2 control-label">Repeat New Password</span>
+                    <div class="col-md-10">
+                        <input name="newPasswordRepeat" class="form-control" type="password" placeholder="Password Again" required>
+                    </div>
+                </div> <!-- /.form-group -->
+                <div class="form-group">
+                    <span class="col-md-2 control-label">Actions</span>
+                    <div class="col-md-10">
+                        <div class="btn-group" role="group">
+                            <button type="submit" class="btn btn-success">Update</button>
+                            <button type="reset" class="btn btn-danger">Clear</button>
+                        </div> <!-- /.btn-group -->
+                    </div> <!-- /.col-md-10 -->
+                </div> <!-- /.form-group -->
+            </form>
+        </div>
+    </div> <!-- /.panel -->
+</div> <!-- /.col-md-12 -->
