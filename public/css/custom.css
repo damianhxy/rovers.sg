@@ -170,6 +170,24 @@ footer a:hover {
     cursor: pointer;
 }
 
+/* Sticky Footer */
+/*
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    margin: 0 0 100px;
+}
+footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 100px;
+    width: 100%;
+}
+*/
+
 /* Misc */
 .anchor {
     display: block;
@@ -200,16 +218,6 @@ figcaption {
     text-align: center;
 }
 
-.map {
-    height: 400px;
-    margin: auto;
-    width: 400px;
-}
-
-th {
+thead {
     font-weight: bold;
-}
-
-.thumbnail {
-    width: 100%;
 }
