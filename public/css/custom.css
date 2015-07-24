@@ -104,7 +104,6 @@ body {
 
 footer {
     background-color: #fb0000;
-    margin-top: 30px;
     padding-bottom: 8px;
     padding-top: 8px;
     text-align: center;
@@ -171,22 +170,19 @@ footer a:hover {
 }
 
 /* Sticky Footer */
-/*
 html {
     position: relative;
     min-height: 100%;
 }
 body {
-    margin: 0 0 100px;
+    margin-bottom: 120px;
 }
+
 footer {
     position: absolute;
-    left: 0;
     bottom: 0;
-    height: 100px;
     width: 100%;
 }
-*/
 
 /* Misc */
 .anchor {
