@@ -57,7 +57,7 @@ exports.create = function(name, username, password) {
         return Q.ninvoke(users, "findOne", { username: username })
         .then(function(user) {
             if (user) return reject(Error("User already exists."));
-            return Q.nfcall(bcryptjs.gensalt, 10);
+            return Q.nfcall(bcryptjs.genSalt, 10);
         })
         .then(function(salt) {
             return Q.nfcall(bcryptjs.hash, password, salt)
