@@ -14,7 +14,7 @@ exports.add = function(req) {
             category: req.body.category,
             uploader: req.user._id
         };
-        return Q.ninvoke(files, "insert", fileinfo)
+        Q.ninvoke(files, "insert", fileinfo)
         .then(function() {
             resolve();
         })
@@ -26,7 +26,7 @@ exports.add = function(req) {
 
 exports.all = function() {
     return Q.promise(function(resolve, reject, notify) {
-        return Q.ninvoke(files, "find", {})
+        Q.ninvoke(files, "find", {})
         .then(function(filelist) {
             resolve(filelist);
         })

@@ -5,7 +5,7 @@ var users = new nedb({filename: "./database/users", autoload: true});
 
 exports.all = function() {
     return Q.promise(function(resolve, reject, notify) {
-        return Q.ninvoke(users, "find", {})
+        Q.ninvoke(users, "find", {})
         .then(function(list) {
             resolve(list);
         })
@@ -17,7 +17,7 @@ exports.all = function() {
 
 exports.authenticate = function(username, password) {
     return Q.promise(function(resolve, reject, notify) {
-        return Q.ninvoke(users, "findOne", { username: username })
+        Q.ninvoke(users, "findOne", { username: username })
         .then(function(user) {
             if (!user) return reject(Error("User does not exist."));
             Q.ninvoke(bcryptjs, "compare", password, user.hash)
@@ -35,7 +35,7 @@ exports.authenticate = function(username, password) {
 exports.changePassword = function(req) {
     return Q.promise(function(resolve, reject, notify) {
         if (req.body.newPassword !== req.body.newPasswordRepeat) return reject(Error("Passwords do not match."));
-        return Q.ninvoke(bcryptjs, "compare", req.body.currentPassword, req.user.hash)
+        Q.ninvoke(bcryptjs, "compare", req.body.currentPassword, req.user.hash)
         .then(function(res) {
             if (!res) return reject(Error("Wrong Password"));
             return Q.nfcall(bcryptjs.hash, req.body.newPassword, req.user.salt);
@@ -54,7 +54,7 @@ exports.changePassword = function(req) {
 
 exports.create = function(name, username, password) {
     return Q.promise(function(resolve, reject, notify) {
-        return Q.ninvoke(users, "findOne", { username: username })
+        Q.ninvoke(users, "findOne", { username: username })
         .then(function(user) {
             if (user) return reject(Error("User already exists."));
             return Q.nfcall(bcryptjs.genSalt, 10);
@@ -82,7 +82,7 @@ exports.create = function(name, username, password) {
 
 exports.get = function(id) {
     return Q.promise(function(resolve, reject, notify) {
-        return Q.ninvoke(users, "findOne", { _id: id })
+        Q.ninvoke(users, "findOne", { _id: id })
         .then(function(user) {
             resolve(user);
         })
