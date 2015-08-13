@@ -6,9 +6,9 @@ var files = new nedb({filename: "./database/files", autoload: true});
 exports.add = function(req) {
     return Q.promise(function(resolve, reject, notify) {
         var fileinfo = {
-            name: req.files.file[0].name,
-            original: req.files.file[0].originalname,
-            path: req.files.file[0].path,
+            name: req.file.filename,
+            original: req.file.originalname,
+            path: req.file.path,
             title: req.body.title,
             time: Math.floor(Date.now() / 1000),
             category: req.body.category,

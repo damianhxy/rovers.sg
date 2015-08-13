@@ -58,8 +58,8 @@
                 <tr>
                     <td><a id="{{this._id}}" class="edit-title">{{this.title}}</a></td>
                     <td>
-                        <a data-toggle="lightbox" href="/uploads/{{this.name}}" data-title="{{this.title}}">
-                            <i class="fa fa-{{fileType this.name}}"></i> {{this.original}}
+                        <a href="/uploads/{{this.name}}" data-title="{{this.title}}" download>
+                            <i class="fa fa-{{fileType this.original}}"></i> {{this.original}}
                         </a>
                     </td>
                     <td data-value="{{this.time}}" data-livestamp="{{this.time}}">

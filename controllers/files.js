@@ -52,8 +52,8 @@ router.post("/edit", auth, function(req, res, next) {
     });
 });
 
-router.post("/upload", auth, upload, function(req, res, next) {
-    if (!req.files.file) {
+router.post("/upload", auth, upload.single("file"), function(req, res, next) {
+    if (!req.file) {
         req.session.error = "Please select a file.";
         res.status(400).redirect("/resource#upload");
     }
@@ -65,7 +65,7 @@ router.post("/upload", auth, upload, function(req, res, next) {
     .fail(function(err) {
         console.error(err.stack);
         req.session.error = err.message;
-        fs.unlink(req.files.file[0].path);
+        fs.unlink(req.file.path);
         res.status(400).redirect("/resource#upload");
     });
 });
