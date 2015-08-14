@@ -17,12 +17,6 @@ router.post("/changePassword", auth, function(req, res, next) {
     });
 });
 
-router.get("/logout", auth, function(req, res, next) {
-    req.session.success = "Successfully signed out.";
-    req.logout();
-    res.redirect("/");
-});
-
 router.get("/profile", auth, function(req, res, next) {
     res.render("profile", {
         title: "Profile",
@@ -40,6 +34,12 @@ router.post("/signin", function(req, res, next) {
             res.redirect(req.headers.referer || "/");
         });
     })(req, res, next);
+});
+
+router.get("/signout", auth, function(req, res, next) {
+    req.session.success = "Successfully signed out.";
+    req.logout();
+    res.redirect("/");
 });
 
 router.post("/signup", auth, function(req, res, next) { /* Auth to prevent signups in production */
