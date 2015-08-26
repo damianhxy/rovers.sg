@@ -28,6 +28,18 @@ $(document).ready(function() {
 	    $(this).ekkoLightbox();
 	});
 
+	// Slick
+	$("[class^='slick']").slick({
+		infinite: true,
+		slidesToShow: 1,
+		slidesToScroll: 1,
+		dots: true,
+		arrows: false /* Can't see them anyway */
+	});
+
+	// Append aria-hidden to fa elements
+	$(".fa").attr("aria-hidden", true);
+
 	// Active Link
 	$("nav a[href='" + location.pathname + "']").parent().addClass("active");
 

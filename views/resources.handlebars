@@ -6,22 +6,22 @@
 <div class="col-md-3">
     <ul class="nav nav-pills nav-stacked">
         <li role="presentation">
-            <a href="#info" data-toggle="pill"><i class="fa fa-info-circle" aria-hidden="true"></i> Latest Information</a>
+            <a href="#info" data-toggle="pill"><i class="fa fa-info-circle"></i> Latest Information</a>
         </li>
         <li role="presentation">
-            <a href="#forms" data-toggle="pill"><i class="fa fa-edit" aria-hidden="true"></i> Forms</a>
+            <a href="#forms" data-toggle="pill"><i class="fa fa-edit"></i> Forms</a>
         </li>
         <li role="presentation">
-            <a href="#policies" data-toggle="pill"><i class="fa fa-university" aria-hidden="true"></i> Policies</a>
+            <a href="#policies" data-toggle="pill"><i class="fa fa-university"></i> Policies</a>
         </li>
         <li role="presentation">
-            <a href="#scheme" data-toggle="pill"><i class="fa fa-bullseye" aria-hidden="true"></i> Progress Scheme</a>
+            <a href="#scheme" data-toggle="pill"><i class="fa fa-bullseye"></i> Progress Scheme</a>
         </li>
         <li role="presentation">
-            <a href="#others" data-toggle="pill"><i class="fa fa-certificate" aria-hidden="true"></i> Others</a>
+            <a href="#others" data-toggle="pill"><i class="fa fa-certificate"></i> Others</a>
         </li>
         {{#if user}}
-        <li><a href="#upload" data-toggle="pill"><i class="fa fa-upload" aria-hidden="true"></i> Upload File</a></li>
+        <li><a href="#upload" data-toggle="pill"><i class="fa fa-upload"></i> Upload File</a></li>
         {{/if}}
     </ul>
 </div> <!-- /.col-md-3 -->
@@ -31,7 +31,7 @@
         {{#if this.isEmpty}}
         <div class="panel panel-info">
             <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-info-circle" aria-hidden="true"></i> Empty</h3>
+                <h3 class="panel-title"><i class="fa fa-info-circle"></i> Empty</h3>
             </div>
             <div class="panel-body">
                 There are currently no files in this category.
@@ -67,10 +67,10 @@
                     {{#if ../../../user}}
                     <td data-original="{{this.original}}" data-id="{{this._id}}">
                         <button type="button" class="edit-btn btn btn-success btn-xs">
-                            <i class="fa fa-edit" aria-hidden="true"> Edit</i>
+                            <i class="fa fa-edit"> Edit</i>
                         </button>
                         <a href="#deleteModal" type="button" class="btn btn-danger btn-xs" data-toggle="modal">
-                            <i class="fa fa-close" aria-hidden="true"> Delete</i>
+                            <i class="fa fa-close"> Delete</i>
                         </a>
                     </td>
                     {{/if}}
@@ -134,7 +134,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <i class="fa fa-times" aria-hidden="true"></i>
+                        <i class="fa fa-times"></i>
                     </button>
                     <h4 class="modal-title">Delete File</h4>
                 </div>

@@ -4,7 +4,7 @@ var bcryptjs = require("bcryptjs");
 var users = new nedb({filename: "./database/users", autoload: true});
 
 exports.all = function() {
-    return Q.promise(function(resolve, reject, notify) {
+    return Q.promise(function(resolve, reject) {
         Q.ninvoke(users, "find", {})
         .then(function(list) {
             resolve(list);
@@ -16,7 +16,7 @@ exports.all = function() {
 };
 
 exports.authenticate = function(username, password) {
-    return Q.promise(function(resolve, reject, notify) {
+    return Q.promise(function(resolve, reject) {
         Q.ninvoke(users, "findOne", { username: username })
         .then(function(user) {
             if (!user) return reject(Error("User does not exist."));
@@ -33,7 +33,7 @@ exports.authenticate = function(username, password) {
 };
 
 exports.changePassword = function(req) {
-    return Q.promise(function(resolve, reject, notify) {
+    return Q.promise(function(resolve, reject) {
         if (req.body.newPassword !== req.body.newPasswordRepeat) return reject(Error("Passwords do not match."));
         Q.ninvoke(bcryptjs, "compare", req.body.currentPassword, req.user.hash)
         .then(function(res) {
@@ -53,7 +53,7 @@ exports.changePassword = function(req) {
 };
 
 exports.create = function(name, username, password) {
-    return Q.promise(function(resolve, reject, notify) {
+    return Q.promise(function(resolve, reject) {
         Q.ninvoke(users, "findOne", { username: username })
         .then(function(user) {
             if (user) return reject(Error("User already exists."));
@@ -77,7 +77,7 @@ exports.create = function(name, username, password) {
 };
 
 exports.get = function(id) {
-    return Q.promise(function(resolve, reject, notify) {
+    return Q.promise(function(resolve, reject) {
         Q.ninvoke(users, "findOne", { _id: id })
         .then(function(user) {
             resolve(user);

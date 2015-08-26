@@ -30,7 +30,7 @@ router.get("/", function(req, res, next) {
     });
 });
 
-router.post("/delete", auth, function(req, res, next) {
+router.post("/delete", auth, function(req, res) {
     file.delete(req.body.id)
     .then(function() {
         res.end();
@@ -41,7 +41,7 @@ router.post("/delete", auth, function(req, res, next) {
     });
 });
 
-router.post("/edit", auth, function(req, res, next) {
+router.post("/edit", auth, function(req, res) {
     file.edit(req.body.pk, req.body.name, req.body.value)
     .then(function() {
         res.end();
@@ -52,7 +52,7 @@ router.post("/edit", auth, function(req, res, next) {
     });
 });
 
-router.post("/upload", auth, upload.single("file"), function(req, res, next) {
+router.post("/upload", auth, upload.single("file"), function(req, res) {
     if (!req.file) {
         req.session.error = "Please select a file.";
         res.status(400).redirect("/resource#upload");

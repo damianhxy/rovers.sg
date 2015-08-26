@@ -4,7 +4,7 @@ var fs = require("fs");
 var files = new nedb({filename: "./database/files", autoload: true});
 
 exports.add = function(req) {
-    return Q.promise(function(resolve, reject, notify) {
+    return Q.promise(function(resolve, reject) {
         var fileinfo = {
             name: req.file.filename,
             original: req.file.originalname,
@@ -25,7 +25,7 @@ exports.add = function(req) {
 };
 
 exports.all = function() {
-    return Q.promise(function(resolve, reject, notify) {
+    return Q.promise(function(resolve, reject) {
         Q.ninvoke(files, "find", {})
         .then(function(filelist) {
             resolve(filelist);
@@ -37,7 +37,7 @@ exports.all = function() {
 };
 
 exports.delete = function(id) {
-    return Q.promise(function(resolve, reject, notify) {
+    return Q.promise(function(resolve, reject) {
         Q.ninvoke(files, "findOne", { _id: id })
         .then(function(file) {
             return Q.nfcall(fs.unlink, file.path);
@@ -53,7 +53,7 @@ exports.delete = function(id) {
 };
 
 exports.edit = function(id, field, value) {
-    return Q.promise(function(resolve, reject, notify) {
+    return Q.promise(function(resolve, reject) {
         Q.ninvoke(files, "findOne", { _id: id })
         .then(function(file) {
             file[field] = value;

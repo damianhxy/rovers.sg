@@ -198,6 +198,7 @@ footer {
 
 .fa-chain {
     color: gray;
+    margin-left: -13px;
     -webkit-transition: color 0.2s ease 0s;
             transition: color 0.2s ease 0s;
 }

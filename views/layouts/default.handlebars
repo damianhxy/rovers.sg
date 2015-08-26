@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="/css/pnotify/pnotify.custom.min.css">
     <link rel="stylesheet" href="/libs/sortable/bootstrap-sortable.css">
     <link rel="stylesheet" href="/libs/x-editable/css/bootstrap-editable.css">
+    <link rel="stylesheet" href="/css/slick/slick.css">
+    <link rel="stylesheet" href="/css/slick/slick-theme.css">
     <link rel="stylesheet" href="/css/custom.css">
 </head>
 <body>
@@ -40,43 +42,25 @@
                     </div>
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            <li>
-                                <a href="/"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
-                            </li>
-                            <li>
-                                <a href="/nrr"><i class="fa fa-comments" aria-hidden="true"></i> NRR/NRC</a>
-                            </li>
-                            <li>
-                                <a href="/about"><i class="fa fa-info-circle" aria-hidden="true"></i> About</a>
-                            </li>
-                            <li>
-                                <a href="/links"><i class="fa fa-external-link" aria-hidden="true"></i> Links</a>
-                            </li>
-                            <li>
-                                <a href="/resource"><i class="fa fa-archive" aria-hidden="true"></i> Resources</a>
-                            </li>
-                            <li>
-                                <a href="/faq"><i class="fa fa-question-circle" aria-hidden="true"></i> FAQ</a>
-                            </li>
-                            <li>
-                                <a href="/join"><i class="fa fa-paper-plane"></i> Join Us</a>
-                            </li>
+                            <li><a href="/"><i class="fa fa-home"></i> Home</a></li>
+                            <li><a href="/nrr"><i class="fa fa-comments"></i> NRR/NRC</a></li>
+                            <li><a href="/about"><i class="fa fa-info-circle"></i> About</a></li>
+                            <li><a href="/links"><i class="fa fa-external-link"></i> Links</a></li>
+                            <li><a href="/resource"><i class="fa fa-archive"></i> Resources</a></li>
+                            <li><a href="/faq"><i class="fa fa-question-circle"></i> FAQ</a></li>
+                            <li><a href="/join"><i class="fa fa-paper-plane"></i> Join Us</a></li>
                             {{#if user}}
-                            <li>
-                                <a href="/users/profile"><i class="fa fa-user"></i> Profile</a>
-                            </li>
+                            <li><a href="/users/profile"><i class="fa fa-user"></i> Profile</a></li>
                             {{/if}}
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                         {{#if user}}
                             <li><p class="navbar-text">Signed in as <strong>{{user.username}}</strong></p></li>
-                            <li>
-                                <a href="/users/signout"><i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out</a>
-                            </li>
+                            <li><a href="/users/signout"><i class="fa fa-sign-out"></i> Sign Out</a></li>
                         {{else}}
                             <li class="dropdown">
                                 <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-                                    <i class="fa fa-sign-in" aria-hidden="true"></i> Sign In
+                                    <i class="fa fa-sign-in"></i> Sign In
                                     <span class="caret"></span>
                                 </a>
                                 <div class="dropdown-menu">
@@ -97,7 +81,7 @@
                             <!-- For development purposes, hidden from public -->
                             <li class="dropdown">
                                 <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-                                    <i class="fa fa-user-plus" aria-hidden="true"></i> Sign Up
+                                    <i class="fa fa-user-plus"></i> Sign Up
                                     <span class="caret"></span>
                                 </a>
                                 <div class="dropdown-menu">
@@ -162,9 +146,9 @@
                 </p>
                 <p class="footer-links">
                     <small>
-                        <a href="/sitemap"><i class="fa fa-sitemap" aria-hidden="true"></i> Sitemap &middot; </a>
-                        <a href="/contact"><i class="fa fa-phone-square" aria-hidden="true"></i> Contact us &middot; </a>
-                        <a href="#"><i class="fa fa-toggle-up" aria-hidden="true"></i> Back to top</a>
+                        <a href="/sitemap"><i class="fa fa-sitemap"></i> Sitemap &middot; </a>
+                        <a href="/contact"><i class="fa fa-phone-square"></i> Contact us &middot; </a>
+                        <a href="#"><i class="fa fa-toggle-up"></i> Back to top</a>
                     </small>
                 </p>
             </div> <!-- /.col-md-12 -->
@@ -180,6 +164,7 @@
     <script src="/css/pnotify/pnotify.custom.min.js"></script>
     <script src="/libs/sortable/bootstrap-sortable.js"></script>
     <script src="/libs/livestamp.min.js"></script>
+    <script src="/css/slick/slick.min.js"></script>
     <script src="/libs/custom.js"></script>
     <script>
         $(document).ready(function() {
