@@ -38,6 +38,13 @@ router.get("/faq", function(req, res) {
     });
 });
 
+router.get("/join", function(req, res) {
+	res.render("join", {
+		title: "Join Us",
+		user: req.user
+	});
+});
+
 router.get("/links", function(req, res) {
     res.render("links", {
         title: "Links",
