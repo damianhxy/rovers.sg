@@ -207,14 +207,6 @@ footer {
     color: black;
 }
 
-figcaption {
-    background-color: gray;
-    border-radius: 50px;
-    color: #FFF;
-    padding: 5px;
-    text-align: center;
-}
-
 thead {
     font-weight: bold;
 }
