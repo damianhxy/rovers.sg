@@ -6,6 +6,11 @@ PNotify.prototype.options.nonblock = {
 	nonblock: true,
 	nonblock_opacity: 0.5
 };
+PNotify.prototype.options.stack = {
+	dir1: "up",
+	dir2: "right",
+	push: "top"
+};
 
 $(document).ready(function() {
 	// Set first tab to be active
