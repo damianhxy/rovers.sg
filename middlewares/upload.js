@@ -6,7 +6,7 @@ module.exports = multer({
     limits: {
         files: 1,
         parts: 3,
-        fileSize: settings.FILE_SIZE_LIMIT * 1048576
+        fileSize: settings.FILE_SIZE_LIMIT
     },
     storage: multer.diskStorage({
         filename: function(req, file, cb) {
