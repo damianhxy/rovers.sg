@@ -210,3 +210,7 @@ footer {
 thead {
     font-weight: bold;
 }
+
+textarea {
+    resize: none;
+}

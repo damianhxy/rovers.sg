@@ -17,10 +17,12 @@
     <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/lightbox/ekko-lightbox.min.css">
     <link rel="stylesheet" href="/css/pnotify/pnotify.custom.min.css">
-    <link rel="stylesheet" href="/libs/sortable/bootstrap-sortable.css">
-    <link rel="stylesheet" href="/libs/x-editable/css/bootstrap-editable.css">
+    <link rel="stylesheet" href="/lib/sortable/bootstrap-sortable.css">
+    <link rel="stylesheet" href="/lib/x-editable/css/bootstrap-editable.css">
     <link rel="stylesheet" href="/css/slick/slick.css">
     <link rel="stylesheet" href="/css/slick/slick-theme.css">
+    <link rel="stylesheet" href="/css/fullcalendar/fullcalendar.min.css">
+    <link rel="stylesheet" href="/css/fullcalendar/fullcalendar.print.css" media="print">
     <link rel="stylesheet" href="/css/custom.css">
 </head>
 <body>
@@ -49,13 +51,10 @@
                             <li><a href="/resource"><i class="fa fa-archive"></i> Resources</a></li>
                             <li><a href="/faq"><i class="fa fa-question-circle"></i> FAQ</a></li>
                             <li><a href="/join"><i class="fa fa-paper-plane"></i> Join Us</a></li>
-                            {{#if user}}
-                            <li><a href="/users/profile"><i class="fa fa-user"></i> Profile</a></li>
-                            {{/if}}
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                         {{#if user}}
-                            <li><p class="navbar-text">Signed in as <strong>{{user.username}}</strong></p></li>
+                            <li><p class="navbar-text">Signed in as <strong><a href="/users/profile">{{user.username}}</a></strong></p></li>
                             <li><a href="/users/signout"><i class="fa fa-sign-out"></i> Sign Out</a></li>
                         {{else}}
                             <li class="dropdown">
@@ -156,18 +155,21 @@
         <!-- /PAGE FOOTER -->
     </div> <!-- /.container-fluid -->
     <!-- SCRIPTS -->
-    <script src="/libs/jquery-2.1.4.min.js"></script>
+    <script src="/lib/jquery-2.1.4.min.js"></script>
     <script src="/css/bootstrap/js/bootstrap.min.js"></script>
     <script src="/css/lightbox/ekko-lightbox.min.js"></script>
-    <script src="/libs/moment.js"></script>
-    <script src="/libs/x-editable/js/bootstrap-editable.min.js"></script>
+    <script src="/lib/moment.js"></script>
+    <script src="/css/fullcalendar/fullcalendar.min.js"></script>
+    <script src="/lib/x-editable/js/bootstrap-editable.min.js"></script>
     <script src="/css/pnotify/pnotify.custom.min.js"></script>
-    <script src="/libs/sortable/bootstrap-sortable.js"></script>
-    <script src="/libs/livestamp.min.js"></script>
+    <script src="/lib/sortable/bootstrap-sortable.js"></script>
+    <script src="/lib/livestamp.min.js"></script>
     <script src="/css/slick/slick.min.js"></script>
-    <script src="/libs/custom.js"></script>
+    <script src="/lib/resources.js"></script>
+    <script src="/lib/custom.js"></script>
     <script>
         $(document).ready(function() {
+            /* Notifications */
             {{#if success}}
             new PNotify({
                 title: "Success",
@@ -186,6 +188,25 @@
             {{else}}
             /* No error alerts */
             {{/if}}
+            $("#calender").fullCalendar({
+                customButtons: {
+                    addEvent: {
+                        text: "Add Event",
+                        click: function() {
+                            location.assign("/events/add");
+                        }
+                    }
+                },
+                header: {
+                    {{#if user.admin}}
+                    left: location.pathname === "/" && "addEvent" || "title",
+                    center: location.pathname === "/" && "title" || "",
+                    {{else}}
+                    left: "title",
+                    {{/if}}
+                    right: "today prev,next month,agendaWeek,agendaDay"
+                }
+            });
         });
     </script>
     <!-- /SCRIPTS -->

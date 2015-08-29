@@ -3,6 +3,31 @@ var nedb = require("nedb");
 var bcryptjs = require("bcryptjs");
 var users = new nedb({filename: "./database/users", autoload: true});
 
+exports.add = function(name, username, password) {
+    return Q.promise(function(resolve, reject) {
+        Q.ninvoke(users, "findOne", { username: username })
+        .then(function(user) {
+            if (user) return reject(Error("User already exists."));
+            return Q.ninvoke(bcryptjs, "hash", password, 10);
+        })
+        .then(function(hash) {
+            var user = {
+                "name": name,
+                "username": username,
+                "hash": hash,
+                "admin": false
+            };
+            return Q.ninvoke(users, "insert", user);
+        })
+        .then(function(user) {
+            resolve(user);
+        })
+        .fail(function(err) {
+            reject(err);
+        });
+    });
+};
+
 exports.all = function() {
     return Q.promise(function(resolve, reject) {
         Q.ninvoke(users, "find", {})
@@ -45,30 +70,6 @@ exports.changePassword = function(req) {
         })
         .then(function() {
             resolve();
-        })
-        .fail(function(err) {
-            reject(err);
-        });
-    });
-};
-
-exports.create = function(name, username, password) {
-    return Q.promise(function(resolve, reject) {
-        Q.ninvoke(users, "findOne", { username: username })
-        .then(function(user) {
-            if (user) return reject(Error("User already exists."));
-            return Q.ninvoke(bcryptjs, "hash", password, 10);
-        })
-        .then(function(hash) {
-            var user = {
-                "name": name,
-                "username": username,
-                "hash": hash
-            };
-            return Q.ninvoke(users, "insert", user);
-        })
-        .then(function(user) {
-            resolve(user);
         })
         .fail(function(err) {
             reject(err);

@@ -1,0 +1,54 @@
+<div class="col-md-12">
+    <div class="page-header">
+        <span class="h1">Add an event</span>
+    </div>
+</div> <!-- /.col-md-12 -->
+<div class="col-md-6">
+    <form class="form-horizontal" action="/event/add" method="post" accept-charset="UTF-8" role="form" enctype="text/plain">
+        <div class="form-group">
+            <span class="col-md-2 control-label">Event Name</span>
+            <div class="col-md-10">
+                <input name="title" class="form-control" type="text" required>
+            </div>
+        </div> <!-- /.form-group -->
+        <div class="form-group">
+            <span class="col-md-2 control-label">Location</span>
+            <div class="col-md-10">
+                <input name="title" class="form-control" type="text" placeholder="Optional">
+            </div>
+        </div> <!-- /.form-group -->
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <div class="checkbox">
+                    <label>
+                        <input name="allDay" type="checkbox"> All Day
+                    </label>
+                </div>
+            </div>
+        </div> <!-- /.form-group -->
+        <div class="form-group">
+            <span class="col-md-2 control-label">Other Details</span>
+            <div class="col-md-10">
+                <textarea name="details" class="form-control" rows="3"></textarea>
+            </div>
+        </div> <!-- /.form-group -->
+        <div class="form-group">
+            <span class="col-md-2 control-label">URL</span>
+            <div class="col-md-10">
+                <input name="url" type="text" class="form-control" placeholder="Optional">
+            </div>
+        </div> <!-- /.form-group -->
+        <div class="form-group">
+            <span class="col-md-2 control-label">Actions</span>
+            <div class="col-md-10">
+                <div class="btn-group" role="group">
+                    <button type="submit" class="btn btn-success">Upload</button>
+                    <button type="reset" class="btn btn-danger">Clear</button>
+                </div> <!-- /.btn-group -->
+            </div> <!-- /.col-md-10 -->
+        </div> <!-- /.form-group -->
+    </form>
+</div> <!-- /.col-md-6 -->
+<div class="col-md-6">
+    <div id="calender"></div>
+</div>

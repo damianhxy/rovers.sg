@@ -43,7 +43,6 @@ router.get("/signout", auth, function(req, res) {
 });
 
 router.post("/signup", auth, function(req, res) {
-    /* Locked in production */
     /*passport.authenticate("local-signup", function(err, user, info) {
         if (err) return next(err);
         req.login(user, function(err) {

@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var notification = require("../middlewares/notification.js");
+var event = require("../models/event.js");
 router.use(notification);
 
 /* Resources */
@@ -9,8 +10,12 @@ router.use("/resource", require("./files.js"));
 /* User */
 router.use("/users", require("./users.js"));
 
+/* Events */
+router.use("/events", require("./events.js"));
+
 /* Normal Pages */
 router.get("/", function(req, res) {
+    // Get Events
     res.render("home", {
         title: "Home",
         user: req.user
