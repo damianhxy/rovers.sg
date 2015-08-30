@@ -1,6 +1,7 @@
 var Q = require("q");
 var nedb = require("nedb");
 var fs = require("fs");
+var moment = require("moment");
 var files = new nedb({ filename: "./database/files", autoload: true });
 
 exports.add = function(req) {
@@ -10,7 +11,7 @@ exports.add = function(req) {
             original: req.file.originalname,
             path: req.file.path,
             title: req.body.title,
-            time: Math.floor(Date.now() / 1000),
+            time: moment().format(),
             category: req.body.category,
             uploader: req.user.username
         };

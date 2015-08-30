@@ -1,12 +1,24 @@
 var express = require("express");
 var router = express.Router();
+var moment = require("moment");
 var event = require("../models/event.js");
+var settings = require("./settings.js");
 var admin = require("../middlewares/admin.js");
 
 router.get("/add", admin, function(req, res) {
-    res.render("addEvent", {
-        title: "Add Event",
-        user: req.user
+    event.all()
+    .then(function(events) {
+        events.forEach(function(e) {
+            e.url = "/events/" + e._id;
+        });
+        res.render("eventAdmin", {
+            title: "Add Event",
+            user: req.user,
+            events: JSON.stringify(events)
+        });
+    })
+    .fail(function(err) {
+        next(err);
     });
 });
 
@@ -23,11 +35,42 @@ router.post("/add", admin, function(req, res) {
     });
 });
 
+router.post("/delete", admin, function(req, res) {
+    event.delete(req.body.id)
+    .then(function() {
+        res.end();
+    })
+    .fail(function(err) {
+        console.error(err.stack);
+        res.status(400).send(err.message);
+    });
+});
+
+router.get("/edit/:event", admin, function(req, res) {
+    event.get(req.params.event)
+    .then(function(info) {
+        res.render("eventAdmin", {
+            title: "Add Event",
+            user: req.user,
+            info: info
+        });
+    })
+    .fail(function(err) {
+        console.error(err.stack);
+        req.session.error = err.message;
+        res.redirect(req.headers.referer || "/");
+    });
+});
+
 router.get("/:event", function(req, res) {
     event.get(req.params.event)
     .then(function(info) {
+        console.info("Back in controller.");
+        console.log(info);
+        info.start = moment(info.start).format(settings.EVENT_TIME_FORMAT);
+        info.end = moment(info.end).format(settings.EVENT_TIME_FORMAT);
         res.render("event", {
-            title: "Event",
+            title: info.title,
             user: req.user,
             info: info
         });

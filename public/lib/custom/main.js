@@ -13,7 +13,7 @@ PNotify.prototype.options.stack = {
 };
 
 $(document).ready(function() {
-	/* MISC */
+	console.info("[info] main.js is running.");
 
 	// Set first tab to be active
 	$(".nav-pills li:eq(0) a").tab("show");

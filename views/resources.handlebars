@@ -42,10 +42,10 @@
             <thead>
                 <tr>
                     {{#if ../../user}}
-                    <th class="col-md-3">Title</th>
-                    <th class="col-md-3">File</th>
-                    <th class="col-md-3" data-defaultsort="desc" data-firstsort="asc">Last Modified</th>
-                    <th class="col-md-3" data-defaultsort="disabled">Actions</th>
+                    <th class="col-md-4">Title</th>
+                    <th class="col-md-4">File</th>
+                    <th class="col-md-2" data-defaultsort="desc" data-firstsort="asc">Last Modified</th>
+                    <th class="col-md-2" data-defaultsort="disabled">Actions</th>
                     {{else}}
                     <th class="col-md-4">Title</th>
                     <th class="col-md-4">File</th>
@@ -64,14 +64,16 @@
                     </td>
                     <td data-value="{{this.time}}" data-livestamp="{{this.time}}">
                     </td>
-                    {{#if ../../../user}}
+                    {{#if ../../../user.admin}}
                     <td data-original="{{this.original}}" data-id="{{this._id}}">
-                        <button type="button" class="edit-btn btn btn-success btn-xs">
-                            <i class="fa fa-edit"> Edit</i>
-                        </button>
-                        <a href="#deleteModal" type="button" class="btn btn-danger btn-xs" data-toggle="modal">
-                            <i class="fa fa-close"> Delete</i>
-                        </a>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-success btn-xs">
+                                <i class="fa fa-edit"> Edit</i>
+                            </button>
+                            <a href="#deleteModal" class="btn btn-danger btn-xs" data-toggle="modal">
+                                <i class="fa fa-close"> Delete</i>
+                            </a>
+                        </div> <!-- /.btn-group -->
                     </td>
                     {{/if}}
                 </tr>
@@ -86,9 +88,9 @@
         <form class="form-horizontal" action="/resource/upload" method="post" accept-charset="UTF-8" role="form" enctype="multipart/form-data">
             <legend>File Upload</legend>
             <div class="form-group">
-                <span class="col-md-2 control-label">Title</span>
+                <span class="col-md-2 control-label">File Title</span>
                 <div class="col-md-10">
-                    <input id="fileTitle" name="title" class="form-control" type="text" placeholder="File Title" required>
+                    <input id="fileTitle" name="title" class="form-control" type="text" required>
                 </div>
             </div> <!-- /.form-group -->
             <div class="form-group">
@@ -140,7 +142,8 @@
                 </div>
                 <div class="modal-body">
                     <p id="modalFileName"></p>
-                    <p>Are you sure? The file will be permanently deleted.</p>
+                    <p id="modalFileTime"></p>
+                    <p>Are you sure? This file will be <strong>permanently</strong> deleted.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>

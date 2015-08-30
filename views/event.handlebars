@@ -1,5 +1,63 @@
-<div class="col-md-12">
-    <div class="page-header">
-        <span class="h1">{{info.title}} <small>You're Invited</small></span>
+<div class="col-md-6 col-md-offset-3">
+    <div class="page-header text-center">
+        <span class="h1">{{info.title}}</span>
+    </div>
+    <dl class="dl-horizontal" data-id="{{info._id}}" data-time="{{info.time}}" data-title="{{info.title}}">
+        {{#if info.location}}
+        <dt>Location</dt>
+        <dd>{{info.location}}</dd>
+        {{/if}}
+        <dt>Starts</dt>
+        <dd>{{info.start}}</dd>
+        <dt>Ends</dt>
+        <dd>{{info.end}}</dd>
+        {{#if info.details}}
+        <dt>Details</dt>
+        <dd>{{info.details}}</dd>
+        {{/if}}
+        {{#if info.link}}
+        <dt>Link</dt>
+        <dd><a href="{{info.link}}">{{info.link}}</a></dd>
+        {{/if}}
+    </dl> <!-- /.dl-horizontal -->
+    {{#if user.admin}}
+    <div class="text-center">
+        <div class="btn-group">
+            <a href="/events/add" class="btn btn-primary">
+                <i class="fa fa-plus"> New</i>
+            </a>
+            <a href="/events/edit/{{info._id}}" class="btn btn-success btn">
+                <i class="fa fa-edit"> Edit</i>
+            </a>
+            <a href="#deleteModal" class="btn btn-danger btn" data-toggle="modal">
+                <i class="fa fa-close"> Delete</i>
+            </a>
+        </div> <!-- /.btn-group -->
+    </div>
+    <!-- deleteModal -->
+    <div id="deleteModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa fa-times"></i>
+                    </button>
+                    <h4 class="modal-title">Delete Event</h4>
+                </div>
+                <div class="modal-body">
+                    <p id="modalEventName"></p>
+                    <p id="modalEventTime"></p>
+                    <p>Are you sure? This event will be <strong>permanently</strong> deleted.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/if}}
+    <div class="text-center">
+        <span>Event created by <strong>{{info.creator}}</strong> </span><span data-livestamp="{{info.time}}"></span>
     </div>
 </div> <!-- /.col-md-12 -->

@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 var fs = require("fs");
 var file = require("../models/file.js");
-var auth = require("../middlewares/auth.js");
+var admin = require("../middlewares/admin.js");
 var upload = require("../middlewares/upload.js");
 
 router.get("/", function(req, res, next) {
@@ -30,18 +30,18 @@ router.get("/", function(req, res, next) {
     });
 });
 
-router.post("/delete", auth, function(req, res) {
+router.post("/delete", admin, function(req, res) {
     file.delete(req.body.id)
     .then(function() {
         res.end();
     })
     .fail(function(err) {
         console.error(err.stack);
-        res.status(400).end();
+        res.status(400).send(err.message);
     });
 });
 
-router.post("/edit", auth, function(req, res) {
+router.post("/edit", admin, function(req, res) {
     file.edit(req.body.pk, req.body.name, req.body.value)
     .then(function() {
         res.end();
@@ -52,7 +52,7 @@ router.post("/edit", auth, function(req, res) {
     });
 });
 
-router.post("/upload", auth, upload.single("file"), function(req, res) {
+router.post("/upload", admin, upload.single("file"), function(req, res) {
     if (!req.file) {
         req.session.error = "Please select a file.";
         res.status(400).redirect("/resource#upload");
