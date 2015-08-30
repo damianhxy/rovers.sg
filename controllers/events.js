@@ -5,7 +5,7 @@ var event = require("../models/event.js");
 var settings = require("./settings.js");
 var admin = require("../middlewares/admin.js");
 
-router.get("/add", admin, function(req, res) {
+router.get("/add", admin, function(req, res, next) {
     event.all()
     .then(function(events) {
         events.forEach(function(e) {
@@ -65,8 +65,6 @@ router.get("/edit/:event", admin, function(req, res) {
 router.get("/:event", function(req, res) {
     event.get(req.params.event)
     .then(function(info) {
-        console.info("Back in controller.");
-        console.log(info);
         info.start = moment(info.start).format(settings.EVENT_TIME_FORMAT);
         info.end = moment(info.end).format(settings.EVENT_TIME_FORMAT);
         res.render("event", {

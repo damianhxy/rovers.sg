@@ -66,7 +66,7 @@ exports.changePassword = function(req) {
             return Q.nfcall(bcryptjs.hash, req.body.newPassword, req.user.salt);
         })
         .then(function(hash) {
-            return Q.ninvoke(users, "update", { _id: req.user._id }, {$set: { hash: hash }});
+            return Q.ninvoke(users, "update", { _id: req.user._id }, { $set: { hash: hash } });
         })
         .then(function() {
             resolve();
