@@ -23,7 +23,9 @@
     <link rel="stylesheet" href="/css/slick/slick-theme.css">
     <link rel="stylesheet" href="/css/fullcalendar/fullcalendar.min.css">
     <link rel="stylesheet" href="/css/fullcalendar/fullcalendar.print.css" media="print">
+    <link rel="stylesheet" href="/css/datetimepicker/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" href="/css/custom.css">
+    <script src="/lib/jquery-2.1.4.min.js"></script>
 </head>
 <body>
     <!-- NAVBAR -->
@@ -155,7 +157,6 @@
         <!-- /PAGE FOOTER -->
     </div> <!-- /.container-fluid -->
     <!-- SCRIPTS -->
-    <script src="/lib/jquery-2.1.4.min.js"></script>
     <script src="/css/bootstrap/js/bootstrap.min.js"></script>
     <script src="/css/lightbox/ekko-lightbox.min.js"></script>
     <script src="/lib/moment.js"></script>
@@ -165,11 +166,10 @@
     <script src="/lib/sortable/bootstrap-sortable.js"></script>
     <script src="/lib/livestamp.min.js"></script>
     <script src="/css/slick/slick.min.js"></script>
-    <script src="/lib/resources.js"></script>
+    <script src="/css/datetimepicker/bootstrap-datetimepicker.min.js"></script>
     <script src="/lib/custom.js"></script>
     <script>
         $(document).ready(function() {
-            /* Notifications */
             {{#if success}}
             new PNotify({
                 title: "Success",
@@ -188,7 +188,7 @@
             {{else}}
             /* No error alerts */
             {{/if}}
-            $("#calender").fullCalendar({
+            $("#calendar").fullCalendar({
                 customButtons: {
                     addEvent: {
                         text: "Add Event",
@@ -209,5 +209,7 @@
             });
         });
     </script>
+    <script src="/lib/resources.js"></script>
+    <script src="/lib/events.js"></script>
     <!-- /SCRIPTS -->
 </body>

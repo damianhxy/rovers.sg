@@ -12,7 +12,7 @@ exports.add = function(req) {
             title: req.body.title,
             time: Math.floor(Date.now() / 1000),
             category: req.body.category,
-            uploader: req.user._id
+            uploader: req.user.username
         };
         Q.ninvoke(files, "insert", fileinfo)
         .then(function() {

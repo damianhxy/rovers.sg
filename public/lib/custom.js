@@ -1,6 +1,6 @@
 // PNotify defaults
 PNotify.prototype.options.styling = "fontawesome";
-PNotify.prototype.options.delay = 5000;
+PNotify.prototype.options.delay = 2500;
 PNotify.prototype.options.addclass = "stack-bottomleft";
 PNotify.prototype.options.nonblock = {
 	nonblock: true,
@@ -13,6 +13,8 @@ PNotify.prototype.options.stack = {
 };
 
 $(document).ready(function() {
+	/* MISC */
+
 	// Set first tab to be active
 	$(".nav-pills li:eq(0) a").tab("show");
 
@@ -34,12 +36,12 @@ $(document).ready(function() {
 	});
 
 	// Slick
-	$("[class^='slick']").slick({
+	$(".slick").slick({
 		infinite: true,
 		slidesToShow: 1,
 		slidesToScroll: 1,
 		dots: true,
-		arrows: false /* Can't see them anyway */
+		arrows: false
 	});
 
 	// Append aria-hidden to fa elements

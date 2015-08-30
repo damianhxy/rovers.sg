@@ -14,22 +14,25 @@
         <div class="form-group">
             <span class="col-md-2 control-label">Location</span>
             <div class="col-md-10">
-                <input name="title" class="form-control" type="text" placeholder="Optional">
+                <input name="location" class="form-control" type="text" placeholder="Optional">
             </div>
         </div> <!-- /.form-group -->
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <div class="checkbox">
-                    <label>
-                        <input name="allDay" type="checkbox"> All Day
-                    </label>
-                </div>
-            </div>
-        </div> <!-- /.form-group -->
-        <div class="form-group">
-            <span class="col-md-2 control-label">Other Details</span>
+            <span class="col-md-2 control-label">Start</span>
             <div class="col-md-10">
-                <textarea name="details" class="form-control" rows="3"></textarea>
+                <input name="start" class="form-control datetimepicker" type="text" required>
+            </div>
+        </div> <!-- /.form-group -->
+        <div class="form-group">
+            <span class="col-md-2 control-label">End</span>
+            <div class="col-md-10">
+                <input name="end" class="form-control datetimepicker" type="text" required>
+            </div>
+        </div> <!-- /.form-group -->
+        <div class="form-group">
+            <span class="col-md-2 control-label">Details</span>
+            <div class="col-md-10">
+                <textarea name="details" class="form-control" rows="3" placeholder="Optional"></textarea>
             </div>
         </div> <!-- /.form-group -->
         <div class="form-group">
@@ -43,6 +46,7 @@
             <div class="col-md-10">
                 <div class="btn-group" role="group">
                     <button type="submit" class="btn btn-success">Upload</button>
+                    <button type="button" class="btn btn-info">Preview</button>
                     <button type="reset" class="btn btn-danger">Clear</button>
                 </div> <!-- /.btn-group -->
             </div> <!-- /.col-md-10 -->
@@ -50,5 +54,5 @@
     </form>
 </div> <!-- /.col-md-6 -->
 <div class="col-md-6">
-    <div id="calender"></div>
+    <div id="calendar"></div>
 </div>
