@@ -1,7 +1,7 @@
 var Q = require("q");
 var nedb = require("nedb");
 var bcryptjs = require("bcryptjs");
-var users = new nedb({filename: "./database/users", autoload: true});
+var users = new nedb({ filename: "./database/users", autoload: true });
 
 exports.add = function(name, username, password) {
     return Q.promise(function(resolve, reject) {

@@ -1,11 +1,11 @@
 var Q = require("q");
 var nedb = require("nedb");
 var fs = require("fs");
-var files = new nedb({filename: "./database/files", autoload: true});
+var files = new nedb({ filename: "./database/files", autoload: true });
 
 exports.add = function(req) {
     return Q.promise(function(resolve, reject) {
-        var fileinfo = {
+        var fileInfo = {
             name: req.file.filename,
             original: req.file.originalname,
             path: req.file.path,
@@ -14,7 +14,7 @@ exports.add = function(req) {
             category: req.body.category,
             uploader: req.user.username
         };
-        Q.ninvoke(files, "insert", fileinfo)
+        Q.ninvoke(files, "insert", fileInfo)
         .then(function() {
             resolve();
         })

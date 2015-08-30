@@ -1,8 +1,6 @@
 var express = require("express");
-var passport = require("passport");
 var router = express.Router();
 var event = require("../models/event.js");
-var auth = require("../middlewares/auth.js");
 var admin = require("../middlewares/admin.js");
 
 router.get("/add", admin, function(req, res) {
@@ -21,12 +19,24 @@ router.post("/add", admin, function(req, res) {
     .fail(function(err) {
         console.error(err.stack);
         req.session.error = err.message;
-        res.status(400).redirect("/add");
+        res.status(400).redirect("/events/add");
     });
 });
 
 router.get("/:event", function(req, res) {
-
+    event.get(req.params.event)
+    .then(function(info) {
+        res.render("event", {
+            title: "Event",
+            user: req.user,
+            info: info
+        });
+    })
+    .fail(function(err) {
+        console.error(err.stack);
+        req.session.error = err.message;
+        res.redirect(req.headers.referrer || "/");
+    });
 });
 
 module.exports = router;

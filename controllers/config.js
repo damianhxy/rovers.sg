@@ -26,8 +26,8 @@ module.exports = function(app, express) {
 
     // Middleware
     app.use(cookieParser(settings.SECRET));
-    app.use(bodyParser.json({ limit: settings.FILE_SIZE_LIMIT }));
-    app.use(bodyParser.urlencoded({ limit: settings.FILE_SIZE_LIMIT, extended: false }));
+    app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(bodyParser.json());
     app.use(session({
         secret: settings.SECRET,
         saveUninitialized: true,

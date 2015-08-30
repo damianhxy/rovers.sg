@@ -198,14 +198,16 @@
                     }
                 },
                 header: {
-                    {{#if user.admin}}
-                    left: location.pathname === "/" && "addEvent" || "title",
-                    center: location.pathname === "/" && "title" || "",
-                    {{else}}
                     left: "title",
-                    {{/if}}
+                    center: "",
+                    {{#if user.admin}}
+                    right: (location.pathname === "/" ? "addEvent," : "") + "today prev,next month,agendaWeek,agendaDay"
+                    {{else}}
                     right: "today prev,next month,agendaWeek,agendaDay"
-                }
+                    {{/if}}
+                }{{#if events}},
+                events: {{{events}}}
+                {{/if}}
             });
         });
     </script>

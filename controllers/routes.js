@@ -14,11 +14,20 @@ router.use("/users", require("./users.js"));
 router.use("/events", require("./events.js"));
 
 /* Normal Pages */
-router.get("/", function(req, res) {
-    // Get Events
-    res.render("home", {
-        title: "Home",
-        user: req.user
+router.get("/", function(req, res, next) {
+    event.all()
+    .then(function(events) {
+        events.forEach(function(e) {
+            e.url = "/events/" + e._id;
+        });
+        res.render("home", {
+            title: "Home",
+            user: req.user,
+            events: JSON.stringify(events)
+        });
+    })
+    .fail(function(err) {
+        next(err);
     });
 });
 

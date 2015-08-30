@@ -1,4 +1,6 @@
 $(document).ready(function() {
+    if (location.pathname !== "/resource")
+        return;
     // Edit file name
     $(".edit-btn").click(function() {
         $("#" + $(this).parent().data("id")).editable("toggleDisabled");

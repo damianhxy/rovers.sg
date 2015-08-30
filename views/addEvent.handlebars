@@ -1,10 +1,8 @@
-<div class="col-md-12">
+<div class="col-md-6">
     <div class="page-header">
         <span class="h1">Add an event</span>
     </div>
-</div> <!-- /.col-md-12 -->
-<div class="col-md-6">
-    <form class="form-horizontal" action="/event/add" method="post" accept-charset="UTF-8" role="form" enctype="text/plain">
+    <form class="form-horizontal" action="/events/add" method="post" accept-charset="UTF-8" role="form">
         <div class="form-group">
             <span class="col-md-2 control-label">Event Name</span>
             <div class="col-md-10">
@@ -20,13 +18,13 @@
         <div class="form-group">
             <span class="col-md-2 control-label">Start</span>
             <div class="col-md-10">
-                <input name="start" class="form-control datetimepicker" type="text" required>
+                <input name="start" id="event-start" class="form-control" type="text" required>
             </div>
         </div> <!-- /.form-group -->
         <div class="form-group">
             <span class="col-md-2 control-label">End</span>
             <div class="col-md-10">
-                <input name="end" class="form-control datetimepicker" type="text" required>
+                <input name="end" id="event-end" class="form-control" type="text" required>
             </div>
         </div> <!-- /.form-group -->
         <div class="form-group">
@@ -36,9 +34,9 @@
             </div>
         </div> <!-- /.form-group -->
         <div class="form-group">
-            <span class="col-md-2 control-label">URL</span>
+            <span class="col-md-2 control-label">Link</span>
             <div class="col-md-10">
-                <input name="url" type="text" class="form-control" placeholder="Optional">
+                <input name="link" type="text" class="form-control" placeholder="Optional">
             </div>
         </div> <!-- /.form-group -->
         <div class="form-group">
@@ -54,5 +52,5 @@
     </form>
 </div> <!-- /.col-md-6 -->
 <div class="col-md-6">
-    <div id="calendar"></div>
+    <div class="page-header" id="calendar"></div>
 </div>
