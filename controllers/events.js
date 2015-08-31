@@ -46,19 +46,14 @@ router.post("/delete", admin, function(req, res) {
     });
 });
 
-router.get("/edit/:event", admin, function(req, res) {
-    event.get(req.params.event)
-    .then(function(info) {
-        res.render("eventAdmin", {
-            title: "Add Event",
-            user: req.user,
-            info: info
-        });
+router.post("/edit", admin, function(req, res) {
+    event.edit(req.body.pk, req.body.name, req.body.value)
+    .then(function() {
+        res.end();
     })
     .fail(function(err) {
-        console.error(err.stack);
-        req.session.error = err.message;
-        res.redirect(req.headers.referer || "/");
+        console.eerror(err.stack);
+        res.status(400).end();
     });
 });
 

@@ -79,12 +79,15 @@ $(document).ready(function() {
     });
 
     /* VIEW PAGE */
+    // Toggle editable
+
+    // x-editable
+
     // Delete Modal
     $("#deleteModal").on("show.bs.modal", function(e) {
-        var data = $(e.relatedTarget).parent().parent().prev();
-        var eventName = data.data("title");
-        var createdTime = moment(data.data("time")).format("DD/MM/YYYY HH:mm A");
-        $(this).find(".btn-danger").data("id", data.data("id"));
+        var $data = $(e.relatedTarget);
+        var eventName = $data.data("title");
+        var createdTime = moment($data.data("time")).format("DD/MM/YYYY HH:mm A");
         $("#modalEventName").html("Event name: <strong>" + eventName + "</strong>");
         $("#modalEventTime").html("Created on: <strong>" + createdTime + "</strong>");
     });

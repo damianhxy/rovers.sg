@@ -3,12 +3,12 @@ $(document).ready(function() {
         return;
 
     console.info("[info] resources.js is running.");
-    // Edit file name
+    // Toggle editable
     $(".edit-btn").click(function() {
         $("#" + $(this).parent().data("id")).editable("toggleDisabled");
     });
 
-    // Edit
+    // x-editable
     $(".edit-title").each(function() {
         $(this).editable({
             type: "text",
@@ -31,6 +31,7 @@ $(document).ready(function() {
         var data = $(e.relatedTarget).parent().parent();
         var originalName = data.data("original");
         var addedTime = moment(data.prev().data("value")).format("DD/MM/YYYY HH:mm A");
+        // Attach id for x-editable
         $(this).find(".btn-danger").data("id", data.data("id"));
         $("#modalFileName").html("File Name: <strong>" + originalName + "</strong>");
         $("#modalFileTime").html("Added on: <strong>" + addedTime + "</strong>");
