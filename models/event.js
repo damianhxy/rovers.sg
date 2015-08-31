@@ -54,6 +54,8 @@ exports.edit = function(id, field, value) {
     return Q.promise(function(resolve, reject) {
         Q.ninvoke(events, "findOne", { _id: id })
         .then(function(event) {
+            if (field === "start" || field === "end")
+                value = moment(value, settings.EVENT_TIME_FORMAT).format();
             event[field] = value;
             return Q.ninvoke(events, "update", { _id: id }, { $set: event });
         })

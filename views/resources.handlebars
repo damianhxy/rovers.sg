@@ -56,7 +56,7 @@
             <tbody>
                 {{#each this.fileList}}
                 <tr>
-                    <td><a id="{{this._id}}" class="edit-title">{{this.title}}</a></td>
+                    <td><a id="{{this._id}}" class="field-edit">{{this.title}}</a></td>
                     <td>
                         <a href="/uploads/{{this.name}}" data-title="{{this.title}}" download>
                             <i class="fa fa-{{fileType this.original}}"></i> {{this.original}}
@@ -67,7 +67,7 @@
                     {{#if ../../../user.admin}}
                     <td data-original="{{this.original}}" data-id="{{this._id}}">
                         <div class="btn-group">
-                            <button type="button" class="edit-btn btn btn-success btn-xs">
+                            <button type="button" class="btn btn-success btn-xs btn-edit">
                                 <i class="fa fa-edit"> Edit</i>
                             </button>
                             <a href="#deleteModal" class="btn btn-danger btn-xs" data-toggle="modal">
@@ -90,7 +90,7 @@
             <div class="form-group">
                 <span class="col-md-2 control-label">File Title</span>
                 <div class="col-md-10">
-                    <input id="fileTitle" name="title" class="form-control" type="text" required>
+                    <input id="upload-title" name="title" class="form-control" type="text" required>
                 </div>
             </div> <!-- /.form-group -->
             <div class="form-group">
@@ -109,7 +109,7 @@
                 <span class="col-md-2 control-label">File</span>
                 <div class="col-md-10">
                     <div class="input-group">
-                        <input id="fileName" class="form-control" type="text" value="No File Selected." readonly>
+                        <input id="upload-name" class="form-control" type="text" value="No File Selected." readonly>
                         <span class="input-group-btn">
                             <span class="btn btn-info btn-file">
                                 <span>Browse...</span>
@@ -123,7 +123,7 @@
                 <span class="col-md-2 control-label">Actions</span>
                 <div class="col-md-10">
                     <div class="btn-group" role="group">
-                        <button type="submit" class="btn btn-success">Upload</button>
+                        <button type="submit" class="btn btn-success">Upload File</button>
                         <button type="reset" class="btn btn-danger">Clear</button>
                     </div> <!-- /.btn-group -->
                 </div> <!-- /.col-md-10 -->

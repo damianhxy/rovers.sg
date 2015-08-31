@@ -1,15 +1,15 @@
 $(document).ready(function() {
-    if (location.pathname.split("/")[1] !== "resource")
+    if (location.pathname !== "/resource")
         return;
 
     console.info("[info] resources.js is running.");
     // Toggle editable
-    $(".edit-btn").click(function() {
-        $("#" + $(this).parent().data("id")).editable("toggleDisabled");
+    $(".btn-edit").click(function() {
+        $("#" + $(this).parent().parent().data("id")).editable("toggleDisabled");
     });
 
-    // x-editable
-    $(".edit-title").each(function() {
+    // X-editable
+    $(".field-edit").each(function() {
         $(this).editable({
             type: "text",
             pk: $(this).attr("id"),
@@ -65,9 +65,8 @@ $(document).ready(function() {
     // Change uploaded file name text
     $(".btn-file :file").on("change", function() {
         var label = $(this).val().replace(/\\/g, '/').replace(/.*\//, '');
-        $("#fileName").val(label);
-        if (!$("#fileTitle").val()) {
-            $("#fileTitle").val(label);
-        }
+        $("#upload-name").val(label);
+        if (!$("#upload-title").val())
+            $("#upload-title").val(label);
     });
 });

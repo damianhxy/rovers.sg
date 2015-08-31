@@ -18,7 +18,7 @@ router.get("/", function(req, res, next) {
     event.all()
     .then(function(events) {
         events.forEach(function(e) {
-            e.url = "/events/" + e._id;
+            e.url = "/events/view/" + e._id;
         });
         res.render("home", {
             title: "Home",

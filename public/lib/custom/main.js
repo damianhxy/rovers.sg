@@ -1,3 +1,6 @@
+// X-editable default
+$.fn.editable.defaults.mode = 'inline';
+
 // PNotify defaults
 PNotify.prototype.options.styling = "fontawesome";
 PNotify.prototype.options.delay = 2500;

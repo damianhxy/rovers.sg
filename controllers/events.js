@@ -9,9 +9,9 @@ router.get("/add", admin, function(req, res, next) {
     event.all()
     .then(function(events) {
         events.forEach(function(e) {
-            e.url = "/events/" + e._id;
+            e.url = "/events/view/" + e._id;
         });
-        res.render("eventAdmin", {
+        res.render("eventAdd", {
             title: "Add Event",
             user: req.user,
             events: JSON.stringify(events)
@@ -26,7 +26,7 @@ router.post("/add", admin, function(req, res) {
     event.add(req)
     .then(function(id) {
         req.session.success = "Event added.";
-        res.redirect("/events/" + id);
+        res.redirect("/events/view/" + id);
     })
     .fail(function(err) {
         console.error(err.stack);
@@ -52,12 +52,12 @@ router.post("/edit", admin, function(req, res) {
         res.end();
     })
     .fail(function(err) {
-        console.eerror(err.stack);
+        console.error(err.stack);
         res.status(400).end();
     });
 });
 
-router.get("/:event", function(req, res) {
+router.get("/view/:event", function(req, res) {
     event.get(req.params.event)
     .then(function(info) {
         info.start = moment(info.start).format(settings.EVENT_TIME_FORMAT);

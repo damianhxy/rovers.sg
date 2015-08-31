@@ -23,7 +23,6 @@
     <link rel="stylesheet" href="/css/slick/slick-theme.css">
     <link rel="stylesheet" href="/css/fullcalendar/fullcalendar.min.css">
     <link rel="stylesheet" href="/css/fullcalendar/fullcalendar.print.css" media="print">
-    <link rel="stylesheet" href="/css/datetimepicker/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" href="/css/main.css">
     <script src="/lib/jquery-2.1.4.min.js"></script>
 </head>
@@ -41,7 +40,7 @@
                             <span class="icon-bar"></span>
                         </button>
                         <a class="navbar-brand" href="/">
-                            Singapore Rovers
+                            SG Rovers
                         </a>
                     </div>
                     <div id="navbar" class="navbar-collapse collapse">
@@ -137,15 +136,15 @@
         <!-- PAGE FOOTER -->
         <footer class="row">
             <div class="col-md-12">
-                <p class="signature">
+                <p id="signature">
                     <a href="/">rover.sg</a>
                 </p>
-                <p class="signature-links">
+                <p id="signature-credits">
                     <small>
                         The Singapore Scout Association &copy; 2015 &middot; Built with <a href="http://getbootstrap.com/">Bootstrap</a> &middot; Powered by <a href="http://expressjs.com/">Express.js</a>
                     </small>
                 </p>
-                <p class="footer-links">
+                <p id="footer-links">
                     <small>
                         <a href="/sitemap"><i class="fa fa-sitemap"></i> Sitemap &middot; </a>
                         <a href="/contact"><i class="fa fa-phone-square"></i> Contact us &middot; </a>
@@ -162,11 +161,11 @@
     <script src="/lib/moment.js"></script>
     <script src="/css/fullcalendar/fullcalendar.min.js"></script>
     <script src="/lib/x-editable/js/bootstrap-editable.min.js"></script>
+    <script src="/lib/combodate.js"></script>
     <script src="/css/pnotify/pnotify.custom.min.js"></script>
     <script src="/lib/sortable/bootstrap-sortable.js"></script>
     <script src="/lib/livestamp.min.js"></script>
     <script src="/css/slick/slick.min.js"></script>
-    <script src="/css/datetimepicker/bootstrap-datetimepicker.min.js"></script>
     <script src="/lib/custom/main.js"></script>
     <script>
         $(document).ready(function() {
@@ -212,6 +211,7 @@
         });
     </script>
     <script src="/lib/custom/resources.js"></script>
-    <script src="/lib/custom/events.js"></script>
+    <script src="/lib/custom/eventsAdd.js"></script>
+    <script src="/lib/custom/eventsView.js"></script>
     <!-- /SCRIPTS -->
 </body>
