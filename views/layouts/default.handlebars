@@ -10,8 +10,7 @@
     <script src="/css/pace/pace.min.js"></script>
     <link rel="stylesheet" href="/css/pace/minimal.css">
     <link rel="author" href="/humans.txt">
-    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="/img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico?v=1">
     <link rel="stylesheet" href="/css/bootstrap/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/css/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
@@ -40,12 +39,12 @@
                             <span class="icon-bar"></span>
                         </button>
                         <a class="navbar-brand" href="/">
-                            SG Rovers
+                            <!-- SG Rovers -->
+                            <img src="/img/logo.png" height="24">
                         </a>
                     </div>
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            <li><a href="/"><i class="fa fa-home"></i> Home</a></li>
                             <li><a href="/nrr"><i class="fa fa-comments"></i> NRR/NRC</a></li>
                             <li><a href="/about"><i class="fa fa-info-circle"></i> About</a></li>
                             <li><a href="/links"><i class="fa fa-external-link"></i> Links</a></li>
@@ -55,7 +54,7 @@
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                         {{#if user}}
-                            <li><p class="navbar-text">Signed in as <strong><a href="/users/profile">{{user.username}}</a></strong></p></li>
+                            <li><p class="navbar-text"><i class="fa fa-user"> <strong><a href="/users/profile">{{user.username}}</a></strong></i></p></li>
                             <li><a href="/users/signout"><i class="fa fa-sign-out"></i> Sign Out</a></li>
                         {{else}}
                             <li class="dropdown">

@@ -1,4 +1,4 @@
-<div class="col-md-8 col-md-offset-2" data-id="{{info._id}}">
+<div class="col-md-6 col-md-offset-3" data-id="{{info._id}}">
     <div class="page-header text-center">
         <span class="h1"><a class="field-edit" data-type="text" data-name="title">{{info.title}}</a></span>
         {{#if user.admin}}
@@ -21,37 +21,37 @@
         <thead>
             <tr>
                 <td class="col-md-12" colspan="2">
-                    <div class="text-center">Event Information <i class="fa fa-info-circle"></i></div>
+                    <div class="text-center"><i class="fa fa-info-circle"></i> Event Information</div>
                 </td>
             </tr>
         </thead>
         <tbody>
             <tr {{#unless info.location}}class="field-hidden"{{/unless}}>
-                <td class="col-md-3 text-center">Location <i class="fa fa-map-marker"></i></td>
+                <td class="col-md-3 text-center"><i class="fa fa-map-marker"></i> Location</td>
                 <td class="col-md-9">
                     <a class="field-edit" data-type="text" data-name="location">{{info.location}}</a>
                 </td>
             </tr>
             <tr>
-                <td class="col-md-3 text-center">Starting Time <i class="fa fa-hourglass-start"></i></td>
+                <td class="col-md-3 text-center"><i class="fa fa-hourglass-start"></i> Starting Time</td>
                 <td class="col-md-9">
                     <a class="field-edit" data-type="combodate" data-name="start">{{info.start}}</a>
                 </td>
             </tr>
             <tr>
-                <td class="col-md-3 text-center">Ending Time <i class="fa fa-hourglass-end"></i></td>
+                <td class="col-md-3 text-center"><i class="fa fa-hourglass-end"></i> Ending Time</td>
                 <td class="col-md-9">
                     <a class="field-edit" data-type="combodate" data-name="end">{{info.end}}</a>
                 </td>
             </tr>
             <tr {{#unless info.details}}class="field-hidden"{{/unless}}>
-                <td class="col-md-3 text-center">Additional Details <i class="fa fa-asterisk"></i></td>
+                <td class="col-md-3 text-center"><i class="fa fa-asterisk"></i> Additional Details</td>
                 <td class="col-md-9">
                     <a class="field-edit" data-type="textarea" data-name="details">{{info.details}}</a>
                 </td>
             </tr>
             <tr {{#unless info.link}}class="field-hidden"{{/unless}}>
-                <td class="col-md-3 text-center"><a href="{{info.link}}" target="_blank">External Link <i class="fa fa-external-link"></i></a></td>
+                <td class="col-md-3 text-center"><a href="{{info.link}}" target="_blank"><i class="fa fa-external-link"></i> External Link</a></td>
                 <td class="col-md-9">
                     <a class="field-edit" data-type="text" data-name="link">{{info.link}}</a>
                 </td>
