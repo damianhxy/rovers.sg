@@ -1,6 +1,21 @@
 <div class="col-md-8 col-md-offset-2" data-id="{{info._id}}">
     <div class="page-header text-center">
         <span class="h1"><a class="field-edit" data-type="text" data-name="title">{{info.title}}</a></span>
+        {{#if user.admin}}
+        <div class="text-center">
+            <div class="btn-group">
+                <a href="/events/add" class="btn btn-primary">
+                    <i class="fa fa-plus"> New</i>
+                </a>
+                <button type="button" class="btn btn-success btn-edit">
+                    <i class="fa fa-edit"> Edit</i>
+                </button>
+                <a href="#deleteModal" class="btn btn-danger btn" data-toggle="modal" data-title="{{info.title}}" data-time="{{info.time}}">
+                    <i class="fa fa-close"> Delete</i>
+                </a>
+            </div> <!-- /.btn-group -->
+        </div>
+        {{/if}}
     </div>
     <table class="table table-striped table-bordered sortable">
         <thead>
@@ -11,7 +26,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <tr {{#unless info.location}}class="field-hidden"{{/unless}}>
                 <td class="col-md-3 text-center">Location <i class="fa fa-map-marker"></i></td>
                 <td class="col-md-9">
                     <a class="field-edit" data-type="text" data-name="location">{{info.location}}</a>
@@ -29,13 +44,13 @@
                     <a class="field-edit" data-type="combodate" data-name="end">{{info.end}}</a>
                 </td>
             </tr>
-            <tr>
+            <tr {{#unless info.details}}class="field-hidden"{{/unless}}>
                 <td class="col-md-3 text-center">Additional Details <i class="fa fa-asterisk"></i></td>
                 <td class="col-md-9">
                     <a class="field-edit" data-type="textarea" data-name="details">{{info.details}}</a>
                 </td>
             </tr>
-            <tr>
+            <tr {{#unless info.link}}class="field-hidden"{{/unless}}>
                 <td class="col-md-3 text-center"><a href="{{info.link}}" target="_blank">External Link <i class="fa fa-external-link"></i></a></td>
                 <td class="col-md-9">
                     <a class="field-edit" data-type="text" data-name="link">{{info.link}}</a>
@@ -44,19 +59,6 @@
         </tbody>
     </table> <!-- /.table -->
     {{#if user.admin}}
-    <div class="text-center">
-        <div class="btn-group">
-            <a href="/events/add" class="btn btn-primary">
-                <i class="fa fa-plus"> New</i>
-            </a>
-            <button type="button" class="btn btn-success btn-edit">
-                <i class="fa fa-edit"> Edit</i>
-            </button>
-            <a href="#deleteModal" class="btn btn-danger btn" data-toggle="modal" data-title="{{info.title}}" data-time="{{info.time}}">
-                <i class="fa fa-close"> Delete</i>
-            </a>
-        </div> <!-- /.btn-group -->
-    </div>
     <!-- deleteModal -->
     <div id="deleteModal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">

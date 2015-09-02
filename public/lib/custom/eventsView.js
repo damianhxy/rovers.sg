@@ -5,9 +5,17 @@ $(document).ready(function() {
     var MOMENT_FORMAT = "DD/MM/YYYY hh:mm A";
 
     console.info("[info] eventsView.js is running.");
+
+    // Hide empty fields
+    $(".field-hidden").css("display", "none");
+
     // Toggle editable
     $(".btn-edit").click(function() {
         $(".field-edit").editable("toggleDisabled");
+        if ($(".field-hidden").css("display") === "none")
+            $(".field-hidden").css("display", "");
+        else
+            $(".field-hidden").css("display", "none");
     });
 
     // X-editable
