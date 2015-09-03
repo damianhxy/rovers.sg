@@ -18,7 +18,13 @@ module.exports = function(app, express) {
 
     app.use(express.static("public"));
 
-    require("console-stamp")(console, settings.TIME_FORMAT);
+    require("console-stamp")(console, {
+        pattern: settings.TIME_FORMAT,
+        colors: {
+            stamp: "cyan",
+            label: "magenta"
+        }
+    });
     morgan.token("time", function() {
         return require("console-stamp/node_modules/dateformat")(new Date(), settings.TIME_FORMAT);
     });
