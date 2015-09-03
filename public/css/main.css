@@ -1,3 +1,9 @@
+/* Color Scheme
+ * #ee1e1e - Light Red (Primary)
+ * #fb0000 - Darker Red (Secondary)
+ * #b20d0d - Darkest Red (Active)
+ */
+
 /* Navbar */
 .navbar-default, /* Navbar */
 .navbar-default .navbar-nav > .active > a, /* Active Link */
@@ -91,59 +97,51 @@
          url("/css/roboto/Roboto-Regular.ttf") format("truetype");
 }
 
+html {
+    position: relative;
+    min-height: 100%;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
+    margin-bottom: 120px;
     margin-top: 70px;
 }
 
-.banner {
-    height: 100%;
+.footer {
+    background-color: #fb0000;
+    bottom: 0;
+    padding-bottom: 14px;
+    padding-top: 14px;
+    position: absolute;
+    text-align: center;
     width: 100%;
 }
 
-footer {
-    background-color: #fb0000;
-    padding-bottom: 8px;
-    padding-top: 8px;
-    text-align: center;
+.footer__title,
+.footer__credits,
+.footer__links {
+    margin: 2px 0;
 }
 
-footer a:hover {
-    color: #ccc7c7;
-    text-decoration: none;
-}
-
-#signature {
-    margin-bottom: 2px;
-    margin-top: 8px;
-}
-
-#signature a {
+.footer__title {
     font-size: 1.5em;
 }
 
-#signature-credits {
-    margin-bottom: 2px;
-    margin-top: 2px;
-}
-
-#signature a,
-#signature-credits,
-#signature-credits a,
-#footer-links,
-#footer-links a {
+.footer,
+.footer a {
     color: #f7f7f7;
     -webkit-transition: color 0.2s ease 0s;
             transition: color 0.2s ease 0s;
 }
 
-#footer-links {
-    margin-bottom: 8px;
-    margin-top: 2px;
+.footer a:hover {
+    color: #ccc7c7;
+    text-decoration: none;
 }
 
-/* File Upload */
+/* Resources */
 .btn-file {
     position: relative;
     overflow: hidden;
@@ -162,27 +160,6 @@ footer a:hover {
     right: 0;
     text-align: right;
     top: 0;
-}
-
-/* File Management */
-.field-edit {
-    cursor: pointer;
-}
-
-/* Sticky Footer */
-html {
-    position: relative;
-    min-height: 100%;
-}
-
-body {
-    margin-bottom: 120px;
-}
-
-footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
 }
 
 /* Misc */
@@ -208,10 +185,6 @@ footer {
     color: black;
 }
 
-thead {
-    font-weight: bold;
-}
-
-textarea {
+textarea.noresize {
     resize: none;
 }

@@ -3,6 +3,7 @@ $(document).ready(function() {
         return;
 
     console.info("[info] eventsAdd.js is running.");
+
     // For use in fullcalendar
     var uniqueID = Date.now();
     var MOMENT_FORMAT = "DD/MM/YYYY hh:mm A";

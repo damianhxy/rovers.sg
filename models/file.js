@@ -10,7 +10,7 @@ exports.add = function(req) {
             name: req.file.filename,
             original: req.file.originalname,
             path: req.file.path,
-            title: req.body.title,
+            description: req.body.description,
             time: moment().format(),
             category: req.body.category,
             uploader: req.user.username

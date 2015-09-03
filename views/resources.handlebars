@@ -5,20 +5,15 @@
 </div>
 <div class="col-md-3">
     <ul class="nav nav-pills nav-stacked">
-        <li role="presentation">
-            <a href="#info" data-toggle="pill"><i class="fa fa-info-circle"></i> Latest Information</a>
+        <li role="presentation"><a href="#info" data-toggle="pill"><i class="fa fa-info-circle"></i> Latest Information</a>
         </li>
-        <li role="presentation">
-            <a href="#forms" data-toggle="pill"><i class="fa fa-edit"></i> Forms</a>
+        <li role="presentation"><a href="#forms" data-toggle="pill"><i class="fa fa-edit"></i> Forms</a>
         </li>
-        <li role="presentation">
-            <a href="#policies" data-toggle="pill"><i class="fa fa-university"></i> Policies</a>
+        <li role="presentation"><a href="#policies" data-toggle="pill"><i class="fa fa-university"></i> Policies</a>
         </li>
-        <li role="presentation">
-            <a href="#scheme" data-toggle="pill"><i class="fa fa-bullseye"></i> Progress Scheme</a>
+        <li role="presentation"><a href="#scheme" data-toggle="pill"><i class="fa fa-bullseye"></i> Progress Scheme</a>
         </li>
-        <li role="presentation">
-            <a href="#others" data-toggle="pill"><i class="fa fa-certificate"></i> Others</a>
+        <li role="presentation"><a href="#others" data-toggle="pill"><i class="fa fa-certificate"></i> Others</a>
         </li>
         {{#if user}}
         <li><a href="#upload" data-toggle="pill"><i class="fa fa-upload"></i> Upload File</a></li>
@@ -42,13 +37,13 @@
             <thead>
                 <tr>
                     {{#if ../../user}}
-                    <th class="col-md-4">Title</th>
                     <th class="col-md-4">File</th>
+                    <th class="col-md-4">Description</th>
                     <th class="col-md-2" data-defaultsort="desc" data-firstsort="asc">Last Modified</th>
                     <th class="col-md-2" data-defaultsort="disabled">Actions</th>
                     {{else}}
-                    <th class="col-md-4">Title</th>
                     <th class="col-md-4">File</th>
+                    <th class="col-md-4">Description</th>
                     <th class="col-md-4" data-defaultsort="desc" data-firstsort="asc">Last Modified</th>
                     {{/if}}
                 </tr>
@@ -56,10 +51,14 @@
             <tbody>
                 {{#each this.fileList}}
                 <tr>
-                    <td><a id="{{this._id}}" class="field-edit">{{this.title}}</a></td>
                     <td>
-                        <a href="/uploads/{{this.name}}" data-title="{{this.title}}" download>
+                        <a href="/uploads/{{this.name}}" download>
                             <i class="fa fa-{{fileType this.original}}"></i> {{this.original}}
+                        </a>
+                    </td>
+                    <td>
+                        <a id="{{this._id}}" class="field-edit" href="#">
+                            {{this.description}}
                         </a>
                     </td>
                     <td data-value="{{this.time}}" data-livestamp="{{this.time}}">
@@ -88,9 +87,23 @@
         <form class="form-horizontal" action="/resource/upload" method="post" accept-charset="UTF-8" role="form" enctype="multipart/form-data">
             <legend>File Upload</legend>
             <div class="form-group">
-                <span class="col-md-2 control-label">File Title</span>
+                <span class="col-md-2 control-label">File</span>
                 <div class="col-md-10">
-                    <input id="upload-title" name="title" class="form-control" type="text" required>
+                    <div class="input-group">
+                        <input id="upload-name" class="form-control" type="text" value="No File Selected." readonly>
+                        <span class="input-group-btn">
+                            <span class="btn btn-info btn-file">
+                                <span>Browse...</span>
+                                <input type="file" name="file">
+                            </span>
+                        </span>
+                    </div>
+                </div> <!-- /.col-md-10 -->
+            </div> <!-- /.form-group -->
+            <div class="form-group">
+                <span class="col-md-2 control-label">Description</span>
+                <div class="col-md-10">
+                    <input name="description" class="form-control" type="text" required>
                 </div>
             </div> <!-- /.form-group -->
             <div class="form-group">
@@ -106,24 +119,10 @@
                 </div> <!-- /.col-md-10 -->
             </div> <!-- /.form-group -->
             <div class="form-group">
-                <span class="col-md-2 control-label">File</span>
-                <div class="col-md-10">
-                    <div class="input-group">
-                        <input id="upload-name" class="form-control" type="text" value="No File Selected." readonly>
-                        <span class="input-group-btn">
-                            <span class="btn btn-info btn-file">
-                                <span>Browse...</span>
-                                <input type="file" name="file">
-                            </span>
-                        </span>
-                    </div>
-                </div> <!-- /.col-md-10 -->
-            </div> <!-- /.form-group -->
-            <div class="form-group">
                 <span class="col-md-2 control-label">Actions</span>
                 <div class="col-md-10">
                     <div class="btn-group" role="group">
-                        <button type="submit" class="btn btn-success">Upload File</button>
+                        <button type="submit" class="btn btn-success">Add File</button>
                         <button type="reset" class="btn btn-danger">Clear</button>
                     </div> <!-- /.btn-group -->
                 </div> <!-- /.col-md-10 -->

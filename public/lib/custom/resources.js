@@ -3,6 +3,7 @@ $(document).ready(function() {
         return;
 
     console.info("[info] resources.js is running.");
+
     // Toggle editable
     $(".btn-edit").click(function() {
         $("#" + $(this).parent().parent().data("id")).editable("toggleDisabled");
@@ -13,7 +14,7 @@ $(document).ready(function() {
         $(this).editable({
             type: "text",
             pk: $(this).attr("id"),
-            name: "title",
+            name: "description",
             url: "/resource/edit",
             disabled: true,
             error: function(res) {
@@ -62,11 +63,8 @@ $(document).ready(function() {
         });
     });
 
-    // Change uploaded file name text
+    // File Name Text
     $(".btn-file :file").on("change", function() {
-        var label = $(this).val().replace(/\\/g, '/').replace(/.*\//, '');
-        $("#upload-name").val(label);
-        if (!$("#upload-title").val())
-            $("#upload-title").val(label);
+        $("#upload-name").val($(this).val());
     });
 });
