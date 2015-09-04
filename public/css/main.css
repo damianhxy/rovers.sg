@@ -170,6 +170,10 @@ body {
     visibility: hidden;
 }
 
+.banner {
+    width: 100%;
+}
+
 .dropdown-menu form {
     padding: 15px;
 }

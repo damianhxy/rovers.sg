@@ -7,7 +7,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <title>{{title}} | Rover.sg</title>
-    <script src="/css/pace/pace.min.js"></script>
     <link rel="stylesheet" href="/css/pace/minimal.css">
     <link rel="author" href="/humans.txt">
     <link rel="icon" href="/favicon.ico?v=1">
@@ -23,7 +22,6 @@
     <link rel="stylesheet" href="/css/fullcalendar/fullcalendar.min.css">
     <link rel="stylesheet" href="/css/fullcalendar/fullcalendar.print.css" media="print">
     <link rel="stylesheet" href="/css/main.css">
-    <script src="/lib/jquery-2.1.4.min.js"></script>
 </head>
 <body>
     <!-- NAVBAR -->
@@ -116,20 +114,20 @@
         <div class="row">
             <div class="col-md-6">
                 <a data-toggle="lightbox" href="/img/banner.png" data-title="Placeholder Banner">
-                    <img alt="Placeholder Banner" src="/img/banner.png">
+                    <img alt="Placeholder Banner" class="banner" src="/img/banner.png">
                 </a>
             </div> <!-- /.col-md-6 -->
             <div class="col-md-6">
                 <a data-toggle="lightbox" href="/img/banner.png" data-title="Placeholder Banner">
-                    <img alt="Placeholder Banner" src="/img/banner.png">
+                    <img alt="Placeholder Banner" class="banner" src="/img/banner.png">
                 </a>
             </div> <!-- /.col-md-6 -->
         </div> <!-- /.row -->
         <!-- /BANNERS -->
         <!-- PAGE CONTENT -->
-        <div class="row">
+        <main class="row">
 {{{body}}}
-        </div>
+        </main>
         <!-- /PAGE CONTENT -->
         <!-- PAGE FOOTER -->
         <footer class="row footer">
@@ -154,6 +152,8 @@
         <!-- /PAGE FOOTER -->
     </div> <!-- /.container-fluid -->
     <!-- SCRIPTS -->
+    <script src="/css/pace/pace.min.js"></script>
+    <script src="/lib/jquery-2.1.4.min.js"></script>
     <script src="/css/bootstrap/js/bootstrap.min.js"></script>
     <script src="/css/lightbox/ekko-lightbox.min.js"></script>
     <script src="/lib/moment.js"></script>
