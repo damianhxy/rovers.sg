@@ -84,45 +84,48 @@
     {{/each}}
     {{#if user}}
     <div id="upload" class="tab-pane fade">
-        <form class="form-horizontal" action="/resource/upload" method="post" accept-charset="UTF-8" role="form" enctype="multipart/form-data">
-            <legend>File Upload</legend>
-            <div class="form-group">
-                <span class="col-md-2 control-label">File</span>
-                <div class="col-md-10">
-                    <div class="input-group">
-                        <input id="upload-name" class="form-control" type="text" value="No File Selected." readonly>
-                        <span class="input-group-btn">
-                            <span class="btn btn-info btn-file">
-                                <span>Browse...</span>
-                                <input type="file" name="file">
+        <form class="form-horizontal" action="/resource/upload" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
+            <fieldset>
+                <legend>File Upload</legend>
+                <div class="form-group">
+                    <span class="col-md-2 control-label">File</span>
+                    <div class="col-md-10">
+                        <div class="input-group">
+                            <input id="upload-name" type="text" class="form-control" value="No File Selected." readonly>
+                            <span class="input-group-btn">
+                                <span class="btn btn-info btn-file">
+                                    <span>Browse...</span>
+                                    <input type="file" name="file">
+                                </span>
                             </span>
-                        </span>
+                        </div>
+                    </div> <!-- /.col-md-10 -->
+                </div> <!-- /.form-group -->
+                <div class="form-group">
+                    <span class="col-md-2 control-label">Category</span>
+                    <div class="col-md-10">
+                        <select class="form-control" name="category" required>
+                            <option value="">Select A Category</option>
+                            <option value="Latest Information">Latest Information</option>
+                            <option value="Forms">Forms</option>
+                            <option value="Policies">Policies</option>
+                            <option value="Progress Scheme">Progress Scheme</option>
+                            <option value="Others">Others</option>
+                        </select>
+                    </div> <!-- /.col-md-10 -->
+                </div> <!-- /.form-group -->
+                <div class="form-group">
+                    <span class="col-md-2 control-label">Description</span>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" name="description" placeholder="Optional">
                     </div>
-                </div> <!-- /.col-md-10 -->
-            </div> <!-- /.form-group -->
-            <div class="form-group">
-                <span class="col-md-2 control-label">Description</span>
-                <div class="col-md-10">
-                    <input name="description" class="form-control" type="text" required>
-                </div>
-            </div> <!-- /.form-group -->
-            <div class="form-group">
-                <span class="col-md-2 control-label">Category</span>
-                <div class="col-md-10">
-                    <select name="category" class="form-control" required>
-                        <option value="Latest Information">Latest Information</option>
-                        <option value="Forms">Forms</option>
-                        <option value="Policies">Policies</option>
-                        <option value="Progress Scheme">Progress Scheme</option>
-                        <option value="Others">Others</option>
-                    </select>
-                </div> <!-- /.col-md-10 -->
-            </div> <!-- /.form-group -->
-            <div class="form-group">
-                <div class="col-md-10 col-md-offset-2">
-                    <button type="submit" class="btn btn-success col-md-4">Upload</button>
-                </div> <!-- /.col-md-10 -->
-            </div> <!-- /.form-group -->
+                </div> <!-- /.form-group -->
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-2">
+                        <button type="submit" class="btn btn-success col-md-4">Upload</button>
+                    </div> <!-- /.col-md-10 -->
+                </div> <!-- /.form-group -->
+            </fieldset>
         </form>
     </div>
     <!-- deleteModal -->
