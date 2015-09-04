@@ -66,12 +66,4 @@ $(document).ready(function() {
             }, true);
         }
     });
-
-    // Reset
-    $("#clear").on("click", function(e) {
-        e.preventDefault();
-        $(this).closest("form").get(0).reset();
-        $start.combodate("setValue", moment(uniqueID).format(MOMENT_FORMAT));
-        $end.combodate("setValue", moment(uniqueID).format(MOMENT_FORMAT));
-    });
 });

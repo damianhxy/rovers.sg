@@ -20,12 +20,30 @@
             </dl> <!-- /.dl-horizontal -->
         </div>
     </div> <!-- /.panel -->
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">Feedback Form</h3>
-        </div>
-        <div class="panel-body">
-            <strong>(Form Goes Here)</strong>
-        </div>
-    </div> <!-- /.panel -->
+    <form class="form-horizontal" accept-charset="UTF-8" role="form">
+        <legend>Feedback Form</legend>
+        <div class="form-group">
+            <span class="col-md-2 control-label">Name</span>
+            <div class="col-md-10">
+                <input name="entry.1229150054" class="form-control" type="text" required>
+            </div>
+        </div> <!-- /.form-group -->
+        <div class="form-group">
+            <span class="col-md-2 control-label">Email</span>
+            <div class="col-md-10">
+                <input name="entry.394656747" class="form-control" type="email" required>
+            </div>
+        </div> <!-- /.form-group -->
+        <div class="form-group">
+            <span class="col-md-2 control-label">Message</span>
+            <div class="col-md-10">
+                <textarea name="entry.1720486249" class="form-control noresize" rows="3" required></textarea>
+            </div>
+        </div> <!-- /.form-group -->
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-2">
+                <button type="submit" class="btn btn-success col-md-4">Send</button>
+            </div> <!-- /.col-md-10 -->
+        </div> <!-- /.form-group -->
+    </form>
 </div>

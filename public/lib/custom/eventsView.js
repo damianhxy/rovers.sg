@@ -49,7 +49,7 @@ $(document).ready(function() {
 
     // Update link href
     $("[data-name='link']").on("save", function(e, params) {
-        $(e.target).parent().prev().find("a").attr("href", params.newValue);
+        $(this).parent().prev().find("a").attr("href", params.newValue);
     });
 
     // Delete Modal
