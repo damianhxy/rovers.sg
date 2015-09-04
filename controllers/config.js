@@ -17,14 +17,15 @@ module.exports = function(app, express) {
             label: "magenta"
         }
     });
+
     morgan.token("time", function() {
         return require("console-stamp/node_modules/dateformat")(new Date(), settings.TIME_FORMAT);
     });
-    app.use(morgan("[:time] :method :url :status :res[content-length] - :remote-addr - :response-time ms"));
 
     // Middleware
     app.use(compression());
     app.use(express.static("public"));
+    app.use(morgan("[:time] :method :url :status :res[content-length] - :remote-addr - :response-time ms"));
     app.use(cookieParser(settings.SECRET));
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
