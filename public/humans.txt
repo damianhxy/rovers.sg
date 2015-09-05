@@ -3,9 +3,8 @@
 
 # TEAM
 
-	Damian Ho
+	Ho Xu Yang, Damian
 	Email: damian_ho_xu_yang@yahoo.com
-	Twitter: @damianhxy
 	Location: Singapore, Singapore
 
 # THANKS
@@ -16,6 +15,6 @@
 
 # TECHNOLOGY COLOPHON
 
-Last updated: 04/09/2015
+Last updated: 05/09/2015
 Standards: HTML5, CSS3, ES5
 Softwares: Sublime Text 3, SourceTree

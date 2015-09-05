@@ -17,10 +17,13 @@ $(document).ready(function() {
             name: "description",
             url: "/resource/edit",
             disabled: true,
-            error: function(res) {
+            ajaxOptions: {
+                dataType: "json"
+            },
+            error: function(data) {
                 new PNotify({
                     title: "Error",
-                    text: res.responseText,
+                    text: data.responseJSON.error,
                     type: "error"
                 });
             }

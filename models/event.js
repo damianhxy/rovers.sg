@@ -1,6 +1,7 @@
 var Q = require("q");
 var nedb = require("nedb");
 var moment = require("moment");
+var normalizeURL = require("normalize-url");
 var settings = require("../controllers/settings.js");
 var events = new nedb({ filename: "./database/events", autoload: true });
 
@@ -16,6 +17,8 @@ exports.add = function(req) {
             time: moment().format(),
             creator: req.user.username
         };
+        if (req.body.link)
+            req.body.link = normalizeURL(req.body.link);
         Q.ninvoke(events, "insert", eventInfo)
         .then(function(result) {
             resolve(result._id);
@@ -56,11 +59,16 @@ exports.edit = function(id, field, value) {
         .then(function(event) {
             if (field === "start" || field === "end")
                 value = moment(value, settings.EVENT_TIME_FORMAT).format();
+            if (field === "link")
+                value = normalizeURL(value);
             event[field] = value;
             return Q.ninvoke(events, "update", { _id: id }, { $set: event });
         })
         .then(function() {
-            resolve();
+            resolve({
+                field: field,
+                value: value
+            });
         })
         .fail(function(err) {
             reject(err);

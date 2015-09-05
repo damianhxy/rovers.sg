@@ -37,7 +37,7 @@ router.post("/delete", admin, function(req, res) {
     })
     .fail(function(err) {
         console.error(err.stack);
-        res.status(400).send(err.message);
+        res.status(400).json({ "error": err.message });
     });
 });
 
@@ -48,7 +48,7 @@ router.post("/edit", admin, function(req, res) {
     })
     .fail(function(err) {
         console.error(err.stack);
-        res.status(400).end();
+        res.status(400).json({ "error": err.message });
     });
 });
 

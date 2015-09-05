@@ -21,10 +21,23 @@ $(document).ready(function() {
             pk: $(this).closest("[data-id]").data("id"),
             url: "/events/edit",
             disabled: true,
-            error: function(res) {
-                new Pnotify({
+            ajaxOptions: {
+                dataType: "json"
+            },
+            success: function(data) {
+                if (data.field === "link") {
+                    setTimeout(function () {
+                        $("[data-name='link']").editable("setValue", data.value);
+                    }, 500);
+                    $("[data-name='link']").parent().prev().find("a").attr("href", data.value);
+                } else if (data.field === "title") {
+                    document.title = data.value + " | Rover.sg";
+                }
+            },
+            error: function(data) {
+                new PNotify({
                     title: "Error",
-                    text: res.responseText,
+                    text: data.responseJSON.error,
                     type: "error"
                 });
             },
@@ -37,16 +50,6 @@ $(document).ready(function() {
                 maxYear: new Date().getFullYear() + 1
             }
         });
-    });
-
-    // Update tab name
-    $("[data-name='title']").on("save", function(e, params) {
-        document.title = params.newValue + " | Rover.sg";
-    });
-
-    // Update link href
-    $("[data-name='link']").on("save", function(e, params) {
-        $(this).parent().prev().find("a").attr("href", params.newValue);
     });
 
     // Delete Modal
