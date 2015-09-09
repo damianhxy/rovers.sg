@@ -27,7 +27,7 @@ $(document).ready(function() {
 
     $(".combodate").addClass("form-control");
 
-    // Check for existance
+    // Check for existence
     function getEvent() {
         return $calendar.fullCalendar("clientEvents", uniqueID)[0];
     }
