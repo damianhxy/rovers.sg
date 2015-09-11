@@ -2,6 +2,8 @@ var express = require("express");
 var router = express.Router();
 var notification = require("../middlewares/notification.js");
 var event = require("../models/event.js");
+var request = require("request");
+var settings = require("./settings.js");
 router.use(notification);
 
 /* Resources */
@@ -43,6 +45,10 @@ router.get("/contact", function(req, res) {
         title: "Contact",
         user: req.user
     });
+});
+
+router.post("/contact/form", function(req, res) {
+    request.post(settings.FEEDBACK_FORM_URL).form(req.body).pipe(res);
 });
 
 router.get("/faq", function(req, res) {

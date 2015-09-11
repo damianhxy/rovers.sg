@@ -30,9 +30,7 @@ module.exports = function(app, express) {
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
     app.use(session({
-        secret: settings.SECRET,
-        saveUninitialized: true,
-        resave: true
+        secret: settings.SECRET
     }));
     app.use(passport.initialize());
     app.use(passport.session());

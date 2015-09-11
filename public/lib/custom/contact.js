@@ -8,11 +8,10 @@ $(document).ready(function() {
         e.preventDefault();
         $.ajax({
             method: "POST",
-            url: "https://docs.google.com/forms/d/1zjb3DchxXPAlBRPALm8Pm6dkJq6LuMWPo_uXkHEwZig/formResponse",
+            url: "/contact/form",
             data: $(this).serialize()
         })
-        .always(function() {
-            /* Assume it succeeded */
+        .then(function() {
             new PNotify({
                 title: "Success",
                 text: "Your message has been recorded",
@@ -20,5 +19,12 @@ $(document).ready(function() {
             });
             $(e.target).trigger("reset");
         })
+        .fail(function(err) {
+            new PNotify({
+                title: "Error",
+                text: "There was an error recording your response",
+                type: "error"
+            });
+        });
     });
 });
