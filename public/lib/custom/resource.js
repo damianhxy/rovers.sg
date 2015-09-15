@@ -2,7 +2,7 @@ $(document).ready(function() {
     if (location.pathname !== "/resource")
         return;
 
-    console.info("[info] resources.js is running.");
+    console.info("[info] resource.js is running.");
 
     // Toggle editable
     $(".btn-edit").click(function() {
@@ -50,12 +50,9 @@ $(document).ready(function() {
         })
         .done(function() {
             $("#deleteModal").modal("hide");
-            new PNotify({
-                title: "Success",
-                text: "Deleted file",
-                type: "success"
-            });
             $("#" + $(e.target).data("id")).closest("tr").remove();
+            if (!$("tbody:visible").eq(0).children())
+                location.reload();
         })
         .fail(function(err) {
             new PNotify({

@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var notification = require("../middlewares/notification.js");
 var event = require("../models/event.js");
+var file = require("../models/file.js");
 var request = require("request");
 var settings = require("./settings.js");
 router.use(notification);
@@ -34,9 +35,17 @@ router.get("/", function(req, res, next) {
 });
 
 router.get("/about", function(req, res) {
-    res.render("about", {
-        title: "About",
-        user: req.user
+    file.get("About")
+    .then(function(files) {
+        res.render("about", {
+            title: "About",
+            user: req.user,
+            isEmpty: !files.length,
+            fileList: files
+        });
+    })
+    .fail(function(err) {
+        next(err);
     });
 });
 
@@ -72,10 +81,18 @@ router.get("/links", function(req, res) {
     });
 });
 
-router.get("/nrr", function(req, res) {
-    res.render("nrr", {
-        title: "NRR",
-        user: req.user
+router.get("/nrc", function(req, res) {
+    file.get("NRC")
+    .then(function(files) {
+        res.render("nrc", {
+            title: "NRC",
+            user: req.user,
+            isEmpty: !files.length,
+            fileList: files
+        });
+    })
+    .fail(function(err) {
+        next(err);
     });
 });
 

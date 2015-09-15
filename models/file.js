@@ -28,8 +28,8 @@ exports.add = function(req) {
 exports.all = function() {
     return Q.promise(function(resolve, reject) {
         Q.ninvoke(files, "find", {})
-        .then(function(filelist) {
-            resolve(filelist);
+        .then(function(fileList) {
+            resolve(fileList);
         })
         .fail(function(err) {
             reject(err);
@@ -62,6 +62,18 @@ exports.edit = function(id, field, value) {
         })
         .then(function() {
             resolve();
+        })
+        .fail(function(err) {
+            reject(err);
+        });
+    });
+};
+
+exports.get = function(category) {
+    return Q.promise(function(resolve, reject) {
+        Q.ninvoke(files, "find", { category: category })
+        .then(function(fileList) {
+            resolve(fileList);
         })
         .fail(function(err) {
             reject(err);

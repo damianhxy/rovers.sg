@@ -30,7 +30,9 @@ module.exports = function(app, express) {
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
     app.use(session({
-        secret: settings.SECRET
+        secret: settings.SECRET,
+        resave: false,
+        saveUninitialized: false
     }));
     app.use(passport.initialize());
     app.use(passport.session());
@@ -42,7 +44,6 @@ module.exports = function(app, express) {
             return user.authenticate(username, password)
             .then(function(user) {
                 console.info("Signed in " + user.username);
-                req.session.success = "Welcome back, " + user.username;
                 done(null, user);
             })
             .fail(function(err) {
@@ -59,7 +60,6 @@ module.exports = function(app, express) {
             return user.add(req.body.name, username, password)
             .then(function(user) {
                 console.info("Signed up " + user.username);
-                req.session.success = "Welcome, " + user.username;
                 done(null, user);
             })
             .fail(function(err) {

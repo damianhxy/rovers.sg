@@ -8,21 +8,20 @@ var upload = require("../middlewares/upload.js");
 router.get("/", function(req, res, next) {
     file.all()
     .then(function(files) {
-        var pages = {
-            "Latest Information": { name: "info", fileList: [], isEmpty: true },
-            "Forms": { name: "forms", fileList: [], isEmpty: true },
-            "Policies": { name: "policies", fileList: [], isEmpty: true },
-            "Progress Scheme": { name: "scheme", fileList: [], isEmpty: true },
-            "Others": { name: "others", fileList: [], isEmpty: true }
+        var categories = {
+            "Latest Information": { name: "info", icon: "inbox", fileList: [], isEmpty: true },
+            "Forms": { name: "forms", icon: "newspaper-o", fileList: [], isEmpty: true },
+            "NRC": { name: "nrc", icon: "institution", fileList: [], isEmpty: true },
+            "About": { name: "about", icon: "info-circle", fileList: [], isEmpty: true }
         };
         files.forEach(function(e) {
-            pages[e.category].fileList.push(e);
-            pages[e.category].isEmpty = false;
+            categories[e.category].fileList.push(e);
+            categories[e.category].isEmpty = false;
         });
         res.render("resources", {
             title: "Resources",
             user: req.user,
-            category: pages
+            categories: categories
         });
     })
     .fail(function(err) {

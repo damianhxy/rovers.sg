@@ -2,27 +2,30 @@ $(document).ready(function() {
     if (location.pathname !== "/events/add")
         return;
 
-    console.info("[info] eventsAdd.js is running.");
+    console.info("[info] eventAdd.js is running.");
 
     // For use in fullcalendar
     var uniqueID = Date.now();
     var MOMENT_FORMAT = "DD/MM/YYYY hh:mm A";
+    var CURRENT_YEAR = new Date().getFullYear();
+    var ROUNDING = 5 * 60 * 1000; // Round up to closest 5 minutes
     var $calendar = $("#calendar");
     var $start = $("[name='start']");
     var $end = $("[name='end']");
+    var defaultMoment = moment(Math.ceil(uniqueID / ROUNDING) * ROUNDING);
 
     // Combodate
     $start.combodate({
         smartDays: "true",
-        value: moment(uniqueID).format(MOMENT_FORMAT),
-        minYear: new Date().getFullYear(),
-        maxYear: new Date().getFullYear() + 1
+        value: defaultMoment.format(MOMENT_FORMAT),
+        minYear: CURRENT_YEAR,
+        maxYear: CURRENT_YEAR + 1
     });
     $end.combodate({
         smartDays: "true",
-        value: moment(uniqueID).format(MOMENT_FORMAT),
-        minYear: new Date().getFullYear(),
-        maxYear: new Date().getFullYear() + 1
+        value: defaultMoment.add(5, 'minutes').format(MOMENT_FORMAT),
+        minYear: CURRENT_YEAR,
+        maxYear: CURRENT_YEAR + 1
     });
 
     $(".combodate").addClass("form-control");
@@ -39,7 +42,7 @@ $(document).ready(function() {
     }
 
     // Preview
-    $(":input").on("change", function() {
+    $(":input").on("change keyup", function() {
         // Check if there is sufficient information
         var title = $("[name='title']").val();
         var start = $start.combodate("getValue");
@@ -48,16 +51,13 @@ $(document).ready(function() {
             return clearEvent();
         start = moment(start, MOMENT_FORMAT);
         end = moment(end, MOMENT_FORMAT);
-        // Check for existance
         var event = getEvent();
         if (event) {
-            // Update
             event.title = title;
             event.start = start;
             event.end = end;
             $calendar.fullCalendar("updateEvent", event);
         } else {
-            // Add
             $calendar.fullCalendar("renderEvent", {
                 id: uniqueID,
                 title: title,

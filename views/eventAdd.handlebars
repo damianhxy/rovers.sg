@@ -2,7 +2,7 @@
     <div class="page-header">
         <span class="h1">Add an event</span>
     </div>
-    <form class="form-horizontal" action="/events/add" method="post" accept-charset="UTF-8">
+    <form class="form-horizontal" action="/events/add" method="post" accept-charset="UTF-8" autocomplete="off">
         <div class="form-group">
             <span class="col-md-2 control-label">Event Name</span>
             <div class="col-md-10">
@@ -18,13 +18,13 @@
         <div class="form-group">
             <span class="col-md-2 control-label">Start</span>
             <div class="col-md-10">
-                <input type="text" class="form-control" name="start" data-format="DD/MM/YYYY hh:mm A" data-template="DD / MM / YYYY     hh : mm A" required>
+                <input type="text" name="start" data-format="DD/MM/YYYY hh:mm A" data-template="DD / MM / YYYY     hh : mm A" required>
             </div>
         </div> <!-- /.form-group -->
         <div class="form-group">
             <span class="col-md-2 control-label">End</span>
             <div class="col-md-10">
-                <input type="text" class="form-control" name="end" data-format="DD/MM/YYYY hh:mm A" data-template="DD / MM / YYYY     hh : mm A" required>
+                <input type="text" name="end" data-format="DD/MM/YYYY hh:mm A" data-template="DD / MM / YYYY     hh : mm A" required>
             </div>
         </div> <!-- /.form-group -->
         <div class="form-group">

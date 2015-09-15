@@ -4,7 +4,7 @@ $(document).ready(function() {
 
     var MOMENT_FORMAT = "DD/MM/YYYY hh:mm A";
 
-    console.info("[info] eventsView.js is running.");
+    console.info("[info] eventView.js is running.");
 
     // Hide empty fields
     $(".field-hidden").hide();

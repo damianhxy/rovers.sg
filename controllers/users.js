@@ -37,7 +37,7 @@ router.post("/signin", function(req, res, next) {
 });
 
 router.get("/signout", auth, function(req, res) {
-    req.session.success = "Successfully signed out.";
+    console.info("Signed out " + req.user.username);
     req.logout();
     res.redirect("/");
 });

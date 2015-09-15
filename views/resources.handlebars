@@ -5,23 +5,18 @@
 </div>
 <div class="col-md-3">
     <ul class="nav nav-pills nav-stacked">
-        <li role="presentation"><a href="#info" data-toggle="pill"><i class="fa fa-info-circle"></i> Latest Information</a>
-        </li>
-        <li role="presentation"><a href="#forms" data-toggle="pill"><i class="fa fa-edit"></i> Forms</a>
-        </li>
-        <li role="presentation"><a href="#policies" data-toggle="pill"><i class="fa fa-university"></i> Policies</a>
-        </li>
-        <li role="presentation"><a href="#scheme" data-toggle="pill"><i class="fa fa-bullseye"></i> Progress Scheme</a>
-        </li>
-        <li role="presentation"><a href="#others" data-toggle="pill"><i class="fa fa-certificate"></i> Others</a>
-        </li>
+        {{#each categories}}
+        <li role="presentation"><a href="#{{this.name}}" data-toggle="pill">
+            <i class="fa fa-{{this.icon}}"></i> {{@key}}
+        </a></li>
+        {{/each}}
         {{#if user}}
         <li><a href="#upload" data-toggle="pill"><i class="fa fa-upload"></i> Upload File</a></li>
         {{/if}}
     </ul>
 </div> <!-- /.col-md-3 -->
 <div class="col-md-9 tab-content">
-    {{#each category}}
+    {{#each categories}}
     <div id="{{this.name}}" class="tab-pane fade">
         {{#if this.isEmpty}}
         <div class="panel panel-info">
@@ -84,14 +79,14 @@
     {{/each}}
     {{#if user}}
     <div id="upload" class="tab-pane fade">
-        <form class="form-horizontal" action="/resource/upload" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
+        <form class="form-horizontal" action="/resource/upload" method="post" accept-charset="UTF-8" enctype="multipart/form-data" autocomplete="off">
             <fieldset>
                 <legend>File Upload</legend>
                 <div class="form-group">
                     <span class="col-md-2 control-label">File</span>
                     <div class="col-md-10">
                         <div class="input-group">
-                            <input id="upload-name" type="text" class="form-control" value="No File Selected." readonly>
+                            <input id="upload-name" type="text" class="form-control" value="No File Selected" disabled>
                             <span class="input-group-btn">
                                 <span class="btn btn-info btn-file">
                                     <span>Browse...</span>
@@ -105,12 +100,9 @@
                     <span class="col-md-2 control-label">Category</span>
                     <div class="col-md-10">
                         <select class="form-control" name="category" required>
-                            <option value="">Select A Category</option>
-                            <option value="Latest Information">Latest Information</option>
-                            <option value="Forms">Forms</option>
-                            <option value="Policies">Policies</option>
-                            <option value="Progress Scheme">Progress Scheme</option>
-                            <option value="Others">Others</option>
+                            {{#each categories}}
+                            <option value="{{@key}}"><i class="fa fa-{{this.icon}}"></i> {{@key}}</option>
+                            {{/each}}
                         </select>
                     </div> <!-- /.col-md-10 -->
                 </div> <!-- /.form-group -->
