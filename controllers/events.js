@@ -25,7 +25,6 @@ router.get("/add", admin, function(req, res, next) {
 router.post("/add", admin, function(req, res) {
     event.add(req)
     .then(function(id) {
-        req.session.success = "Event added.";
         res.redirect("/events/view/" + id);
     })
     .fail(function(err) {
