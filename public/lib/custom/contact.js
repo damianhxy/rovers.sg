@@ -4,7 +4,7 @@ $(document).ready(function() {
 
     console.info("[info] contact.js is running.");
 
-    $("form").on("submit", function(e) {
+    $("#feedbackForm").on("submit", function(e) {
         e.preventDefault();
         $.ajax({
             method: "POST",

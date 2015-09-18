@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    if (location.pathname.split("/").slice(0,3).join("/") !== "/events/view")
+    if (!/\/events\/view/.test(location.pathname))
         return;
 
     var MOMENT_FORMAT = "DD/MM/YYYY hh:mm A";
