@@ -11,8 +11,7 @@ module.exports = multer({
     storage: multer.diskStorage({
         filename: function(req, file, cb) {
             console.log("Uploading " + file.originalname);
-            var parts = file.originalname.split(".");
-            cb(null, parts.shift() + Date.now() + "." + parts.pop());
+            cb(null, file.originalname);
         },
         destination: function(req, file, cb) {
             cb(null, "./public/uploads");
