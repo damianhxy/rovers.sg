@@ -1,8 +1,8 @@
 $(document).ready(function() {
-    if (location.pathname !== "/resource")
+    if (location.pathname !== "/resources")
         return;
 
-    console.info("[info] resource.js is running.");
+    console.info("[info] resources.js is running.");
 
     // Toggle editable
     $(".btn-edit").click(function() {
@@ -15,7 +15,7 @@ $(document).ready(function() {
             type: "text",
             pk: $(this).attr("id"),
             name: "description",
-            url: "/resource/edit",
+            url: "/resources/edit",
             disabled: true,
             ajaxOptions: {
                 dataType: "json"
@@ -45,7 +45,7 @@ $(document).ready(function() {
     $("#deleteModal .btn-danger").click(function(e) {
         $.ajax({
             method: "POST",
-            url: "/resource/delete",
+            url: "/resources/delete",
             data: { id: $(this).data("id") }
         })
         .done(function() {

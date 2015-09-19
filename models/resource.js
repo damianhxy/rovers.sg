@@ -2,7 +2,7 @@ var Q = require("q");
 var nedb = require("nedb");
 var fs = require("fs");
 var moment = require("moment");
-var files = new nedb({ filename: "./database/files", autoload: true });
+var files = new nedb({ filename: "./database/resources", autoload: true });
 
 exports.add = function(req) {
     return Q.promise(function(resolve, reject) {

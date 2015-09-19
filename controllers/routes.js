@@ -2,13 +2,13 @@ var express = require("express");
 var router = express.Router();
 var notification = require("../middlewares/notification.js");
 var event = require("../models/event.js");
-var file = require("../models/file.js");
+var resource = require("../models/resource.js");
 var request = require("request");
 var settings = require("./settings.js");
 router.use(notification);
 
 /* Resources */
-router.use("/resource", require("./files.js"));
+router.use("/resources", require("./resources.js"));
 
 /* User */
 router.use("/users", require("./users.js"));
@@ -35,7 +35,7 @@ router.get("/", function(req, res, next) {
 });
 
 router.get("/about", function(req, res) {
-    file.get("About")
+    resource.get("About")
     .then(function(files) {
         res.render("about", {
             title: "About",
@@ -82,7 +82,7 @@ router.get("/links", function(req, res) {
 });
 
 router.get("/nrc", function(req, res) {
-    file.get("NRC")
+    resource.get("NRC")
     .then(function(files) {
         res.render("nrc", {
             title: "NRC",

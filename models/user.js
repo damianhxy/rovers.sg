@@ -48,7 +48,7 @@ exports.authenticate = function(username, password) {
             Q.ninvoke(bcryptjs, "compare", password, user.hash)
             .then(function(res) {
                 if (res) return resolve(user);
-                reject(Error("Wrong Password"));
+                reject(Error("Wrong Password."));
             });
         })
         .fail(function(err) {
@@ -62,7 +62,7 @@ exports.changePassword = function(req) {
         if (req.body.newPassword !== req.body.newPasswordRepeat) return reject(Error("Passwords do not match."));
         Q.ninvoke(bcryptjs, "compare", req.body.currentPassword, req.user.hash)
         .then(function(res) {
-            if (!res) return reject(Error("Wrong Password"));
+            if (!res) return reject(Error("Wrong Password."));
             return Q.nfcall(bcryptjs.hash, req.body.newPassword, req.user.salt);
         })
         .then(function(hash) {

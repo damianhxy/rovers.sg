@@ -77,9 +77,9 @@
         {{/if}}
     </div>
     {{/each}}
-    {{#if user}}
+    {{#if user.admin}}
     <div id="upload" class="tab-pane fade">
-        <form class="form-horizontal" action="/resource/upload" method="post" accept-charset="UTF-8" enctype="multipart/form-data" autocomplete="off">
+        <form class="form-horizontal" action="/resources/upload" method="post" accept-charset="UTF-8" enctype="multipart/form-data" autocomplete="off">
             <fieldset>
                 <legend>File Upload</legend>
                 <div class="form-group">
@@ -101,7 +101,7 @@
                     <div class="col-md-10">
                         <select class="form-control" name="category" required>
                             {{#each categories}}
-                            <option value="{{@key}}"><i class="fa fa-{{this.icon}}"></i> {{@key}}</option>
+                            <option value="{{@key}}">{{@key}}</option>
                             {{/each}}
                         </select>
                     </div> <!-- /.col-md-10 -->

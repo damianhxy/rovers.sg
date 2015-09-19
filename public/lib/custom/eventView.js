@@ -32,6 +32,7 @@ $(document).ready(function() {
                     $("[data-name='link']").parent().prev().find("a").attr("href", data.value);
                 } else if (data.field === "title") {
                     document.title = data.value + " | Rover.sg";
+                    $("[href='#deleteModal']").data("title", data.value);
                 }
             },
             error: function(data) {
