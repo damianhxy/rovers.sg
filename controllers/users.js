@@ -4,8 +4,8 @@ var router = express.Router();
 var user = require("../models/user.js");
 var auth = require("../middlewares/auth.js");
 
-router.post("/changePassword", auth, function(req, res) {
-    user.changePassword(req)
+router.post("/editPassword", auth, function(req, res) {
+    user.editPassword(req)
     .then(function() {
         req.session.success = "Password Updated.";
         res.redirect("/users/profile");

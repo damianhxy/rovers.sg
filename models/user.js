@@ -57,13 +57,13 @@ exports.authenticate = function(username, password) {
     });
 };
 
-exports.changePassword = function(req) {
+exports.editPassword = function(req) {
     return Q.promise(function(resolve, reject) {
         if (req.body.newPassword !== req.body.newPasswordRepeat) return reject(Error("Passwords do not match."));
         Q.ninvoke(bcryptjs, "compare", req.body.currentPassword, req.user.hash)
         .then(function(res) {
             if (!res) return reject(Error("Wrong Password."));
-            return Q.nfcall(bcryptjs.hash, req.body.newPassword, req.user.salt);
+            return Q.nfcall(bcryptjs.hash, req.body.newPassword, req.user.hash.substr(0, 29));
         })
         .then(function(hash) {
             return Q.ninvoke(users, "update", { _id: req.user._id }, { $set: { hash: hash } });
