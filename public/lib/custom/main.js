@@ -23,10 +23,21 @@ $(document).ready(function() {
 		window.location.hash = e.target.hash;
 	});
 
-	// Target tabs by hash
-	var url = document.URL.toString();
-	if (url.match("#")) {
-		$(".nav-pills a[href='#" + url.split("#")[1] + "']").tab("show");
+	// Change active shortcut item
+	$(window).on("hashchange", function(e) {
+		var oldHash = e.originalEvent.oldURL.split("#")[1];
+		var newHash = e.originalEvent.newURL.split("#")[1];
+		$(".list-group a[href='#" + oldHash + "']").removeClass("active");
+		$(".list-group a[href='#" + newHash + "']").addClass("active");
+	});
+
+	var hash = document.URL.split("#")[1];
+	if (hash) {
+		// Active tab
+		$(".nav-pills a[href='#" + hash + "']").tab("show");
+
+		// Active shortcut item
+		$(".list-group a[href='#" + hash + "']").addClass("active");
 	}
 
 	// Lightbox
