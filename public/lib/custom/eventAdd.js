@@ -66,4 +66,19 @@ $(document).ready(function() {
             }, true);
         }
     });
+
+    // Form Validation
+    $("form").on("submit", function(e) {
+        e.preventDefault();
+        var start = moment($start.combodate("getValue"), MOMENT_FORMAT);
+        var end = moment($end.combodate("getValue"), MOMENT_FORMAT);
+        if (start.isBefore(end))
+            $(e.target).get(0).submit();
+        else
+            new PNotify({
+                title: "Error",
+                text: "Start time must be before end time.",
+                type: "error"
+            });
+    });
 });

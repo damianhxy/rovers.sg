@@ -52,10 +52,6 @@ router.post("/edit", admin, function(req, res) {
 });
 
 router.post("/upload", admin, upload.single("file"), function(req, res) {
-    if (!req.file) {
-        req.session.error = "Please select a file.";
-        res.status(400).redirect("/resource#upload");
-    }
     resource.add(req)
     .then(function() {
         req.session.success = "File uploaded.";

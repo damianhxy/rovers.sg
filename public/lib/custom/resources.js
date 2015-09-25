@@ -4,6 +4,19 @@ $(document).ready(function() {
 
     console.info("[info] resources.js is running.");
 
+    // Set first tab to be active
+    $(".nav-pills li:eq(0) a").tab("show");
+
+    // Change hash
+    $(".nav-pills a").on("show.bs.tab", function(e) {
+        window.location.hash = e.target.hash;
+    });
+
+    // Show active tab
+    var hash = document.URL.split("#")[1];
+    if (hash)
+        $(".nav-pills a[href='#" + hash + "']").tab("show");
+
     // Toggle editable
     $(".btn-edit").click(function() {
         $("#" + $(this).parent().parent().data("id")).editable("toggleDisabled");
@@ -66,5 +79,18 @@ $(document).ready(function() {
     // File Name Text
     $(".btn-file :file").on("change", function() {
         $("#upload-name").val($(this).val());
+    });
+
+    // Form Validation
+    $("form").on("submit", function(e) {
+        e.preventDefault();
+        if ($("#upload :file").val())
+            $(e.target).get(0).submit();
+        else
+            new PNotify({
+                title: "Error",
+                text: "Please select a file.",
+                type: "error"
+            });
     });
 });

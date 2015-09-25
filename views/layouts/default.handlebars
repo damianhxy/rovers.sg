@@ -27,85 +27,80 @@
     <!-- NAVBAR -->
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                            <span class="sr-only">Toggle Navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="/">
-                            <img src="/img/logo.png" alt="logo" height="24" width="24">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">
+                    <img src="/img/logo.png" alt="logo" height="24" width="24">
+                </a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/nrc"><i class="fa fa-institution"></i> NRC</a></li>
+                    <li><a href="/about"><i class="fa fa-info-circle"></i> About</a></li>
+                    <li><a href="/links"><i class="fa fa-external-link"></i> Links</a></li>
+                    <li><a href="/resources"><i class="fa fa-archive"></i> Resources</a></li>
+                    <li><a href="/faq"><i class="fa fa-question-circle"></i> FAQ</a></li>
+                    <li><a href="/join"><i class="fa fa-paper-plane"></i> Join Us</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                {{#if user}}
+                    <li><p class="navbar-text"><i class="fa fa-user"> <strong><a href="/users/profile">{{user.username}}</a></strong></i></p></li>
+                    <li><a href="/users/signout"><i class="fa fa-sign-out"></i> Sign Out</a></li>
+                {{else}}
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                            <i class="fa fa-sign-in"></i> Sign In
+                            <span class="caret"></span>
                         </a>
-                    </div>
-                    <div id="navbar" class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav">
-                            <li><a href="/nrc"><i class="fa fa-institution"></i> NRC</a></li>
-                            <li><a href="/about"><i class="fa fa-info-circle"></i> About</a></li>
-                            <li><a href="/links"><i class="fa fa-external-link"></i> Links</a></li>
-                            <li><a href="/resources"><i class="fa fa-archive"></i> Resources</a></li>
-                            <li><a href="/faq"><i class="fa fa-question-circle"></i> FAQ</a></li>
-                            <li><a href="/join"><i class="fa fa-paper-plane"></i> Join Us</a></li>
-                        </ul>
-                        <ul class="nav navbar-nav navbar-right">
-                        {{#if user}}
-                            <li><p class="navbar-text"><i class="fa fa-user"> <strong><a href="/users/profile">{{user.username}}</a></strong></i></p></li>
-                            <li><a href="/users/signout"><i class="fa fa-sign-out"></i> Sign Out</a></li>
-                        {{else}}
-                            <li class="dropdown">
-                                <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-                                    <i class="fa fa-sign-in"></i> Sign In
-                                    <span class="caret"></span>
-                                </a>
-                                <div class="dropdown-menu">
-                                    <form action="/users/signin" method="post" accept-charset="UTF-8" autocomplete="off">
-                                        <div class="form-group">
-                                            <label class="sr-only" for="username">Username</label>
-                                            <input id="username" name="username" class="form-control" type="text" placeholder="Username" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="sr-only" for="password">Password</label>
-                                            <input id="password" name="password" class="form-control" type="password" placeholder="Password" required>
-                                        </div>
-                                        <button type="submit" class="form-control btn btn-primary">Login</button>
-                                    </form>
+                        <div class="dropdown-menu">
+                            <form action="/users/signin" method="post" accept-charset="UTF-8" autocomplete="off">
+                                <div class="form-group">
+                                    <label for="username">Username</label>
+                                    <input id="username" name="username" class="form-control" type="text" placeholder="Username" required>
                                 </div>
-                            </li>
-                            {{!--
-                            <!-- For development purposes -->
-                            <li class="dropdown">
-                                <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-                                    <i class="fa fa-user-plus"></i> Sign Up
-                                    <span class="caret"></span>
-                                </a>
-                                <div class="dropdown-menu">
-                                    <form action="/users/signup" method="post" accept-charset="UTF-8">
-                                        <div class="form-group">
-                                            <label class="sr-only" for="username">Name</label>
-                                            <input id="name" name="name" class="form-control" type="text" placeholder="Name" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="sr-only" for="username">Username</label>
-                                            <input id="username" name="username" class="form-control" type="text" placeholder="Username" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="sr-only" for="password">Password</label>
-                                            <input id="password" name="password" class="form-control" type="password" placeholder="Password" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <button type="submit" class="form-control btn btn-primary">Sign Up</button>
-                                        </div>
-                                    </form>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input id="password" name="password" class="form-control" type="password" placeholder="Password" required>
                                 </div>
-                            </li>
-                            --}}
-                        {{/if}}
-                        </ul> <!-- /.navbar-right -->
-                    </div> <!-- /.navbar-collapse -->
-                </div> <!-- /.col-md-12 -->
-            </div> <!-- /.row -->
+                                <button type="submit" class="form-control btn btn-primary">Login</button>
+                            </form>
+                        </div>
+                    </li>
+                    {{!--
+                    <!-- For development purposes -->
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                            <i class="fa fa-user-plus"></i> Sign Up
+                            <span class="caret"></span>
+                        </a>
+                        <div class="dropdown-menu">
+                            <form action="/users/signup" method="post" accept-charset="UTF-8">
+                                <div class="form-group">
+                                    <label for="username">Name</label>
+                                    <input id="name" name="name" class="form-control" type="text" placeholder="Name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="username">Username</label>
+                                    <input id="username" name="username" class="form-control" type="text" placeholder="Username" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input id="password" name="password" class="form-control" type="password" placeholder="Password" required>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="form-control btn btn-primary">Sign Up</button>
+                                </div>
+                            </form>
+                        </div>
+                    </li>
+                    --}}
+                {{/if}}
+                </ul> <!-- /.navbar-right -->
+            </div> <!-- /.navbar-collapse -->
         </div> <!-- /.container-fluid -->
     </nav> <!-- /.navbar -->
     <!-- /NAVBAR -->
@@ -138,8 +133,7 @@
                 <p class="footer__links">
                     <small>
                         <a href="/sitemap"><i class="fa fa-sitemap"></i> Sitemap </a>&middot;
-                        <a href="/contact"><i class="fa fa-phone-square"></i> Contact us </a>&middot;
-                        <a href="#"><i class="fa fa-toggle-up"></i> Back to top</a>
+                        <a href="/contact"><i class="fa fa-phone-square"></i> Contact us</a>
                     </small>
                 </p>
                 <p class="footer__credits">

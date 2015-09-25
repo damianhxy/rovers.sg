@@ -10,7 +10,7 @@
             <i class="fa fa-{{this.icon}}"></i> {{@key}}
         </a></li>
         {{/each}}
-        {{#if user}}
+        {{#if user.admin}}
         <li><a href="#upload" data-toggle="pill"><i class="fa fa-upload"></i> Upload File</a></li>
         {{/if}}
     </ul>

@@ -15,30 +15,21 @@ PNotify.prototype.options.stack = {
 $(document).ready(function() {
 	console.info("[info] main.js is running.");
 
-	// Set first tab to be active
-	$(".nav-pills li:eq(0) a").tab("show");
-
-	// Change hash
-	$(".nav-pills a").on("show.bs.tab", function(e) {
-		window.location.hash = e.target.hash;
-	});
-
 	// Change active shortcut item
+	/*
 	$(window).on("hashchange", function(e) {
 		var oldHash = e.originalEvent.oldURL.split("#")[1];
 		var newHash = e.originalEvent.newURL.split("#")[1];
-		$(".list-group a[href='#" + oldHash + "']").removeClass("active");
-		$(".list-group a[href='#" + newHash + "']").addClass("active");
+		$(".nav-pills a[href='#" + oldHash + "']").removeClass("active");
+		$(".nav-pills a[href='#" + newHash + "']").addClass("active");
 	});
 
 	var hash = document.URL.split("#")[1];
 	if (hash) {
-		// Active tab
-		$(".nav-pills a[href='#" + hash + "']").tab("show");
-
 		// Active shortcut item
-		$(".list-group a[href='#" + hash + "']").addClass("active");
+		$(".nav-pills a[href='#" + hash + "']").addClass("active");
 	}
+	*/
 
 	// Lightbox
 	$("[data-toggle='lightbox']").on("click", function(e) {
@@ -55,8 +46,11 @@ $(document).ready(function() {
 		arrows: false
 	});
 
-	// Append aria-hidden to fa elements
+	// Hide fa elements from screen readers
 	$(".fa").attr("aria-hidden", true);
+
+	// Show labels only to screen readers
+	$("label").addClass("sr-only");
 
 	// Active Link
 	$("nav a[href='" + location.pathname + "']").parent().addClass("active");
