@@ -183,7 +183,7 @@ body {
 }
 
 .image {
-    width: 100%;
+    max-width: 100%;
 }
 
 .dropdown-menu form {
@@ -192,7 +192,7 @@ body {
 
 #shortcuts {
     position: fixed;
-    width: 290px;
+    width: 244px;
     z-index: 1;
 }
 

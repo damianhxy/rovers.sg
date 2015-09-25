@@ -167,8 +167,6 @@
                 text: "{{success}}",
                 type: "success"
             });
-            {{else}}
-            /* No success alerts */
             {{/if}}
             {{#if error}}
             new PNotify({
@@ -176,8 +174,6 @@
                 text: "{{error}}",
                 type: "error"
             });
-            {{else}}
-            /* No error alerts */
             {{/if}}
             $("#calendar").fullCalendar({
                 customButtons: {
