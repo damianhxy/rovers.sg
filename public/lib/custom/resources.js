@@ -82,7 +82,7 @@ $(document).ready(function() {
     });
 
     // Form Validation
-    $("form").on("submit", function(e) {
+    $("#uploadForm").on("submit", function(e) {
         e.preventDefault();
         if ($("#upload :file").val())
             $(e.target).get(0).submit();

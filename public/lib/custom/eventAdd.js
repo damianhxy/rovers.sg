@@ -68,7 +68,7 @@ $(document).ready(function() {
     });
 
     // Form Validation
-    $("form").on("submit", function(e) {
+    $("#eventForm").on("submit", function(e) {
         e.preventDefault();
         var start = moment($start.combodate("getValue"), MOMENT_FORMAT);
         var end = moment($end.combodate("getValue"), MOMENT_FORMAT);

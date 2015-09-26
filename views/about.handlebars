@@ -16,7 +16,9 @@
         <span class="h1">About</span>
     </div>
     <div class="panel panel-default">
-        <div class="panel-heading">Fellowship of the Open Air and Service</div>
+        <div class="panel-heading">
+            <h3 class="panel-title">Fellowship of the Open Air and Service</h3>
+        </div>
         <div class="panel-body">
             <a class="anchor" id="fellowship"></a>
             Rover Scouts are youth members belonging to one of four sections in the Singapore Scout Association. They are aged 17-26 years old, and those of 21 years of age and above are allowed to, and often hold concurrent adult leader appointments. 
@@ -29,28 +31,36 @@
         </div>
     </div> <!-- /.panel -->
     <div class="panel panel-default">
-        <div class="panel-heading">Expeditions</div>
+        <div class="panel-heading">
+            <h3 class="panel-title">Expeditions</h3>
+        </div>
         <div class="panel-body">
             <a class="anchor" id="expedition"></a>
             Being older than the Scouts in other sections, Rover Scouts can live out their motto by truly experiencing the "Open Air". They often plan riskier expeditions that they are capable of because of their age and experience.
         </div>
     </div> <!-- /.panel -->
     <div class="panel panel-default">
-        <div class="panel-heading">Core Scouting Activities</div>
+        <div class="panel-heading">
+            <h3 class="panel-title">Core Scouting Activities</h3>
+        </div>
         <div class="panel-body">
             <a class="anchor" id="activity"></a>
             Of course, Rover Scouts are conversant in core scouting skills, relating to knotting and lashing, pioneering, outdoor cooking, tent pitching, first aid, etc. These skills form the basis for the ambitious projects Rovers undertake. 
         </div>
     </div> <!-- /.panel -->
     <div class="panel panel-default">
-        <div class="panel-heading">Conferences and dialogues</div>
+        <div class="panel-heading">
+            <h3 class="panel-title">Conferences and dialogues</h3>
+        </div>
         <div class="panel-body">
             <a class="anchor" id="conference"></a>
             As young adults, Rover Scouts are often called on to give their opinion on upcoming issues in society and the world at large. Hence, Rover Scouts often represent the Singapore Scout Association at both Scout related and non scout related conferences and dialogues. 
         </div>
     </div> <!-- /.panel -->
     <div class="panel panel-default">
-        <div class="panel-heading">Photographs</div>
+        <div class="panel-heading">
+            <h3 class="panel-title">Photographs</h3>
+        </div>
         <div class="panel-body">
             <a class="anchor" id="media"></a>
             <div class="slick">
@@ -76,7 +86,9 @@
         </div>
     </div> <!-- /.panel -->
     <div class="panel panel-default">
-        <div class="panel-heading">Files</div>
+        <div class="panel-heading">
+            <h3 class="panel-title">Files</h3>
+        </div>
         <div class="panel-body">
             <a class="anchor" id="files"></a>
             {{#if isEmpty}}
@@ -85,9 +97,9 @@
                 <table class="table table-striped table-bordered sortable">
                 <thead>
                     <tr>
-                        <th class="col-md-4">File</th>
-                        <th class="col-md-4">Description</th>
-                        <th class="col-md-4" data-defaultsort="desc" data-firstsort="asc">Last Modified</th>
+                        <th class="col-md-4 col-sm-4 col-xs-6">File</th>
+                        <th class="col-md-4 col-sm-4 hidden-xs">Description</th>
+                        <th class="col-md-4 col-sm-4 col-xs-6" data-defaultsort="desc" data-firstsort="asc">Last Modified</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -98,7 +110,7 @@
                                 <i class="fa fa-{{fileType this.original}}"></i> {{this.original}}
                             </a>
                         </td>
-                        <td>
+                        <td class="hidden-xs">
                             <a id="{{this._id}}" class="field-edit" href="#">
                                 {{this.description}}
                             </a>
