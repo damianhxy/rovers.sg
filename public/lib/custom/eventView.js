@@ -25,6 +25,10 @@ $(document).ready(function() {
                 dataType: "json"
             },
             success: function(data) {
+                if (!data.value)
+                    $("[data-name='" + data.field + "']").parent().parent().addClass("field-hidden");
+                else
+                    $("[data-name='" + data.field + "']").parent().parent().removeClass("field-hidden");
                 if (data.field === "link") {
                     setTimeout(function () {
                         $("[data-name='link']").editable("setValue", data.value);

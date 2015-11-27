@@ -63,7 +63,9 @@ exports.edit = function(id, field, value) {
                 value = normalizeURL(value);
             event[field] = value;
             if (!moment(event.start).isBefore(moment(event.end)))
-                return reject(Error("Start time must be before end time."))
+                return reject(Error("Start time must be before end time."));
+            if (field === "title" && !value)
+                return reject(Error("Title can not be empty."));
             return Q.ninvoke(events, "update", { _id: id }, { $set: event });
         })
         .then(function() {
