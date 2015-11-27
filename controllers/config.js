@@ -2,6 +2,7 @@ var bodyParser = require("body-parser");
 var user = require("../models/user.js");
 var morgan = require("morgan");
 var passport = require("passport");
+var moment = require("moment");
 var compression = require("compression");
 var cookieParser = require("cookie-parser");
 var settings = require("./settings.js");
@@ -19,7 +20,7 @@ module.exports = function(app, express) {
     });
 
     morgan.token("time", function() {
-        return require("console-stamp/node_modules/dateformat")(new Date(), settings.TIME_FORMAT);
+        return moment().format(settings.TIME_FORMAT);
     });
 
     // Middleware
