@@ -9,6 +9,7 @@ var settings = require("./settings.js");
 var session = require("express-session");
 var exphbs = require("express-handlebars");
 var localStrategy = require("passport-local");
+var dateFormat = require("dateformat");
 
 module.exports = function(app, express) {
     require("console-stamp")(console, {
@@ -20,7 +21,7 @@ module.exports = function(app, express) {
     });
 
     morgan.token("time", function() {
-        return moment().format(settings.TIME_FORMAT);
+        return dateFormat(new Date(), settings.TIME_FORMAT);
     });
 
     // Middleware
