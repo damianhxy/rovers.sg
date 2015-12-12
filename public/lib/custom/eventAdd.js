@@ -42,7 +42,7 @@ $(document).ready(function() {
     }
 
     // Preview
-    $(":input").on("change keyup", function() {
+    $("#eventForm :input").on("change keyup", function() {
         // Check if there is sufficient information
         var title = $("[name='title']").val();
         var start = $start.combodate("getValue");

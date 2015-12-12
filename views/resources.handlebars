@@ -32,34 +32,34 @@
             <thead>
                 <tr>
                     {{#if ../../user}}
-                    <th class="col-md-4 col-sm-4 col-xs-6">File</th>
-                    <th class="col-md-4 col-sm-4 hidden-xs">Description</th>
-                    <th class="col-md-2 col-sm-2 col-xs-3" data-defaultsort="desc" data-firstsort="asc">Last Modified</th>
-                    <th class="col-md-2 col-sm-2 col-xs-3" data-defaultsort="disabled">Actions</th>
+                    <th class="col-md-4 col-sm-5 col-xs-8">File</th>
+                    <th class="col-md-4 col-sm-5 hidden-xs">Description</th>
+                    <th class="col-md-2 hidden-sm hidden-xs" data-defaultsort="desc" data-firstsort="asc">Last Modified</th>
+                    <th class="col-md-2 col-sm-2 col-xs-4" data-defaultsort="disabled">Actions</th>
                     {{else}}
-                    <th class="col-md-4 col-sm-4 col-xs-6">File</th>
-                    <th class="col-md-4 col-sm-4 hidden-xs">Description</th>
-                    <th class="col-md-4 col-sm-4 col-xs-6" data-defaultsort="desc" data-firstsort="asc">Last Modified</th>
+                    <th class="col-md-4 col-sm-6 col-xs-12">File</th>
+                    <th class="col-md-4 col-sm-6 hidden-xs">Description</th>
+                    <th class="col-md-4 hidden-sm hidden-xs" data-defaultsort="desc" data-firstsort="asc">Last Modified</th>
                     {{/if}}
                 </tr>
             </thead>
             <tbody>
                 {{#each this.fileList}}
-                <tr>
+                <tr id="{{this._id}}">
                     <td>
-                        <a href="/uploads/{{this.name}}" download>
-                            <i class="fa fa-{{fileType this.original}}"></i> {{this.original}}
+                        <a href="/uploads/{{this.name}}">
+                            <i class="fa fa-{{fileType this.name}}"></i> {{this.name}}
                         </a>
                     </td>
                     <td class="hidden-xs">
-                        <a id="{{this._id}}" class="field-edit" href="#">
+                        <a class="field-edit" data-name="description" href="#">
                             {{this.description}}
                         </a>
                     </td>
-                    <td data-value="{{this.time}}" data-livestamp="{{this.time}}">
+                    <td class="hidden-sm hidden-xs" data-value="{{this.time}}" data-livestamp="{{this.time}}">
                     </td>
                     {{#if ../../../user.admin}}
-                    <td data-original="{{this.original}}" data-id="{{this._id}}">
+                    <td data-name="{{this.name}}">
                         <div class="btn-group">
                             <button type="button" class="btn btn-success btn-xs btn-edit">
                                 <i class="fa fa-edit"> Edit</i>

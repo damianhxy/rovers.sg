@@ -19,15 +19,15 @@ $(document).ready(function() {
 
     // Toggle editable
     $(".btn-edit").click(function() {
-        $("#" + $(this).parent().parent().data("id")).editable("toggleDisabled");
+        $(this).closest("tr").find(".field-edit").editable("toggleDisabled");
     });
 
     // X-editable
     $(".field-edit").each(function() {
         $(this).editable({
             type: "text",
-            pk: $(this).attr("id"),
-            name: "description",
+            pk: $(this).parent().parent().attr("id"),
+            name: $(this).data("name"),
             url: "/resources/edit",
             disabled: true,
             ajaxOptions: {
@@ -46,10 +46,10 @@ $(document).ready(function() {
     // Delete modal
     $("#deleteModal").on("show.bs.modal", function(e) {
         var data = $(e.relatedTarget).parent().parent();
-        var originalName = data.data("original");
+        var originalName = data.data("name");
         var addedTime = moment(data.prev().data("value")).format("DD/MM/YYYY HH:mm A");
         // Attach id for x-editable
-        $(this).find(".btn-danger").data("id", data.data("id"));
+        $(this).find(".btn-danger").data("id", data.parent().attr("id"));
         $("#modalFileName").html("File Name: <strong>" + originalName + "</strong>");
         $("#modalFileTime").html("Added on: <strong>" + addedTime + "</strong>");
     });
@@ -63,8 +63,8 @@ $(document).ready(function() {
         })
         .done(function() {
             $("#deleteModal").modal("hide");
-            $("#" + $(e.target).data("id")).closest("tr").remove();
-            if (!$("tbody:visible").eq(0).children())
+            $("#" + $(e.target).data("id")).remove();
+            if (!$("tbody:visible").eq(0).children().length)
                 location.reload();
         })
         .fail(function(err) {

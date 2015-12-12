@@ -21,6 +21,7 @@ exports.add = function(req) {
             req.body.link = normalizeURL(req.body.link);
         Q.ninvoke(events, "insert", eventInfo)
         .then(function(result) {
+            console.log("User " + req.user.username + " created event: " + req.body.title + ".");
             resolve(result._id);
         })
         .fail(function(err) {
@@ -45,6 +46,7 @@ exports.delete = function(id) {
     return Q.promise(function(resolve, reject) {
         Q.ninvoke(events, "remove", { _id: id })
         .then(function() {
+            console.log("Deleted event with _id: " + id + ".");
             resolve();
         })
         .fail(function(err) {
@@ -61,14 +63,16 @@ exports.edit = function(id, field, value) {
                 value = moment(value, settings.EVENT_TIME_FORMAT).format();
             else if (field === "link")
                 value = normalizeURL(value);
-            event[field] = value;
             if (!moment(event.start).isBefore(moment(event.end)))
                 return reject(Error("Start time must be before end time."));
             if (field === "title" && !value)
                 return reject(Error("Title can not be empty."));
+            event[field] = value;
+            event.time = moment().format();
             return Q.ninvoke(events, "update", { _id: id }, { $set: event });
         })
         .then(function() {
+            console.log("Field " + field + " of event " + event.title + " changed to " + value + ".");
             resolve({
                 field: field,
                 value: value
@@ -85,7 +89,7 @@ exports.get = function(id) {
         Q.ninvoke(events, "findOne", { _id: id })
         .then(function(event) {
             if (!event)
-                return reject(Error("Event does not exist."));
+                return reject(Error("Event " + id + " does not exist."));
             resolve(event);
         })
         .fail(function(err) {

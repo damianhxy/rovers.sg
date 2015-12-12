@@ -41,18 +41,15 @@ router.get("/signout", auth, function(req, res) {
     req.logout();
     res.redirect("/");
 });
-
+/*
 router.post("/signup", auth, function(req, res) {
-    /*passport.authenticate("local-signup", function(err, user, info) {
+    passport.authenticate("local-signup", function(err, user, info) {
         if (err) return next(err);
         req.login(user, function(err) {
             if (err) return next(err);
             res.redirect(req.headers.referer || "/");
         });
-    })(req, res);*/
-    console.warn("Illegal attempt to access sign up.");
-    res.session.error = "Nope.";
-    res.status(400).redirect(req.headers.referer || "/");
+    })(req, res);
 });
-
+*/
 module.exports = router;
