@@ -26,7 +26,7 @@ $(document).ready(function() {
     $(".field-edit").each(function() {
         $(this).editable({
             type: "text",
-            pk: $(this).parent().parent().attr("id"),
+            pk: $(this).parent().parent().data("id"),
             name: $(this).data("name"),
             url: "/resources/edit",
             disabled: true,
@@ -49,7 +49,7 @@ $(document).ready(function() {
         var originalName = data.data("name");
         var addedTime = moment(data.prev().data("value")).format("DD/MM/YYYY HH:mm A");
         // Attach id for x-editable
-        $(this).find(".btn-danger").data("id", data.parent().attr("id"));
+        $(this).find(".btn-danger").data("id", data.parent().data("id"));
         $("#modalFileName").html("File Name: <strong>" + originalName + "</strong>");
         $("#modalFileTime").html("Added on: <strong>" + addedTime + "</strong>");
     });
@@ -63,7 +63,7 @@ $(document).ready(function() {
         })
         .done(function() {
             $("#deleteModal").modal("hide");
-            $("#" + $(e.target).data("id")).remove();
+            $("[data-id='" + $(e.target).data("id") + "']").remove();
             if (!$("tbody:visible").eq(0).children().length)
                 location.reload();
         })

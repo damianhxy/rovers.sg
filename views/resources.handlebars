@@ -45,7 +45,7 @@
             </thead>
             <tbody>
                 {{#each this.fileList}}
-                <tr id="{{this._id}}">
+                <tr data-id="{{this._id}}">
                     <td>
                         <a href="/uploads/{{this.name}}">
                             <i class="fa fa-{{fileType this.name}}"></i> {{this.name}}
