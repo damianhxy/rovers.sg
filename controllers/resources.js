@@ -11,8 +11,7 @@ router.get("/", function(req, res, next) {
         var categories = {
             "Latest Information": { name: "info", icon: "inbox", fileList: [], isEmpty: true },
             "Forms": { name: "forms", icon: "newspaper-o", fileList: [], isEmpty: true },
-            "NRC": { name: "nrc", icon: "institution", fileList: [], isEmpty: true },
-            "About": { name: "about", icon: "info-circle", fileList: [], isEmpty: true }
+            "NRC": { name: "nrc", icon: "institution", fileList: [], isEmpty: true }
         };
         files.forEach(function(e) {
             categories[e.category].fileList.push(e);

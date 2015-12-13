@@ -5,6 +5,23 @@ var event = require("../models/event.js");
 var settings = require("./settings.js");
 var admin = require("../middlewares/admin.js");
 
+router.get("/", function(req, res, next) {
+    event.all()
+    .then(function(events) {
+        events.forEach(function(e) {
+            e.url = "/events/view/" + e._id;
+        });
+        res.render("events", {
+            title: "Events",
+            user: req.user,
+            events: JSON.stringify(events)
+        });
+    })
+    .fail(function(err) {
+        next(err);
+    });
+});
+
 router.get("/add", admin, function(req, res, next) {
     event.all()
     .then(function(events) {

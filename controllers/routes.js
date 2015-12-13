@@ -35,17 +35,9 @@ router.get("/", function(req, res, next) {
 });
 
 router.get("/about", function(req, res) {
-    resource.get("About")
-    .then(function(files) {
-        res.render("about", {
-            title: "About",
-            user: req.user,
-            isEmpty: !files.length,
-            fileList: files
-        });
-    })
-    .fail(function(err) {
-        next(err);
+    res.render("about", {
+        title: "About",
+        user: req.user
     });
 });
 
@@ -72,28 +64,6 @@ router.get("/join", function(req, res) {
 		title: "Join Us",
 		user: req.user
 	});
-});
-
-router.get("/links", function(req, res) {
-    res.render("links", {
-        title: "Links",
-        user: req.user
-    });
-});
-
-router.get("/nrc", function(req, res) {
-    resource.get("NRC")
-    .then(function(files) {
-        res.render("nrc", {
-            title: "NRC",
-            user: req.user,
-            isEmpty: !files.length,
-            fileList: files
-        });
-    })
-    .fail(function(err) {
-        next(err);
-    });
 });
 
 router.get("/sitemap", function(req, res) {

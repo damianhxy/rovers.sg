@@ -4,9 +4,6 @@ $(document).ready(function() {
 
     console.info("[info] resources.js is running.");
 
-    // Set first tab to be active
-    $(".nav-pills li:eq(0) a").tab("show");
-
     // Change hash
     $(".nav-pills a").on("show.bs.tab", function(e) {
         window.location.hash = e.target.hash;

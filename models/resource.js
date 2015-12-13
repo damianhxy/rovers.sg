@@ -64,20 +64,8 @@ exports.edit = function(id, field, value) {
             return Q.ninvoke(files, "update", { _id: id }, { $set: file });
         })
         .then(function() {
-            console.log("Field " + field + " of file " + file.name + " changed to " + value + ".");
+            console.log("Field " + field + " of file " + id + " changed to " + value + ".");
             resolve();
-        })
-        .fail(function(err) {
-            reject(err);
-        });
-    });
-};
-
-exports.get = function(category) {
-    return Q.promise(function(resolve, reject) {
-        Q.ninvoke(files, "find", { category: category })
-        .then(function(fileList) {
-            resolve(fileList);
         })
         .fail(function(err) {
             reject(err);

@@ -39,12 +39,12 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="/nrc"><i class="fa fa-institution"></i> NRC</a></li>
                     <li><a href="/about"><i class="fa fa-info-circle"></i> About</a></li>
-                    <li><a href="/links"><i class="fa fa-external-link"></i> Links</a></li>
+                    <li><a href="/events"><i class="fa fa-calendar"></i> Events</a></li>
                     <li><a href="/resources"><i class="fa fa-archive"></i> Resources</a></li>
                     <li><a href="/faq"><i class="fa fa-question-circle"></i> FAQ</a></li>
-                    <li><a href="/join"><i class="fa fa-paper-plane"></i> Join Us</a></li>
+                    <li><a href="/join"><i class="fa fa-paper-plane"></i> Join</a></li>
+                    <li><a href="/contact"><i class="fa fa-phone-square"></i> Contact</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                 {{#if user}}
@@ -127,13 +127,13 @@
                 </p>
                 <p class="footer__links">
                     <small>
-                        <a href="/sitemap"><i class="fa fa-sitemap"></i> Sitemap</a> &bull;
-                        <a href="/contact"><i class="fa fa-phone-square"></i> Contact us</a>
+                        &copy; 2015 &bull;
+                        <a href="/sitemap"><i class="fa fa-sitemap"></i> Sitemap</a>
                     </small>
                 </p>
                 <p class="footer__credits">
                     <small>
-                        &copy; 2015 The Singapore Scout Association
+
                     </small>
                 </p>
             </div> <!-- /.col-md-12 -->
@@ -183,7 +183,7 @@
                     left: "title",
                     center: "",
                     {{#if user.admin}}
-                    right: (location.pathname === "/" ? "addEvent," : "") + "today prev,next month,agendaWeek,agendaDay"
+                    right: "addEvent,today prev,next month,agendaWeek,agendaDay"
                     {{else}}
                     right: "today prev,next month,agendaWeek,agendaDay"
                     {{/if}}
