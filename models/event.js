@@ -89,7 +89,7 @@ exports.get = function(id) {
         Q.ninvoke(events, "findOne", { _id: id })
         .then(function(event) {
             if (!event)
-                return reject(Error("Event " + id + " does not exist."));
+                return reject(Error("Event does not exist."));
             resolve(event);
         })
         .fail(function(err) {
