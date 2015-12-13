@@ -10,6 +10,7 @@ var session = require("express-session");
 var exphbs = require("express-handlebars");
 var localStrategy = require("passport-local");
 var dateFormat = require("dateformat");
+var nedbStore = require("express-nedb-session")(session);
 
 module.exports = function(app, express) {
     require("console-stamp")(console, {
@@ -34,7 +35,8 @@ module.exports = function(app, express) {
     app.use(session({
         secret: settings.SECRET,
         resave: false,
-        saveUninitialized: false
+        saveUninitialized: false,
+        store: new nedbStore({ filename: "nedb_sessionstore" })
     }));
     app.use(passport.initialize());
     app.use(passport.session());

@@ -21,6 +21,7 @@
     "dateformat": "^1.0.12",
     "express": "^4.10.4",
     "express-handlebars": "^2.0.1",
+    "express-nedb-session": "^0.1.1",
     "express-session": "^1.11.3",
     "moment": "^2.10.6",
     "morgan": "^1.6.0",
