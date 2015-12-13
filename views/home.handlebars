@@ -23,16 +23,21 @@
         <thead>
             <tr>
                 <th class="col-md-4">Name</th>
-                <th class="col-md-4">Start</th>
-                <th class="col-md-4">End</th>
+                <th class="col-md-4"></th>
+                <th class="col-md-4" data-defaultsort="asc" data-firstsort="desc">Date</th>
             </tr>
         </thead>
         <tbody>
             {{#each events}}
             <tr>
                 <td><a href="/events/view/{{this._id}}">{{this.title}}</a></td>
-                <td data-value="{{this.start}}" data-livestamp="{{this.start}}"></td>
+                {{#if this.started}}
+                <td>Ends</td>
                 <td data-value="{{this.end}}" data-livestamp="{{this.end}}"></td>
+                {{else}}
+                <td>Starts</td>
+                <td data-value="{{this.start}}" data-livestamp="{{this.start}}"></td>
+                {{/if}}
             </tr>
             {{/each}}
             {{#if more}}

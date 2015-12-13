@@ -102,6 +102,9 @@ exports.upcoming = function(date) {
     return Q.promise(function(resolve, reject) {
         Q.ninvoke(events, "find", { $where: function() { return moment(this.end).isAfter(moment(date)); } })
         .then(function(list) {
+            list.forEach(function(e) {
+                e.started = moment(e.start).isBefore(moment(date));
+            });
             resolve(list);
         })
         .fail(function(err) {
