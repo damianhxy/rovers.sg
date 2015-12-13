@@ -180,12 +180,12 @@
                     }
                 },
                 header: {
-                    left: "title",
-                    center: "",
+                    left: "prev,next today",
+                    center: "title",
                     {{#if user.admin}}
-                    right: "addEvent,today prev,next month,agendaWeek,agendaDay"
+                    right: "addEvent month,agendaWeek,agendaDay"
                     {{else}}
-                    right: "today prev,next month,agendaWeek,agendaDay"
+                    right: "month,agendaWeek,agendaDay"
                     {{/if}}
                 }{{#if events}},
                 events: {{{events}}}

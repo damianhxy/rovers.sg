@@ -19,7 +19,7 @@
 <div class="col-md-9 tab-content">
     {{#each categories}}
     <div id="{{this.name}}" class="tab-pane fade">
-        {{#if this.isEmpty}}
+        {{#unless this.fileList}}
         <div class="panel panel-info">
             <div class="panel-heading">
                 <h3 class="panel-title"><i class="fa fa-info-circle"></i> Empty</h3>
@@ -75,7 +75,7 @@
                 {{/each}}
             </tbody>
         </table> <!-- /.table -->
-        {{/if}}
+        {{/unless}}
     </div>
     {{/each}}
     <div id="links" class="tab-pane fade">

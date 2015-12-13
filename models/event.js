@@ -72,7 +72,7 @@ exports.edit = function(id, field, value) {
             return Q.ninvoke(events, "update", { _id: id }, { $set: event });
         })
         .then(function() {
-            console.log("Field " + field + " of event " + event.title + " changed to " + value + ".");
+            console.log("Field " + field + " of event " + id + " changed to " + value + ".");
             resolve({
                 field: field,
                 value: value
@@ -91,6 +91,18 @@ exports.get = function(id) {
             if (!event)
                 return reject(Error("Event " + id + " does not exist."));
             resolve(event);
+        })
+        .fail(function(err) {
+            reject(err);
+        });
+    });
+};
+
+exports.upcoming = function(date) {
+    return Q.promise(function(resolve, reject) {
+        Q.ninvoke(events, "find", { $where: function() { return moment(this.end).isAfter(moment(date)); } })
+        .then(function(list) {
+            resolve(list);
         })
         .fail(function(err) {
             reject(err);

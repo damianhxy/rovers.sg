@@ -2,19 +2,16 @@
     <div class="page-header text-center">
         <span class="h1"><a class="field-edit" data-type="text" data-name="title" href="#">{{info.title}}</a></span>
         {{#if user.admin}}
-        <div class="text-center">
-            <div class="btn-group">
-                <a href="/events/add" class="btn btn-primary">
-                    <i class="fa fa-plus"> New</i>
-                </a>
-                <button type="button" class="btn btn-success btn-edit">
-                    <i class="fa fa-edit"> Edit</i>
-                </button>
-                <a href="#deleteModal" class="btn btn-danger btn" data-toggle="modal" data-title="{{info.title}}" data-time="{{info.time}}">
-                    <i class="fa fa-close"> Delete</i>
-                </a>
-            </div> <!-- /.btn-group -->
-        </div>
+            <div class="text-center">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-success btn-edit">
+                        <i class="fa fa-edit"> Edit</i>
+                    </button>
+                    <a href="#deleteModal" class="btn btn-sm btn-danger" data-toggle="modal" data-title="{{info.title}}" data-time="{{info.time}}">
+                        <i class="fa fa-close"> Delete</i>
+                    </a>
+                </div> <!-- /.btn-group -->
+            </div>
         {{/if}}
     </div>
     <table class="table table-striped table-bordered">
@@ -27,31 +24,31 @@
         </thead>
         <tbody>
             <tr {{#unless info.location}}class="field-hidden"{{/unless}}>
-                <td class="col-md-3 text-center"><i class="fa fa-map-marker"></i> Location</td>
+                <td class="col-md-3 text-center">Location</td>
                 <td class="col-md-9">
                     <a class="field-edit" data-type="text" data-name="location" href="#">{{info.location}}</a>
                 </td>
             </tr>
             <tr>
-                <td class="col-md-3 text-center"><i class="fa fa-hourglass-start"></i> Starting Time</td>
+                <td class="col-md-3 text-center">Start</td>
                 <td class="col-md-9">
                     <a class="field-edit" data-type="combodate" data-name="start" href="#">{{info.start}}</a>
                 </td>
             </tr>
             <tr>
-                <td class="col-md-3 text-center"><i class="fa fa-hourglass-end"></i> Ending Time</td>
+                <td class="col-md-3 text-center">End</td>
                 <td class="col-md-9">
                     <a class="field-edit" data-type="combodate" data-name="end" href="#">{{info.end}}</a>
                 </td>
             </tr>
             <tr {{#unless info.details}}class="field-hidden"{{/unless}}>
-                <td class="col-md-3 text-center"><i class="fa fa-asterisk"></i> Additional Details</td>
+                <td class="col-md-3 text-center">Additional Details</td>
                 <td class="col-md-9">
                     <a class="field-edit" data-type="textarea" data-name="details" href="#">{{info.details}}</a>
                 </td>
             </tr>
             <tr {{#unless info.link}}class="field-hidden"{{/unless}}>
-                <td class="col-md-3 text-center"><a href="{{info.link}}" target="_blank"><i class="fa fa-external-link"></i> External Link</a></td>
+                <td class="col-md-3 text-center"><a href="{{info.link}}" target="_blank">External Link</a></td>
                 <td class="col-md-9">
                     <a class="field-edit" data-type="text" data-name="link" href="#">{{info.link}}</a>
                 </td>

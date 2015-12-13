@@ -189,6 +189,10 @@ body {
     padding: 15px;
 }
 
+.table--footer {
+    text-align: center
+}
+
 #shortcuts {
     position: fixed;
     width: 244px;

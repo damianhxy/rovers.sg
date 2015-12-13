@@ -9,13 +9,12 @@ router.get("/", function(req, res, next) {
     resource.all()
     .then(function(files) {
         var categories = {
-            "Latest Information": { name: "info", icon: "inbox", fileList: [], isEmpty: true },
-            "Forms": { name: "forms", icon: "newspaper-o", fileList: [], isEmpty: true },
-            "NRC": { name: "nrc", icon: "institution", fileList: [], isEmpty: true }
+            "Latest Information": { name: "info", icon: "inbox", fileList: [] },
+            "Forms": { name: "forms", icon: "newspaper-o", fileList: [] },
+            "NRC": { name: "nrc", icon: "institution", fileList: [] }
         };
         files.forEach(function(e) {
             categories[e.category].fileList.push(e);
-            categories[e.category].isEmpty = false;
         });
         res.render("resources", {
             title: "Resources",

@@ -18,15 +18,13 @@ router.use("/events", require("./events.js"));
 
 /* Normal Pages */
 router.get("/", function(req, res, next) {
-    event.all()
+    event.upcoming(Date.now())
     .then(function(events) {
-        events.forEach(function(e) {
-            e.url = "/events/view/" + e._id;
-        });
         res.render("home", {
             title: "Home",
             user: req.user,
-            events: JSON.stringify(events)
+            events: events.slice(0, 5),
+            more: events.length > 5
         });
     })
     .fail(function(err) {
