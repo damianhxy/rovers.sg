@@ -167,7 +167,7 @@ body {
 
 /* Misc */
 .anchor,
-.anchor-header {
+.anchor--header {
     display: block;
     position: relative;
     visibility: hidden;
@@ -177,7 +177,7 @@ body {
     top: -120px;
 }
 
-.anchor-header {
+.anchor--header {
     top: -70px;
 }
 
@@ -187,10 +187,6 @@ body {
 
 .dropdown-menu form {
     padding: 15px;
-}
-
-.table--footer {
-    text-align: center
 }
 
 #shortcuts {

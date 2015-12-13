@@ -1,14 +1,32 @@
-<div class="col-md-6">
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.5";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div class="col-md-4">
     <div class="page-header">
         <span class="h2">Home</span>
     </div>
     <div class="panel panel-default">
         <div class="panel-body">
-            Before you lies the Singapore Rovers information portal, where Rover Scouts may obtain the latest information on the movement and easily access important resources relating to Rover Scouting. Click on the tabs to find out more.
+             Before you lies the Singapore Rovers information portal, where Rover Scouts may obtain the latest information on the movement and easily access important resources relating to Rover Scouting. Click on the tabs to find out more.
         </div>
-    </div> <!-- /.panel -->
-</div> <!-- /.col-md-6 -->
-<div class="col-md-6">
+    </div>
+</div> <!-- /.col-md-4 -->
+<div class="col-md-4">
+    <div class="page-header">
+        <span class="h2">Latest Updates</span>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="fb-page" data-href="https://www.facebook.com/Singapore-Rovers-121112262111/" data-tabs="timeline" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false">Facebook plugin is loading...</div>
+        </div>
+    </div>
+</div> <!-- /.col-md-4 -->
+<div class="col-md-4">
     <div class="page-header">
         <span class="h2">Upcoming Events</span>
     </div>
@@ -32,17 +50,17 @@
             <tr>
                 <td><a href="/events/view/{{this._id}}">{{this.title}}</a></td>
                 {{#if this.started}}
-                <td>Ends</td>
+                <td>Ending</td>
                 <td data-value="{{this.end}}" data-livestamp="{{this.end}}"></td>
                 {{else}}
-                <td>Starts</td>
+                <td>Starting</td>
                 <td data-value="{{this.start}}" data-livestamp="{{this.start}}"></td>
                 {{/if}}
             </tr>
             {{/each}}
             {{#if more}}
             <tr>
-                <td class="table--footer" colspan="3">
+                <td colspan="3">
                     <a href="/events/">View All Events <i class="fa fa-arrow-circle-right"></i></a>
                 </td>
             </tr>
@@ -50,4 +68,4 @@
         </tbody>
     </table> <!-- /.table -->
     {{/unless}}
-</div> <!-- /.col-md-6 -->
+</div> <!-- /.col-md-4 -->
