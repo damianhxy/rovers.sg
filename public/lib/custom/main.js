@@ -27,7 +27,8 @@ $(document).ready(function() {
 		slidesToShow: 1,
 		slidesToScroll: 1,
 		dots: true,
-		arrows: false
+		prevArrow: $(".carousel-prev"),
+		nextArrow: $(".carousel-next")
 	});
 
 	// Hide fa elements from screen readers

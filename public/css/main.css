@@ -109,6 +109,10 @@ body {
     margin-top: 70px;
 }
 
+.fc-day-grid-event .fc-content {
+    white-space: normal;
+}
+
 .footer {
     background-color: #fb0000;
     bottom: 0;
@@ -144,7 +148,22 @@ body {
     text-decoration: none;
 }
 
-/* Resources */
+/* Custom Classes */
+.anchor,
+.anchor--header {
+    display: block;
+    position: relative;
+    visibility: hidden;
+}
+
+.anchor {
+    top: -120px;
+}
+
+.anchor--header {
+    top: -70px;
+}
+
 .btn-file {
     position: relative;
     overflow: hidden;
@@ -165,28 +184,12 @@ body {
     top: 0;
 }
 
-/* Misc */
-.anchor,
-.anchor--header {
-    display: block;
-    position: relative;
-    visibility: hidden;
-}
-
-.anchor {
-    top: -120px;
-}
-
-.anchor--header {
-    top: -70px;
+.dropdown-menu form {
+    padding: 15px;
 }
 
 .image {
     max-width: 100%;
-}
-
-.dropdown-menu form {
-    padding: 15px;
 }
 
 #shortcuts {

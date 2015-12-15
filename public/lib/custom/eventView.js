@@ -1,7 +1,4 @@
 $(document).ready(function() {
-    if (!/\/events\/view/.test(location.pathname))
-        return;
-
     var MOMENT_FORMAT = "DD/MM/YYYY hh:mm A";
 
     console.info("[info] eventView.js is running.");

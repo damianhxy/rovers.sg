@@ -1,7 +1,4 @@
 $(document).ready(function() {
-    if (location.pathname !== "/events/add")
-        return;
-
     console.info("[info] eventAdd.js is running.");
 
     // For use in fullcalendar
@@ -43,14 +40,20 @@ $(document).ready(function() {
 
     // Preview
     $("#eventForm :input").on("change keyup", function() {
-        // Check if there is sufficient information
         var title = $("[name='title']").val();
-        var start = $start.combodate("getValue");
-        var end = $end.combodate("getValue");
-        if (!(title && start && end))
+        var start = moment($start.combodate("getValue"), MOMENT_FORMAT);
+        var end = moment($end.combodate("getValue"), MOMENT_FORMAT);
+        if (start.isAfter(end)) {
+            var prop = ["year", "month", "date", "hour", "minute"];
+            for (var curProp of prop)
+                if (start.isAfter(end))
+                    end[curProp](start[curProp]());
+            // $end comes first to prevent infinite recursion
+            $end.combodate("setValue", moment(end).format(MOMENT_FORMAT));
+            $start.combodate("setValue", moment(start).format(MOMENT_FORMAT));
+        }
+        if (!title)
             return clearEvent();
-        start = moment(start, MOMENT_FORMAT);
-        end = moment(end, MOMENT_FORMAT);
         var event = getEvent();
         if (event) {
             event.title = title;
@@ -65,20 +68,5 @@ $(document).ready(function() {
                 end: end
             }, true);
         }
-    });
-
-    // Form Validation
-    $("#eventForm").on("submit", function(e) {
-        e.preventDefault();
-        var start = moment($start.combodate("getValue"), MOMENT_FORMAT);
-        var end = moment($end.combodate("getValue"), MOMENT_FORMAT);
-        if (start.isBefore(end))
-            $(e.target).get(0).submit();
-        else
-            new PNotify({
-                title: "Error",
-                text: "Start time must be before end time.",
-                type: "error"
-            });
     });
 });

@@ -1,7 +1,4 @@
 $(document).ready(function() {
-    if (location.pathname !== "/resources")
-        return;
-
     console.info("[info] resources.js is running.");
 
     // Change hash

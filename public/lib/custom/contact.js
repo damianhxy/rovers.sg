@@ -1,7 +1,4 @@
 $(document).ready(function() {
-    if (location.pathname !== "/contact")
-        return;
-
     console.info("[info] contact.js is running.");
 
     $("#feedbackForm").on("submit", function(e) {
