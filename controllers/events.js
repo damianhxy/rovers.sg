@@ -45,7 +45,7 @@ router.post("/add", admin, function(req, res) {
         res.redirect("/events/view/" + id);
     })
     .fail(function(err) {
-        console.error(err.stack);
+        console.error(err);
         req.session.error = err.message;
         res.status(400).redirect("/events/add");
     });
@@ -57,7 +57,7 @@ router.post("/delete", admin, function(req, res) {
         res.end();
     })
     .fail(function(err) {
-        console.error(err.stack);
+        console.error(err);
         res.status(400).json({ "error": err.message });
     });
 });
@@ -68,7 +68,7 @@ router.post("/edit", admin, function(req, res) {
         res.json(response);
     })
     .fail(function(err) {
-        console.error(err.stack);
+        console.error(err);
         res.status(400).json({ "error": err.message });
     });
 });
@@ -85,7 +85,7 @@ router.get("/view/:event", function(req, res) {
         });
     })
     .fail(function(err) {
-        console.error(err.stack);
+        console.error(err);
         req.session.error = err.message;
         res.redirect(req.headers.referrer || "/");
     });

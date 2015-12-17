@@ -51,7 +51,7 @@ module.exports = function(app, express) {
                 done(null, user);
             })
             .fail(function(err) {
-                console.error(err.stack);
+                console.error(err);
                 req.session.error = err.message;
                 done(null, false);
             });
@@ -67,7 +67,7 @@ module.exports = function(app, express) {
                 done(null, user);
             })
             .fail(function(err) {
-                console.error(err.stack);
+                console.error(err);
                 req.session.error = err.message;
                 done(null, false);
             });

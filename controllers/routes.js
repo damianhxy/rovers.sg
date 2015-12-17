@@ -25,7 +25,7 @@ router.get("/", function(req, res, next) {
         res.render("home", {
             title: "Home",
             user: req.user,
-            events: events.slice(0, 5),
+            upcoming: events.slice(0, 5),
             more: events.length > 5
         });
     })
@@ -59,7 +59,9 @@ router.post("/about/add", admin, function(req, res) {
         res.redirect("/about");
     })
     .fail(function(err) {
-        next(err);
+        console.error(err);
+        req.session.error = err.message;
+        res.redirect(req.headers.referrer || "/");
     });
 });
 
@@ -70,7 +72,9 @@ router.post("/about/delete", admin, function(req, res) {
         res.redirect("/about");
     })
     .fail(function(err) {
-        next(err);
+        console.error(err);
+        req.session.error = err.message;
+        res.redirect(req.headers.referrer || "/");
     });
 });
 

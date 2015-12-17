@@ -33,7 +33,7 @@ router.post("/delete", admin, function(req, res) {
         res.end();
     })
     .fail(function(err) {
-        console.error(err.stack);
+        console.error(err);
         res.status(400).json({ "error": err.message });
     });
 });
@@ -44,7 +44,7 @@ router.post("/edit", admin, function(req, res) {
         res.json({});
     })
     .fail(function(err) {
-        console.error(err.stack);
+        console.error(err);
         res.status(400).json({ "error": err.message });
     });
 });
@@ -56,7 +56,7 @@ router.post("/upload", admin, upload.single("file"), function(req, res) {
         res.redirect("/resources#upload");
     })
     .fail(function(err) {
-        console.error(err.stack);
+        console.error(err);
         req.session.error = err.message;
         fs.unlink(req.file.path);
         res.status(400).redirect("/resources#upload");

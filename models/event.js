@@ -21,7 +21,7 @@ exports.add = function(req) {
             req.body.link = normalizeURL(req.body.link);
         Q.ninvoke(events, "insert", eventInfo)
         .then(function(result) {
-            console.log("User " + req.user.username + " created event: " + req.body.title + ".");
+            console.info("User " + req.user.username + " created event: " + req.body.title + ".");
             resolve(result._id);
         })
         .fail(function(err) {
@@ -46,7 +46,7 @@ exports.delete = function(id) {
     return Q.promise(function(resolve, reject) {
         Q.ninvoke(events, "remove", { _id: id })
         .then(function() {
-            console.log("Deleted event with _id: " + id + ".");
+            console.info("Deleted event with _id: " + id + ".");
             resolve();
         })
         .fail(function(err) {
@@ -72,7 +72,7 @@ exports.edit = function(id, field, value) {
             return Q.ninvoke(events, "update", { _id: id }, { $set: event });
         })
         .then(function() {
-            console.log("Field " + field + " of event " + id + " changed to " + value + ".");
+            console.info("Field " + field + " of event " + id + " changed to " + value + ".");
             resolve({
                 field: field,
                 value: value

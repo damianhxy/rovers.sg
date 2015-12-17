@@ -11,7 +11,7 @@ router.post("/editPassword", auth, function(req, res) {
         res.redirect("/users/profile");
     })
     .fail(function(err) {
-        console.error(err.stack);
+        console.error(err);
         req.session.error = err.message;
         res.status(400).redirect("/users/profile");
     });
@@ -37,7 +37,7 @@ router.post("/signin", function(req, res, next) {
 });
 
 router.get("/signout", auth, function(req, res) {
-    console.info("Signed out " + req.user.username);
+    console.info("Signed out " + req.user.username + ".");
     req.logout();
     res.redirect("/");
 });
