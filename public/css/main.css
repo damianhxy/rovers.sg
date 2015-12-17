@@ -102,6 +102,10 @@ html {
     min-height: 100%;
 }
 
+blockquote {
+    margin-bottom: 0;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
@@ -146,6 +150,10 @@ body {
 .footer a:hover {
     color: #ccc7c7;
     text-decoration: none;
+}
+
+textarea {
+    resize: vertical;
 }
 
 /* Custom Classes */
@@ -196,8 +204,4 @@ body {
     position: fixed;
     width: 244px;
     z-index: 1;
-}
-
-textarea.noresize {
-    resize: vertical;
 }

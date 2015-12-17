@@ -3,8 +3,10 @@ var router = express.Router();
 var notification = require("../middlewares/notification.js");
 var event = require("../models/event.js");
 var resource = require("../models/resource.js");
+var BPA = require("../models/BPA.js");
 var request = require("request");
 var settings = require("./settings.js");
+var admin = require("../middlewares/admin.js");
 router.use(notification);
 
 /* Resources */
@@ -33,9 +35,42 @@ router.get("/", function(req, res, next) {
 });
 
 router.get("/about", function(req, res) {
-    res.render("about", {
-        title: "About",
-        user: req.user
+    BPA.all()
+    .then(function(BPAs) {
+        BPAs.sort(function(a, b) {
+            if (a.name < b.name) return -1;
+            return 1;
+        });
+        res.render("about", {
+            title: "About",
+            user: req.user,
+            BPAs: BPAs
+        });
+    })
+    .fail(function(err) {
+        next(err);
+    });
+});
+
+router.post("/about/add", admin, function(req, res) {
+    BPA.add(req)
+    .then(function() {
+        req.session.success = "Awardee added.";
+        res.redirect("/about");
+    })
+    .fail(function(err) {
+        next(err);
+    });
+});
+
+router.post("/about/delete", admin, function(req, res) {
+    BPA.delete(req.body.name)
+    .then(function() {
+        req.session.success = "Awardee deleted.";
+        res.redirect("/about");
+    })
+    .fail(function(err) {
+        next(err);
     });
 });
 

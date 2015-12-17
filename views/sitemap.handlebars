@@ -1,6 +1,6 @@
 <div class="col-md-6 col-md-offset-3">
     <div class="page-header">
-        <span class="h2">Sitemap</span>
+        <h2>Sitemap</h2>
     </div>
     <div class="panel panel-default">
         <div class="panel-body">
@@ -14,9 +14,8 @@
                 <div class="col-md-4">
                     <h3>About</h3>
                     <ul class="list-unstyled">
-                        <li><a href="/about#rover">Rovering</a></li>
-                        <li><a href="/about#council">National Rover Council</a></li>
-                        <li><a href="/about#fellowship">Fellowship of the Open Air and Service</a></li>
+                        <li><a href="/about#rovering">Rovering</a></li>
+                        <li><a href="/about#bpa">The Baden Powell Award</a></li>
                     </ul>
                 </div> <!-- /.col-md-4 -->
                 <div class="col-md-4">
@@ -67,6 +66,14 @@
                         <li><a href="/sitemap">Sitemap</a></li>
                     </ul>
                 </div>
+                {{#if user}}
+                <div class="col-md-4">
+                    <h3>Profile</h3>
+                    <ul class="list-unstyled">
+                        <li><a href="/users/profile">Profile</a></li>
+                    </ul>
+                </div>
+                {{/if}}
             </div> <!-- /.row -->
         </div>
     </div> <!-- /.panel -->
