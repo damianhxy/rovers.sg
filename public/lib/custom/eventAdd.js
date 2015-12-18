@@ -41,8 +41,8 @@ $(document).ready(function() {
     // Preview
     $("#eventForm :input").on("change keyup", function() {
         var title = $("[name='title']").val();
-        var start = moment($start.combodate("getValue")).format(MOMENT_FORMAT);
-        var end = moment($end.combodate("getValue")).format(MOMENT_FORMAT);
+        var start = moment($start.combodate("getValue"), MOMENT_FORMAT);
+        var end = moment($end.combodate("getValue"), MOMENT_FORMAT);
         if (start.isAfter(end)) {
             var prop = ["year", "month", "date", "hour", "minute"];
             for (var curProp of prop)
