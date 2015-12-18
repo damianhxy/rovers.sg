@@ -9,18 +9,18 @@ $(document).ready(function() {
     var $calendar = $("#calendar");
     var $start = $("[name='start']");
     var $end = $("[name='end']");
-    var defaultMoment = moment(Math.ceil(uniqueID / ROUNDING) * ROUNDING);
+    var defaultMoment = moment(Math.ceil(uniqueID / ROUNDING) * ROUNDING).utcOffset(8);
 
     // Combodate
     $start.combodate({
         smartDays: "true",
-        value: defaultMoment.utc(8).format(MOMENT_FORMAT),
+        value: defaultMoment.format(MOMENT_FORMAT),
         minYear: CURRENT_YEAR,
         maxYear: CURRENT_YEAR + 1
     });
     $end.combodate({
         smartDays: "true",
-        value: defaultMoment.add(5, 'minutes').utc(8).format(MOMENT_FORMAT),
+        value: defaultMoment.add(5, 'minutes').format(MOMENT_FORMAT),
         minYear: CURRENT_YEAR,
         maxYear: CURRENT_YEAR + 1
     });
@@ -41,8 +41,8 @@ $(document).ready(function() {
     // Preview
     $("#eventForm :input").on("change keyup", function() {
         var title = $("[name='title']").val();
-        var start = moment($start.combodate("getValue"), MOMENT_FORMAT);
-        var end = moment($end.combodate("getValue"), MOMENT_FORMAT);
+        var start = moment($start.combodate("getValue")).utc(8).format(MOMENT_FORMAT);
+        var end = moment($end.combodate("getValue")).utc(8).format(MOMENT_FORMAT);
         if (start.isAfter(end)) {
             var prop = ["year", "month", "date", "hour", "minute"];
             for (var curProp of prop)
