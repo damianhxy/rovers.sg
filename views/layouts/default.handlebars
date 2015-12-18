@@ -50,7 +50,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                 {{#if user}}
-                    <li><p class="navbar-text"><i class="fa fa-user"> <strong><a href="/users/profile">{{user.username}}</a></strong></i></p></li>
+                    <li><a href="/users/profile"><i class="fa fa-user"></i> {{user.username}}</a></li>
                     <li><a href="/users/signout"><i class="fa fa-sign-out"></i> Sign Out</a></li>
                 {{else}}
                     <li class="dropdown">
