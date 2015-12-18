@@ -103,6 +103,8 @@ exports.upcoming = function(date) {
         Q.ninvoke(events, "find", { $where: function() { return moment(this.end).isAfter(moment(date)); } })
         .then(function(list) {
             list.forEach(function(e) {
+                e.start = moment(e.start).subtract(settings.TIME_OFFSET, "hours").format();
+                e.end = moment(e.end).subtract(settings.TIME_OFFSET, "hours").format();
                 e.started = moment(e.start).isBefore(moment(date));
             });
             resolve(list);
