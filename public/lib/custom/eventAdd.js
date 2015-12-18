@@ -14,13 +14,13 @@ $(document).ready(function() {
     // Combodate
     $start.combodate({
         smartDays: "true",
-        value: defaultMoment.format(MOMENT_FORMAT),
+        value: defaultMoment.utc(8).format(MOMENT_FORMAT),
         minYear: CURRENT_YEAR,
         maxYear: CURRENT_YEAR + 1
     });
     $end.combodate({
         smartDays: "true",
-        value: defaultMoment.add(5, 'minutes').format(MOMENT_FORMAT),
+        value: defaultMoment.add(5, 'minutes').utc(8).format(MOMENT_FORMAT),
         minYear: CURRENT_YEAR,
         maxYear: CURRENT_YEAR + 1
     });
@@ -49,8 +49,8 @@ $(document).ready(function() {
                 if (start.isAfter(end))
                     end[curProp](start[curProp]());
             // $end comes first to prevent infinite recursion
-            $end.combodate("setValue", moment(end).format(MOMENT_FORMAT));
-            $start.combodate("setValue", moment(start).format(MOMENT_FORMAT));
+            $end.combodate("setValue", moment(end).utc(8).format(MOMENT_FORMAT));
+            $start.combodate("setValue", moment(start).utc(8).format(MOMENT_FORMAT));
         }
         if (!title)
             return clearEvent();

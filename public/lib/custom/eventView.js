@@ -1,7 +1,7 @@
 $(document).ready(function() {
-    var MOMENT_FORMAT = "DD/MM/YYYY hh:mm A";
-
     console.info("[info] eventView.js is running.");
+
+    var MOMENT_FORMAT = "DD/MM/YYYY hh:mm A";
 
     // Hide empty fields
     $(".field-hidden").hide();
@@ -55,7 +55,7 @@ $(document).ready(function() {
     $("#deleteModal").on("show.bs.modal", function(e) {
         var $data = $(e.relatedTarget);
         var eventName = $data.data("title");
-        var createdTime = moment($data.data("time")).format(MOMENT_FORMAT);
+        var createdTime = moment($data.data("time")).utc(8).format(MOMENT_FORMAT);
         $("#modalEventName").html("Event name: <strong>" + eventName + "</strong>");
         $("#modalEventTime").html("Created on: <strong>" + createdTime + "</strong>");
     });

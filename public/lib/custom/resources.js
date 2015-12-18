@@ -1,6 +1,8 @@
 $(document).ready(function() {
     console.info("[info] resources.js is running.");
 
+    var MOMENT_FORMAT = "DD/MM/YYYY hh:mm A";
+
     // Change hash
     $(".nav-pills a").on("show.bs.tab", function(e) {
         window.location.hash = e.target.hash;
@@ -41,7 +43,7 @@ $(document).ready(function() {
     $("#deleteModal").on("show.bs.modal", function(e) {
         var data = $(e.relatedTarget).parent().parent();
         var originalName = data.data("name");
-        var addedTime = moment(data.prev().data("value")).format("DD/MM/YYYY HH:mm A");
+        var addedTime = moment(data.prev().data("value")).utc(8).format(MOMENT_FORMAT);
         // Attach id for x-editable
         $(this).find(".btn-danger").data("id", data.parent().data("id"));
         $("#modalFileName").html("File Name: <strong>" + originalName + "</strong>");

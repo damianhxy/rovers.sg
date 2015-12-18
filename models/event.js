@@ -9,12 +9,12 @@ exports.add = function(req) {
     return Q.promise(function(resolve, reject) {
         var eventInfo = {
             title: req.body.title,
-            start: moment(req.body.start, settings.EVENT_TIME_FORMAT).format(),
-            end: moment(req.body.end, settings.EVENT_TIME_FORMAT).format(),
+            start: moment(req.body.start, settings.EVENT_TIME_FORMAT).utc(8).format(),
+            end: moment(req.body.end, settings.EVENT_TIME_FORMAT).utc(8).format(),
             location: req.body.location,
             details: req.body.details,
             link: req.body.link,
-            time: moment().format(),
+            time: moment().utc(8).format(),
             creator: req.user.username
         };
         if (req.body.link)
@@ -60,7 +60,7 @@ exports.edit = function(id, field, value) {
         Q.ninvoke(events, "findOne", { _id: id })
         .then(function(event) {
             if (field === "start" || field === "end")
-                value = moment(value, settings.EVENT_TIME_FORMAT).format();
+                value = moment(value, settings.EVENT_TIME_FORMAT).utc(8).format();
             else if (field === "link")
                 value = normalizeURL(value);
             if (!moment(event.start).isBefore(moment(event.end)))
@@ -68,7 +68,7 @@ exports.edit = function(id, field, value) {
             if (field === "title" && !value)
                 return reject(Error("Title can not be empty."));
             event[field] = value;
-            event.time = moment().format();
+            event.time = moment().utc(8).format();
             return Q.ninvoke(events, "update", { _id: id }, { $set: event });
         })
         .then(function() {
