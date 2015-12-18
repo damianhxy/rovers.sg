@@ -55,7 +55,7 @@ $(document).ready(function() {
     $("#deleteModal").on("show.bs.modal", function(e) {
         var $data = $(e.relatedTarget);
         var eventName = $data.data("title");
-        var createdTime = moment($data.data("time")).utc(8).format(MOMENT_FORMAT);
+        var createdTime = moment($data.data("time")).format(MOMENT_FORMAT);
         $("#modalEventName").html("Event name: <strong>" + eventName + "</strong>");
         $("#modalEventTime").html("Created on: <strong>" + createdTime + "</strong>");
     });

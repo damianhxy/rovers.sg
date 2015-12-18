@@ -10,7 +10,7 @@ exports.add = function(req) {
             name: req.file.filename,
             path: req.file.path,
             description: req.body.description,
-            time: moment().utc(8).format(),
+            time: moment().format(),
             category: req.body.category,
             uploader: req.user.username
         };
@@ -60,7 +60,7 @@ exports.edit = function(id, field, value) {
         Q.ninvoke(files, "findOne", { _id: id })
         .then(function(file) {
             file[field] = value;
-            file.time = moment().utc(8).format();
+            file.time = moment().format();
             return Q.ninvoke(files, "update", { _id: id }, { $set: file });
         })
         .then(function() {

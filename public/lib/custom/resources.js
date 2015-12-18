@@ -43,7 +43,7 @@ $(document).ready(function() {
     $("#deleteModal").on("show.bs.modal", function(e) {
         var data = $(e.relatedTarget).parent().parent();
         var originalName = data.data("name");
-        var addedTime = moment(data.prev().data("value")).utc(8).format(MOMENT_FORMAT);
+        var addedTime = moment(data.prev().data("value")).format(MOMENT_FORMAT);
         // Attach id for x-editable
         $(this).find(".btn-danger").data("id", data.parent().data("id"));
         $("#modalFileName").html("File Name: <strong>" + originalName + "</strong>");

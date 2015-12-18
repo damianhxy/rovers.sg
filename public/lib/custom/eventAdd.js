@@ -9,7 +9,7 @@ $(document).ready(function() {
     var $calendar = $("#calendar");
     var $start = $("[name='start']");
     var $end = $("[name='end']");
-    var defaultMoment = moment(Math.ceil(uniqueID / ROUNDING) * ROUNDING).utcOffset(8);
+    var defaultMoment = moment(Math.ceil(uniqueID / ROUNDING) * ROUNDING);
 
     // Combodate
     $start.combodate({
@@ -41,16 +41,16 @@ $(document).ready(function() {
     // Preview
     $("#eventForm :input").on("change keyup", function() {
         var title = $("[name='title']").val();
-        var start = moment($start.combodate("getValue")).utc(8).format(MOMENT_FORMAT);
-        var end = moment($end.combodate("getValue")).utc(8).format(MOMENT_FORMAT);
+        var start = moment($start.combodate("getValue")).format(MOMENT_FORMAT);
+        var end = moment($end.combodate("getValue")).format(MOMENT_FORMAT);
         if (start.isAfter(end)) {
             var prop = ["year", "month", "date", "hour", "minute"];
             for (var curProp of prop)
                 if (start.isAfter(end))
                     end[curProp](start[curProp]());
             // $end comes first to prevent infinite recursion
-            $end.combodate("setValue", moment(end).utc(8).format(MOMENT_FORMAT));
-            $start.combodate("setValue", moment(start).utc(8).format(MOMENT_FORMAT));
+            $end.combodate("setValue", moment(end).format(MOMENT_FORMAT));
+            $start.combodate("setValue", moment(start).format(MOMENT_FORMAT));
         }
         if (!title)
             return clearEvent();
