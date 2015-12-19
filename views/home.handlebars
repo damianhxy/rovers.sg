@@ -6,30 +6,63 @@
   js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.5";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
-<div class="col-md-4">
-    <div class="page-header">
-        <h2>Home</h2>
+<div class="col-md-8 col-md-offset-2">
+    <div id="quote" class="panel panel-default">
+        <div class="panel-body">
+            <blockquote>
+                <p>Rovers are a fellowship of the open air &amp; service. They are Hikers of the Open Road and Campers of the Woods ... and ready to be of some service to others.</p>
+                <small>Baden Powell</small>
+            </blockquote>
+        </div>
     </div>
+</div> <!-- /.col-md-8 -->
+<div class="col-md-4">
     <div class="panel panel-default">
         <div class="panel-body">
-             Before you lies the Singapore Rovers information portal, where Rover Scouts may obtain the latest information on the movement and easily access important resources relating to Rover Scouting. Click on the tabs to find out more.
+            <div class="fb-page" data-href="https://www.facebook.com/Singapore-Rovers-121112262111/" data-tabs="timeline,events,messages" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false">Facebook plugin is loading...</div>
         </div>
     </div>
 </div> <!-- /.col-md-4 -->
 <div class="col-md-4">
-    <div class="page-header">
-        <h2>Latest Updates</h2>
-    </div>
     <div class="panel panel-default">
+        <div class="panel-heading">
+            <span class="h3 panel-title">Media</span>
+            <div class="btn-group pull-right">
+                <button class="btn btn-xs btn-default carousel-prev"><i class="fa fa-arrow-circle-left"></i></button>
+                <button class="btn btn-xs btn-default carousel-next"><i class="fa fa-arrow-circle-right"></i></button>
+            </div>
+        </div>
         <div class="panel-body">
-            <div class="fb-page" data-href="https://www.facebook.com/Singapore-Rovers-121112262111/" data-tabs="timeline" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false">Facebook plugin is loading...</div>
+            <div class="slick">
+                <div>
+                    <a data-toggle="lightbox" href="/img/Blood Drive.jpg" data-title="Blood Drive">
+                        <img alt="Blood Drive" class="image" title="Click to view larger image" src="/img/cropped/Blood Drive.jpg">
+                    </a>
+                    <h3>Blood Drive</h3>
+                </div>
+                <div>
+                    <a data-toggle="lightbox" href="/img/Project Orion.jpg" data-title="Project Orion">
+                        <img alt="Project Orion" class="image" title="Click to view larger image" src="/img/cropped/Project Orion.jpg">
+                    </a>
+                    <h3>Project Orion</h3>
+                </div>
+                <div>
+                    <a data-toggle="lightbox" href="/img/Gunung Rinjani.jpg" data-title="Gunung Rinjani">
+                        <img alt="Gunung Rinjani" class="image" title="Click to view larger image" src="/img/cropped/Gunung Rinjani.jpg">
+                    </a>
+                    <h3>Gunung Rinjani</h3>
+                </div>
+                <div>
+                    <a data-toggle="lightbox" href="/img/World Scout Youth Forum.jpg" data-title="World Scout Youth Forum">
+                        <img alt="World Scout Youth Forum" class="image" title="Click to enlarge image" src="/img/cropped/World Scout Youth Forum.jpg">
+                    </a>
+                    <h3>World Scout Youth Forum</h3>
+                </div>
+            </div> <!-- /.slick -->
         </div>
     </div>
 </div> <!-- /.col-md-4 -->
 <div class="col-md-4">
-    <div class="page-header">
-        <h2>Upcoming Events</h2>
-    </div>
     {{#unless upcoming}}
     <div class="panel panel-info">
         <div class="panel-body">

@@ -102,9 +102,10 @@ exports.upcoming = function(date) {
     return Q.promise(function(resolve, reject) {
         Q.ninvoke(events, "find", { $where: function() { return moment(this.end).isAfter(moment(date)); } })
         .then(function(list) {
+            var offset = 8 - moment().utcOffset / 60;
             list.forEach(function(e) {
-                e.start = moment(e.start).subtract(settings.TIME_OFFSET, "hours").format();
-                e.end = moment(e.end).subtract(settings.TIME_OFFSET, "hours").format();
+                e.start = moment(e.start).subtract(offset, "hours").format();
+                e.end = moment(e.end).subtract(offset, "hours").format();
                 e.started = moment(e.start).isBefore(moment(date));
             });
             resolve(list);
