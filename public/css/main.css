@@ -156,10 +156,6 @@ textarea {
     resize: vertical;
 }
 
-#quote {
-    margin-top: 20px;
-}
-
 /* Custom Classes */
 .anchor,
 .anchor--header {
