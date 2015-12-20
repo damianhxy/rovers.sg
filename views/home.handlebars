@@ -77,9 +77,9 @@
             <tr>
                 <td><a href="/events/view/{{this._id}}">{{this.title}}</a></td>
                 {{#if this.started}}
-                <td>Ending <span data-value="{{this.end}}" data-livestamp="{{this.end}}"></span></td>
+                <td data-value="{{this.end}}">Ending <span data-livestamp="{{this.end}}"></span></td>
                 {{else}}
-                <td>Starting <span data-value="{{this.start}}" data-livestamp="{{this.start}}"></span></td>
+                <td data-value="{{this.start}}">Starting <span data-livestamp="{{this.start}}"></span></td>
                 {{/if}}
             </tr>
             {{/each}}
