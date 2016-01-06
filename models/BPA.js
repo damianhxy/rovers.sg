@@ -8,8 +8,7 @@ exports.add = function(req) {
             name: req.body.name,
             unit: req.body.unit,
             year: req.body.year,
-            honorary: req.body.honorary,
-            adder: req.user.username
+            honorary: req.body.honorary
         };
         Q.ninvoke(BPAs, "insert", BPAInfo)
         .then(function() {

@@ -14,8 +14,7 @@ exports.add = function(req) {
             location: req.body.location,
             details: req.body.details,
             link: req.body.link,
-            time: moment().format(),
-            creator: req.user.username
+            time: moment().format()
         };
         if (req.body.link)
             req.body.link = normalizeURL(req.body.link);

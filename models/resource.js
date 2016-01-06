@@ -11,8 +11,7 @@ exports.add = function(req) {
             path: req.file.path,
             description: req.body.description,
             time: moment().format(),
-            category: req.body.category,
-            uploader: req.user.username
+            category: req.body.category
         };
         Q.ninvoke(files, "insert", fileInfo)
         .then(function() {
