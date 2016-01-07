@@ -196,12 +196,16 @@ textarea {
     padding: 15px;
 }
 
+#fb {
+    text-align: center;
+}
+
 .image {
     max-width: 100%;
 }
 
 #shortcuts {
     position: fixed;
-    width: 244px;
+    width: 23%;
     z-index: 1;
 }
