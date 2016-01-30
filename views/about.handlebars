@@ -66,7 +66,7 @@
             </div> <!-- /.col-md-3 -->
             <div class="col-md-9 tab-content">
                 <div id="council-6" class="tab-pane fade">
-                    <img class="image center-block" src="http://www.sonjara.com/action/image/thumbnail?image_id=195&size=256">
+                    <img alt="Information Unavailable" class="center-block image" src="http://www.sonjara.com/action/image/thumbnail?image_id=195&size=256">
                 </div>
                 <div id="council-5" class="tab-pane fade">
                     <table class="table table-striped table-bordered sortable">
@@ -103,7 +103,7 @@
                     </table> <!-- /.table -->
                 </div>
                 <div id="council-3" class="tab-pane fade">
-                    <img class="image center-block" src="http://www.sonjara.com/action/image/thumbnail?image_id=195&size=256">
+                    <img alt="Information Unavailable" class="center-block image" src="http://www.sonjara.com/action/image/thumbnail?image_id=195&size=256">
                 </div>
                 <div id="council-2" class="tab-pane fade">
                     <table class="table table-striped table-bordered sortable">
@@ -278,9 +278,11 @@
         {{/if}}
         <table class="table table-striped table-bordered sortable" data-sortable>
             <thead>
-                <th class="col-md-5 col-xs-8">Name</th>
-                <th class="col-md-5 hidden-xs">Unit</th>
-                <th class="col-md-2 col-xs-4" data-defaultsort="desc" data-firstsort="asc">Year</th>
+                <tr>
+                    <th class="col-md-5 col-xs-8">Name</th>
+                    <th class="col-md-5 hidden-xs">Unit</th>
+                    <th class="col-md-2 col-xs-4" data-defaultsort="desc" data-firstsort="asc">Year</th>
+                </tr>
             </thead>
             <tbody>
                 {{#each BPAs}}
