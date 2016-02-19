@@ -13,11 +13,9 @@ exports.add = function(req) {
             end: moment(req.body.end, settings.EVENT_TIME_FORMAT).format(),
             location: req.body.location,
             details: req.body.details,
-            link: req.body.link,
+            link: normalizeURL(req.body.link),
             time: moment().format()
         };
-        if (req.body.link)
-            req.body.link = normalizeURL(req.body.link);
         Q.ninvoke(events, "insert", eventInfo)
         .then(function(result) {
             console.info("User " + req.user.username + " created event: " + req.body.title + ".");

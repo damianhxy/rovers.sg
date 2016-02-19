@@ -26,8 +26,8 @@ $(document).ready(function() {
                 if (data.field === "link") {
                     setTimeout(function () {
                         $("[data-name='link']").editable("setValue", data.value);
+                        $("[data-name='link']").attr("href", data.value);
                     }, 500);
-                    $("[data-name='link']").parent().prev().find("a").attr("href", data.value);
                 } else if (data.field === "title") {
                     document.title = data.value + " | Rover.sg";
                     $("[href='#deleteModal']").data("title", data.value);

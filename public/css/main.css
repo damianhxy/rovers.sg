@@ -204,6 +204,11 @@ textarea {
     max-width: 100%;
 }
 
+.link {
+    cursor: pointer !important;
+    color: #337ab7 !important;
+}
+
 #shortcuts {
     position: fixed;
     width: 23%;

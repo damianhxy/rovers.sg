@@ -48,9 +48,9 @@
                 </td>
             </tr>
             <tr {{#unless info.link}}class="field-hidden"{{/unless}}>
-                <td class="col-md-3 text-center"><a href="{{info.link}}">Link</a></td>
+                <td class="col-md-3 text-center">Link</td>
                 <td class="col-md-9">
-                    <a class="field-edit hidden-xs" data-type="text" data-name="link" href="#">{{info.link}}</a>
+                    <a class="field-edit hidden-xs link" data-type="text" data-name="link" href="{{info.link}}">{{info.link}}</a>
                     <span class="text-muted visible-xs">Link hidden (space constraints)</span>
                 </td>
             </tr>
