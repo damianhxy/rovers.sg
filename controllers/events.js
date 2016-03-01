@@ -76,8 +76,8 @@ router.post("/edit", admin, function(req, res) {
 router.get("/view/:event", function(req, res) {
     event.get(req.params.event)
     .then(function(info) {
-        info.start = moment(info.start).format(settings.EVENT_TIME_FORMAT);
-        info.end = moment(info.end).format(settings.EVENT_TIME_FORMAT);
+        info.start = moment(info.start).tz("Asia/Singapore").format(settings.EVENT_TIME_FORMAT);
+        info.end = moment(info.end).tz("Asia/Singapore").format(settings.EVENT_TIME_FORMAT);
         res.render("eventView", {
             title: info.title,
             user: req.user,
