@@ -9,8 +9,8 @@ exports.add = function(req) {
     return Q.promise(function(resolve, reject) {
         var eventInfo = {
             title: req.body.title,
-            start: moment(req.body.start, settings.EVENT_TIME_FORMAT).tz("Asia/Singapore").format(),
-            end: moment(req.body.end, settings.EVENT_TIME_FORMAT).tz("Asia/Singapore").format(),
+            start: moment(req.body.start, settings.EVENT_TIME_FORMAT).tz("Asia/Singapore").add(moment().utcOffset() - 480, "minutes").format(),
+            end: moment(req.body.end, settings.EVENT_TIME_FORMAT).tz("Asia/Singapore").add(moment().utcOffset() - 480, "minutes").format(),
             location: req.body.location,
             details: req.body.details,
             link: req.body.link && normalizeURL(req.body.link),
