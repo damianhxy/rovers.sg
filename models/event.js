@@ -58,7 +58,7 @@ exports.edit = function(id, field, value) {
         .then(function(event) {
             if (field === "start" || field === "end")
                 value = moment(value, settings.EVENT_TIME_FORMAT).format();
-            else if (field === "link")
+            if (field === "link" && value)
                 value = normalizeURL(value);
             if (moment(event.start).isAfter(moment(event.end)))
                 return reject(Error("Start time must be before end time."));
