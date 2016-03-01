@@ -1,7 +1,7 @@
 var Q = require("q");
 var nedb = require("nedb");
 var fs = require("fs");
-var moment = require("moment");
+var moment = require("moment-timezone");
 var files = new nedb({ filename: "./database/resources", autoload: true });
 
 exports.add = function(req) {
@@ -59,7 +59,7 @@ exports.edit = function(id, field, value) {
         Q.ninvoke(files, "findOne", { _id: id })
         .then(function(file) {
             file[field] = value;
-            file.time = moment().format();
+            file.time = moment().tz("Asia/Singapore").format();
             return Q.ninvoke(files, "update", { _id: id }, { $set: file });
         })
         .then(function() {

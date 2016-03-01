@@ -1,6 +1,6 @@
 var Q = require("q");
 var nedb = require("nedb");
-var moment = require("moment");
+var moment = require("moment-timezone");
 var normalizeURL = require("normalize-url");
 var settings = require("../controllers/settings.js");
 var events = new nedb({ filename: "./database/events", autoload: true });
@@ -9,12 +9,12 @@ exports.add = function(req) {
     return Q.promise(function(resolve, reject) {
         var eventInfo = {
             title: req.body.title,
-            start: moment(req.body.start, settings.EVENT_TIME_FORMAT).format(),
-            end: moment(req.body.end, settings.EVENT_TIME_FORMAT).format(),
+            start: moment(req.body.start, settings.EVENT_TIME_FORMAT).tz("Asia/Singapore").format(),
+            end: moment(req.body.end, settings.EVENT_TIME_FORMAT).tz("Asia/Singapore").format(),
             location: req.body.location,
             details: req.body.details,
             link: normalizeURL(req.body.link),
-            time: moment().format()
+            time: moment().tz("Asia/Singapore").format()
         };
         Q.ninvoke(events, "insert", eventInfo)
         .then(function(result) {
@@ -57,7 +57,7 @@ exports.edit = function(id, field, value) {
         Q.ninvoke(events, "findOne", { _id: id })
         .then(function(event) {
             if (field === "start" || field === "end")
-                value = moment(value, settings.EVENT_TIME_FORMAT).format();
+                value = moment(value, settings.EVENT_TIME_FORMAT).tz("Asia/Singapore").format();
             if (field === "link" && value)
                 value = normalizeURL(value);
             if (moment(event.start).isAfter(moment(event.end)))
@@ -97,15 +97,14 @@ exports.get = function(id) {
 
 exports.upcoming = function(date) {
     return Q.promise(function(resolve, reject) {
-        var offset = 8 - moment().utcOffset() / 60;
         Q.ninvoke(events, "find", {
-            $where: function() { return moment(this.end).subtract(offset, "hours").isAfter(moment(date)); }
+            $where: function() { return moment(this.end).isAfter(date); }
         })
         .then(function(list) {
             list.forEach(function(e) {
-                e.start = moment(e.start).subtract(offset, "hours").format();
-                e.end = moment(e.end).subtract(offset, "hours").format();
-                e.started = moment(e.start).isBefore(moment(date));
+                e.start = moment(e.start).tz("Asia/Singapore").format();
+                e.end = moment(e.end).tz("Asia/Singapore").format();
+                e.started = moment(e.start).isBefore(date);
             });
             resolve(list);
         })

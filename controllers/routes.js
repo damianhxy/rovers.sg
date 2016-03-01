@@ -1,10 +1,11 @@
 var express = require("express");
+var request = require("request");
+var moment = require("moment-timezone");
 var router = express.Router();
 var notification = require("../middlewares/notification.js");
 var event = require("../models/event.js");
 var resource = require("../models/resource.js");
 var BPA = require("../models/BPA.js");
-var request = require("request");
 var settings = require("./settings.js");
 var admin = require("../middlewares/admin.js");
 router.use(notification);
@@ -20,8 +21,15 @@ router.use("/events", require("./events.js"));
 
 /* Normal Pages */
 router.get("/", function(req, res, next) {
-    event.upcoming(Date.now())
+    event.upcoming(moment.tz().format())
     .then(function(events) {
+        events.sort(function(a, b) {
+            if (moment(a.start).isBefore(moment(b.start)))
+                return -1;
+            if (moment(a.end).isBefore(moment(b.end)))
+                return -1;
+            return 1;
+        });
         res.render("home", {
             title: "Home",
             user: req.user,
