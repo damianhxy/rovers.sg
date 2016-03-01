@@ -13,7 +13,7 @@ exports.add = function(req) {
             end: moment(req.body.end, settings.EVENT_TIME_FORMAT).tz("Asia/Singapore").format(),
             location: req.body.location,
             details: req.body.details,
-            link: link && normalizeURL(req.body.link),
+            link: req.body.link && normalizeURL(req.body.link),
             time: moment().tz("Asia/Singapore").format()
         };
         Q.ninvoke(events, "insert", eventInfo)
