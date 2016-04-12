@@ -57,9 +57,10 @@
             <thead>
                 {{#if user.admin}}
                 <tr>
-                    <th class="col-md-4">Name</th>
-                    <th class="col-md-4">URL</th>
-                    <th class="col-md-4" data-defaultsort="desc" data-firstsort="asc">Added</th>
+                    <th class="col-md-3 col-xs-6">Name</th>
+                    <th class="col-md-3 hidden-xs">URL</th>
+                    <th class="col-md-3 hidden-xs">Embed</th>
+                    <th class="col-md-3 col-xs-6" data-defaultsort="desc" data-firstsort="asc">Added</th>
                 </tr>
                 {{else}}
                 <tr>
@@ -73,7 +74,8 @@
                 <tr>
                     <td><a href="/forms/view/{{this.url}}">{{this.name}}</a></td>
                     {{#if ../user.admin}}
-                    <td>{{this.url}}</td>
+                    <td class="hidden-xs">{{this.url}}</td>
+                    <td class="wrap hidden-xs"><a href={{this.embed}}>{{this.embed}}</a></td>
                     {{/if}}
                     <td data-livestamp="{{this.time}}"></td>
                 </tr>
