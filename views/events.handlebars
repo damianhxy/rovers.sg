@@ -8,7 +8,7 @@
         <div class="panel-body">
             <form class="form-horizontal" action="/forms/add" method="post" accept-charset="UTF-8" autocomplete="off">
                 <div class="form-group">
-                    <span class="col-md-2 control-label">rovers.sg/</span>
+                    <span class="col-md-2 control-label">URL</span>
                     <div class="col-md-10">
                         <input type="text" class="form-control" name="url" required>
                     </div>
@@ -34,7 +34,7 @@
             {{#if forms}}
             <form class="form-horizontal" action="/forms/delete" method="post" accept-charset="UTF-8" autocomplete="off">
                 <div class="form-group">
-                    <span class="col-md-2 control-label">rovers.sg/</span>
+                    <span class="col-md-2 control-label">URL</span>
                     <div class="col-md-10">
                         <select class="form-control" name="url">
                             {{#each forms}}
