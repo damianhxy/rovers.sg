@@ -29,7 +29,8 @@ exports.add = function(req) {
 
 exports.all = function() {
     return Q.promise(function(resolve, reject) {
-        Q.ninvoke(events, "find", {})
+        var cursor = events.find({}).sort({ start: 1, end: 1 });
+        Q.ninvoke(cursor, "exec")
         .then(function(list) {
             resolve(list);
         })

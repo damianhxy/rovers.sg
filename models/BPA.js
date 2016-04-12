@@ -23,7 +23,8 @@ exports.add = function(req) {
 
 exports.all = function() {
     return Q.promise(function(resolve, reject) {
-        Q.ninvoke(BPAs, "find", {})
+        var cursor = BPAs.find({}).sort({ name: 1 });
+        Q.ninvoke(cursor, "exec")
         .then(function(list) {
             resolve(list);
         })
@@ -37,7 +38,7 @@ exports.delete = function(name) {
     return Q.promise(function(resolve, reject) {
         Q.ninvoke(BPAs, "remove", { name: name })
         .then(function() {
-            console.info("Removed awardee " + name + ".");
+            console.info("Removed BPA awardee: " + name + ".");
             resolve();
         })
         .fail(function(err) {
