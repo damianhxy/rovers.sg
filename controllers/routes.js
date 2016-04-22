@@ -12,11 +12,14 @@ router.use(notification);
 router.get("/", function(req, res, next) {
     event.upcoming(moment.tz("Asia/Singapore").format())
     .then(function(events) {
+        events.forEach(function(e) {
+            e.prettyStart = moment(e.start).tz("Asia/Singapore").format(settings.EVENT_TIME_FORMAT);
+            e.prettyEnd = moment(e.end).tz("Asia/Singapore").format(settings.EVENT_TIME_FORMAT);
+        });
         res.render("home", {
             title: "Home",
             user: req.user,
-            upcoming: events.slice(0, 5),
-            more: events.length > 5
+            events: events
         });
     })
     .fail(function(err) {

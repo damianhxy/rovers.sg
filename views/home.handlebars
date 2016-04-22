@@ -54,7 +54,7 @@
     </div>
 </div> <!-- /.col-md-4 -->
 <div class="col-md-4">
-    {{#unless upcoming}}
+    {{#unless events}}
     <div class="panel panel-info">
         <div class="panel-body">
             There are currently no upcoming events.
@@ -69,23 +69,15 @@
             </tr>
         </thead>
         <tbody>
-            {{#each upcoming}}
+            {{#each events}}
             <tr>
-                <td><a href="/events/{{this._id}}">{{this.title}}</a></td>
-                {{#if this.started}}
-                <td data-value="{{this.end}}">Ending <span data-livestamp="{{this.end}}"></span></td>
-                {{else}}
-                <td data-value="{{this.start}}">Starting <span data-livestamp="{{this.start}}"></span></td>
-                {{/if}}
+                <td rowspan="2"><a href="/events/{{this._id}}">{{this.title}}</a></td>
+                <td data-value="{{this.start}}">{{this.prettyStart}}</td>
+            </tr>
+            <tr>
+                <td data-value="{{this.end}}"><small>to</small> {{this.prettyEnd}}</td>
             </tr>
             {{/each}}
-            {{#if more}}
-            <tr>
-                <td colspan="3">
-                    <a href="/events/">View More Events <i class="fa fa-arrow-circle-right"></i></a>
-                </td>
-            </tr>
-            {{/if}}
         </tbody>
     </table> <!-- /.table -->
     {{/unless}}
