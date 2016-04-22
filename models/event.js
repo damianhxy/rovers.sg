@@ -62,7 +62,7 @@ exports.edit = function(id, field, value) {
         Q.ninvoke(events, "findOne", { _id: id })
         .then(function(event) {
             if (field === "start" || field === "end")
-                value = moment(value, settings.EVENT_TIME_FORMAT).tz("Asia/Singapore").format();
+                value = moment(value, settings.EVENT_TIME_FORMAT).tz("Asia/Singapore").add(moment().utcOffset() - 480, "minutes").format();
             if (field === "link" && value)
                 value = normalizeURL(value);
             event[field] = value;
