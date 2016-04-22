@@ -7,10 +7,14 @@ var events = new nedb({ filename: "./database/events", autoload: true });
 
 exports.add = function(req) {
     return Q.promise(function(resolve, reject) {
+        var start = moment(req.body.start, settings.EVENT_TIME_FORMAT).tz("Asia/Singapore").add(moment().utcOffset() - 480, "minutes").format();
+        var end = moment(req.body.end, settings.EVENT_TIME_FORMAT).tz("Asia/Singapore").add(moment().utcOffset() - 480, "minutes").format();
+        if (start.isAfter(end))
+            return reject(Error("Start time must be before end time."));
         var eventInfo = {
             title: req.body.title,
-            start: moment(req.body.start, settings.EVENT_TIME_FORMAT).tz("Asia/Singapore").add(moment().utcOffset() - 480, "minutes").format(),
-            end: moment(req.body.end, settings.EVENT_TIME_FORMAT).tz("Asia/Singapore").add(moment().utcOffset() - 480, "minutes").format(),
+            start: start,
+            end: end,
             location: req.body.location,
             details: req.body.details,
             link: req.body.link && normalizeURL(req.body.link),
@@ -61,12 +65,12 @@ exports.edit = function(id, field, value) {
                 value = moment(value, settings.EVENT_TIME_FORMAT).tz("Asia/Singapore").format();
             if (field === "link" && value)
                 value = normalizeURL(value);
+            event[field] = value;
+            event.time = moment().format();
             if (moment(event.start).isAfter(moment(event.end)))
                 return reject(Error("Start time must be before end time."));
             if (field === "title" && !value)
                 return reject(Error("Title can not be empty."));
-            event[field] = value;
-            event.time = moment().format();
             return Q.ninvoke(events, "update", { _id: id }, { $set: event });
         })
         .then(function() {
