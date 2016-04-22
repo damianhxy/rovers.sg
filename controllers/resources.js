@@ -27,7 +27,7 @@ router.get("/", function(req, res, next) {
     });
 });
 
-router.post("/delete", admin, function(req, res) {
+router.delete("/", admin, function(req, res) {
     resource.delete(req.body.id)
     .then(function() {
         res.end();
@@ -38,7 +38,7 @@ router.post("/delete", admin, function(req, res) {
     });
 });
 
-router.post("/edit", admin, function(req, res) {
+router.put("/", admin, function(req, res) {
     resource.edit(req.body.pk, req.body.name, req.body.value)
     .then(function() {
         res.json({});
@@ -49,7 +49,7 @@ router.post("/edit", admin, function(req, res) {
     });
 });
 
-router.post("/upload", admin, upload.single("file"), function(req, res) {
+router.post("/", admin, upload.single("file"), function(req, res) {
     resource.add(req)
     .then(function() {
         req.session.success = "File uploaded.";

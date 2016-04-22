@@ -16,9 +16,10 @@ $(document).ready(function() {
     $(".field-edit").each(function() {
         $(this).editable({
             pk: $(this).closest("[data-id]").data("id"),
-            url: "/events/edit",
+            url: "/events",
             disabled: true,
             ajaxOptions: {
+                type: "put",
                 dataType: "json"
             },
             success: function(data) {
@@ -63,8 +64,8 @@ $(document).ready(function() {
     // Ajax
     $("#deleteModal .btn-danger").click(function(e) {
         $.ajax({
-            method: "POST",
-            url: "/events/delete",
+            method: "DELETE",
+            url: "/events",
             data: { id: $(this).closest("[data-id]").data("id") }
         })
         .then(function() {

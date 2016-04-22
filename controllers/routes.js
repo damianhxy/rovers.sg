@@ -8,18 +8,6 @@ var settings = require("./settings.js");
 var admin = require("../middlewares/admin.js");
 router.use(notification);
 
-/* Resources */
-router.use("/resources", require("./resources.js"));
-
-/* User */
-router.use("/users", require("./users.js"));
-
-/* Events */
-router.use("/events", require("./events.js"));
-
-/* Forms */
-router.use("/forms", require("./forms.js"));
-
 /* Normal Pages */
 router.get("/", function(req, res, next) {
     event.upcoming(moment.tz("Asia/Singapore").format())
@@ -39,6 +27,15 @@ router.get("/", function(req, res, next) {
 /* About Page */
 router.use("/about", require("./BPAs.js"));
 
+/* Events */
+router.use("/events", require("./events.js"));
+
+/* Forms */
+router.use("/forms", require("./forms.js"));
+
+/* Resources */
+router.use("/resources", require("./resources.js"));
+
 router.get("/contact", function(req, res) {
     res.render("contact", {
         title: "Contact",
@@ -46,7 +43,7 @@ router.get("/contact", function(req, res) {
     });
 });
 
-router.post("/contact/form", function(req, res) {
+router.post("/contact", function(req, res) {
     request.post(settings.FEEDBACK_FORM_URL).form(req.body).pipe(res);
 });
 
@@ -63,6 +60,9 @@ router.get("/join", function(req, res) {
 		user: req.user
 	});
 });
+
+/* User */
+router.use("/users", require("./users.js"));
 
 router.get("/sitemap", function(req, res) {
     res.render("sitemap", {

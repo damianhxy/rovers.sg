@@ -3,7 +3,7 @@ var router = express.Router();
 var form = require("../models/form.js");
 var admin = require("../middlewares/admin.js");
 
-router.post("/add", function(req, res) {
+router.post("/", function(req, res) {
     form.add(req)
     .then(function() {
         req.session.success = "Form added.";
@@ -16,7 +16,7 @@ router.post("/add", function(req, res) {
     });
 });
 
-router.post("/delete", function(req, res) {
+router.delete("/", function(req, res) {
     form.delete(req.body.url)
     .then(function() {
         req.session.success = "Form deleted.";
@@ -29,7 +29,7 @@ router.post("/delete", function(req, res) {
     });
 });
 
-router.get("/view/:url", function(req, res) {
+router.get("/:url", function(req, res) {
     form.get(req.params.url)
     .then(function(info) {
         res.render("form", {

@@ -71,7 +71,7 @@
         <tbody>
             {{#each upcoming}}
             <tr>
-                <td><a href="/events/view/{{this._id}}">{{this.title}}</a></td>
+                <td><a href="/events/{{this._id}}">{{this.title}}</a></td>
                 {{#if this.started}}
                 <td data-value="{{this.end}}">Ending <span data-livestamp="{{this.end}}"></span></td>
                 {{else}}

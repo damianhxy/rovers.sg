@@ -24,9 +24,10 @@ $(document).ready(function() {
             type: "text",
             pk: $(this).parent().parent().data("id"),
             name: $(this).data("name"),
-            url: "/resources/edit",
+            url: "/resources",
             disabled: true,
             ajaxOptions: {
+                type: "put",
                 dataType: "json"
             },
             error: function(data) {
@@ -53,8 +54,8 @@ $(document).ready(function() {
     // Ajax
     $("#deleteModal .btn-danger").click(function(e) {
         $.ajax({
-            method: "POST",
-            url: "/resources/delete",
+            method: "DELETE",
+            url: "/resources",
             data: { id: $(this).data("id") }
         })
         .done(function() {

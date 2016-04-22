@@ -5,13 +5,13 @@ $(document).ready(function() {
         e.preventDefault();
         $.ajax({
             method: "POST",
-            url: "/contact/form",
+            url: "/contact",
             data: $(this).serialize()
         })
         .then(function() {
             new PNotify({
                 title: "Success",
-                text: "Your message has been recorded",
+                text: "Your response has been recorded",
                 type: "success"
             });
             $(e.target).trigger("reset");
