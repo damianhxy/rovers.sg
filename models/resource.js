@@ -15,7 +15,7 @@ exports.add = function(req) {
         };
         Q.ninvoke(files, "insert", fileInfo)
         .then(function() {
-            console.info("User " + req.user.username + " uploaded file: " + req.file.filename + ".");
+            console.info("User", req.user.username, "uploaded file", req.file.filename);
             resolve();
         })
         .fail(function(err) {
@@ -40,12 +40,12 @@ exports.delete = function(id) {
     return Q.promise(function(resolve, reject) {
         Q.ninvoke(files, "findOne", { _id: id })
         .then(function(file) {
-            console.info("Unlinking file: " + file.name + ".");
+            console.info("Unlinking file", file.name);
             return Q.nfcall(fs.unlink, file.path);
         })
         .then(Q.ninvoke(files, "remove", { _id: id }))
         .then(function() {
-            console.info("File unlink successful.");
+            console.info("File unlink successful");
             resolve();
         })
         .fail(function(err) {
@@ -63,7 +63,7 @@ exports.edit = function(id, field, value) {
             return Q.ninvoke(files, "update", { _id: id }, { $set: file });
         })
         .then(function() {
-            console.info("Field " + field + " of file " + id + " changed to " + value + ".");
+            console.info("Field", field, "of file", id, "changed to", value);
             resolve();
         })
         .fail(function(err) {

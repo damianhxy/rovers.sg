@@ -13,7 +13,7 @@ exports.add = function(req) {
         };
         Q.ninvoke(forms, "insert", formInfo)
         .then(function() {
-            console.info("User " + req.user.username + " added form: " + req.body.url + ".");
+            console.info("User", req.user.username, "added form", req.body.url);
             resolve();
         })
         .fail(function(err) {
@@ -39,7 +39,7 @@ exports.delete = function(url) {
     return Q.promise(function(resolve, reject) {
         Q.ninvoke(forms, "remove", { url: url })
         .then(function() {
-            console.info("Removed form: " + url + ".");
+            console.info("Removed form", url);
             resolve();
         })
         .fail(function(err) {

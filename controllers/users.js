@@ -7,7 +7,7 @@ var auth = require("../middlewares/auth.js");
 router.post("/editPassword", auth, function(req, res) {
     user.editPassword(req)
     .then(function() {
-        req.session.success = "Password Updated.";
+        req.session.success = "Password Updated";
         res.redirect("/users/profile");
     })
     .fail(function(err) {
@@ -37,7 +37,7 @@ router.post("/signin", function(req, res, next) {
 });
 
 router.get("/signout", auth, function(req, res) {
-    console.info("Signed out " + req.user.username + ".");
+    console.info("Signed out", req.user.username);
     req.logout();
     res.redirect("/");
 });

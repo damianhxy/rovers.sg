@@ -52,7 +52,7 @@ router.put("/", admin, function(req, res) {
 router.post("/", admin, upload.single("file"), function(req, res) {
     resource.add(req)
     .then(function() {
-        req.session.success = "File uploaded.";
+        req.session.success = "File uploaded";
         res.redirect("/resources#upload");
     })
     .fail(function(err) {

@@ -6,7 +6,7 @@ var admin = require("../middlewares/admin.js");
 router.post("/", function(req, res) {
     form.add(req)
     .then(function() {
-        req.session.success = "Form added.";
+        req.session.success = "Form added";
         res.redirect("/events");
     })
     .fail(function(err) {
@@ -19,7 +19,7 @@ router.post("/", function(req, res) {
 router.delete("/", function(req, res) {
     form.delete(req.body.url)
     .then(function() {
-        req.session.success = "Form deleted.";
+        req.session.success = "Form deleted";
         res.redirect("/events");
     })
     .fail(function(err) {

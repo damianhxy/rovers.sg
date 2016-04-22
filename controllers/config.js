@@ -49,7 +49,7 @@ module.exports = function(app, express) {
         function(req, username, password, done) {
             return user.authenticate(username, password)
             .then(function(user) {
-                console.info("Signed in " + user.username);
+                console.info("Signed in", user.username);
                 done(null, user);
             })
             .fail(function(err) {
@@ -65,7 +65,7 @@ module.exports = function(app, express) {
         function(req, username, password, done) {
             return user.add(req.body.name, username, password)
             .then(function(user) {
-                console.info("Signed up " + user.username);
+                console.info("Signed up", user.username);
                 done(null, user);
             })
             .fail(function(err) {

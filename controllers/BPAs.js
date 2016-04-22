@@ -20,7 +20,7 @@ router.get("/", function(req, res) {
 router.post("/", admin, function(req, res) {
     BPA.add(req)
     .then(function() {
-        req.session.success = "Awardee added.";
+        req.session.success = "Awardee added";
         res.redirect("/about");
     })
     .fail(function(err) {
@@ -33,7 +33,7 @@ router.post("/", admin, function(req, res) {
 router.delete("/", admin, function(req, res) {
     BPA.delete(req.body.name)
     .then(function() {
-        req.session.success = "Awardee deleted.";
+        req.session.success = "Awardee deleted";
         res.redirect("/about");
     })
     .fail(function(err) {

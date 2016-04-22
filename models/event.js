@@ -10,7 +10,7 @@ exports.add = function(req) {
         var start = moment(req.body.start, settings.EVENT_TIME_FORMAT).tz("Asia/Singapore").add(moment().utcOffset() - 480, "minutes").format();
         var end = moment(req.body.end, settings.EVENT_TIME_FORMAT).tz("Asia/Singapore").add(moment().utcOffset() - 480, "minutes").format();
         if (start.isAfter(end))
-            return reject(Error("Start time must be before end time."));
+            return reject(Error("Start time must be before end time"));
         var eventInfo = {
             title: req.body.title,
             start: start,
@@ -22,7 +22,7 @@ exports.add = function(req) {
         };
         Q.ninvoke(events, "insert", eventInfo)
         .then(function(result) {
-            console.info("User " + req.user.username + " created event: " + req.body.title + ".");
+            console.info("User", req.user.username, "created event", req.body.title);
             resolve(result._id);
         })
         .fail(function(err) {
@@ -33,7 +33,7 @@ exports.add = function(req) {
 
 exports.all = function() {
     return Q.promise(function(resolve, reject) {
-        Q.ninvoke(cursor, "find", {})
+        Q.ninvoke(events, "find", {})
         .then(function(list) {
             resolve(list);
         })
@@ -47,7 +47,7 @@ exports.delete = function(id) {
     return Q.promise(function(resolve, reject) {
         Q.ninvoke(events, "remove", { _id: id })
         .then(function() {
-            console.info("Deleted event with _id: " + id + ".");
+            console.info("Deleted event with _id", id);
             resolve();
         })
         .fail(function(err) {
@@ -67,13 +67,13 @@ exports.edit = function(id, field, value) {
             event[field] = value;
             event.time = moment().format();
             if (moment(event.start).isAfter(moment(event.end)))
-                return reject(Error("Start time must be before end time."));
+                return reject(Error("Start time must be before end time"));
             if (field === "title" && !value)
-                return reject(Error("Title can not be empty."));
+                return reject(Error("Title can not be empty"));
             return Q.ninvoke(events, "update", { _id: id }, { $set: event });
         })
         .then(function() {
-            console.info("Field " + field + " of event " + id + " changed to " + value + ".");
+            console.info("Field", field, "of event", id, "changed to", value);
             resolve({
                 field: field,
                 value: value
@@ -90,7 +90,7 @@ exports.get = function(id) {
         Q.ninvoke(events, "findOne", { _id: id })
         .then(function(event) {
             if (!event)
-                return reject(Error("Event does not exist."));
+                return reject(Error("Event does not exist"));
             resolve(event);
         })
         .fail(function(err) {
@@ -106,7 +106,6 @@ exports.upcoming = function(date) {
         }).sort({ start: 1, end: 1 });
         Q.ninvoke(cursor, "exec")
         .then(function(list) {
-            console.log(list);
             resolve(list);
         })
         .fail(function(err) {

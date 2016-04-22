@@ -12,7 +12,7 @@ exports.add = function(req) {
         };
         Q.ninvoke(BPAs, "insert", BPAInfo)
         .then(function() {
-            console.info("User " + req.user.username + " added BPA awardee: " + req.body.name + ".");
+            console.info("User", req.user.username, "added BPA awardee", req.body.name);
             resolve();
         })
         .fail(function(err) {
@@ -38,7 +38,7 @@ exports.delete = function(name) {
     return Q.promise(function(resolve, reject) {
         Q.ninvoke(BPAs, "remove", { name: name })
         .then(function() {
-            console.info("Removed BPA awardee: " + name + ".");
+            console.info("Removed BPA awardee", name);
             resolve();
         })
         .fail(function(err) {

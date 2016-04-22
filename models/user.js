@@ -7,7 +7,7 @@ exports.add = function(name, username, password) {
     return Q.promise(function(resolve, reject) {
         Q.ninvoke(users, "findOne", { username: username })
         .then(function(user) {
-            if (user) return reject(Error("User " + username + " already exists."));
+            if (user) return reject(Error("User already exists"));
             Q.ninvoke(bcryptjs, "hash", password, 10)
             .then(function(hash) {
                 var user = {
@@ -44,10 +44,10 @@ exports.authenticate = function(username, password) {
     return Q.promise(function(resolve, reject) {
         Q.ninvoke(users, "findOne", { username: username })
         .then(function(user) {
-            if (!user) return reject(Error("User does not exist."));
+            if (!user) return reject(Error("User does not exist"));
             Q.ninvoke(bcryptjs, "compare", password, user.hash)
             .then(function(res) {
-                if (!res) return reject(Error("Wrong Password."));
+                if (!res) return reject(Error("Wrong Password"));
                 resolve(user);
             });
         })
@@ -60,10 +60,10 @@ exports.authenticate = function(username, password) {
 exports.editPassword = function(req) {
     return Q.promise(function(resolve, reject) {
         if (req.body.newPass !== req.body.newPass2)
-            return reject(Error("New passwords do not match."));
+            return reject(Error("New passwords do not match"));
         Q.ninvoke(bcryptjs, "compare", req.body.currentPassword, req.user.hash)
         .then(function(res) {
-            if (!res) return(reject(Error("Wrong Password.")));
+            if (!res) return(reject(Error("Wrong Password")));
             Q.nfcall(bcryptjs.hash, req.body.newPass, req.user.hash.substr(0, 29))
             .then(function(hash) {
                 Q.ninvoke(users, "update", { _id: req.user._id }, { $set: { hash: hash } });
