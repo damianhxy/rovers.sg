@@ -13,8 +13,8 @@ router.get("/", function(req, res, next) {
     event.upcoming(moment.tz("Asia/Singapore").format())
     .then(function(events) {
         events.forEach(function(e) {
-            e.prettyStart = moment(e.start).tz("Asia/Singapore").format(settings.EVENT_TIME_FORMAT);
-            e.prettyEnd = moment(e.end).tz("Asia/Singapore").format(settings.EVENT_TIME_FORMAT);
+            e.start = moment(e.start).tz("Asia/Singapore").format(settings.EVENT_TIME_FORMAT);
+            e.end = moment(e.end).tz("Asia/Singapore").format(settings.EVENT_TIME_FORMAT);
         });
         res.render("home", {
             title: "Home",
