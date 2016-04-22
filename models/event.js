@@ -33,8 +33,7 @@ exports.add = function(req) {
 
 exports.all = function() {
     return Q.promise(function(resolve, reject) {
-        var cursor = events.find({}).sort({ start: 1, end: 1 });
-        Q.ninvoke(cursor, "exec")
+        Q.ninvoke(cursor, "find", {})
         .then(function(list) {
             resolve(list);
         })
@@ -102,15 +101,12 @@ exports.get = function(id) {
 
 exports.upcoming = function(date) {
     return Q.promise(function(resolve, reject) {
-        Q.ninvoke(events, "find", {
+        var cursor = events.find({
             $where: function() { return moment(this.end).isAfter(date); }
-        })
+        }).sort({ start: 1, end: 1 });
+        Q.ninvoke(cursor, "exec")
         .then(function(list) {
-            list.forEach(function(e) {
-                e.start = moment(e.start).tz("Asia/Singapore").format();
-                e.end = moment(e.end).tz("Asia/Singapore").format();
-                e.started = moment(e.start).isBefore(date);
-            });
+            console.log(list);
             resolve(list);
         })
         .fail(function(err) {
