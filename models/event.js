@@ -7,14 +7,14 @@ var events = new nedb({ filename: "./database/events", autoload: true });
 
 exports.add = function(req) {
     return Q.promise(function(resolve, reject) {
-        var start = moment.tz(req.body.start, settings.EVENT_TIME_FORMAT, "Asia/Singapore").format();
-        var end = moment.tz(req.body.end, settings.EVENT_TIME_FORMAT, "Asia/Singapore").format();
+        var start = moment.tz(req.body.start, settings.EVENT_TIME_FORMAT, "Asia/Singapore");
+        var end = moment.tz(req.body.end, settings.EVENT_TIME_FORMAT, "Asia/Singapore");
         if (start.isAfter(end))
             return reject(Error("Start time must be before end time"));
         var eventInfo = {
             title: req.body.title,
-            start: start,
-            end: end,
+            start: start.format(),
+            end: end.format(),
             location: req.body.location,
             details: req.body.details,
             link: req.body.link && normalizeURL(req.body.link),
