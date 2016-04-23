@@ -7,8 +7,8 @@ var events = new nedb({ filename: "./database/events", autoload: true });
 
 exports.add = function(req) {
     return Q.promise(function(resolve, reject) {
-        var start = moment(req.body.start, settings.EVENT_TIME_FORMAT).tz("Asia/Singapore").add(moment().utcOffset() - 480, "minutes").format();
-        var end = moment(req.body.end, settings.EVENT_TIME_FORMAT).tz("Asia/Singapore").add(moment().utcOffset() - 480, "minutes").format();
+        var start = moment.tz(req.body.start, settings.EVENT_TIME_FORMAT, "Asia/Singapore").format();
+        var end = moment.tz(req.body.end, settings.EVENT_TIME_FORMAT, "Asia/Singapore").format();
         if (start.isAfter(end))
             return reject(Error("Start time must be before end time"));
         var eventInfo = {
@@ -18,7 +18,7 @@ exports.add = function(req) {
             location: req.body.location,
             details: req.body.details,
             link: req.body.link && normalizeURL(req.body.link),
-            time: moment().tz("Asia/Singapore").format()
+            time: moment.tz("Asia/Singapore").format()
         };
         Q.ninvoke(events, "insert", eventInfo)
         .then(function(result) {
@@ -61,11 +61,11 @@ exports.edit = function(id, field, value) {
         Q.ninvoke(events, "findOne", { _id: id })
         .then(function(event) {
             if (field === "start" || field === "end")
-                value = moment(value, settings.EVENT_TIME_FORMAT).tz("Asia/Singapore").add(moment().utcOffset() - 480, "minutes").format();
+                value = moment.tz(value, settings.EVENT_TIME_FORMAT, "Asia/Singapore").format();
             if (field === "link" && value)
                 value = normalizeURL(value);
             event[field] = value;
-            event.time = moment().format();
+            event.time = moment.tz("Asia/Singapore").format();
             if (moment(event.start).isAfter(moment(event.end)))
                 return reject(Error("Start time must be before end time"));
             if (field === "title" && !value)

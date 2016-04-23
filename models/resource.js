@@ -10,7 +10,7 @@ exports.add = function(req) {
             name: req.file.filename,
             path: req.file.path,
             description: req.body.description,
-            time: moment().format(),
+            time: moment.tz("Asia/Singapore").format(),
             category: req.body.category
         };
         Q.ninvoke(files, "insert", fileInfo)
@@ -59,7 +59,7 @@ exports.edit = function(id, field, value) {
         Q.ninvoke(files, "findOne", { _id: id })
         .then(function(file) {
             file[field] = value;
-            file.time = moment().tz("Asia/Singapore").format();
+            file.time = moment.tz("Asia/Singapore").format();
             return Q.ninvoke(files, "update", { _id: id }, { $set: file });
         })
         .then(function() {

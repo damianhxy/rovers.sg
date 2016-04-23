@@ -9,7 +9,7 @@ exports.add = function(req) {
             name: req.body.name,
             url: req.body.url,
             embed: req.body.embed,
-            time: moment().tz("Asia/Singapore").format()
+            time: moment.tz("Asia/Singapore").format()
         };
         Q.ninvoke(forms, "insert", formInfo)
         .then(function() {

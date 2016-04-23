@@ -43,7 +43,7 @@ $(document).ready(function() {
             },
             /* For combodate */
             format: MOMENT_FORMAT,
-            template: "DD / MM / YYYY     hh : mm A",
+            template: "D / MMMM / YYYY   hh : mm A",
             combodate: {
                 smartDays: "true",
                 minYear: new Date().getFullYear(),
