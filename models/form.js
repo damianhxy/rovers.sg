@@ -1,7 +1,7 @@
 var Q = require("q");
 var nedb = require("nedb");
 var moment = require("moment-timezone");
-var forms = new nedb({ filename: "./database/forms" , autoload: true });
+var forms = new nedb({ filename: "./database/forms", autoload: true });
 
 exports.add = function(req) {
     return Q.promise(function(resolve, reject) {
