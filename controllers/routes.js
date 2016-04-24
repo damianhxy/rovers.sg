@@ -19,7 +19,7 @@ router.get("/", function(req, res, next) {
         res.render("home", {
             title: "Home",
             user: req.user,
-            events: events
+            upcoming: events
         });
     })
     .fail(function(err) {
