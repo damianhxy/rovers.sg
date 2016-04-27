@@ -11,7 +11,7 @@ $(document).ready(function() {
         .then(function() {
             new PNotify({
                 title: "Success",
-                text: "Your response has been recorded",
+                text: "Your feedback has been recorded",
                 type: "success"
             });
             $(e.target).trigger("reset");
@@ -19,7 +19,7 @@ $(document).ready(function() {
         .fail(function(err) {
             new PNotify({
                 title: "Error",
-                text: "There was an error recording your response",
+                text: "There was an error recording your feedback",
                 type: "error"
             });
         });

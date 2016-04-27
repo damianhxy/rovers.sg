@@ -12,24 +12,24 @@
                     <div class="col-md-10">
                         <input type="text" class="form-control" name="name" required>
                     </div>
-                </div>
+                </div> <!-- /.form-group -->
                 <div class="form-group">
                     <span class="col-md-2 control-label">Short URL</span>
                     <div class="col-md-10">
                         <input type="text" class="form-control" name="url" required>
                     </div>
-                </div>
+                </div> <!-- /.form-group -->
                 <div class="form-group">
                     <span class="col-md-2 control-label">Embed</span>
                     <div class="col-md-10">
                         <input type="text" class="form-control" name="embed" placeholder="https://docs.google.com..." required>
                     </div>
-                </div>
+                </div> <!-- /.form-group -->
                 <div class="form-group">
                     <div class="col-md-10 col-md-offset-2">
                         <button type="submit" class="btn btn-success col-md-4">Add form</button>
                     </div>
-                </div>
+                </div> <!-- /.form-group -->
             </form>
             {{#if forms}}
             <form class="form-horizontal" action="/forms?_method=DELETE" method="post" accept-charset="UTF-8" autocomplete="off">
@@ -42,12 +42,12 @@
                             {{/each}}
                         </select>
                     </div>
-                </div>
+                </div> <!-- /.form-group -->
                 <div class="form-group">
                     <div class="col-md-10 col-md-offset-2">
                         <button type="submit" class="btn btn-danger col-md-4">Remove Form</button>
                     </div>
-                </div> <!-- /.col-md-10 -->
+                </div>  <!-- /.form-group -->
             </form>
             {{/if}}
         </div>

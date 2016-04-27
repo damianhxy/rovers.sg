@@ -1,7 +1,7 @@
 $(document).ready(function() {
     console.info("[info] eventView.js is running.");
 
-    var MOMENT_FORMAT = "D MMMM YYYY hh:mm A";
+    var MOMENT_FORMAT = "D MMM YYYY hh:mm A";
 
     // Hide empty fields
     $(".field-hidden").hide();
@@ -43,7 +43,7 @@ $(document).ready(function() {
             },
             /* For combodate */
             format: MOMENT_FORMAT,
-            template: "D / MMMM / YYYY   hh : mm A",
+            template: "D / MMM / YYYY   hh : mm A",
             combodate: {
                 smartDays: "true",
                 minYear: new Date().getFullYear(),

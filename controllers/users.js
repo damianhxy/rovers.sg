@@ -20,7 +20,12 @@ router.post("/editPassword", auth, function(req, res) {
 router.get("/profile", auth, function(req, res) {
     res.render("profile", {
         title: "Profile",
-        user: req.user
+        user: req.user,
+        info: {
+            "Node Version": process.version,
+            "Architecture": process.arch,
+            "Platform": process.platform
+        }
     });
 });
 
