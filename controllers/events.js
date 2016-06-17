@@ -2,30 +2,8 @@ var express = require("express");
 var router = express.Router();
 var moment = require("moment-timezone");
 var event = require("../models/event.js");
-var form = require("../models/form.js");
 var settings = require("./settings.js");
 var admin = require("../middlewares/admin.js");
-
-router.get("/", function(req, res, next) {
-    event.all()
-    .then(function(events) {
-        events.forEach(function(e) {
-            e.url = "/events/" + e._id;
-        });
-        form.all()
-        .then(function(forms) {
-            res.render("events", {
-                title: "Events",
-                user: req.user,
-                events: JSON.stringify(events),
-                forms: forms
-            });
-        });
-    })
-    .fail(function(err) {
-        next(err);
-    });
-});
 
 router.get("/add", admin, function(req, res, next) {
     event.all()

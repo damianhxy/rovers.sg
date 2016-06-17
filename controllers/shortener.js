@@ -1,13 +1,13 @@
 var express = require("express");
 var router = express.Router();
-var form = require("../models/form.js");
+var short = require("../models/shortener.js");
 var admin = require("../middlewares/admin.js");
 
 router.post("/", function(req, res) {
-    form.add(req)
+    short.add(req)
     .then(function() {
-        req.session.success = "Form added";
-        res.redirect("/events");
+        req.session.success = "Link created";
+        res.redirect("/users/profile");
     })
     .fail(function(err) {
         console.error(err);
@@ -17,10 +17,9 @@ router.post("/", function(req, res) {
 });
 
 router.delete("/", function(req, res) {
-    form.delete(req.body.url)
+    short.delete(req.body.url)
     .then(function() {
-        req.session.success = "Form deleted";
-        res.redirect("/events");
+        res.end();
     })
     .fail(function(err) {
         console.error(err);
@@ -30,13 +29,17 @@ router.delete("/", function(req, res) {
 });
 
 router.get("/:url", function(req, res) {
-    form.get(req.params.url)
+    short.get(req.params.url)
     .then(function(info) {
-        res.render("form", {
-            title: info.name,
-            user: req.user,
-            info: info
-        });
+        if (info.embed) {
+            res.render("embed", {
+                title: info.newurl,
+                user: req.user,
+                info: info
+            });
+        } else {
+            res.redirect(info.orgurl);
+        }
     })
     .fail(function(err) {
         console.log(err);

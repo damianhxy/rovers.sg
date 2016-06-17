@@ -1,19 +1,20 @@
 var Q = require("q");
 var nedb = require("nedb");
 var moment = require("moment-timezone");
-var forms = new nedb({ filename: "./database/forms", autoload: true });
+var normalizeURL = require("normalize-url");
+var forms = new nedb({ filename: "./database/shortener", autoload: true });
 
 exports.add = function(req) {
     return Q.promise(function(resolve, reject) {
         var formInfo = {
-            name: req.body.name,
-            url: req.body.url,
+            orgurl: normalizeURL(req.body.orgurl),
+            newurl: req.body.newurl,
             embed: req.body.embed,
             time: moment.tz("Asia/Singapore").format()
         };
         Q.ninvoke(forms, "insert", formInfo)
         .then(function() {
-            console.info("User", req.user.username, "added form", req.body.url);
+            console.info("User", req.user.username, "added link", req.body.orgurl);
             resolve();
         })
         .fail(function(err) {
@@ -37,9 +38,9 @@ exports.all = function() {
 
 exports.delete = function(url) {
     return Q.promise(function(resolve, reject) {
-        Q.ninvoke(forms, "remove", { url: url })
+        Q.ninvoke(forms, "remove", { newurl: url })
         .then(function() {
-            console.info("Removed form", url);
+            console.info("Removed link", url);
             resolve();
         })
         .fail(function(err) {
@@ -50,7 +51,7 @@ exports.delete = function(url) {
 
 exports.get = function(url) {
     return Q.promise(function(resolve, reject) {
-        Q.ninvoke(forms, "findOne", { url: url })
+        Q.ninvoke(forms, "findOne", { newurl: url })
         .then(function(info) {
             resolve(info);
         })

@@ -4,27 +4,22 @@ var fs = require("fs");
 var resource = require("../models/resource.js");
 var admin = require("../middlewares/admin.js");
 var upload = require("../middlewares/upload.js");
-var form = require("../models/form.js");
 
 router.get("/", function(req, res, next) {
     resource.all()
     .then(function(files) {
-        form.all()
-        .then(function(forms) {
-            var categories = {
-                "Latest Information": { name: "info", icon: "inbox", fileList: [] },
-                "Forms": { name: "forms", icon: "newspaper-o", fileList: [] },
-                "NRC": { name: "nrc", icon: "institution", fileList: [] }
-            };
-            files.forEach(function(e) {
-                categories[e.category].fileList.push(e);
-            });
-            res.render("resources", {
-                title: "Resources",
-                user: req.user,
-                categories: categories,
-                forms: forms
-            });
+        var categories = {
+            "Latest Information": { name: "info", icon: "inbox", fileList: [] },
+            "Forms": { name: "forms", icon: "newspaper-o", fileList: [] },
+            "NRC": { name: "nrc", icon: "institution", fileList: [] }
+        };
+        files.forEach(function(e) {
+            categories[e.category].fileList.push(e);
+        });
+        res.render("resources", {
+            title: "Resources",
+            user: req.user,
+            categories: categories
         });
     })
     .fail(function(err) {

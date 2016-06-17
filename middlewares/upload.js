@@ -5,7 +5,7 @@ var settings = require("../controllers/settings.js");
 module.exports = multer({
     limits: {
         files: 1,
-        parts: 3,
+        parts: 5,
         fileSize: settings.FILE_SIZE_LIMIT
     },
     storage: multer.diskStorage({

@@ -1,6 +1,7 @@
 var express = require("express");
 var passport = require("passport");
 var router = express.Router();
+var short = require("../models/shortener.js")
 var user = require("../models/user.js");
 var auth = require("../middlewares/auth.js");
 
@@ -18,14 +19,18 @@ router.post("/editPassword", auth, function(req, res) {
 });
 
 router.get("/profile", auth, function(req, res) {
-    res.render("profile", {
-        title: "Profile",
-        user: req.user,
-        info: {
-            "Node Version": process.version,
-            "Architecture": process.arch,
-            "Platform": process.platform
-        }
+    short.all()
+    .then(function(links) {
+        res.render("profile", {
+            title: "Profile",
+            user: req.user,
+            info: {
+                "Node Version": process.version,
+                "Architecture": process.arch,
+                "Platform": process.platform
+            },
+            links: links
+        });
     });
 });
 

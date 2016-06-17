@@ -2,20 +2,24 @@ var Q = require("q");
 var nedb = require("nedb");
 var fs = require("fs");
 var moment = require("moment-timezone");
+var normalizeURL = require("normalize-url");
 var files = new nedb({ filename: "./database/resources", autoload: true });
 
 exports.add = function(req) {
     return Q.promise(function(resolve, reject) {
+        var filePath = req.file ? req.file.path : "";
+        var url = req.body.url ? normalizeURL(req.body.url) : "";
         var fileInfo = {
-            name: req.file.filename,
-            path: req.file.path,
+            name: req.body.name,
+            path: filePath,
+            url: url,
             description: req.body.description,
             time: moment.tz("Asia/Singapore").format(),
             category: req.body.category
         };
         Q.ninvoke(files, "insert", fileInfo)
         .then(function() {
-            console.info("User", req.user.username, "uploaded file", req.file.filename);
+            console.info("User", req.user.username, "uploaded file", req.file ? req.file.filename : req.body.url);
             resolve();
         })
         .fail(function(err) {
@@ -41,13 +45,20 @@ exports.delete = function(id) {
     return Q.promise(function(resolve, reject) {
         Q.ninvoke(files, "findOne", { _id: id })
         .then(function(file) {
-            console.info("Unlinking file", file.name);
-            return Q.nfcall(fs.unlink, file.path);
-        })
-        .then(Q.ninvoke(files, "remove", { _id: id }))
-        .then(function() {
-            console.info("File unlink successful");
-            resolve();
+            if (file.fileName) {
+                console.info("Unlinking file", file.name);
+                Q.nfcall(fs.unlink, file.path)
+                .then(Q.ninvoke(files, "remove", { _id: id }))
+                .then(function() {
+                    console.info("File unlink successful");
+                    resolve();
+                });
+            } else {
+                Q.ninvoke(files, "remove", { _id: id })
+                .then(function() {
+                    resolve();
+                });
+            }
         })
         .fail(function(err) {
             reject(err);

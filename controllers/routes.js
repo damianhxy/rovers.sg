@@ -34,7 +34,7 @@ router.use("/about", require("./BPAs.js"));
 router.use("/events", require("./events.js"));
 
 /* Forms */
-router.use("/forms", require("./forms.js"));
+router.use("/short", require("./shortener.js"));
 
 /* Resources */
 router.use("/resources", require("./resources.js"));

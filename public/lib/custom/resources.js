@@ -49,7 +49,6 @@ $(document).ready(function() {
         })
         .done(function() {
             $("#deleteModal").modal("hide");
-            $("#" + $(e.target).data("id")).remove();
             location.reload();
         })
         .fail(function(err) {
@@ -62,14 +61,19 @@ $(document).ready(function() {
     });
 
     // File Name Text
+    $("#uploadForm [name='url']").on("keyup", function() {
+        $("#uploadForm [name='name']").val($(this).val());
+    });
+
     $(".btn-file :file").on("change", function() {
+        $("#uploadForm [name='name']").val($(this).val());
         $("#upload-name").val($(this).val());
     });
 
     // Form Validation
     $("#uploadForm").on("submit", function(e) {
         e.preventDefault();
-        if ($("#uploadForm :file").val())
+        if ($("#uploadForm :file").val() || $("#uploadForm [name='url']").val())
             $(e.target).get(0).submit();
         else
             new PNotify({
