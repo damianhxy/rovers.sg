@@ -26,7 +26,8 @@ exports.add = function(req) {
 
 exports.all = function() {
     return Q.promise(function(resolve, reject) {
-        Q.ninvoke(files, "find", {})
+        var cursor = files.find({}).sort({ time: -1 });
+        Q.ninvoke(cursor, "exec")
         .then(function(fileList) {
             resolve(fileList);
         })

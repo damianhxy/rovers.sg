@@ -3,28 +3,18 @@ $(document).ready(function() {
 
     var MOMENT_FORMAT = "DD/MM/YYYY hh:mm A";
 
-    // Change hash
-    $(".nav-pills a").on("show.bs.tab", function(e) {
-        window.location.hash = e.target.hash;
-    });
-
-    // Show active tab
-    var hash = document.URL.split("#")[1];
-    if (hash)
-        $(".nav-pills a[href='#" + hash + "']").tab("show");
+    // Hide empty descriptions
+    $(".field-hidden").hide();
 
     // Toggle editable
     $(".btn-edit").click(function() {
-        $(this).closest("tr").find(".field-edit").editable("toggleDisabled");
+        $(".field-hidden").toggle();
+        $(this).parent().parent().prev().find(".field-edit").editable("toggleDisabled");
     });
 
     // X-editable
     $(".field-edit").each(function() {
         $(this).editable({
-            type: "text",
-            pk: $(this).parent().parent().data("id"),
-            name: $(this).data("name"),
-            url: "/resources",
             disabled: true,
             ajaxOptions: {
                 type: "put",
@@ -42,11 +32,10 @@ $(document).ready(function() {
 
     // Delete modal
     $("#deleteModal").on("show.bs.modal", function(e) {
-        var data = $(e.relatedTarget).parent().parent();
+        var data = $(e.relatedTarget).parent().parent().parent();
         var originalName = data.data("name");
-        var addedTime = moment(data.prev().data("value")).format(MOMENT_FORMAT);
-        // Attach id for x-editable
-        $(this).find(".btn-danger").data("id", data.parent().data("id"));
+        var addedTime = moment(data.data("time")).format(MOMENT_FORMAT);
+        $(this).find(".btn-danger").data("id", data.attr("id"));
         $("#modalFileName").html("File Name: <strong>" + originalName + "</strong>");
         $("#modalFileTime").html("Added on: <strong>" + addedTime + "</strong>");
     });
@@ -60,9 +49,8 @@ $(document).ready(function() {
         })
         .done(function() {
             $("#deleteModal").modal("hide");
-            $("[data-id='" + $(e.target).data("id") + "']").remove();
-            if (!$("tbody:visible").eq(0).children().length)
-                location.reload();
+            $("#" + $(e.target).data("id")).remove();
+            location.reload();
         })
         .fail(function(err) {
             new PNotify({
@@ -81,7 +69,7 @@ $(document).ready(function() {
     // Form Validation
     $("#uploadForm").on("submit", function(e) {
         e.preventDefault();
-        if ($("#upload :file").val())
+        if ($("#uploadForm :file").val())
             $(e.target).get(0).submit();
         else
             new PNotify({

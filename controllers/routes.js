@@ -39,6 +39,17 @@ router.use("/forms", require("./forms.js"));
 /* Resources */
 router.use("/resources", require("./resources.js"));
 
+router.get("/join", function(req, res) {
+    res.render("join", {
+        title: "Join",
+        user: req.user
+    });
+});
+
+router.post("/join", function(req, res) {
+    router.post(settings.JOIN_FORM_URL).form(req.body).pipe(res);
+});
+
 router.get("/contact", function(req, res) {
     res.render("contact", {
         title: "Contact",

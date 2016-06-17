@@ -41,13 +41,37 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="/about"><i class="fa fa-info-circle"></i> About</a></li>
-                    <li><a href="/events"><i class="fa fa-calendar"></i> Events</a></li>
+                    <!--li><a href="/about"><i class="fa fa-info-circle"></i> About</a></li-->
+                    <!--li><a href="/events"><i class="fa fa-calendar"></i> Events</a></li-->
+                    <li><a href="/upcoming"><i class="fa fa-calendar"></i> Upcoming</a></li>
                     <li><a href="/resources"><i class="fa fa-archive"></i> Resources</a></li>
-                    <li><a href="/faq"><i class="fa fa-question-circle"></i> FAQ</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                            <i class="fa fa-bicycle"></i> Activities
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a href="#"><i class="fa fa-heart"></i> Service</a></li>
+                            <li><a href="#"><i class="fa fa-users"></i> Fellowship</a></li>
+                            <li><a href="#"><i class="fa fa-map-signs"></i> Adventure</a></li>
+                            <li><a href="#"><i class="fa fa-mortar-board"></i> Courses</a></li>
+                        </ul>
+                    </li>
+                    <!--li><a href="/faq"><i class="fa fa-question-circle"></i> FAQ</a></li-->
+                    <li><a href="/join"><i class="fa fa-user"></i> Join</a></li>
                     <li><a href="/contact"><i class="fa fa-phone-square"></i> Contact</a></li>
-                    <li><a href="http://www.moot.rovers.sg/"><i class="fa fa-globe"></i> Moot</a></li>
-                    <li><a href="http://forum.rovers.sg/"><i class="fa fa-comments"></i> Forum</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                            <i class="fa fa-external-link"></i> External
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a href="http://www.moot.rovers.sg/"><i class="fa fa-globe"></i> Moot</a></li>
+                            <li><a href="http://forum.rovers.sg/"><i class="fa fa-comments"></i> Forum</a></li>
+                            <li><a href="#">Rover Journey Portal</a></li>
+                            <li><a href="#">Scout Membership Portal</a></li>
+                        </ul>
+                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                 {{#if user}}
@@ -102,27 +126,7 @@
         </div> <!-- /.container-fluid -->
     </nav> <!-- /.navbar -->
     <!-- /NAVBAR -->
-    <div class="container-fluid">
-        <!-- BANNERS -->
-        <div class="row">
-            <div class="col-md-6">
-                <a data-toggle="lightbox" href="/img/Banner1.jpg" data-title="Great Ocean Trail">
-                    <img alt="Great Ocean Trail" class="center-block constrain" title="Click to enlarge image" src="/img/cropped/Banner1.jpg">
-                </a>
-            </div> <!-- /.col-md-6 -->
-            <div class="col-md-6">
-                <a data-toggle="lightbox" href="/img/Banner2.jpg" data-title="National Day Commemoration">
-                    <img alt="National Day Commemoration" class="center-block constrain" title="Click to enlarge image" src="/img/cropped/Banner2.jpg">
-                </a>
-            </div> <!-- /.col-md-6 -->
-        </div> <!-- /.row -->
-        <!-- /BANNERS -->
-        <!-- PAGE CONTENT -->
-        <main class="row">
-{{{body}}}
-        </main>
-        <!-- /PAGE CONTENT -->
-    </div> <!-- /.container-fluid -->
+    {{{body}}}
     <!-- PAGE FOOTER -->
     <footer class="footer">
         <p class="footer__title">

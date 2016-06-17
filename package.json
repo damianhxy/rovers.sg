@@ -19,7 +19,7 @@
     "console-stamp": "^0.2.2",
     "cookie-parser": "^1.4.3",
     "dateformat": "^1.0.12",
-    "express": "^4.13.4",
+    "express": "^4.14.0",
     "express-handlebars": "^2.0.1",
     "express-nedb-session": "^0.1.1",
     "express-session": "^1.13.0",

@@ -36,7 +36,4 @@ $(document).ready(function() {
 
 	// Active Link
 	$("nav a[href='/" + location.pathname.split("/")[1] + "']").parent().addClass("active");
-
-	// Select first Pill
-	$(".nav-pills li:eq(0) a").tab("show");
 });

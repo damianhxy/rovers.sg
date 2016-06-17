@@ -1,90 +1,3 @@
-/* Color Scheme
- * #ee1e1e - Light Red (Primary)
- * #fb0000 - Darker Red (Secondary)
- * #b20d0d - Darkest Red (Active)
- */
-
-/* Navbar */
-.navbar-default, /* Navbar */
-.navbar-default .navbar-nav > .active > a, /* Active Link */
-.navbar-default .navbar-nav > .open > a { /* Dropdown */
-    background-image: none; /* Remove gradient */
-}
-
-.navbar-default { /* Main theme */
-    background-color: #f7f7f7;
-    border-color: #fb0000;
-}
-
-.navbar-default .navbar-brand, /* Title */
-/*.navbar-default .navbar-text,*/ /* Text */
-.navbar-default .navbar-nav > li > a, /* Links */
-.navbar-default .navbar-nav > li > .dropdown-menu > li > a, /* Dropdown links */
-.navbar-default .navbar-link { /* Non-nav link */
-    color: #ee1e1e; /* Default colour of links */
-}
-
-.navbar-default .navbar-brand:hover, /* Title */
-.navbar-default .navbar-brand:focus,
-.navbar-default .navbar-nav > li > a:hover, /* Links */
-.navbar-default .navbar-nav > li > a:focus,
-.navbar-default .navbar-link:hover { /* Non-nav link */
-    color: #b20d0d; /* Hover colour of links */
-}
-
-.navbar-default .navbar-nav > li > .dropdown-menu, /* Dropdown menu */
-.navbar-default .navbar-nav > li > .dropdown-menu > li > .divider { /* Divider */
-    background-color: #f7f7f7;
-}
-
-.navbar-default .navbar-nav > li > .dropdown-menu > li > a:hover, /* Dropdown menu links */
-.navbar-default .navbar-nav > li > .dropdown-menu > li > a:focus,
-.navbar-default .navbar-nav > .active > a, /* Active link */
-.navbar-default .navbar-nav > .active > a:hover,
-.navbar-default .navbar-nav > .active > a:focus,
-.navbar-default .navbar-nav > .open > a, /* Dropdown Open */
-.navbar-default .navbar-nav > .open > a:hover,
-.navbar-default .navbar-nav > .open > a:focus {
-    background-color: #fb0000;
-    color: #f7f7f7;
-}
-
-.navbar-default .navbar-toggle { /* Toggle button */
-    border-color: #fb0000;
-}
-
-.navbar-default .navbar-toggle:hover, /* Toggle button */
-.navbar-default .navbar-toggle:focus {
-    background-color: #fff;
-}
-
-.navbar-default .navbar-toggle .icon-bar { /* Hamburger lines */
-    background-color: #ee1e1e;
-}
-
-.navbar-default .navbar-collapse, /* Collapsed Navbar */
-.navbar-default .navbar-form { /* Form */
-    border-color: #ee1e1e;
-}
-
-@media (max-width: 767px) { /* Dropdown Open */
-    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
-        color: #ee1e1e;
-    }
-
-    .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
-    .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
-        color: #b20d0d;
-    }
-
-    .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
-    .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
-    .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
-        background-color: #fb0000;
-        color: #fff;
-    }
-}
-
 /* Template */
 @font-face {
     font-family: Roboto;
@@ -109,8 +22,8 @@ blockquote {
 body {
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
-    margin-bottom: 120px;
-    margin-top: 70px;
+    margin-bottom: 84px; /* Footer */
+    margin-top: 50px; /* Navbar */
 }
 
 .fc-day-grid-event .fc-content {
@@ -152,6 +65,17 @@ body {
     text-decoration: none;
 }
 
+#home-page-banner {
+    background-image: url("https://placeholdit.imgix.net/~text?&w=1280&h=400");
+    height: 400px;
+    width: 1280px;
+}
+
+.section {
+    border-bottom: 1px solid #e5e5e5;
+    padding-bottom: 75px;
+}
+
 textarea {
     resize: vertical;
 }
@@ -165,7 +89,7 @@ textarea {
 }
 
 .anchor {
-    top: -120px;
+    top: -50px;
 }
 
 .anchor--header {
@@ -190,6 +114,19 @@ textarea {
     right: 0;
     text-align: right;
     top: 0;
+}
+
+.card {
+    display: inline-block;
+    width: 250px;
+}
+
+.card > .panel-heading {
+    height: 55px;
+}
+
+.card > .panel-body {
+    height: 125px;
 }
 
 .dropdown-menu form {
@@ -220,6 +157,7 @@ textarea {
 
 #shortcuts {
     position: fixed;
+    top: 165px;
     width: 23%;
     z-index: 1;
 }
