@@ -1,0 +1,62 @@
+<div class="section text-center container-fluid">
+    <div class="page-header"><h2>Upcoming</h2></div>
+    {{#unless upcoming}}
+    <h3>There are currently no upcoming events</h3>
+    {{else}}
+    <div class="row">
+        {{#each upcoming}}
+        <div class="panel panel-info card">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{title}}</h3>
+            </div>
+            <div class="panel-body">
+                <small>From</small>
+                <p>{{start}}</p>
+                <small>To</small>
+                <p>{{end}}</p>
+            </div>
+            <div class="panel-footer">
+                <a href="#{{this._id}}">View Information</a>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+    {{/unless}}
+    {{#if user.admin}}
+    <a href="/events/add" class="btn btn-success"><i class="fa fa-plus"></i> Add an Event</a>
+    {{/if}}
+</div>
+{{#each upcoming}}
+<div class="anchor" id="{{_id}}"></div>
+<div class="section text-center container-fluid">
+    <div class="page-header"><h2>{{title}}</h2></div>
+    <div class="row">
+        <div class="col-md-3">
+            <img src="https://placeholdit.imgix.net/~text?w=290&h=200&txt=Sample&txtsize=50">
+        </div> <!-- /.col-md-3 -->
+        <div class="col-md-9">
+            <dl class="dl-horizontal">
+                {{#if location}}
+                <dt>Location</dt>
+                <dd>{{location}}</dd>
+                {{/if}}
+                <dt>Start</dt>
+                <dd>{{start}}</dd>
+                <dt>End</dt>
+                <dd>{{end}}</dd>
+                {{#if details}}
+                <dt>Additional Details</dt>
+                <dd>{{details}}</dd>
+                {{/if}}
+                {{#if link}}
+                <dt>Link</dt>
+                <dd><a href="{{link}}">{{link}}</a></dd>
+                {{/if}}
+            </dl>
+            {{#if ../user.admin}}
+            <a href="/events/{{_id}}" class="btn btn-info"><i class="fa fa-eraser"></i> Edit Event</a>
+            {{/if}}
+        </div> <!-- /.col-md-9 -->
+    </div> <!-- /.row -->
+</div>
+{{/each}}

@@ -31,9 +31,24 @@ router.get("/", function(req, res, next) {
 router.use("/about", require("./BPAs.js"));
 
 /* Events */
+router.get("/upcoming", function(req, res) {
+    event.upcoming(moment.tz("Asia/Singapore"))
+    .then(function(events) {
+        events.forEach(function(e) {
+            e.start = moment.tz(e.start, "Asia/Singapore").format(settings.EVENT_TIME_FORMAT);
+            e.end = moment.tz(e.end, "Asia/Singapore").format(settings.EVENT_TIME_FORMAT);
+        });
+        res.render("upcoming", {
+            title: "Upcoming",
+            user: req.user,
+            upcoming: events
+        });
+    });
+});
+
 router.use("/events", require("./events.js"));
 
-/* Forms */
+/* Link Shortener */
 router.use("/short", require("./shortener.js"));
 
 /* Resources */
@@ -47,7 +62,7 @@ router.get("/join", function(req, res) {
 });
 
 router.post("/join", function(req, res) {
-    router.post(settings.JOIN_FORM_URL).form(req.body).pipe(res);
+    request.post(settings.JOIN_FORM_URL).form(req.body).pipe(res);
 });
 
 router.get("/contact", function(req, res) {
