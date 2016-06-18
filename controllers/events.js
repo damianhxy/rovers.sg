@@ -5,17 +5,27 @@ var event = require("../models/event.js");
 var settings = require("./settings.js");
 var admin = require("../middlewares/admin.js");
 
-router.get("/add", admin, function(req, res, next) {
-    event.all()
+router.get("/", function(req, res, next) {
+    res.render("events", {
+        title: "Events",
+        user: req.user
+    });
+});
+
+router.get("/feed", function(req, res, next) {
+    event.range(req.query.start, req.query.end)
     .then(function(events) {
-        res.render("eventAdd", {
-            title: "Add Event",
-            user: req.user,
-            events: JSON.stringify(events)
+        events.forEach(function(e) {
+            e.url = "/events/" + e._id;
         });
-    })
-    .fail(function(err) {
-        next(err);
+        res.json(events);
+    });
+});
+
+router.get("/add", admin, function(req, res, next) {
+    res.render("eventAdd", {
+        title: "Add Event",
+        user: req.user
     });
 });
 
@@ -53,7 +63,7 @@ router.put("/", admin, function(req, res) {
     });
 });
 
-router.get("/:event", admin, function(req, res) {
+router.get("/:event", function(req, res) {
     event.get(req.params.event)
     .then(function(info) {
         info.start = moment.tz(info.start, "Asia/Singapore").format(settings.EVENT_TIME_FORMAT);

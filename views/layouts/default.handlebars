@@ -176,27 +176,6 @@
                 type: "error"
             });
             {{/if}}
-            $("#calendar").fullCalendar({
-                customButtons: {
-                    addEvent: {
-                        text: "Add Event",
-                        click: function() {
-                            location.assign("/events/add");
-                        }
-                    }
-                },
-                header: {
-                    left: "prev,next today",
-                    center: "title",
-                    {{#if user.admin}}
-                    right: "addEvent month,agendaWeek,agendaDay"
-                    {{else}}
-                    right: "month,agendaWeek,agendaDay"
-                    {{/if}}
-                }{{#if events}},
-                events: {{{events}}}
-                {{/if}}
-            });
         });
     </script>
     <!-- /SCRIPTS -->

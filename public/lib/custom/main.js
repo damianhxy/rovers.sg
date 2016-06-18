@@ -38,5 +38,17 @@ $(document).ready(function() {
     $(".nav-pills li:eq(0) a").tab("show");
 
 	// Active Link
-	$("nav a[href='/" + location.pathname.split("/")[1] + "']").parent().addClass("active");
+    var active = $("nav a[href='/" + location.pathname.split("/")[1] + "']").parent();
+	active.addClass("active");
+    active.closest("li.dropdown").addClass("active");
+
+    // Full Calendar
+    $("#calendar").fullCalendar({
+        header: {
+            left: "prev,next today",
+            center: "title",
+            right: "month,agendaWeek,agendaDay"
+        },
+        events: "/events/feed"
+    });
 });

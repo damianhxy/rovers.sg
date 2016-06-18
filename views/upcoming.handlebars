@@ -22,9 +22,12 @@
         {{/each}}
     </div>
     {{/unless}}
-    {{#if user.admin}}
-    <a href="/events/add" class="btn btn-success"><i class="fa fa-plus"></i> Add an Event</a>
-    {{/if}}
+    <div class="btn-group">
+        {{#if user.admin}}
+        <a href="/events/add" class="btn btn-success"><i class="fa fa-plus"></i> Add an Event</a>
+        {{/if}}
+        <a href="/events" class="btn btn-info"><i class="fa fa-history"></i> All Events</a>
+    </div>
 </div>
 {{#each upcoming}}
 <a class="anchor" id="{{_id}}"></a>
@@ -59,7 +62,7 @@
                 <dt>Link</dt>
                 <dd><a href="{{link}}">{{link}}</a></dd>
                 {{/if}}
-                <dt>Event Last Modified</dt>
+                <dt>Last Modified</dt>
                 <dd data-livestamp="{{time}}"></dd>
             </dl>
         </div> <!-- /.col-md-9 -->

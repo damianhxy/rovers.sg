@@ -178,10 +178,14 @@
                     </thead>
                     <tbody>
                         {{#each BPAs}}
-                            {{#if this.honorary}}
+                            {{#if honorary}}
                             <tr>
-                                <td>{{this.name}}</td>
-                                <td>{{this.year}}</td>
+                                <td>{{name}}</td>
+                                {{#if year}}
+                                <td>{{year}}</td>
+                                {{else}}
+                                <td>Unknown</td>
+                                {{/if}}
                             </tr>
                             {{/if}}
                         {{/each}}
@@ -231,7 +235,7 @@
                                     <div class="col-md-10">
                                         <select class="form-control" name="name">
                                             {{#each BPAs}}
-                                            <option value="{{this.name}}">{{this.name}}</option>
+                                            <option value="{{name}}">{{name}}</option>
                                             {{/each}}
                                         </select>
                                     </div>
@@ -256,11 +260,11 @@
                     </thead>
                     <tbody>
                         {{#each BPAs}}
-                        {{#unless this.honorary}}
+                        {{#unless honorary}}
                         <tr>
-                            <td>{{this.name}}</td>
-                            <td class="hidden-xs">{{#if this.unit}}{{this.unit}}{{else}}Unknown{{/if}}</td>
-                            <td>{{#if this.year}}{{this.year}}{{else}}Unknown{{/if}}</td>
+                            <td>{{name}}</td>
+                            <td class="hidden-xs">{{#if unit}}{{unit}}{{else}}Unknown{{/if}}</td>
+                            <td>{{#if year}}{{year}}{{else}}Unknown{{/if}}</td>
                         </tr>
                         {{/unless}}
                         {{/each}}

@@ -27,9 +27,6 @@ router.get("/", function(req, res, next) {
     });
 });
 
-/* About Page */
-router.use("/about", require("./BPAs.js"));
-
 /* Events */
 router.get("/upcoming", function(req, res) {
     event.upcoming(moment.tz("Asia/Singapore"))
@@ -54,6 +51,23 @@ router.use("/short", require("./shortener.js"));
 /* Resources */
 router.use("/resources", require("./resources.js"));
 
+/* About Page */
+router.use("/about", require("./BPAs.js"));
+
+router.get("/rjourney", function(req, res) {
+    res.render("rjourney", {
+        title: "A Rover's Journey",
+        user: req.user
+    });
+});
+
+router.get("/faq", function(req, res) {
+    res.render("faq", {
+        title: "FAQ",
+        user: req.user
+    });
+});
+
 router.get("/join", function(req, res) {
     res.render("join", {
         title: "Join",
@@ -76,12 +90,6 @@ router.post("/contact", function(req, res) {
     request.post(settings.FEEDBACK_FORM_URL).form(req.body).pipe(res);
 });
 
-router.get("/faq", function(req, res) {
-    res.render("faq", {
-        title: "FAQ",
-        user: req.user
-    });
-});
 
 /* User */
 router.use("/users", require("./users.js"));

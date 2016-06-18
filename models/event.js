@@ -99,10 +99,27 @@ exports.get = function(id) {
     });
 };
 
+exports.range = function(start, end) {
+    return Q.promise(function(resolve, reject) {
+        Q.ninvoke(events, "find", {
+            $where: function() {
+                return moment.tz(this.start, "Asia/Singapore").format("YYYY-MM-DD") >= start &&
+                       moment.tz(this.start, "Asia/Singapore").format("YYYY-MM-DD") < end;
+            }
+        })
+        .then(function(list) {
+            resolve(list);
+        })
+        .fail(function(err) {
+            reject(err);
+        });
+    });
+};
+
 exports.upcoming = function(date) {
     return Q.promise(function(resolve, reject) {
         var cursor = events.find({
-            $where: function() { return moment(this.end).isAfter(date); }
+            $where: function() { return moment.tz(this.end, "Asia/Singapore").isAfter(date); }
         }).sort({ start: 1, end: 1 });
         Q.ninvoke(cursor, "exec")
         .then(function(list) {
