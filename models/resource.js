@@ -8,7 +8,7 @@ var files = new nedb({ filename: "./database/resources", autoload: true });
 exports.add = function(req) {
     return Q.promise(function(resolve, reject) {
         var filePath = req.file ? req.file.path : "";
-        var url = req.body.url ? normalizeURL(req.body.url) : "";
+        var url = req.body.url ? normalizeURL(req.body.url) : req.file.path.slice(6);
         var fileInfo = {
             name: req.body.name,
             path: filePath,
