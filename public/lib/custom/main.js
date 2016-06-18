@@ -34,6 +34,9 @@ $(document).ready(function() {
 	// Hide fa elements from screen readers
 	$(".fa").attr("aria-hidden", true);
 
+    // Show first pill
+    $(".nav-pills li:eq(0) a").tab("show");
+
 	// Active Link
 	$("nav a[href='/" + location.pathname.split("/")[1] + "']").parent().addClass("active");
 });

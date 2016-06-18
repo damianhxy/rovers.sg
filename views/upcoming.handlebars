@@ -27,9 +27,16 @@
     {{/if}}
 </div>
 {{#each upcoming}}
-<div class="anchor" id="{{_id}}"></div>
+<a class="anchor" id="{{_id}}"></a>
 <div class="section text-center container-fluid">
-    <div class="page-header"><h2>{{title}}</h2></div>
+    <div class="page-header">
+        <h2>{{title}}</h2>
+        {{#if ../user.admin}}
+        <div class="btn-group">
+            <a href="/events/{{_id}}" class="btn btn-info"><i class="fa fa-eraser"></i> Edit Event</a>
+        </div>
+        {{/if}}
+    </div>
     <div class="row">
         <div class="col-md-3">
             <img src="https://placeholdit.imgix.net/~text?w=290&h=200&txt=Sample&txtsize=50">
@@ -52,10 +59,9 @@
                 <dt>Link</dt>
                 <dd><a href="{{link}}">{{link}}</a></dd>
                 {{/if}}
+                <dt>Event Last Modified</dt>
+                <dd data-livestamp="{{time}}"></dd>
             </dl>
-            {{#if ../user.admin}}
-            <a href="/events/{{_id}}" class="btn btn-info"><i class="fa fa-eraser"></i> Edit Event</a>
-            {{/if}}
         </div> <!-- /.col-md-9 -->
     </div> <!-- /.row -->
 </div>

@@ -1,76 +1,80 @@
-<div class="col-md-6 col-md-offset-3">
-    <div class="page-header">
-        <h2>Sitemap</h2>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-md-4">
-                    <h3>Home</h3>
-                    <ul class="list-unstyled">
-                        <li><a href="/">Home</a></li>
-                    </ul>
-                </div> <!-- /.col-md-4 -->
-                <div class="col-md-4">
-                    <h3>About</h3>
-                    <ul class="list-unstyled">
-                        <li><a href="/about#rovering">Rovering</a></li>
-                        <li><a href="/about#organisation">Organisation</a></li>
-                        <li><a href="/about#bpa">The Baden Powell Award</a></li>
-                    </ul>
-                </div> <!-- /.col-md-4 -->
-                <div class="col-md-4">
-                    <h3>Events</h3>
-                    <ul class="list-unstyled">
-                        <li><a href="/events">Events</a></li>
-                    </ul>
-                </div>
-            </div> <!-- /.row -->
-            <div class="row">
-                <div class="col-md-4">
-                    <h3>Resources</h3>
-                    <ul class="list-unstyled">
-                        <li><a href="/resources#info">Latest Information</a></li>
-                        <li><a href="/resources#forms">Forms</a></li>
-                        <li><a href="/resources#nrc">NRC</a></li>
-                        <li><a href="/resources#links">Links</a></li>
-                        {{#if user.admin}}
-                        <li><a href="/resources#upload">Upload</a></li>
-                        {{/if}}
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h3>FAQ</h3>
-                    <ul class="list-unstyled">
-                        <li><a href="/faq#membership">Membership</a></li>
-                        <li><a href="/faq#activities">Activities</a></li>
-                        <li><a href="/faq#cost">Cost</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h3>Contact</h3>
-                    <ul class="list-unstyled">
-                        <li><a href="/contact">Contact</a></li>
-                    </ul>
-                </div>
-            </div> <!-- /.row -->
-            <div class="row">
+<div class="text-center container-fluid">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="page-header">
+                <h2>Sitemap</h2>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h3>Home</h3>
+                            <ul class="list-unstyled">
+                                <li><a href="/">Home</a></li>
+                            </ul>
+                        </div> <!-- /.col-md-4 -->
+                        <div class="col-md-4">
+                            <h3>About</h3>
+                            <ul class="list-unstyled">
+                                <li><a href="/about#rovering">Rovering</a></li>
+                                <li><a href="/about#organisation">Organisation</a></li>
+                                <li><a href="/about#bpa">The Baden Powell Award</a></li>
+                            </ul>
+                        </div> <!-- /.col-md-4 -->
+                        <div class="col-md-4">
+                            <h3>Events</h3>
+                            <ul class="list-unstyled">
+                                <li><a href="/events">Events</a></li>
+                            </ul>
+                        </div>
+                    </div> <!-- /.row -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h3>Resources</h3>
+                            <ul class="list-unstyled">
+                                <li><a href="/resources#info">Latest Information</a></li>
+                                <li><a href="/resources#forms">Forms</a></li>
+                                <li><a href="/resources#nrc">NRC</a></li>
+                                <li><a href="/resources#links">Links</a></li>
+                                {{#if user.admin}}
+                                <li><a href="/resources#upload">Upload</a></li>
+                                {{/if}}
+                            </ul>
+                        </div>
+                        <div class="col-md-4">
+                            <h3>FAQ</h3>
+                            <ul class="list-unstyled">
+                                <li><a href="/faq#membership">Membership</a></li>
+                                <li><a href="/faq#activities">Activities</a></li>
+                                <li><a href="/faq#cost">Cost</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4">
+                            <h3>Contact</h3>
+                            <ul class="list-unstyled">
+                                <li><a href="/contact">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div> <!-- /.row -->
+                    <div class="row">
 
-                <div class="col-md-4">
-                    <h3>Sitemap</h3>
-                    <ul class="list-unstyled">
-                        <li><a href="/sitemap">Sitemap</a></li>
-                    </ul>
+                        <div class="col-md-4">
+                            <h3>Sitemap</h3>
+                            <ul class="list-unstyled">
+                                <li><a href="/sitemap">Sitemap</a></li>
+                            </ul>
+                        </div>
+                        {{#if user}}
+                        <div class="col-md-4">
+                            <h3>Profile</h3>
+                            <ul class="list-unstyled">
+                                <li><a href="/users/profile">Profile</a></li>
+                            </ul>
+                        </div>
+                        {{/if}}
+                    </div> <!-- /.row -->
                 </div>
-                {{#if user}}
-                <div class="col-md-4">
-                    <h3>Profile</h3>
-                    <ul class="list-unstyled">
-                        <li><a href="/users/profile">Profile</a></li>
-                    </ul>
-                </div>
-                {{/if}}
-            </div> <!-- /.row -->
-        </div>
-    </div> <!-- /.panel -->
-</div> <!-- /.col-md-6 -->
+            </div> <!-- /.panel -->
+        </div> <!-- /.col-md-6 -->
+    </div> <!-- /.row -->
+</div>

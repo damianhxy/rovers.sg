@@ -53,7 +53,7 @@ router.put("/", admin, function(req, res) {
     });
 });
 
-router.get("/:event", function(req, res) {
+router.get("/:event", admin, function(req, res) {
     event.get(req.params.event)
     .then(function(info) {
         info.start = moment.tz(info.start, "Asia/Singapore").format(settings.EVENT_TIME_FORMAT);

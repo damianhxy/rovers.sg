@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3 col-hidden-sm col-hidden-xs">
             <div class="list-group" id="shortcuts">
                 {{#each categories}}
                 <a class="list-group-item" href="#{{name}}">{{@key}}</a>
@@ -10,7 +10,7 @@
         </div> <!-- /.col-md-3 -->
         <div class="col-md-9">
             {{#each categories}}
-            <div class="anchor" id="{{name}}"></div>
+            <a class="anchor" id="{{name}}"></a>
             <div class="section text-center">
                 <div class="page-header"><h2>{{@key}}</h2></div>
                 {{#unless fileList}}
@@ -51,7 +51,7 @@
             </div> <!-- /.section -->
             {{/each}}
             {{#if user.admin}}
-            <div class="anchor" id="upload-file"></div>
+            <a class="anchor" id="upload-file"></a>
             <div class="section text-center container-fluid">
                 <div class="page-header"><h2>Upload Resource</h2></div>
                 <div class="row">
