@@ -36,8 +36,8 @@ $(document).ready(function() {
         var originalName = data.data("name");
         var addedTime = moment(data.data("time")).format(MOMENT_FORMAT);
         $(this).find(".btn-danger").data("id", data.attr("id"));
-        $("#modalFileName").html("File Name: <strong>" + originalName + "</strong>");
-        $("#modalFileTime").html("Added on: <strong>" + addedTime + "</strong>");
+        $("#modalName").html("Resource Name: <strong>" + originalName + "</strong>");
+        $("#modalTime").html("Added on: <strong>" + addedTime + "</strong>");
     });
 
     // Ajax
@@ -78,7 +78,7 @@ $(document).ready(function() {
         else
             new PNotify({
                 title: "Error",
-                text: "Please select a file.",
+                text: "Please add a resource.",
                 type: "error"
             });
     });

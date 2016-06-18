@@ -70,7 +70,7 @@ $(document).ready(function() {
         })
         .then(function() {
             $("#deleteModal").modal("hide");
-            location.assign("/");
+            location.assign("/upcoming");
         })
         .fail(function(err) {
             new PNotify({

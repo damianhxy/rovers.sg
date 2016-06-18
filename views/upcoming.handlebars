@@ -9,6 +9,7 @@
             <div class="panel-heading">
                 <h3 class="panel-title">{{title}}</h3>
             </div>
+            <img src="https://placeholdit.imgix.net/~text?w=250&h=200&txt=Sample&txtsize=50" class="constrain">
             <div class="panel-body">
                 <small>From</small>
                 <p>{{start}}</p>
@@ -24,7 +25,7 @@
     {{/unless}}
     <div class="btn-group">
         {{#if user.admin}}
-        <a href="/events/add" class="btn btn-success"><i class="fa fa-plus"></i> Add an Event</a>
+        <a href="/events/add" class="btn btn-success"><i class="fa fa-plus"></i> Create Event</a>
         {{/if}}
         <a href="/events" class="btn btn-info"><i class="fa fa-history"></i> All Events</a>
     </div>
@@ -38,7 +39,9 @@
     </div>
     <div class="row">
         <div class="col-md-3">
-            <img src="https://placeholdit.imgix.net/~text?w=290&h=200&txt=Sample&txtsize=50">
+            <a data-toggle="lightbox" data-title="Placeholder" href="https://placeholdit.imgix.net/~text?w=290&h=200&txt=Sample&txtsize=50" class="thumbnail">
+                <img src="https://placeholdit.imgix.net/~text?w=290&h=200&txt=Sample&txtsize=50">
+            </a>
         </div> <!-- /.col-md-3 -->
         <div class="col-md-9">
             <dl class="dl-horizontal">
