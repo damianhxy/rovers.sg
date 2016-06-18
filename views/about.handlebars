@@ -27,98 +27,38 @@
                 <div class="row">
                     <div class="col-md-3">
                         <ul class="nav nav-pills nav-stacked">
-                            <li><a href="#council-6" data-toggle="pill">NRC 2016 (Current)</a></li>
-                            <li><a href="#council-5" data-toggle="pill">NRC 2015</a></li>
-                            <li><a href="#council-4" data-toggle="pill">4<sup>th</sup> NRC</a></li>
-                            <li><a href="#council-3" data-toggle="pill">3<sup>rd</sup> NRC</a></li>
-                            <li><a href="#council-2" data-toggle="pill">2<sup>nd</sup> NRC</a></li>
-                            <li><a href="#council-1" data-toggle="pill">1<sup>st</sup> NRC</a></li>
+                            {{#each NRC}}
+                            <li><a href="#council-{{@index}}" data-toggle="pill">{{title}}</a></li>
+                            {{/each}}
                         </ul>
                     </div> <!-- /.col-md-3 -->
                     <div class="col-md-9 tab-content">
-                        <div id="council-6" class="tab-pane fade">
+                        {{#each NRC}}
+                        <div id="council-{{@index}}" class="tab-pane fade">
+                            {{#unless members}}
                             <img alt="Information Unavailable" class="center-block constrain" src="http://www.sonjara.com/action/image/thumbnail?image_id=195&size=256">
-                        </div>
-                        <div id="council-5" class="tab-pane fade">
-                            <table class="table table-striped table-bordered sortable">
-                                <thead>
-                                    <tr><th class="col-md-6">Appointment</th><th class="col-md-6">Name</th></tr>
-                                </thead>
-                                <tbody>
-                                    <tr><td>Chairman</td><td>Goh Wei Xuan</td></tr>
-                                    <tr><td>Vice Chairman (Programmes)</td><td>Koh Rui Yang</td></tr>
-                                    <tr><td>Vice Chairman (Relations)</td><td>Tseng Tzu Chieh</td></tr>
-                                    <tr><td>Head (Secreteriat)</td><td>Sunil Ravinder Gill</td></tr>
-                                    <tr><td>Relations Secretary</td><td>Seah Kia Wee</td></tr>
-                                    <tr><td>Relations Secretary</td><td>Kelvin Lee Wen Jie</td></tr>
-                                    <tr><td>Programmes Secretary</td><td>Madhan s/o Elahavalan</td></tr>
-                                    <tr><td>Treasurer</td><td>Alan Yip Keen Wah</td></tr>
-                                </tbody>
-                            </table> <!-- /.table -->
-                        </div>
-                        <div id="council-4" class="tab-pane fade">
-                            <table class="table table-striped table-bordered sortable">
-                                <thead>
-                                    <tr><th class="col-md-6">Appointment</th><th class="col-md-6">Name</th></tr>
-                                </thead>
-                                <tbody>
-                                    <tr><td>Chairman</td><td>Edieusdi Bin Ahmad</td></tr>
-                                    <tr><td>Vice Chairman (Programmes)</td><td>Goh Wei Xuan</td></tr>
-                                    <tr><td>Vice Chairman (Relations)</td><td>Leong Kwang Yeh, Kelvin</td></tr>
-                                    <tr><td>Head (Secreteriat)</td><td>Heng Jiang Li</td></tr>
-                                    <tr><td>Relations Secretary</td><td>Toh Chee Wei Jeffery</td></tr>
-                                    <tr><td>Programmes Secretary</td><td>Koh Rui Yang</td></tr>
-                                    <tr><td>Programmes Secretary</td><td>Low Kee Guan</td></tr>
-                                    <tr><td>Treasurer</td><td>Lim Yu Jason</td></tr>
-                                </tbody>
-                            </table> <!-- /.table -->
-                        </div>
-                        <div id="council-3" class="tab-pane fade">
-                            <img alt="Information Unavailable" class="center-block constrain" src="http://www.sonjara.com/action/image/thumbnail?image_id=195&size=256">
-                        </div>
-                        <div id="council-2" class="tab-pane fade">
-                            <table class="table table-striped table-bordered sortable">
-                                <thead>
-                                    <tr><th class="col-md-6">Appointment</th><th class="col-md-6">Name</th></tr>
-                                </thead>
-                                <tbody>
-                                    <tr><td>Chairman</td><td>Boey Mao Jie</td></tr>
-                                    <tr><td>Vice Chairman (Programmes)</td><td>Chew Kang Wei</td></tr>
-                                    <tr><td>Vice Chairman (Relations)</td><td>Sarah Ho Wing Kei</td></tr>
-                                    <tr><td>Scout of the World Programme Secretary</td><td>Tan Si Jie</td></tr>
-                                    <tr><td>Secretary</td><td>Tan Jing Yi Jean</td></tr>
-                                    <tr><td>Secretary</td><td>Wilson Ong Wei Soon</td></tr>
-                                    <tr><td>Secretary</td><td>Yap Jia Wei</td></tr>
-                                    <tr><td>Treasurer</td><td>Tan Yan Hao Elwayne</td></tr>
-                                    <tr><td>Member</td><td>Chen Tian Han</td></tr>
-                                </tbody>
-                            </table> <!-- /.table -->
-                        </div>
-                        <div id="council-1" class="tab-pane fade">
+                            {{else}}
                             <table class="table table-striped table-bordered sortable">
                                 <thead>
                                     <tr>
                                         <th class="col-md-6">Appointment</th>
                                         <th class="col-md-6">Name</th>
-                                        <!--th class="col-md-4 hidden-xs">Unit</th-->
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                    <tr><td>Chairman</td><td>Boey Mao Jie</td><!--td class="hidden-xs">ACS Barker Wind's Rover Crew</td--></tr>
-                                    <tr><td>Vice Chairman (Programme)</td><td>Chew Kang Wei</td><!--td class="hidden-xs">Yeung Ching Open Scout Group</td--></tr>
-                                    <tr><td>Vice Chairman (Relations)</td><td>Ho Wing Kei Sarah</td><!--td class="hidden-xs">St. Andrew's 'STAR' Rover Crew</td--></tr>
-                                    <tr><td>Information Technology Secretary</td><td>Chen Zhao Cheng Alan</td><!--td class="hidden-xs">Mayflower Secondary Scout Group</td--></tr>
-                                    <tr><td>Scouts of the World Programme Secretary</td><td>Tan Sijie</td><!--td class="hidden-xs">Griffin Rovers</td--></tr>
-                                    <tr><td>Secretary</td><td>Tan Jing Yi Jean</td><!--td class="hidden-xs">Serangoon Eagle Scout Group</td--></tr>
-                                    <tr><td>Secretary</td><td>Ong Wei Soon Wilson</td><!--td class="hidden-xs">Griffin Rovers </td--></tr>
-                                    <tr><td>Secretary</td><td>Bryan Yap Jia Wei</td><!--td class="hidden-xs">Hwa Chong Ventures and Rovers</td--></tr>
-                                    <tr><td>Treasurer</td><td>Elwayne Tan Yan Hao</td><!--td class="hidden-xs">Southernwaves Sea Scout Group</td--></tr>
-                                    <tr><td>Member</td><td>Chen Tian Han</td><!--td class="hidden-xs">Singapore Polytechnic Sabre Shark</td--></tr>
-                                    <tr><td>Member</td><td>Stephanie Bay Hui Min</td><!--td class="hidden-xs">St. Andrew’s ‘STAR’ Rover Crew</td--></tr>
-                                    <tr><td>Member</td><td>V K K Arumugam</td><!--td class="hidden-xs">Eagle Scout Group</td--></tr>
-                                    <tr><td>Member</td><td>Ye Bingjia</td><!--td class="hidden-xs">Tao Nan Marlin</td--></tr>
+                                    {{#each members}}
+                                    {{#each this}}
+                                    <tr>
+                                        <td>{{@../key}}</td>
+                                        <td>{{this}}</td>
+                                    </tr>
+                                    {{/each}}
+                                    {{/each}}
                                 </tbody>
                             </table> <!-- /.table -->
+                            {{/unless}}
                         </div>
+                        {{/each}}
                     </div> <!-- /.col-md-9 -->
                 </div> <!-- /.row -->
                 <h3>NRAC</h3>
@@ -178,16 +118,16 @@
                     </thead>
                     <tbody>
                         {{#each BPAs}}
-                            {{#if honorary}}
-                            <tr>
-                                <td>{{name}}</td>
-                                {{#if year}}
-                                <td>{{year}}</td>
-                                {{else}}
-                                <td>Unknown</td>
-                                {{/if}}
-                            </tr>
+                        {{#if honorary}}
+                        <tr>
+                            <td>{{name}}</td>
+                            {{#if year}}
+                            <td>{{year}}</td>
+                            {{else}}
+                            <td>Unknown</td>
                             {{/if}}
+                        </tr>
+                        {{/if}}
                         {{/each}}
                     </tbody>
                 </table> <!-- /.table -->

@@ -1,5 +1,6 @@
 var express = require("express");
 var router = express.Router();
+var settings = require("./settings.js");
 var BPA = require("../models/BPA.js");
 var admin = require("../middlewares/admin.js");
 
@@ -9,7 +10,8 @@ router.get("/", function(req, res) {
         res.render("about", {
             title: "About",
             user: req.user,
-            BPAs: BPAs
+            BPAs: BPAs,
+            NRC: settings.NRC
         });
     })
     .fail(function(err) {
