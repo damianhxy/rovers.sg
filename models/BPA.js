@@ -1,48 +1,23 @@
-var Q = require("q");
+var Promise = require("bluebird");
 var nedb = require("nedb");
 var BPAs = new nedb({ filename: "./database/BPAs", autoload: true });
+Promise.promisifyAll(BPAs);
+Promise.promisifyAll(BPAs.find().constructor.prototype);
 
 exports.add = function(req) {
-    return Q.promise(function(resolve, reject) {
-        var BPAInfo = {
-            name: req.body.name,
-            unit: req.body.unit,
-            year: req.body.year,
-            honorary: req.body.honorary
-        };
-        Q.ninvoke(BPAs, "insert", BPAInfo)
-        .then(function() {
-            console.info("User", req.user.username, "added BPA awardee", req.body.name);
-            resolve();
-        })
-        .fail(function(err) {
-            reject(err);
-        });
-    });
+    var BPAInfo = {
+        name: req.body.name,
+        unit: req.body.unit,
+        year: req.body.year,
+        honorary: req.body.honorary
+    };
+    return BPAs.insertAsync(BPAInfo);
 };
 
 exports.all = function() {
-    return Q.promise(function(resolve, reject) {
-        var cursor = BPAs.find({}).sort({ name: 1 });
-        Q.ninvoke(cursor, "exec")
-        .then(function(list) {
-            resolve(list);
-        })
-        .fail(function(err) {
-            reject(err);
-        });
-    });
+    return BPAs.find({}).sort({ name: 1 }).execAsync();
 };
 
 exports.delete = function(name) {
-    return Q.promise(function(resolve, reject) {
-        Q.ninvoke(BPAs, "remove", { name: name })
-        .then(function() {
-            console.info("Removed BPA awardee", name);
-            resolve();
-        })
-        .fail(function(err) {
-            reject(err);
-        });
-    });
+    return BPAs.removeAsync({ name: name });
 };

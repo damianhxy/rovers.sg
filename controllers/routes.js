@@ -10,8 +10,7 @@ router.use(notification);
 
 /* Normal Pages */
 router.get("/", function(req, res) {
-    event.upcoming(moment.tz("Asia/Singapore").format())
-    .then(function(events) {
+    event.upcoming(moment.tz("Asia/Singapore").format()).then(function(events) {
         events.forEach(function(e) {
             e.start = moment.tz(e.start, "Asia/Singapore").format(settings.EVENT_TIME_FORMAT);
             e.end = moment.tz(e.end, "Asia/Singapore").format(settings.EVENT_TIME_FORMAT);
@@ -26,8 +25,7 @@ router.get("/", function(req, res) {
 
 /* Events */
 router.get("/upcoming", function(req, res) {
-    event.upcoming(moment.tz("Asia/Singapore"))
-    .then(function(events) {
+    event.upcoming(moment.tz("Asia/Singapore")).then(function(events) {
         events.forEach(function(e) {
             e.start = moment.tz(e.start, "Asia/Singapore").format(settings.EVENT_TIME_FORMAT);
             e.end = moment.tz(e.end, "Asia/Singapore").format(settings.EVENT_TIME_FORMAT);

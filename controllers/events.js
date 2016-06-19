@@ -13,8 +13,7 @@ router.get("/", function(req, res, next) {
 });
 
 router.get("/feed", function(req, res, next) {
-    event.range(req.query.start, req.query.end)
-    .then(function(events) {
+    event.range(req.query.start, req.query.end).then(function(events) {
         events.forEach(function(e) {
             e.url = "/events/" + e._id;
         });
@@ -30,11 +29,9 @@ router.get("/add", admin, function(req, res, next) {
 });
 
 router.post("/", admin, function(req, res) {
-    event.add(req)
-    .then(function(id) {
+    event.add(req).then(function(id) {
         res.redirect("/events/" + id);
-    })
-    .fail(function(err) {
+    }).catch(function(err) {
         console.error(err);
         req.session.error = err.message;
         res.status(400).redirect("/events/add");
@@ -42,30 +39,25 @@ router.post("/", admin, function(req, res) {
 });
 
 router.delete("/", admin, function(req, res) {
-    event.delete(req.body.id)
-    .then(function() {
+    event.delete(req.body.id).then(function() {
         res.end();
-    })
-    .fail(function(err) {
+    }).catch(function(err) {
         console.error(err);
         res.status(400).json({ "error": err.message });
     });
 });
 
 router.put("/", admin, function(req, res) {
-    event.edit(req.body.pk, req.body.name, req.body.value)
-    .then(function(response) {
+    event.edit(req.body.pk, req.body.name, req.body.value).then(function(response) {
         res.json(response);
-    })
-    .fail(function(err) {
+    }).catch(function(err) {
         console.error(err);
         res.status(400).json({ "error": err.message });
     });
 });
 
 router.get("/:event", function(req, res) {
-    event.get(req.params.event)
-    .then(function(info) {
+    event.get(req.params.event).then(function(info) {
         info.start = moment.tz(info.start, "Asia/Singapore").format(settings.EVENT_TIME_FORMAT);
         info.end = moment.tz(info.end, "Asia/Singapore").format(settings.EVENT_TIME_FORMAT);
         res.render("eventView", {
@@ -73,8 +65,7 @@ router.get("/:event", function(req, res) {
             user: req.user,
             info: info
         });
-    })
-    .fail(function(err) {
+    }).catch(function(err) {
         console.error(err);
         req.session.error = err.message;
         res.redirect(req.headers.referrer || "/");

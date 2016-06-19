@@ -1,63 +1,32 @@
-var Q = require("q");
+var Promise = require("bluebird");
 var nedb = require("nedb");
 var moment = require("moment-timezone");
 var normalizeURL = require("normalize-url");
-var forms = new nedb({ filename: "./database/shortener", autoload: true });
+var short = new nedb({ filename: "./database/shortener", autoload: true });
+Promise.promisifyAll(short);
+Promise.promisifyAll(short.find().constructor.prototype);
 
 exports.add = function(req) {
-    return Q.promise(function(resolve, reject) {
-        var formInfo = {
-            orgurl: normalizeURL(req.body.orgurl),
-            newurl: req.body.newurl,
-            embed: req.body.embed,
-            time: moment.tz("Asia/Singapore").format()
-        };
-        Q.ninvoke(forms, "insert", formInfo)
-        .then(function() {
-            console.info("User", req.user.username, "added link", req.body.orgurl);
-            resolve();
-        })
-        .fail(function(err) {
-            reject(err);
-        });
-    });
+    var formInfo = {
+        orgurl: normalizeURL(req.body.orgurl),
+        newurl: req.body.newurl,
+        embed: req.body.embed,
+        time: moment.tz("Asia/Singapore").format()
+    };
+    return short.insertAsync(formInfo);
 };
 
 exports.all = function() {
-    return Q.promise(function(resolve, reject) {
-        var cursor = forms.find({}).sort({ url: 1 });
-        Q.ninvoke(cursor, "exec")
-        .then(function(list) {
-            resolve(list);
-        })
-        .fail(function(err) {
-            reject(err);
-        });
-    });
+    return short.find({}).sort({ url: 1 }).execAsync();
 };
 
 exports.delete = function(url) {
-    return Q.promise(function(resolve, reject) {
-        Q.ninvoke(forms, "remove", { newurl: url })
-        .then(function() {
-            console.info("Removed link", url);
-            resolve();
-        })
-        .fail(function(err) {
-            reject(err);
-        });
-    });
+    return short.removeAsync({ newurl: url });
 };
 
 exports.get = function(url) {
-    return Q.promise(function(resolve, reject) {
-        Q.ninvoke(forms, "findOne", { newurl: url })
-        .then(function(info) {
-            if (!info) return reject(Error("Invalid link"));
-            resolve(info);
-        })
-        .fail(function(err) {
-            reject(err);
-        });
+    return short.findOneAsync({ newurl: url }).then(function(info) {
+        if (!info) return Promise.reject(Error("Invalid link"));
+        return Promise.success(info);
     });
 };
