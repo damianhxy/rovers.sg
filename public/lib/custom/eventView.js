@@ -52,32 +52,45 @@ $(document).ready(function() {
         });
     });
 
-    // Delete Modal
-    $("#deleteModal").on("show.bs.modal", function(e) {
-        var $data = $(e.relatedTarget);
-        var eventName = $data.data("title");
-        var createdTime = moment($data.data("time")).format(MOMENT_FORMAT);
-        $("#modalEventName").html("Event name: <strong>" + eventName + "</strong>");
-        $("#modalEventTime").html("Created on: <strong>" + createdTime + "</strong>");
-    });
-
-    // Ajax
-    $("#deleteModal .btn-danger").click(function(e) {
-        $.ajax({
-            method: "DELETE",
-            url: "/events",
-            data: { id: $(this).closest("[data-id]").data("id") }
-        })
-        .then(function() {
-            $("#deleteModal").modal("hide");
-            location.assign("/upcoming");
-        })
-        .fail(function(err) {
-            new PNotify({
-                title: "Error",
-                text: err.message,
-                type: "error"
-            });
+    // Bootbox
+    $(".btn-delete").on("click", function(e) {
+        var $data = $(e.target);
+        var name = $data.data("name");
+        var time = moment($data.data("time")).format(MOMENT_FORMAT);
+        var id = $data.data("id");
+        var message = "";
+        message += "<p>Event Name: <strong>" + name + "</strong></p>";
+        message += "<p>Created on: <strong>" + time + "</strong></p>";
+        message += "<p>Are you sure? This event will be <strong>permanently</strong> deleted!</p>";
+        bootbox.dialog({
+            title: "Delete event",
+            message: message,
+            onEscape: function() {},
+            buttons: {
+                "Cancel": {
+                    className: "btn-default"
+                },
+                "Delete": {
+                    className: "btn-danger",
+                    callback: function() {
+                        $.ajax({
+                            method: "DELETE",
+                            url: "/events",
+                            data: { id: id }
+                        })
+                        .done(function() {
+                            location.assign("/upcoming");
+                        })
+                        .fail(function(err) {
+                            new PNotify({
+                                title: "Error",
+                                text: err.message,
+                                type: "error"
+                            });
+                        });
+                    }
+                }
+            }
         });
     });
 });

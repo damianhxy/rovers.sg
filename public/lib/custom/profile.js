@@ -3,33 +3,44 @@ $(document).ready(function() {
 
     var MOMENT_FORMAT = "DD/MM/YYYY hh:mm A";
 
-    // Ajax
-    $("#deleteModal .btn-danger").click(function(e) {
-        $.ajax({
-            method: "DELETE",
-            url: "/short",
-            data: { url: $(this).data("id") }
-        })
-        .done(function() {
-            $("#deleteModal").modal("hide");
-            location.reload();
-        })
-        .fail(function(err) {
-            new PNotify({
-                title: "Error",
-                text: err.message,
-                type: "error"
-            });
+    // Bootbox
+    $(".btn-delete").on("click", function(e) {
+        var $data = $(e.target);
+        var name = $data.data("name");
+        var time = moment($data.data("time")).format(MOMENT_FORMAT);
+        var message = "";
+        message += "<p>Short URL: <strong>" + name + "</strong></p>";
+        message += "<p>Created on: <strong>" + time + "</strong></p>";
+        message += "<p>Are you sure? This link will be <strong>permanently</strong> deleted!</p>";
+        bootbox.dialog({
+            title: "Delete link",
+            message: message,
+            onEscape: function() {},
+            buttons: {
+                "Cancel": {
+                    className: "btn-default"
+                },
+                "Delete": {
+                    className: "btn-danger",
+                    callback: function() {
+                        $.ajax({
+                            method: "DELETE",
+                            url: "/short",
+                            data: { url: name }
+                        })
+                        .done(function() {
+                            location.reload();
+                        })
+                        .fail(function(err) {
+                            new PNotify({
+                                title: "Error",
+                                text: err.message,
+                                type: "error"
+                            });
+                        });
+                    }
+                }
+            }
         });
-    });
-
-    // Delete modal
-    $("#deleteModal").on("show.bs.modal", function(e) {
-        var data = $(e.relatedTarget).parent().parent().parent();
-        var url = data.data("url");
-        var time = moment(data.data("time")).format(MOMENT_FORMAT);
-        $(this).find(".btn-danger").data("id", url);
-        $("#modalURL").html("Short URL: <strong>" + url + "</strong>");
-        $("#modalTime").html("Added on: <strong>" + time + "</strong>");
     });
 });

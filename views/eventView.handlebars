@@ -1,6 +1,6 @@
 <div class="section container-fluid">
     <div class="row">
-        <div class="col-md-6 col-md-offset-3" data-id="{{info._id}}">
+        <div class="col-md-6 col-md-offset-3">
             <div class="page-header text-center">
                 <h2><a class="field-edit" data-type="text" data-name="title" href="#">{{info.title}}</a></h2>
                 {{#if user.admin}}
@@ -9,9 +9,9 @@
                             <button type="button" class="btn btn-sm btn-success btn-edit">
                                 <i class="fa fa-edit"></i> Edit
                             </button>
-                            <a href="#deleteModal" class="btn btn-sm btn-danger" data-toggle="modal" data-title="{{info.title}}" data-time="{{info.time}}">
+                            <button class="btn btn-sm btn-danger btn-delete" data-name="{{info.title}}" data-time="{{info.time}}" data-id="{{info._id}}">
                                 <i class="fa fa-close"></i> Delete
-                            </a>
+                            </button>
                         </div> <!-- /.btn-group -->
                     </div>
                 {{/if}}
@@ -57,42 +57,22 @@
                         </td>
                     </tr>
                     <!-- x-editable doesn't work with select v4 -->
-                    {{#if info.category}}
                     <tr>
                         <td class="col-md-3 text-center">Categories</td>
+                        {{#if info.category}}
                         <td class="col-md-9">
                             {{#each info.category}}
                                 <a href="/activities/{{this}}" class="label label-info">{{this}}</a>
                             {{/each}}
                         </td>
+                        {{else}}
+                        <td class="col-md-9">
+                            (None)
+                        </td>
+                        {{/if}}
                     </tr>
-                    {{/if}}
                 </tbody>
             </table> <!-- /.table -->
-            {{#if user.admin}}
-            <!-- deleteModal -->
-            <div id="deleteModal" class="modal fade" tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <i class="fa fa-times"></i>
-                            </button>
-                            <h4 class="modal-title">Delete Event</h4>
-                        </div>
-                        <div class="modal-body">
-                            <p id="modalEventName"></p>
-                            <p id="modalEventTime"></p>
-                            <p>Are you sure? This event will be <strong>permanently</strong> deleted.</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-danger">Delete Event</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {{/if}}
             <div class="text-center">
                 <div class="label label-info">
                     <span>Event last modified </span><span data-livestamp="{{info.time}}"></span>

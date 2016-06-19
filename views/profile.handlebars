@@ -80,7 +80,7 @@
                 </thead>
                 <tbody>
                     {{#each ../links}}
-                    <tr data-url="{{newurl}}" data-time="{{time}}">
+                    <tr>
                         <td><a href="{{orgurl}}">{{orgurl}}</a></td>
                         <td class="hidden-xs">
                             <a href="/short/{{newurl}}">{{newurl}}</a>
@@ -94,12 +94,9 @@
                         </td>
                         <td data-value="{{this.time}}" data-livestamp="{{this.time}}"></td>
                         <td>
-                            <form action="/short?_method=DELETE" method="post" accept-charset="UTF-8" autocomplete="off">
-                                <input type="hidden" value="{{newurl}}" name="url">
-                                <a href="#deleteModal" class="btn btn-danger btn-xs" data-toggle="modal">
-                                    <i class="fa fa-close"></i> Delete
-                                </a>
-                            </form>
+                            <button class="btn btn-danger btn-xs btn-delete" data-name="{{newurl}}" data-time="{{time}}">
+                                <i class="fa fa-close"></i> Delete
+                            </button>
                         </td>
                     </tr>
                     {{/each}}
@@ -123,26 +120,4 @@
     </div> <!-- /.row -->
 </div>
 {{/if}}
-<!-- deleteModal -->
-<div id="deleteModal" class="modal fade" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <i class="fa fa-times"></i>
-                </button>
-                <h4 class="modal-title">Delete File</h4>
-            </div>
-            <div class="modal-body">
-                <p id="modalURL"></p>
-                <p id="modalTime"></p>
-                <p>Are you sure? This link will be <strong>permanently</strong> deleted.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger">Delete</button>
-            </div>
-        </div>
-    </div>
-</div> <!-- #deleteModal -->
 <script src="/lib/custom/profile.js"></script>

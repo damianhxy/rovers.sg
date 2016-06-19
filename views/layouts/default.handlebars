@@ -164,20 +164,19 @@
     <script src="/lib/livestamp.min.js"></script>
     <script src="/css/slick/slick.min.js"></script>
     <script src="/lib/select2/select2.min.js"></script>
+    <script src="/lib/bootbox.min.js"></script>
     <script src="/lib/custom/main.js"></script>
     <script>
         $(document).ready(function() {
             {{#if success}}
             new PNotify({
-                title: "Success",
-                text: "{{success}}",
+                title: "{{success}}",
                 type: "success"
             });
             {{/if}}
             {{#if error}}
             new PNotify({
-                title: "Error",
-                text: "{{error}}",
+                title: "{{error}}",
                 type: "error"
             });
             {{/if}}

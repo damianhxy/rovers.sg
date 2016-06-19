@@ -11,13 +11,15 @@ exports.add = function(req) {
         var end = moment.tz(req.body.end, settings.EVENT_TIME_FORMAT, "Asia/Singapore");
         if (start.isAfter(end))
             return reject(Error("Start time must be before end time"));
+        console.log(req.body.category);
+        console.log([].concat(req.body.category));
         var eventInfo = {
             title: req.body.title,
             start: start.format(),
             end: end.format(),
             location: req.body.location,
             details: req.body.details,
-            category: [].concat(req.body.category),
+            category: req.body.category ? [].concat(req.body.category) : [],
             link: req.body.link && normalizeURL(req.body.link),
             time: moment.tz("Asia/Singapore").format()
         };
@@ -112,7 +114,7 @@ exports.getCategory = function(category) {
             reject(err);
         });
     });
-}
+};
 
 exports.range = function(start, end) {
     return Q.promise(function(resolve, reject) {

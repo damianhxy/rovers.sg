@@ -62,13 +62,15 @@
                 <dt>Link</dt>
                 <dd><a href="{{link}}">{{link}}</a></dd>
                 {{/if}}
-                {{#if category}}
                 <dt>Categories</dt>
+                {{#if category}}
                 <dd>
                 {{#each category}}
                     <a href="/activities/{{this}}" class="label label-info">{{this}}</a>
                 {{/each}}
                 </dd>
+                {{else}}
+                <dd>(None)</dd>
                 {{/if}}
                 <dt>Last Modified</dt>
                 <dd data-livestamp="{{time}}"></dd>
