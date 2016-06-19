@@ -4,9 +4,7 @@
 </div>
 <div class="section text-center container-fluid">
     <div class="page-header"><h2>Upcoming Events</h2></div>
-    {{#unless upcoming}}
-    <h3>There are currently no upcoming events</h3>
-    {{else}}
+    {{#if upcoming}}
     <div class="row">
         {{#each upcoming}}
         <div class="panel panel-info card">
@@ -28,7 +26,9 @@
         </div>
         {{/each}}
     </div>
-    {{/unless}}
+    {{else}}
+    <h3>There are currently no upcoming events</h3>
+    {{/if}}
 </div>
 <div class="section container-fluid">
     <div class="page-header"><h2>Service</h2></div>

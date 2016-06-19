@@ -21,7 +21,7 @@
     "cookie-parser": "^1.4.3",
     "dateformat": "^1.0.12",
     "express": "^4.14.0",
-    "express-handlebars": "^2.0.1",
+    "express-handlebars": "^3.0.0",
     "express-nedb-session": "^0.1.1",
     "express-session": "^1.13.0",
     "method-override": "^2.3.6",

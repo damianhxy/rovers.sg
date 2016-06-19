@@ -1,8 +1,6 @@
 <div class="section text-center container-fluid">
     <div class="page-header"><h2>Upcoming</h2></div>
-    {{#unless upcoming}}
-    <h3>There are currently no upcoming events</h3>
-    {{else}}
+    {{#if upcoming}}
     <div class="row">
         {{#each upcoming}}
         <div class="panel panel-info card">
@@ -24,7 +22,9 @@
         </div>
         {{/each}}
     </div>
-    {{/unless}}
+    {{else}}
+    <h3>There are currently no upcoming events</h3>
+    {{/if}}
     <div class="btn-group">
         {{#if user.admin}}
         <a href="/events/add" class="btn btn-success"><i class="fa fa-plus"></i> Create Event</a>

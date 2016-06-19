@@ -13,9 +13,7 @@
             <a class="anchor" id="{{name}}"></a>
             <div class="section text-center">
                 <div class="page-header"><h2>{{@key}}</h2></div>
-                {{#unless fileList}}
-                <h3>There are currently no resources in this category</h3>
-                {{else}}
+                {{#if fileList}}
                     {{#each fileList}}
                         <div class="panel panel-info card">
                             <div class="panel-heading">
@@ -30,7 +28,7 @@
                                     <a href="{{url}}" class="btn btn-info btn-xs">
                                         <i class="fa fa-cloud-download"></i> Download
                                     </a>
-                                    {{#if ../../../user.admin}}
+                                    {{#if ../../user.admin}}
                                     <button class="btn btn-success btn-xs btn-edit"><i class="fa fa-edit"></i> Edit</button>
                                     <button class="btn btn-danger btn-xs btn-delete" data-name="{{name}}" data-time="{{time}}" data-id="{{_id}}"><i class="fa fa-close"></i> Delete</button>
                                     {{/if}}
@@ -41,7 +39,9 @@
                             </div>
                         </div>
                     {{/each}}
-                {{/unless}}
+                    {{else}}
+                    <h3>There are currently no resources in this category</h3>
+                {{/if}}
             </div> <!-- /.section -->
             {{/each}}
             {{#if user.admin}}

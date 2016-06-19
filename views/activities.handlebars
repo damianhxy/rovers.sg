@@ -1,8 +1,6 @@
 <div class="section text-center container-fluid">
     <div class="page-header"><h2>Category: {{title}}</h2></div>
-    {{#unless events}}
-    <h3>There are currently no events</h3>
-    {{else}}
+    {{#if events}}
     <div class="row">
         {{#each events}}
         <div class="panel panel-info card">
@@ -24,7 +22,9 @@
         </div>
         {{/each}}
     </div>
-    {{/unless}}
+    {{else}}
+    <h3>There are currently no events</h3>
+    {{/if}}
 </div>
 {{#each events}}
 <a class="anchor" id="{{_id}}"></a>
