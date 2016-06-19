@@ -79,13 +79,19 @@ $(document).ready(function() {
 
     $(".btn-file :file").on("change", function() {
         $("#uploadForm [name='name']").val($(this).val());
-        $("#upload-name").val($(this).val());
+        $("#uploadName").val($(this).val());
     });
 
     // Form Validation
     $("#uploadForm").on("submit", function(e) {
         e.preventDefault();
-        if ($("#uploadForm :file").val() || $("#uploadForm [name='url']").val())
+        if ($("#uploadForm :file").val() && $("#uploadForm [name='url']").val())
+            new PNotify({
+                title: "Error",
+                text: "Please only add one resource.",
+                type: "error"
+            });
+        else if ($("#uploadForm :file").val() || $("#uploadForm [name='url']").val())
             $(e.target).get(0).submit();
         else
             new PNotify({

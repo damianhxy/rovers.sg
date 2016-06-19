@@ -93,4 +93,15 @@ $(document).ready(function() {
             }
         });
     });
+
+    // File name(s) text
+    $(".btn-file :file").on("change", function(e) {
+        var fileNames = "";
+        file = $(e.target).get(0);
+        for (var a = 0; a < file.files.length; ++a) {
+            fileNames += file.files[a].name + "\n";
+        }
+        $("#uploadName").attr("rows", file.files.length);
+        $("#uploadName").val(fileNames);
+    });
 });

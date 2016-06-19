@@ -24,7 +24,7 @@
                         </th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody data-id="{{info._id}}">
                     <tr {{#unless info.location}}class="field-hidden"{{/unless}}>
                         <td class="col-md-3 text-center">Location</td>
                         <td class="col-md-9">
@@ -81,4 +81,35 @@
         </div> <!-- /.col-md-6 -->
     </div> <!-- /.row -->
 </div>
+{{#if user.admin}}
+<div class="section text-center container-fluid">
+    <div class="page-header"><h2>Upload Photos</h2></div>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <form class="form-horizontal" method="post" accept-charset="UTF-8" autocomplete="off">
+                <div class="form-group">
+                    <span class="col-md-2 control-label">File(s)</span>
+                    <div class="col-md-10">
+                        <div class="input-group">
+                            <textarea id="uploadName" type="textarea" class="form-control" rows="1" disabled>No File(s) Selected</textarea>
+                            <span class="input-group-btn">
+                                <span class="btn btn-info btn-file">
+                                    <span>Browse...</span>
+                                    <input type="file" name="file" multiple>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div> <!-- /.form-group -->
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-2">
+                        <button type="submit" class="btn btn-success col-md-4">Upload Photo(s)</button>
+                        <button type="reset" class="btn btn-danger col-md-4"><i class="fa fa-times-circle"></i> Reset Form</button>
+                    </div>
+                </div> <!-- /.form-group -->
+            </form>
+        </div> <!-- /.col-md-6 -->
+    </div> <!-- /.row -->
+</div>
+{{/if}}
 <script src="/lib/custom/eventView.js"></script>
