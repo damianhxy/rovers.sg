@@ -8,37 +8,57 @@
                 <div class="form-group">
                     <span class="col-md-2 control-label">Name</span>
                     <div class="col-md-10">
-                        <input type="text" class="form-control" name="title" required>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="title" required>
+                            <div class="input-group-addon">required</div>
+                        </div>
                     </div>
                 </div> <!-- /.form-group -->
                 <div class="form-group">
                     <span class="col-md-2 control-label">Location</span>
                     <div class="col-md-10">
-                        <input type="text" class="form-control" name="location" placeholder="Optional">
+                        <input type="text" class="form-control" name="location">
                     </div>
                 </div> <!-- /.form-group -->
                 <div class="form-group">
                     <span class="col-md-2 control-label">Start</span>
                     <div class="col-md-10">
-                        <input type="text" name="start" data-format="D MMM YYYY hh:mm A" data-template="D / MMM / YYYY   hh : mm A" required>
+                        <div class="input-group">
+                            <input type="text" name="start" data-format="D MMM YYYY hh:mm A" data-template="D / MMM / YYYY   hh : mm A" required>
+                            <div class="input-group-addon">required</div>
+                        </div>
                     </div>
                 </div> <!-- /.form-group -->
                 <div class="form-group">
                     <span class="col-md-2 control-label">End</span>
                     <div class="col-md-10">
-                        <input type="text" name="end" data-format="D MMM YYYY hh:mm A" data-template="D / MMM / YYYY   hh : mm A" required>
+                        <div class="input-group">
+                            <input type="text" name="end" data-format="D MMM YYYY hh:mm A" data-template="D / MMM / YYYY   hh : mm A" required>
+                            <div class="input-group-addon">required</div>
+                        </div>
                     </div>
                 </div> <!-- /.form-group -->
                 <div class="form-group">
                     <span class="col-md-2 control-label">Additional Details</span>
                     <div class="col-md-10">
-                        <textarea class="form-control" name="details" rows="3" placeholder="Optional"></textarea>
+                        <textarea class="form-control" name="details" rows="3"></textarea>
                     </div>
                 </div> <!-- /.form-group -->
                 <div class="form-group">
                     <span class="col-md-2 control-label">Link</span>
                     <div class="col-md-10">
-                        <input type="text" class="form-control" name="link" placeholder="Optional">
+                        <input type="text" class="form-control" name="link">
+                    </div>
+                </div> <!-- /.form-group -->
+                <div class="form-group">
+                    <span class="col-md-2 control-label">Categories</span>
+                    <div class="col-md-10">
+                        <select class="form-control" name="category" data-toggle="select2" multiple>
+                            <option value="service">Service</option>
+                            <option value="fellowship">Fellowship</option>
+                            <option value="adventure">Adventure</option>
+                            <option value="courses">Courses</option>
+                        </select>
                     </div>
                 </div> <!-- /.form-group -->
                 <div class="form-group">

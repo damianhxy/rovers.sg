@@ -53,6 +53,7 @@ exports.get = function(url) {
     return Q.promise(function(resolve, reject) {
         Q.ninvoke(forms, "findOne", { newurl: url })
         .then(function(info) {
+            if (!info) return reject(Error("Invalid link"));
             resolve(info);
         })
         .fail(function(err) {

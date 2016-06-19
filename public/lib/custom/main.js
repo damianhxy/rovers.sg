@@ -21,6 +21,11 @@ $(document).ready(function() {
 	    $(this).ekkoLightbox();
 	});
 
+    // Select 2
+    $("[data-toggle='select2']").select2({
+        theme: "bootstrap"
+    });
+
 	/* Slick
 	$(".slick").slick({
 		infinite: true,

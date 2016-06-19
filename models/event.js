@@ -17,6 +17,7 @@ exports.add = function(req) {
             end: end.format(),
             location: req.body.location,
             details: req.body.details,
+            category: [].concat(req.body.category),
             link: req.body.link && normalizeURL(req.body.link),
             time: moment.tz("Asia/Singapore").format()
         };
@@ -98,6 +99,20 @@ exports.get = function(id) {
         });
     });
 };
+
+exports.getCategory = function(category) {
+    return Q.promise(function(resolve, reject) {
+        Q.ninvoke(events, "find", {
+            $where: function() { return this.category.indexOf(category) !== -1; }
+        })
+        .then(function(list) {
+            resolve(list);
+        })
+        .fail(function(err) {
+            reject(err);
+        });
+    });
+}
 
 exports.range = function(start, end) {
     return Q.promise(function(resolve, reject) {

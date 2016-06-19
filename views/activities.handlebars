@@ -1,10 +1,10 @@
 <div class="section text-center container-fluid">
-    <div class="page-header"><h2>Upcoming</h2></div>
-    {{#unless upcoming}}
-    <h3>There are currently no upcoming events</h3>
+    <div class="page-header"><h2>Category: {{title}}</h2></div>
+    {{#unless events}}
+    <h3>There are currently no events</h3>
     {{else}}
     <div class="row">
-        {{#each upcoming}}
+        {{#each events}}
         <div class="panel panel-info card">
             <div class="panel-heading">
                 <h3 class="panel-title">{{title}}</h3>
@@ -25,14 +25,8 @@
         {{/each}}
     </div>
     {{/unless}}
-    <div class="btn-group">
-        {{#if user.admin}}
-        <a href="/events/add" class="btn btn-success"><i class="fa fa-plus"></i> Create Event</a>
-        {{/if}}
-        <a href="/events" class="btn btn-info"><i class="fa fa-history"></i> All Events</a>
-    </div>
 </div>
-{{#each upcoming}}
+{{#each events}}
 <a class="anchor" id="{{_id}}"></a>
 <div class="section text-center container-fluid">
     <div class="page-header">

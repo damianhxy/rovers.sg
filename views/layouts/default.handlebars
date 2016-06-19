@@ -22,6 +22,8 @@
     <link rel="stylesheet" href="/css/slick/slick-theme.css">
     <link rel="stylesheet" href="/css/fullcalendar/fullcalendar.min.css">
     <link rel="stylesheet" href="/css/fullcalendar/fullcalendar.print.css" media="print">
+    <link rel="stylesheet" href="/lib/select2/select2.min.css">
+    <link rel="stylesheet" href="/lib/select2/select2-bootstrap.min.css">
     <link rel="stylesheet" href="/css/main.css">
     <script src="/lib/jquery-2.1.4.min.js"></script>
 </head>
@@ -48,13 +50,13 @@
                             <i class="fa fa-bicycle"></i> Activities
                             <i class="caret"></i>
                         </a>
-                        <ul class="dropdown-menu pull-right">
-                            <li><a href="#"><i class="fa fa-tasks"></i> Overview</a></li>
+                        <ul class="dropdown-menu">
+                            <li><a href="/activities"><i class="fa fa-tasks"></i> Overview</a></li>
                             <li class="divider"></li>
-                            <li><a href="#"><i class="fa fa-heart"></i> Service</a></li>
-                            <li><a href="#"><i class="fa fa-users"></i> Fellowship</a></li>
-                            <li><a href="#"><i class="fa fa-map-signs"></i> Adventure</a></li>
-                            <li><a href="#"><i class="fa fa-mortar-board"></i> Courses</a></li>
+                            <li><a href="/activities/service"><i class="fa fa-heart"></i> Service</a></li>
+                            <li><a href="/activities/fellowship"><i class="fa fa-users"></i> Fellowship</a></li>
+                            <li><a href="/activities/adventure"><i class="fa fa-map-signs"></i> Adventure</a></li>
+                            <li><a href="/activities/courses"><i class="fa fa-mortar-board"></i> Courses</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -62,7 +64,7 @@
                             <i class="fa fa-info-circle"></i> Information
                             <i class="caret"></i>
                         </a>
-                        <ul class="dropdown-menu pull-right">
+                        <ul class="dropdown-menu">
                             <li><a href="/about"><i class="fa fa-institution"></i> About</a></li>
                             <li><a href="/rjourney"><i class="fa fa-map"></i> Rover's Journey</a></li>
                             <li><a href="/faq"><i class="fa fa-question-circle"></i> FAQ</a></li>
@@ -161,6 +163,7 @@
     <script src="/lib/sortable/bootstrap-sortable.js"></script>
     <script src="/lib/livestamp.min.js"></script>
     <script src="/css/slick/slick.min.js"></script>
+    <script src="/lib/select2/select2.min.js"></script>
     <script src="/lib/custom/main.js"></script>
     <script>
         $(document).ready(function() {

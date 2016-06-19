@@ -56,6 +56,17 @@
                             <a class="field-edit visible-xs link" data-type="text" data-name="link" href="{{info.link}}">Click Here</a>
                         </td>
                     </tr>
+                    <!-- x-editable doesn't work with select v4 -->
+                    {{#if info.category}}
+                    <tr>
+                        <td class="col-md-3 text-center">Categories</td>
+                        <td class="col-md-9">
+                            {{#each info.category}}
+                                <a href="/activities/{{this}}" class="label label-info">{{this}}</a>
+                            {{/each}}
+                        </td>
+                    </tr>
+                    {{/if}}
                 </tbody>
             </table> <!-- /.table -->
             {{#if user.admin}}

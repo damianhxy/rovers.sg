@@ -9,7 +9,7 @@ var admin = require("../middlewares/admin.js");
 router.use(notification);
 
 /* Normal Pages */
-router.get("/", function(req, res, next) {
+router.get("/", function(req, res) {
     event.upcoming(moment.tz("Asia/Singapore").format())
     .then(function(events) {
         events.forEach(function(e) {
@@ -21,9 +21,6 @@ router.get("/", function(req, res, next) {
             user: req.user,
             upcoming: events
         });
-    })
-    .fail(function(err) {
-        next(err);
     });
 });
 
@@ -51,7 +48,10 @@ router.use("/short", require("./shortener.js"));
 /* Resources */
 router.use("/resources", require("./resources.js"));
 
-/* About Page */
+/* Activities */
+router.use("/activities", require("./activities.js"));
+
+/* Information */
 router.use("/about", require("./BPAs.js"));
 
 router.get("/rjourney", function(req, res) {
@@ -109,7 +109,7 @@ router.use(function(req, res) {
     });
 });
 
-router.use(function(err, req, res) {
+router.use(function(err, req, res, next) {
     console.error(err.stack);
     res.status(500).render("500", {
         title: "Internal Server Error",
