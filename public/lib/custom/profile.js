@@ -8,6 +8,7 @@ $(document).ready(function() {
         var $data = $(e.target);
         var name = $data.data("name");
         var time = moment($data.data("time")).format(MOMENT_FORMAT);
+        var id = $data.data("id");
         var message = "";
         message += "<p>Short URL: <strong>" + name + "</strong></p>";
         message += "<p>Created on: <strong>" + time + "</strong></p>";
@@ -26,7 +27,7 @@ $(document).ready(function() {
                         $.ajax({
                             method: "DELETE",
                             url: "/short",
-                            data: { url: name }
+                            data: { id: id }
                         })
                         .done(function() {
                             location.reload();

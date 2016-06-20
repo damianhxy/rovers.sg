@@ -18,6 +18,6 @@ exports.all = function() {
     return BPAs.find({}).sort({ name: 1 }).execAsync();
 };
 
-exports.delete = function(name) {
-    return BPAs.removeAsync({ name: name });
+exports.delete = function(id) {
+    return BPAs.removeAsync({ _id: id });
 };

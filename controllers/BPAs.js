@@ -27,7 +27,7 @@ router.post("/", admin, function(req, res) {
 });
 
 router.delete("/", admin, function(req, res) {
-    BPA.delete(req.body.name).then(function() {
+    BPA.delete(req.body.id).then(function() {
         req.session.success = "Awardee deleted";
         res.redirect("/about");
     }).catch(function(err) {

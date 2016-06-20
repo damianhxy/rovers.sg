@@ -15,7 +15,7 @@ router.post("/", function(req, res) {
 });
 
 router.delete("/", function(req, res) {
-    short.delete(req.body.url).then(function() {
+    short.delete(req.body.id).then(function() {
         res.end();
     }).catch(function(err) {
         console.error(err);

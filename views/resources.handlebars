@@ -1,6 +1,6 @@
 <div class="section container-fluid">
     <div class="row">
-        <div class="col-md-3 col-hidden-sm col-hidden-xs">
+        <div class="col-md-3 hidden-sm hidden-xs">
             <div class="list-group text-center" id="shortcuts">
                 {{#each categories}}
                 <a class="list-group-item" href="#{{name}}">{{@key}}</a>
@@ -21,7 +21,7 @@
                             </div>
                             <div class="panel-body">
                                 <small>Description</small>
-                                <p><a class="field-edit" data-type="textarea" data-pk="{{_id}}" data-name="description" data-url="/resources" href="#">{{description}}</a></p>
+                                <p><a class="field-edit" data-type="textarea" data-pk="{{_id}}" data-name="description" data-url="/resources" href="javascript:void(0);">{{description}}</a></p>
                             </div>
                             <div class="panel-footer">
                                 <div class="btn-group">

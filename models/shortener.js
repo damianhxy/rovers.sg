@@ -20,8 +20,8 @@ exports.all = function() {
     return short.find({}).sort({ url: 1 }).execAsync();
 };
 
-exports.delete = function(url) {
-    return short.removeAsync({ newurl: url });
+exports.delete = function(id) {
+    return short.removeAsync({ _id: id });
 };
 
 exports.get = function(url) {

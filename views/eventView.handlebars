@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <div class="page-header text-center">
-                <h2><a class="field-edit" data-type="text" data-name="title" href="#">{{info.title}}</a></h2>
+                <h2><a class="field-edit" data-type="text" data-name="title" href="javascript:void(0);">{{info.title}}</a></h2>
                 {{#if user.admin}}
                     <div class="text-center">
                         <div class="btn-group">
@@ -28,25 +28,25 @@
                     <tr {{#unless info.location}}class="field-hidden"{{/unless}}>
                         <td class="col-md-3 text-center">Location</td>
                         <td class="col-md-9">
-                            <a class="field-edit" data-type="text" data-name="location" href="#">{{info.location}}</a>
+                            <a class="field-edit" data-type="text" data-name="location" href="javascript:void(0);">{{info.location}}</a>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-3 text-center">Start</td>
                         <td class="col-md-9">
-                            <a class="field-edit" data-type="combodate" data-name="start" href="#">{{info.start}}</a>
+                            <a class="field-edit" data-type="combodate" data-name="start" href="javascript:void(0);">{{info.start}}</a>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-3 text-center">End</td>
                         <td class="col-md-9">
-                            <a class="field-edit" data-type="combodate" data-name="end" href="#">{{info.end}}</a>
+                            <a class="field-edit" data-type="combodate" data-name="end" href="javascript:void(0);">{{info.end}}</a>
                         </td>
                     </tr>
                     <tr {{#unless info.details}}class="field-hidden"{{/unless}}>
                         <td class="col-md-3 text-center">Additional Details</td>
                         <td class="col-md-9">
-                            <a class="field-edit" data-type="textarea" data-name="details" href="#">{{info.details}}</a>
+                            <a class="field-edit" data-type="textarea" data-name="details" href="javascript:void(0);">{{info.details}}</a>
                         </td>
                     </tr>
                     <tr {{#unless info.link}}class="field-hidden"{{/unless}}>
