@@ -26,7 +26,7 @@ $(document).ready(function() {
         theme: "bootstrap"
     });
 
-	/* Slick
+	// Slick
 	$(".slick").slick({
 		infinite: true,
 		slidesToShow: 1,
@@ -34,7 +34,7 @@ $(document).ready(function() {
 		dots: true,
 		prevArrow: $(".carousel-prev"),
 		nextArrow: $(".carousel-next")
-	});*/
+	});
 
 	// Hide fa elements from screen readers
 	$(".fa").attr("aria-hidden", true);

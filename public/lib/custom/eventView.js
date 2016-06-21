@@ -52,7 +52,7 @@ $(document).ready(function() {
         });
     });
 
-    // Bootbox
+    // Bootbox - Event
     $(".btn-delete").on("click", function(e) {
         var $data = $(e.target);
         var name = $data.data("name");
@@ -94,6 +94,48 @@ $(document).ready(function() {
         });
     });
 
+    // Bootbox - photos
+    $(".btn-delete-photo").on("click", function(e) {
+        var $data = $(e.target);
+        var name = $data.data("name");
+        var time = moment($data.data("time")).format(MOMENT_FORMAT);
+        var eventid = $(".btn-delete").data("id");
+        var message = "";
+        message += "<p>Photo Name: <strong>" + name + "</strong></p>";
+        message += "<p>Uploaded on: <strong>" + time + "</strong></p>";
+        message += "<p>Are you sure? This photo will be <strong>permanently</strong> deleted!</p>";
+        bootbox.dialog({
+            title: "Delete photo",
+            message: message,
+            onEscape: function() {},
+            buttons: {
+                "Cancel": {
+                    className: "btn-default"
+                },
+                "Delete": {
+                    className: "btn-danger",
+                    callback: function() {
+                        $.ajax({
+                            method: "DELETE",
+                            url: "/events/" + eventid,
+                            data: { name: name }
+                        })
+                        .done(function() {
+                            location.reload();
+                        })
+                        .fail(function(err) {
+                            new PNotify({
+                                title: "Error",
+                                text: err.message,
+                                type: "error"
+                            });
+                        });
+                    }
+                }
+            }
+        });
+    });
+
     // File name(s) text
     $(".btn-file :file").on("change", function(e) {
         var fileNames = "";
@@ -103,5 +145,9 @@ $(document).ready(function() {
         }
         $("#uploadName").attr("rows", file.files.length);
         $("#uploadName").val(fileNames);
+    });
+
+    $("#uploadForm button[type='reset']").on("click", function(e) {
+        $("#uploadName").attr("rows", 1);
     });
 });

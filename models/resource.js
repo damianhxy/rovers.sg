@@ -28,7 +28,7 @@ exports.all = function() {
 
 exports.delete = function(id) {
     return files.findOneAsync({ _id: id }).then(function(file) {
-        if (file.fileName) {
+        if (file.path) {
             return fs.unlinkAsync(file.path).then(files.removeAsync({ _id: id }));
         } else {
             return files.removeAsync({ _id: id });

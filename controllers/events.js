@@ -4,6 +4,7 @@ var moment = require("moment-timezone");
 var event = require("../models/event.js");
 var settings = require("./settings.js");
 var admin = require("../middlewares/admin.js");
+var upload = require("../middlewares/uploadPhoto.js");
 
 router.get("/", function(req, res, next) {
     res.render("events", {
@@ -69,6 +70,32 @@ router.get("/:event", function(req, res) {
         console.error(err);
         req.session.error = err.message;
         res.redirect(req.headers.referrer || "/");
+    });
+});
+
+router.post("/:event", admin, function(req, res) {
+    upload.array("file")(req, res, function(err) {
+        if (err) {
+            console.error(err);
+            req.session.error = err.message;
+        } else {
+            event.addPhotos(req.params.event, req.files).then(function() {
+                req.session.success = "Photos uploaded";
+            }).catch(function(err) {
+                console.error(err);
+                req.session.error = err.message;
+            });
+        }
+        res.redirect("/events/" + req.params.event);
+    });
+});
+
+router.delete("/:event", admin, function(req, res) {
+    event.deletePhoto(req.params.event, req.body.name).then(function() {
+        res.end();
+    }).catch(function(err) {
+        console.error(err);
+        res.status(400).json({ "error": err.message });
     });
 });
 

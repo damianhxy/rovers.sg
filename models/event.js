@@ -1,9 +1,12 @@
 var Promise = require("bluebird");
 var nedb = require("nedb");
+var fs = require("fs");
 var moment = require("moment-timezone");
 var normalizeURL = require("normalize-url");
 var settings = require("../controllers/settings.js");
 var events = new nedb({ filename: "./database/events", autoload: true });
+var rimraf = require("rimraf");
+Promise.promisifyAll(fs);
 Promise.promisifyAll(events);
 Promise.promisifyAll(events.find().constructor.prototype);
 
@@ -20,10 +23,26 @@ exports.add = function(req) {
         details: req.body.details,
         category: req.body.category ? [].concat(req.body.category) : [],
         link: req.body.link && normalizeURL(req.body.link),
-        time: moment.tz("Asia/Singapore").format()
+        time: moment.tz("Asia/Singapore").format(),
+        photos: []
     };
     return events.insertAsync(eventInfo).then(function(event) {
-        return Promise.resolve(event._id);
+        return fs.mkdirAsync("./public/uploads/" + event._id).then(function() {
+            return Promise.resolve(event._id);
+        });
+    });
+};
+
+exports.addPhotos = function(id, photos) {
+    return events.findOneAsync({ _id: id }).then(function(event) {
+        photos.forEach(function(e) {
+            event.photos.push({
+                name: e.originalname,
+                time: moment.tz("Asia/Singapore").format(),
+                path: e.path.slice(6)
+            });
+        });
+        return events.updateAsync({ _id: id }, { $set: event });
     });
 };
 
@@ -32,7 +51,26 @@ exports.all = function() {
 };
 
 exports.delete = function(id) {
-    return events.removeAsync({ _id: id });
+    return new Promise(function(resolve, reject) {
+        rimraf("./public/uploads/" + id, function(err) {
+            if (err) reject(err);
+            else resolve();
+        });
+    }).then(events.removeAsync({ _id: id }));
+};
+
+// Delete by name, since there shouldn't be duplicates and there's no _id
+exports.deletePhoto = function(id, name) {
+    return events.findOneAsync({ _id: id }).then(function(event) {
+        var index;
+        for (index = 0; index < event.photos.length; ++index) {
+            if (event.photos[index].name === name) break;
+        }
+        return fs.unlinkAsync("./public" + event.photos[index].path).then(function() {
+            event.photos.splice(index, 1);
+            return events.updateAsync({ _id: id }, { $set: event });
+        });
+    });
 };
 
 exports.edit = function(id, field, value) {

@@ -3,7 +3,7 @@ var router = express.Router();
 var fs = require("fs");
 var resource = require("../models/resource.js");
 var admin = require("../middlewares/admin.js");
-var upload = require("../middlewares/upload.js");
+var upload = require("../middlewares/uploadResource.js");
 
 router.get("/", function(req, res, next) {
     resource.all().then(function(files) {
@@ -43,15 +43,23 @@ router.put("/", admin, function(req, res) {
     });
 });
 
-router.post("/", admin, upload.single("file"), function(req, res) {
-    resource.add(req).then(function() {
-        req.session.success = "File uploaded";
-        res.redirect("/resources#upload");
-    }).catch(function(err) {
-        console.error(err);
-        req.session.error = err.message;
-        fs.unlink(req.file.path);
-        res.status(400).redirect("/resources#upload");
+router.post("/", function(req, res) {
+    upload.single("file")(req, res, function(err) {
+        if (err) {
+            console.error(err);
+            req.session.error = err.message;
+            res.status(400).redirect("/resources#upload");
+        } else {
+            resource.add(req).then(function() {
+                req.session.success = "File uploaded";
+                res.redirect("/resources#upload");
+            }).catch(function(err) {
+                console.error(err);
+                req.session.error = err.message;
+                fs.unlink(req.file.path);
+                res.status(400).redirect("/resources#upload");
+            });
+        }
     });
 });
 
