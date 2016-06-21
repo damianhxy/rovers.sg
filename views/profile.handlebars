@@ -1,8 +1,8 @@
-<div class="section text-center container-fluid">
-    <div class="page-header"><h2>Update Password</h2></div>
+<div class="section container-fluid">
+    <div class="text-center page-header"><h2>Update Password</h2></div>
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <p>*All fields are required</p>
+            <p class="text-center">*All fields are required</p>
             <form class="form-horizontal" action="/users/editPassword" method="post" accept-charset="UTF-8" autocomplete="off">
                 <div class="form-group">
                     <span class="col-md-2 control-label">Current Password</span>
@@ -24,7 +24,7 @@
                 </div> <!-- /.form-group -->
                 <div class="form-group">
                     <div class="col-md-10 col-md-offset-2">
-                        <button type="submit" class="btn btn-success col-md-4">Update Password</button>
+                        <button type="submit" class="btn btn-success">Update Password</button>
                     </div>
                 </div> <!-- /.form-group -->
             </form>
@@ -32,12 +32,11 @@
     </div> <!-- /.row -->
 </div>
 {{#if user.admin}}
-<div class="section text-center container-fluid">
-    <div class="page-header"><h2>Link Shortener</h2></div>
+<div class="section container-fluid">
+    <div class="page-header text-center"><h2>Link Shortener</h2></div>
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <h2>Create Link</h2>
-            <p>*All fields are required</p>
+            <p class="text-center">*All fields are required</p>
             <form class="form-horizontal" action="/short" method="post" accept-charset="UTF-8" autocomplete="off">
                 <div class="form-group">
                     <span class="col-md-2 control-label">Original URL</span>
@@ -59,7 +58,7 @@
                 </div> <!-- /.form-group -->
                 <div class="form-group">
                     <div class="col-md-10 col-md-offset-2">
-                        <button type="submit" class="btn btn-success col-md-4">Create Link</button>
+                        <button type="submit" class="btn btn-success"><i class="fa fa-plus-circle"></i> Create Link</button>
                     </div>
                 </div> <!-- /.form-group -->
             </form>
@@ -87,15 +86,15 @@
                         </td>
                         <td class="hidden-xs">
                             {{#if embed}}
-                            <i class="fa fa-check"></i>
+                            Yes
                             {{else}}
-                            <i class="fa fa-close"></i>
+                            No
                             {{/if}}
                         </td>
                         <td data-value="{{this.time}}" data-livestamp="{{this.time}}"></td>
                         <td>
                             <button class="btn btn-danger btn-xs btn-delete" data-name="{{newurl}}" data-time="{{time}}" data-id="{{_id}}">
-                                <i class="fa fa-close"></i> Delete
+                                <i class="fa fa-times-circle"></i> Delete
                             </button>
                         </td>
                     </tr>

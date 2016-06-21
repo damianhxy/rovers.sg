@@ -65,6 +65,10 @@ textarea {
     resize: vertical;
 }
 
+textarea[readonly] {
+    resize: none;
+}
+
 /* Custom Classes */
 .anchor,
 .anchor--header {

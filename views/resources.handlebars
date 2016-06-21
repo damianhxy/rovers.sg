@@ -30,7 +30,7 @@
                                     </a>
                                     {{#if ../../user.admin}}
                                     <button class="btn btn-success btn-xs btn-edit"><i class="fa fa-edit"></i> Edit</button>
-                                    <button class="btn btn-danger btn-xs btn-delete" data-name="{{name}}" data-time="{{time}}" data-id="{{_id}}"><i class="fa fa-close"></i> Delete</button>
+                                    <button class="btn btn-danger btn-xs btn-delete" data-name="{{name}}" data-time="{{time}}" data-id="{{_id}}"><i class="fa fa-times-circle"></i> Delete</button>
                                     {{/if}}
                                 </div>
                             </div>
@@ -46,17 +46,17 @@
             {{/each}}
             {{#if user.admin}}
             <a class="anchor" id="upload-file"></a>
-            <div class="section text-center container-fluid">
-                <div class="page-header"><h2>Upload Resource</h2></div>
+            <div class="section container-fluid">
+                <div class="page-header text-center"><h2>Upload Resource</h2></div>
                 <div class="row">
                     <form id="uploadForm" class="form-horizontal" action="/resources" method="post" accept-charset="UTF-8" enctype="multipart/form-data" autocomplete="off">
-                        <p>*This field is required</p>
+                        <p class="text-center">*This field is required</p>
                         <div class="form-group">
                             <span class="col-md-2 control-label">File</span>
                             <div class="col-md-10">
                                 <div class="input-group">
                                     <div class="input-group-addon">Max Size: 25MB</div>
-                                    <input id="uploadName" type="text" class="form-control" value="No File Selected" disabled>
+                                    <input id="uploadName" type="text" class="form-control" value="No File Selected" readonly>
                                     <span class="input-group-btn">
                                         <span class="btn btn-info btn-file">
                                             <span>Browse...</span>
@@ -66,7 +66,7 @@
                                 </div>
                             </div>
                         </div> <!-- /.form-group -->
-                        <h3>OR</h3>
+                        <h3 class="text-center">OR</h3>
                         <div class="form-group">
                             <span class="col-md-2 control-label">URL</span>
                             <div class="col-md-10">
@@ -101,8 +101,10 @@
                         </div> <!-- /.form-group -->
                         <div class="form-group">
                             <div class="col-md-10 col-md-offset-2">
-                                <button type="submit" class="btn btn-success col-md-4"><i class="fa fa-cloud-upload"></i> Upload Resource</button>
-                                <button type="reset" class="btn btn-danger col-md-4"><i class="fa fa-times-circle"></i> Reset Form</button>
+                                <div class="btn-group">
+                                    <button type="submit" class="btn btn-success"><i class="fa fa-cloud-upload"></i> Upload Resource</button>
+                                    <button type="reset" class="btn btn-danger"><i class="fa fa-times-circle"></i> Reset Form</button>
+                                </div>
                             </div>
                         </div> <!-- /.form-group -->
                     </form>

@@ -82,8 +82,8 @@
     </div> <!-- /.row -->
 </div>
 {{#if user.admin}}
-<div class="section text-center container-fluid">
-    <div class="page-header"><h2>Upload Photos</h2></div>
+<div class="section container-fluid">
+    <div class="page-header text-center"><h2>Upload Photos</h2></div>
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <form class="form-horizontal" method="post" accept-charset="UTF-8" autocomplete="off">
@@ -91,7 +91,7 @@
                     <span class="col-md-2 control-label">File(s)</span>
                     <div class="col-md-10">
                         <div class="input-group">
-                            <textarea id="uploadName" type="textarea" class="form-control" rows="1" disabled>No File(s) Selected</textarea>
+                            <textarea id="uploadName" type="textarea" class="form-control" rows="1" readonly>No File(s) Selected</textarea>
                             <span class="input-group-btn">
                                 <span class="btn btn-info btn-file">
                                     <span>Browse...</span>
@@ -103,8 +103,10 @@
                 </div> <!-- /.form-group -->
                 <div class="form-group">
                     <div class="col-md-10 col-md-offset-2">
-                        <button type="submit" class="btn btn-success col-md-4"><i class="fa fa-cloud-upload"></i> Upload Photo(s)</button>
-                        <button type="reset" class="btn btn-danger col-md-4"><i class="fa fa-times-circle"></i> Reset Form</button>
+                        <div class="btn-group">
+                            <button type="submit" class="btn btn-success"><i class="fa fa-cloud-upload"></i> Upload Photo(s)</button>
+                            <button type="reset" class="btn btn-danger"><i class="fa fa-times-circle"></i> Reset Form</button>
+                        </div>
                     </div>
                 </div> <!-- /.form-group -->
             </form>

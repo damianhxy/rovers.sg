@@ -28,12 +28,10 @@ router.post("/", admin, function(req, res) {
 
 router.delete("/", admin, function(req, res) {
     BPA.delete(req.body.id).then(function() {
-        req.session.success = "Awardee deleted";
-        res.redirect("/about");
+        res.end();
     }).catch(function(err) {
         console.error(err);
-        req.session.error = err.message;
-        res.redirect(req.headers.referrer || "/");
+        res.status(400).json({ "error": err.message });
     });
 });
 
