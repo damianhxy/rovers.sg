@@ -1,5 +1,5 @@
 /* Template */
-@import url(https://fonts.googleapis.com/css?family=Lato);
+@import url(https://fonts.googleapis.com/css?family=Lato:300|Roboto:300);
 
 html {
     position: relative;
@@ -12,9 +12,14 @@ blockquote {
 
 body {
     font-family: "Lato", sans-serif;
+    font-weight: 300;
     font-size: 14px;
     margin-bottom: 84px; /* Footer */
     margin-top: 50px; /* Navbar */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Roboto", sans-serif;
 }
 
 .fc-day-grid-event .fc-content {
