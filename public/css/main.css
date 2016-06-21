@@ -1,6 +1,10 @@
 /* Template */
 @import url(https://fonts.googleapis.com/css?family=Lato:300|Roboto:300);
 
+#homepage-logo {
+    padding-top: 75px;
+}
+
 html {
     position: relative;
     min-height: 100%;
@@ -123,6 +127,10 @@ textarea[readonly] {
 
 .card > .panel-heading {
     height: 55px;
+}
+
+.card > .thumbnail {
+    margin: 0;
 }
 
 .card > .panel-body {

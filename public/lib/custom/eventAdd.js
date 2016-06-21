@@ -3,7 +3,7 @@ $(document).ready(function() {
 
     // For use in fullcalendar
     var uniqueID = Date.now();
-    var MOMENT_FORMAT = "D MMM YYYY hh:mm A";
+    var MOMENT_FORMAT = "D MMM YY HH:mm";
     var CURRENT_YEAR = new Date().getFullYear();
     var ROUNDING = 5 * 60 * 1000; // Round up to closest 5 minutes
     var $calendar = $("#calendar");

@@ -1,7 +1,7 @@
 $(document).ready(function() {
     console.info("[info] eventView.js is running.");
 
-    var MOMENT_FORMAT = "D MMM YYYY hh:mm A";
+    var MOMENT_FORMAT = "D MMM YY | HH:mm[h]";
 
     // Hide empty fields
     $(".field-hidden").hide();
@@ -24,7 +24,9 @@ $(document).ready(function() {
             },
             success: function(data) {
                 $("[data-name='" + data.field + "']").parent().parent().toggleClass("field-hidden", !data.value);
-                if (data.field === "link") {
+                if (data.field === "start" || data.field === "end") {
+                    $("[data-name='duration']").text(data.value);
+                } else if (data.field === "link") {
                     setTimeout(function () {
                         $("[data-name='link']").editable("setValue", data.value);
                         $("[data-name='link']").attr("href", data.value);
@@ -43,7 +45,7 @@ $(document).ready(function() {
             },
             /* For combodate */
             format: MOMENT_FORMAT,
-            template: "D / MMM / YYYY   hh : mm A",
+            template: "D / MMM / YY | HH : mm",
             combodate: {
                 smartDays: "true",
                 minYear: new Date().getFullYear(),

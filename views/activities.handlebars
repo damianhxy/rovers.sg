@@ -4,17 +4,13 @@
     <div class="row">
         {{#each events}}
         <div class="panel panel-info card">
-            <div class="panel-heading">
-                <h3 class="panel-title">{{title}}</h3>
-            </div>
             <a data-toggle="lightbox" data-title="Placeholder" href="/img/EventPicture.png" class="thumbnail">
                 <img src="/img/EventPicture.png" alt="Placeholder">
             </a>
             <div class="panel-body">
-                <small>From</small>
-                <p>{{start}}</p>
-                <small>To</small>
-                <p>{{end}}</p>
+                <strong>{{title}}</strong>
+                <p>{{startPretty}}</p>
+                <p>({{duration}})</p>
             </div>
             <div class="panel-footer">
                 <a href="#{{this._id}}">View Information</a>
@@ -45,9 +41,9 @@
                 <dd>{{location}}</dd>
                 {{/if}}
                 <dt>Start</dt>
-                <dd>{{start}}</dd>
-                <dt>End</dt>
-                <dd>{{end}}</dd>
+                <dd>{{startPretty}}</dd>
+                <dt>Duration</dt>
+                <dd>{{duration}}</dd>
                 {{#if details}}
                 <dt>Additional Details</dt>
                 <dd>{{details}}</dd>

@@ -6,6 +6,7 @@ var normalizeURL = require("normalize-url");
 var settings = require("../controllers/settings.js");
 var events = new nedb({ filename: "./database/events", autoload: true });
 var rimraf = require("rimraf");
+require("moment-duration-format");
 Promise.promisifyAll(fs);
 Promise.promisifyAll(events);
 Promise.promisifyAll(events.find().constructor.prototype);
@@ -19,12 +20,16 @@ exports.add = function(req) {
         title: req.body.title,
         start: start.format(),
         end: end.format(),
+        startPretty: moment.tz(start, "Asia/Singapore").format(settings.EVENT_TIME_FORMAT),
+        endPretty: moment.tz(end, "Asia/Singapore").format(settings.EVENT_TIME_FORMAT),
+        duration: moment.duration(end.diff(start)).format("d [days] h [hours] m [minutes]"),
         location: req.body.location,
         details: req.body.details,
         category: req.body.category ? [].concat(req.body.category) : [],
         link: req.body.link && normalizeURL(req.body.link),
         time: moment.tz("Asia/Singapore").format(),
-        photos: []
+        photos: [],
+        favourite: ""
     };
     return events.insertAsync(eventInfo).then(function(event) {
         return fs.mkdirAsync("./public/uploads/" + event._id).then(function() {
@@ -77,9 +82,18 @@ exports.edit = function(id, field, value) {
     return events.findOneAsync({ _id: id }).then(function(event) {
         if (field === "start" || field === "end")
             value = moment.tz(value, settings.EVENT_TIME_FORMAT, "Asia/Singapore").format();
+        if (field === "start")
+            event.startPretty = moment.tz(value, "Asia/Singapore").format(settings.EVENT_TIME_FORMAT);
+        if (field === "end")
+            event.endPretty = moment.tz(value, "Asia/Singapore").format(settings.EVENT_TIME_FORMAT);
         if (field === "link" && value)
             value = normalizeURL(value);
         event[field] = value;
+        if (field === "start" || field === "end") {
+            var start = moment(event.start);
+            var end = moment(event.end);
+            value = event.duration = moment.duration(end.diff(start)).format("d [days] h [hours] m [minutes]");
+        }
         event.time = moment.tz("Asia/Singapore").format();
         if (moment(event.start).isAfter(moment(event.end)))
             throw Error("Start time must be before end time");

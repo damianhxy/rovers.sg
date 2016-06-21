@@ -1,7 +1,7 @@
 $(document).ready(function() {
     console.info("[info] resources.js is running.");
 
-    var MOMENT_FORMAT = "DD/MM/YYYY hh:mm A";
+    var MOMENT_FORMAT = "D MMM YY | HH:mm[h]";
 
     // Hide empty descriptions
     $(".field-hidden").hide();

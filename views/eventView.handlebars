@@ -34,13 +34,19 @@
                     <tr>
                         <td class="col-md-3 text-center">Start</td>
                         <td class="col-md-9">
-                            <a class="field-edit" data-type="combodate" data-name="start" href="javascript:void(0);">{{info.start}}</a>
+                            <a class="field-edit" data-type="combodate" data-name="start" href="javascript:void(0);">{{info.startPretty}}</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-3 text-center">Duration</td>
+                        <td class="col-md-9" data-name="duration">
+                            {{info.duration}}
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-3 text-center">End</td>
                         <td class="col-md-9">
-                            <a class="field-edit" data-type="combodate" data-name="end" href="javascript:void(0);">{{info.end}}</a>
+                            <a class="field-edit" data-type="combodate" data-name="end" href="javascript:void(0);">{{info.endPretty}}</a>
                         </td>
                     </tr>
                     <tr {{#unless info.details}}class="field-hidden"{{/unless}}>
@@ -88,7 +94,6 @@
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <form class="form-horizontal" action="/events/{{info._id}}" method="post" accept-charset="UTF-8" enctype="multipart/form-data" autocomplete="off" id="uploadForm">
-                <input type="hidden" name="id" value="{{info._id}}">
                 <div class="form-group">
                     <span class="col-md-2 control-label">File(s)</span>
                     <div class="col-md-10">
@@ -121,6 +126,27 @@
     {{#if info.photos}}
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
+            <p class="text-center">Not Functional!</p>
+            <form class="form-horizontal" method="post" accept-charset="UTF-8" enctype="multipart/form-data" autocomplete="off">
+                <div class="form-group">
+                    <span class="col-md-2 control-label">Photo</span>
+                    <div class="col-md-10">
+                        <select class="form-control" name="name">
+                            {{#each info.photos}}
+                            <option value="{{this.name}}">{{this.name}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                </div> <!-- /.form-group -->
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-2">
+                        <button type="submit" class="btn btn-success"><i class="fa fa-star"></i> Make Favourite</button>
+                        <span class="pull-right">
+                            Currently: {{#if info.favourite}}{{info.favourite}}{{else}}(None){{/if}}
+                        </span>
+                    </div>
+                </div> <!-- /.form-group -->
+            </form>
             <table class="table table-striped table-bordered sortable" data-sortable>
                 <thead>
                     <tr>

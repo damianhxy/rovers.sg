@@ -1,5 +1,7 @@
-<div class="section text-center container banner constrain" style="background-image:url('img/LargeBanner.png')">
-    <img src="/img/logo.png" alt="Logo">
+<div class="text-center container banner constrain" style="background-image:url('img/LargeBanner.png')">
+</div>
+<div class="section text-center">
+    <img id="homepage-logo" src="/img/logo.png" alt="Logo">
     <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In scelerisque maximus ipsum vitae ultrices.</h3>
 </div>
 <div class="section text-center container">
@@ -7,18 +9,14 @@
     {{#if upcoming}}
     <div class="row">
         {{#each upcoming}}
-        <div class="panel panel-info card">
-            <div class="panel-heading">
-                <h3 class="panel-title">{{title}}</h3>
-            </div>
+        <div class="panel panel-default card">
             <a data-toggle="lightbox" data-title="Placeholder" href="/img/EventPicture.png" class="thumbnail">
                 <img src="/img/EventPicture.png" alt="Placeholder">
             </a>
             <div class="panel-body">
-                <small>From</small>
-                <p>{{start}}</p>
-                <small>To</small>
-                <p>{{end}}</p>
+                <strong>{{title}}</strong>
+                <p>{{startPretty}}</p>
+                <p>({{duration}})</p>
             </div>
             <div class="panel-footer">
                 <a href="/upcoming#{{_id}}">View Information</a>
