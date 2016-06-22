@@ -131,6 +131,11 @@ textarea[readonly] {
 
 .card > .thumbnail {
     margin: 0;
+    height: 200px;
+}
+
+.card > .thumbnail > img {
+    max-height: 100%;
 }
 
 .card > .panel-body {

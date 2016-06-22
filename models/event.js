@@ -29,7 +29,7 @@ exports.add = function(req) {
         link: req.body.link && normalizeURL(req.body.link),
         time: moment.tz("Asia/Singapore").format(),
         photos: [],
-        favourite: ""
+        favourite: {}
     };
     return events.insertAsync(eventInfo).then(function(event) {
         return fs.mkdirAsync("./public/uploads/" + event._id).then(function() {
@@ -71,6 +71,8 @@ exports.deletePhoto = function(id, name) {
         for (index = 0; index < event.photos.length; ++index) {
             if (event.photos[index].name === name) break;
         }
+        if (event.photos[index].path === event.favourite)
+            event.favourite = {};
         return fs.unlinkAsync("./public" + event.photos[index].path).then(function() {
             event.photos.splice(index, 1);
             return events.updateAsync({ _id: id }, { $set: event });
@@ -117,6 +119,22 @@ exports.get = function(id) {
 exports.getCategory = function(category) {
     return events.findAsync({
         $where: function() { return this.category.indexOf(category) !== -1; }
+    });
+};
+
+exports.mark = function(id, name) {
+    console.log("Marking", id, name);
+    return events.findOneAsync({ _id: id }).then(function(event) {
+        if (name === "del") {
+            event.favourite = {};
+        } else {
+            var index;
+            for (index = 0; index < event.photos.length; ++index) {
+                if (event.photos[index].name === name) break;
+            }
+            event.favourite = event.photos[index];
+        }
+        return events.updateAsync({ _id: id }, { $set: event });
     });
 };
 

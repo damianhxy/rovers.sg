@@ -4,9 +4,15 @@
     <div class="row">
         {{#each events}}
         <div class="panel panel-info card">
+            {{#if favourite.name}}
+            <a data-toggle="lightbox" data-title="{{favourite.name}}" href="{{favourite.path}}" class="thumbnail">
+                <img src="{{favourite.path}}" alt="{{favourite.name}}">
+            </a>
+            {{else}}
             <a data-toggle="lightbox" data-title="Placeholder" href="/img/EventPicture.png" class="thumbnail">
                 <img src="/img/EventPicture.png" alt="Placeholder">
             </a>
+            {{/if}}
             <div class="panel-body">
                 <strong>{{title}}</strong>
                 <p>{{startPretty}}</p>
@@ -30,9 +36,15 @@
     </div>
     <div class="row">
         <div class="col-md-3">
+            {{#if favourite.name}}
+            <a data-toggle="lightbox" data-title="{{favourite.name}}" href="{{favourite.path}}" class="thumbnail">
+                <img src="{{favourite.path}}" alt="{{favourite.name}}">
+            </a>
+            {{else}}
             <a data-toggle="lightbox" data-title="Placeholder" href="/img/EventPicture.png" class="thumbnail">
                 <img src="/img/EventPicture.png" alt="Placeholder">
             </a>
+            {{/if}}
         </div> <!-- /.col-md-3 -->
         <div class="col-md-9">
             <dl class="dl-horizontal">
