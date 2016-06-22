@@ -1,127 +1,129 @@
-<div class="section container">
-    <div class="text-center page-header"><h2>Update Password</h2></div>
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <p class="text-center">*All fields are required</p>
-            <form class="form-horizontal" action="/users/editPassword" method="post" accept-charset="UTF-8" autocomplete="off">
-                <div class="form-group">
-                    <span class="col-md-2 control-label">Current</span>
-                    <div class="col-md-10">
-                        <input name="currentPassword" class="form-control" type="password" required>
-                    </div>
-                </div> <!-- /.form-group -->
-                <div class="form-group">
-                    <span class="col-md-2 control-label">New</span>
-                    <div class="col-md-10">
-                        <input name="newPass" class="form-control" type="password" required>
-                    </div>
-                </div> <!-- /.form-group -->
-                <div class="form-group">
-                    <span class="col-md-2 control-label">Repeat New</span>
-                    <div class="col-md-10">
-                        <input name="newPass2" class="form-control" type="password" required>
-                    </div>
-                </div> <!-- /.form-group -->
-                <div class="form-group">
-                    <div class="col-md-10 col-md-offset-2">
-                        <button type="submit" class="btn btn-success"><i class="fa fa-certificate"></i> Update Password</button>
-                    </div>
-                </div> <!-- /.form-group -->
-            </form>
-        </div> <!-- /.col-md-6 -->
-    </div> <!-- /.row -->
-</div>
-{{#if user.admin}}
-<div class="section container">
-    <div class="page-header text-center"><h2>Link Shortener</h2></div>
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <p class="text-center">*All fields are required</p>
-            <form class="form-horizontal" action="/short" method="post" accept-charset="UTF-8" autocomplete="off">
-                <div class="form-group">
-                    <span class="col-md-2 control-label">Original URL</span>
-                    <div class="col-md-10">
-                        <input type="text" class="form-control" name="orgurl" required>
-                    </div>
-                </div> <!-- /.form-group -->
-                <div class="form-group">
-                    <span class="col-md-2 control-label">Short URL</span>
-                    <div class="col-md-10">
-                        <input type="text" class="form-control" name="newurl" required>
-                    </div>
-                </div> <!-- /.form-group -->
-                <div class="form-group">
-                    <span class="col-md-2 control-label">Embed</span>
-                    <div class="col-md-10">
-                        <input type="checkbox" class="form-control" name="embed">
-                    </div>
-                </div> <!-- /.form-group -->
-                <div class="form-group">
-                    <div class="col-md-10 col-md-offset-2">
-                        <button type="submit" class="btn btn-success"><i class="fa fa-plus-circle"></i> Create Link</button>
-                    </div>
-                </div> <!-- /.form-group -->
-            </form>
-        </div> <!-- /.col-md-6 -->
-    </div> <!-- /.row -->
-</div>
-<div class="section container">
-    <div class="text-center page-header"><h2>Manage links</h2></div>
-    {{#if links}}
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <table class="table table-striped table-bordered sortable" data-sortable>
-                <thead>
-                    <tr>
-                        <th class="col-md-3 col-xs-4">Original URL</th>
-                        <th class="col-md-3 hidden-xs">Short URL</th>
-                        <th class="col-md-1 hidden-xs">Embed</th>
-                        <th class="col-md-3 col-xs-4" data-defaultsort="desc" data-firstsort="asc">Added</th>
-                        <th class="col-md-2 col-xs-4">Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each links}}
-                    <tr>
-                        <td><a href="{{orgurl}}">{{orgurl}}</a></td>
-                        <td class="hidden-xs">
-                            <a href="/short/{{newurl}}">{{newurl}}</a>
-                        </td>
-                        <td class="hidden-xs">
-                            {{#if embed}}
-                            Yes
-                            {{else}}
-                            No
-                            {{/if}}
-                        </td>
-                        <td data-value="{{time}}" data-livestamp="{{time}}"></td>
-                        <td>
-                            <button class="btn btn-danger btn-xs btn-delete" data-name="{{newurl}}" data-time="{{time}}" data-id="{{_id}}">
-                                <i class="fa fa-times-circle"></i> Delete
-                            </button>
-                        </td>
-                    </tr>
+<div class="container">
+    <div class="section">
+        <div class="text-center page-header"><h2>Update Password</h2></div>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <p class="text-center">*All fields are required</p>
+                <form class="form-horizontal" action="/users/editPassword" method="post" accept-charset="UTF-8" autocomplete="off">
+                    <div class="form-group">
+                        <span class="col-md-2 control-label">Current</span>
+                        <div class="col-md-10">
+                            <input name="currentPassword" class="form-control" type="password" required>
+                        </div>
+                    </div> <!-- /.form-group -->
+                    <div class="form-group">
+                        <span class="col-md-2 control-label">New</span>
+                        <div class="col-md-10">
+                            <input name="newPass" class="form-control" type="password" required>
+                        </div>
+                    </div> <!-- /.form-group -->
+                    <div class="form-group">
+                        <span class="col-md-2 control-label">Repeat New</span>
+                        <div class="col-md-10">
+                            <input name="newPass2" class="form-control" type="password" required>
+                        </div>
+                    </div> <!-- /.form-group -->
+                    <div class="form-group">
+                        <div class="col-md-10 col-md-offset-2">
+                            <button type="submit" class="btn btn-success"><i class="fa fa-certificate"></i> Update Password</button>
+                        </div>
+                    </div> <!-- /.form-group -->
+                </form>
+            </div> <!-- /.col-md-6 -->
+        </div> <!-- /.row -->
+    </div>
+    {{#if user.admin}}
+    <div class="section">
+        <div class="page-header text-center"><h2>Link Shortener</h2></div>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <p class="text-center">*All fields are required</p>
+                <form class="form-horizontal" action="/short" method="post" accept-charset="UTF-8" autocomplete="off">
+                    <div class="form-group">
+                        <span class="col-md-2 control-label">Original URL</span>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" name="orgurl" required>
+                        </div>
+                    </div> <!-- /.form-group -->
+                    <div class="form-group">
+                        <span class="col-md-2 control-label">Short URL</span>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" name="newurl" required>
+                        </div>
+                    </div> <!-- /.form-group -->
+                    <div class="form-group">
+                        <span class="col-md-2 control-label">Embed</span>
+                        <div class="col-md-10">
+                            <input type="checkbox" class="form-control" name="embed">
+                        </div>
+                    </div> <!-- /.form-group -->
+                    <div class="form-group">
+                        <div class="col-md-10 col-md-offset-2">
+                            <button type="submit" class="btn btn-success"><i class="fa fa-plus-circle"></i> Create Link</button>
+                        </div>
+                    </div> <!-- /.form-group -->
+                </form>
+            </div> <!-- /.col-md-6 -->
+        </div> <!-- /.row -->
+    </div>
+    <div class="section">
+        <div class="text-center page-header"><h2>Manage links</h2></div>
+        {{#if links}}
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <table class="table table-striped table-bordered sortable" data-sortable>
+                    <thead>
+                        <tr>
+                            <th class="col-md-3 col-xs-4">Original URL</th>
+                            <th class="col-md-3 hidden-xs">Short URL</th>
+                            <th class="col-md-1 hidden-xs">Embed</th>
+                            <th class="col-md-3 col-xs-4" data-defaultsort="desc" data-firstsort="asc">Added</th>
+                            <th class="col-md-2 col-xs-4">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each links}}
+                        <tr>
+                            <td><a href="{{orgurl}}">{{orgurl}}</a></td>
+                            <td class="hidden-xs">
+                                <a href="/short/{{newurl}}">{{newurl}}</a>
+                            </td>
+                            <td class="hidden-xs">
+                                {{#if embed}}
+                                Yes
+                                {{else}}
+                                No
+                                {{/if}}
+                            </td>
+                            <td data-value="{{time}}" data-livestamp="{{time}}"></td>
+                            <td>
+                                <button class="btn btn-danger btn-xs btn-delete" data-name="{{newurl}}" data-time="{{time}}" data-id="{{_id}}">
+                                    <i class="fa fa-times-circle"></i> Delete
+                                </button>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table> <!-- /.table -->
+            </div> <!-- /.col-md-6 -->
+        </div> <!-- /.row -->
+        {{else}}
+        <h3 class="text-center">There are currently no links</h3>
+        {{/if}}
+    </div>
+    <div class="section text-center">
+        <div class="page-header"><h2>Server Information</h2></div>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <dl class="dl-horizontal">
+                    {{#each info}}
+                    <dt>{{@key}}</dt>
+                    <dd>{{this}}</dd>
                     {{/each}}
-                </tbody>
-            </table> <!-- /.table -->
-        </div> <!-- /.col-md-6 -->
-    </div> <!-- /.row -->
-    {{else}}
-    <h3 class="text-center">There are currently no links</h3>
+                </dl>
+            </div> <!-- /.col-md-6 -->
+        </div> <!-- /.row -->
+    </div>
     {{/if}}
 </div>
-<div class="section text-center container">
-    <div class="page-header"><h2>Server Information</h2></div>
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <dl class="dl-horizontal">
-                {{#each info}}
-                <dt>{{@key}}</dt>
-                <dd>{{this}}</dd>
-                {{/each}}
-            </dl>
-        </div> <!-- /.col-md-6 -->
-    </div> <!-- /.row -->
-</div>
-{{/if}}
 <script src="/lib/custom/profile.js"></script>

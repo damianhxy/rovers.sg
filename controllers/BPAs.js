@@ -5,7 +5,8 @@ var BPA = require("../models/BPA.js");
 var admin = require("../middlewares/admin.js");
 
 router.get("/", function(req, res) {
-    BPA.all().then(function(BPAs) {
+    BPA.all()
+    .then(function(BPAs) {
         res.render("about", {
             title: "About",
             user: req.user,
@@ -16,10 +17,12 @@ router.get("/", function(req, res) {
 });
 
 router.post("/", admin, function(req, res) {
-    BPA.add(req).then(function() {
+    BPA.add(req)
+    .then(function() {
         req.session.success = "Awardee added";
         res.redirect("/about");
-    }).catch(function(err) {
+    })
+    .catch(function(err) {
         console.error(err);
         req.session.error = err.message;
         res.redirect(req.headers.referrer || "/");
@@ -27,9 +30,11 @@ router.post("/", admin, function(req, res) {
 });
 
 router.delete("/", admin, function(req, res) {
-    BPA.delete(req.body.id).then(function() {
+    BPA.delete(req.body.id)
+    .then(function() {
         res.end();
-    }).catch(function(err) {
+    })
+    .catch(function(err) {
         console.error(err);
         res.status(400).json({ "error": err.message });
     });

@@ -10,7 +10,8 @@ router.use(notification);
 
 /* Normal Pages */
 router.get("/", function(req, res) {
-    event.upcoming(moment.tz("Asia/Singapore").format()).then(function(events) {
+    event.upcoming(moment.tz("Asia/Singapore").format())
+    .then(function(events) {
         res.render("home", {
             title: "Home",
             user: req.user,
@@ -21,7 +22,8 @@ router.get("/", function(req, res) {
 
 /* Events */
 router.get("/upcoming", function(req, res) {
-    event.upcoming(moment.tz("Asia/Singapore")).then(function(events) {
+    event.upcoming(moment.tz("Asia/Singapore"))
+    .then(function(events) {
         res.render("upcoming", {
             title: "Upcoming",
             user: req.user,
@@ -83,13 +85,6 @@ router.post("/contact", function(req, res) {
 
 /* User */
 router.use("/users", require("./users.js"));
-
-router.get("/sitemap", function(req, res) {
-    res.render("sitemap", {
-        title: "Sitemap",
-        user: req.user
-    });
-});
 
 /* 404 & 500 */
 router.use(function(req, res) {

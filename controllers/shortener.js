@@ -4,10 +4,12 @@ var short = require("../models/shortener.js");
 var admin = require("../middlewares/admin.js");
 
 router.post("/", function(req, res) {
-    short.add(req).then(function() {
+    short.add(req)
+    .then(function() {
         req.session.success = "Link created";
         res.redirect("/users/profile");
-    }).catch(function(err) {
+    })
+    .catch(function(err) {
         console.error(err);
         req.session.error = err.message;
         res.redirect(req.headers.referrer || "/");
@@ -15,9 +17,11 @@ router.post("/", function(req, res) {
 });
 
 router.delete("/", function(req, res) {
-    short.delete(req.body.id).then(function() {
+    short.delete(req.body.id)
+    .then(function() {
         res.end();
-    }).catch(function(err) {
+    })
+    .catch(function(err) {
         console.error(err);
         req.session.error = err.message;
         res.redirect(req.headers.referrer || "/");
@@ -25,7 +29,8 @@ router.delete("/", function(req, res) {
 });
 
 router.get("/:url", function(req, res) {
-    short.get(req.params.url).then(function(info) {
+    short.get(req.params.url)
+    .then(function(info) {
         if (info.embed) {
             res.render("embed", {
                 title: info.newurl,
@@ -35,7 +40,8 @@ router.get("/:url", function(req, res) {
         } else {
             res.redirect(info.orgurl);
         }
-    }).catch(function(err) {
+    })
+    .catch(function(err) {
         console.log(err);
         req.session.error = err.message;
         res.redirect(req.headers.referrer || "/");

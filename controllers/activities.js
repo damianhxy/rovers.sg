@@ -13,7 +13,8 @@ router.get("/", function(req, res) {
 
 router.get("/:category", function(req, res) {
     var category = req.params.category;
-    event.getCategory(category).then(function(events) {
+    event.getCategory(category)
+    .then(function(events) {
         res.render("activities", {
             title: category[0].toUpperCase() + category.slice(1),
             user: req.user,

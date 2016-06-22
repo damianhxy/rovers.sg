@@ -25,8 +25,9 @@ exports.delete = function(id) {
 };
 
 exports.get = function(url) {
-    return short.findOneAsync({ newurl: url }).then(function(info) {
+    return short.findOneAsync({ newurl: url })
+    .then(function(info) {
         if (!info) return Promise.reject(Error("Invalid link"));
-        return Promise.success(info);
+        return Promise.resolve(info);
     });
 };

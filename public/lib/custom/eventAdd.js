@@ -20,7 +20,7 @@ $(document).ready(function() {
     });
     $end.combodate({
         smartDays: "true",
-        value: defaultMoment.add(5, 'minutes').format(MOMENT_FORMAT),
+        value: defaultMoment.add(1, 'hour').format(MOMENT_FORMAT),
         minYear: CURRENT_YEAR,
         maxYear: CURRENT_YEAR + 1
     });

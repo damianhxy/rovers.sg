@@ -9,7 +9,7 @@ $(document).ready(function() {
     // Toggle editable
     $(".btn-edit").click(function() {
         $(".field-hidden").toggle();
-        $(this).parent().parent().prev().find(".field-edit").editable("toggleDisabled");
+        $(this).parent().parent().parent().find(".field-edit").editable("toggleDisabled");
     });
 
     // X-editable

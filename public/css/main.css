@@ -1,6 +1,100 @@
 /* Template */
 @import url(https://fonts.googleapis.com/css?family=Lato:300|Roboto:300);
 
+.navbar-default {
+  background-color: #f7f7f7;
+  border-color: #fb0000;
+}
+.navbar-default .navbar-brand {
+  color: #ee1e1e;
+}
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+  color: #b20d0d;
+}
+.navbar-default .navbar-text {
+  color: #ee1e1e;
+}
+.navbar-default .navbar-nav > li > a {
+  color: #ee1e1e;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #b20d0d;
+}
+.navbar-default .navbar-nav > li > .dropdown-menu {
+  background-color: #f7f7f7;
+}
+.navbar-default .navbar-nav > li > .dropdown-menu > li > a {
+  color: #ee1e1e;
+}
+.navbar-default .navbar-nav > li > .dropdown-menu > li > a:hover,
+.navbar-default .navbar-nav > li > .dropdown-menu > li > a:focus {
+  /*color: #b20d0d;*/
+  color: #f7f7f7;
+  background-color: #fb0000;
+}
+.navbar-default .navbar-nav > li > .dropdown-menu > li > .divider {
+  background-color: #fb0000;
+}
+.navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+.navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
+.navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+  /*color: #b20d0d;*/
+  color: #f7f7f7;
+  background-color: #fb0000;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+  /*color: #b20d0d;*/
+  color: #f7f7f7;
+  background-color: #fb0000;
+}
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+  /*color: #b20d0d;*/
+  color: #f7f7f7;
+  background-color: #fb0000;
+}
+.navbar-default .navbar-toggle {
+  border-color: #fb0000;
+}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+  background-color: #fb0000;
+}
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #ee1e1e;
+}
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+  border-color: #ee1e1e;
+}
+.navbar-default .navbar-link {
+  color: #ee1e1e;
+}
+.navbar-default .navbar-link:hover {
+  color: #b20d0d;
+}
+
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #ee1e1e;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #b20d0d;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: #b20d0d;
+    background-color: #fb0000;
+  }
+}
+
 #homepage-logo {
     padding-top: 75px;
 }
@@ -15,15 +109,16 @@ blockquote {
 }
 
 body {
-    font-family: "Lato", sans-serif;
-    font-weight: 300;
-    font-size: 14px;
     margin-bottom: 84px; /* Footer */
     margin-top: 50px; /* Navbar */
 }
 
 h1, h2, h3, h4, h5, h6 {
     font-family: "Roboto", sans-serif;
+}
+
+p, div {
+    font-family: "Lato", sans-serif;
 }
 
 .fc-day-grid-event .fc-content {
@@ -41,7 +136,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .footer__title,
-.footer__links {
+.footer__copyright {
     margin: 2px 0;
 }
 
@@ -92,12 +187,6 @@ textarea[readonly] {
 
 .anchor {
     top: -50px;
-}
-
-.banner {
-    padding: 80px 0;
-    height: 400px;
-    width: 1280px;
 }
 
 .btn-file {
@@ -158,6 +247,6 @@ textarea[readonly] {
 #shortcuts {
     position: fixed;
     top: 165px;
-    width: 23%;
+    width: 20%;
     z-index: 1;
 }

@@ -27,9 +27,11 @@ exports.all = function() {
 };
 
 exports.delete = function(id) {
-    return files.findOneAsync({ _id: id }).then(function(file) {
+    return files.findOneAsync({ _id: id })
+    .then(function(file) {
         if (file.path) {
-            return fs.unlinkAsync(file.path).then(files.removeAsync({ _id: id }));
+            return fs.unlinkAsync(file.path)
+            .then(files.removeAsync({ _id: id }));
         } else {
             return files.removeAsync({ _id: id });
         }
@@ -37,7 +39,8 @@ exports.delete = function(id) {
 };
 
 exports.edit = function(id, field, value) {
-    return files.findOneAsync({ _id: id }).then(function(file) {
+    return files.findOneAsync({ _id: id })
+    .then(function(file) {
         file[field] = value;
         file.time = moment.tz("Asia/Singapore").format();
         return files.updateAsync({ _id: id }, { $set: file });

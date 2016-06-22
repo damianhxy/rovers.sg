@@ -6,10 +6,12 @@ var user = require("../models/user.js");
 var auth = require("../middlewares/auth.js");
 
 router.post("/editPassword", auth, function(req, res) {
-    user.editPassword(req).then(function() {
+    user.editPassword(req)
+    .then(function() {
         req.session.success = "Password Updated";
         res.redirect("/users/profile");
-    }).catch(function(err) {
+    })
+    .catch(function(err) {
         console.error(err);
         req.session.error = err.message;
         res.status(400).redirect("/users/profile");
@@ -17,7 +19,8 @@ router.post("/editPassword", auth, function(req, res) {
 });
 
 router.get("/profile", auth, function(req, res) {
-    short.all().then(function(links) {
+    short.all()
+    .then(function(links) {
         res.render("profile", {
             title: "Profile",
             user: req.user,

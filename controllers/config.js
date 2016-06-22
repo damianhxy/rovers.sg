@@ -47,10 +47,12 @@ module.exports = function(app, express) {
     passport.use("local-signin", new localStrategy(
         { passReqToCallback: true },
         function(req, username, password, done) {
-            return user.authenticate(username, password).then(function(user) {
+            return user.authenticate(username, password)
+            .then(function(user) {
                 console.info("Signed in", user.username);
                 done(null, user);
-            }).catch(function(err) {
+            })
+            .catch(function(err) {
                 console.error(err);
                 req.session.error = err.message;
                 done(null, false);
@@ -66,7 +68,7 @@ module.exports = function(app, express) {
                 console.info("Signed up", user.username);
                 done(null, user);
             })
-            .fail(function(err) {
+            .catch(function(err) {
                 console.error(err);
                 req.session.error = err.message;
                 done(null, false);
@@ -80,9 +82,11 @@ module.exports = function(app, express) {
     });
 
     passport.deserializeUser(function(id, done) {
-        user.get(id).then(function(user) {
+        user.get(id)
+        .then(function(user) {
             done(null, user);
-        }).catch(function(err) {
+        })
+        .catch(function(err) {
             done(err, false);
         });
     });

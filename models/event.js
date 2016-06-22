@@ -31,15 +31,20 @@ exports.add = function(req) {
         photos: [],
         favourite: {}
     };
-    return events.insertAsync(eventInfo).then(function(event) {
-        return fs.mkdirAsync("./public/uploads/" + event._id).then(function() {
+    return events.insertAsync(eventInfo)
+    .then(function(event) {
+        event.url = "/events/" + event._id;
+        return events.updateAsync({ _id: event._id }, { $set: event })
+        .then(fs.mkdirAsync("./public/uploads/" + event._id))
+        .then(function() {
             return Promise.resolve(event._id);
         });
     });
 };
 
 exports.addPhotos = function(id, photos) {
-    return events.findOneAsync({ _id: id }).then(function(event) {
+    return events.findOneAsync({ _id: id })
+    .then(function(event) {
         photos.forEach(function(e) {
             event.photos.push({
                 name: e.originalname,
@@ -61,19 +66,22 @@ exports.delete = function(id) {
             if (err) reject(err);
             else resolve();
         });
-    }).then(events.removeAsync({ _id: id }));
+    })
+    .then(events.removeAsync({ _id: id }));
 };
 
 // Delete by name, since there shouldn't be duplicates and there's no _id
 exports.deletePhoto = function(id, name) {
-    return events.findOneAsync({ _id: id }).then(function(event) {
+    return events.findOneAsync({ _id: id })
+    .then(function(event) {
         var index;
         for (index = 0; index < event.photos.length; ++index) {
             if (event.photos[index].name === name) break;
         }
         if (event.photos[index].path === event.favourite)
             event.favourite = {};
-        return fs.unlinkAsync("./public" + event.photos[index].path).then(function() {
+        return fs.unlinkAsync("./public" + event.photos[index].path)
+        .then(function() {
             event.photos.splice(index, 1);
             return events.updateAsync({ _id: id }, { $set: event });
         });
@@ -81,7 +89,8 @@ exports.deletePhoto = function(id, name) {
 };
 
 exports.edit = function(id, field, value) {
-    return events.findOneAsync({ _id: id }).then(function(event) {
+    return events.findOneAsync({ _id: id })
+    .then(function(event) {
         if (field === "start" || field === "end")
             value = moment.tz(value, settings.EVENT_TIME_FORMAT, "Asia/Singapore").format();
         if (field === "start")
@@ -102,15 +111,15 @@ exports.edit = function(id, field, value) {
         if (field === "title" && !value)
             throw Error("Title can not be empty");
         return events.updateAsync({ _id: id }, { $set: event });
-    }).then(function() {
+    })
+    .then(function() {
         return Promise.resolve({ field: field, value: value });
-    }).catch(function(e) {
-        return Promise.reject(e);
     });
 };
 
 exports.get = function(id) {
-    return events.findOneAsync({ _id: id }).then(function(event) {
+    return events.findOneAsync({ _id: id })
+    .then(function(event) {
         if (!event) return Promise.reject(Error("Event does not exist"));
         return Promise.resolve(event);
     });
@@ -123,8 +132,8 @@ exports.getCategory = function(category) {
 };
 
 exports.mark = function(id, name) {
-    console.log("Marking", id, name);
-    return events.findOneAsync({ _id: id }).then(function(event) {
+    return events.findOneAsync({ _id: id })
+    .then(function(event) {
         if (name === "del") {
             event.favourite = {};
         } else {

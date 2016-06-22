@@ -6,9 +6,11 @@ Promise.promisifyAll(users);
 Promise.promisifyAll(bcryptjs);
 
 exports.add = function(name, username, password) {
-    return users.findOneAsync({ username: username }).then(function(user) {
-        if (user) throw Error("User already exists");
-        return bcryptsjs.hashAsync(password, 10).then(function(hash) {
+    return users.findOneAsync({ username: username })
+    .then(function(user) {
+        if (user) return Promise.reject(Error("User already exists"));
+        return bcryptsjs.hashAsync(password, 10)
+        .then(function(hash) {
             var user = {
                 "name": name,
                 "username": username,
@@ -17,8 +19,6 @@ exports.add = function(name, username, password) {
             };
             return users.insertAsync(user);
         });
-    }).catch(function(e) {
-        return Promise.reject(e);
     });
 };
 
@@ -27,27 +27,27 @@ exports.all = function() {
 };
 
 exports.authenticate = function(username, password) {
-    return users.findOneAsync({ username: username }).then(function(user) {
-        if (!user) throw Error("User does not exist");
-        return bcryptjs.compareAsync(password, user.hash).then(function(res) {
-            if (!res) throw Error("Wrong password");
+    return users.findOneAsync({ username: username })
+    .then(function(user) {
+        if (!user) return Promise.reject(Error("User does not exist"));
+        return bcryptjs.compareAsync(password, user.hash)
+        .then(function(res) {
+            if (!res) return Promise.reject(Error("Wrong password"));
             return Promise.resolve(user);
         });
-    }).catch(function(e) {
-        return Promise.reject(e);
     });
 };
 
 exports.editPassword = function(req) {
     if (req.body.newPass !== req.body.newPass2)
         return Promise.reject(Error("New passwords do not match"));
-    return bcryptjs.compareAsync(req.body.currentPassword, req.user.hash).then(function(res) {
-        if (!res) throw Error("Wrong password");
+    return bcryptjs.compareAsync(req.body.currentPassword, req.user.hash)
+    .then(function(res) {
+        if (!res) return Promise.reject(Error("Wrong password"));
         return bcryptjs.hashAsync(req.body.newPass, req.user.hash.substr(0, 29))
-    }).then(function(hash) {
+    })
+    .then(function(hash) {
         return users.updateAsync({ _id: req.user._id }, { $set: {hash: hash} });
-    }).catch(function(e) {
-        return Promise.reject(e);
     });
 };
 
