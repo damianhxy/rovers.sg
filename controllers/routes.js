@@ -35,7 +35,7 @@ router.get("/upcoming", function(req, res) {
 router.use("/events", require("./events.js"));
 
 /* Link Shortener */
-router.use("/short", require("./shortener.js"));
+router.use("/s", require("./shortener.js"));
 
 /* Resources */
 router.use("/resources", require("./resources.js"));

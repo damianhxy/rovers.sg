@@ -129,7 +129,7 @@
         {{#if info.photos}}
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
-                <form class="form-horizontal" action="/events/mark/{{info._id}}" method="post" accept-charset="UTF-8" autocomplete="off">
+                <form class="form-horizontal" action="/events/{{info._id}}?_method=PUT" method="post" accept-charset="UTF-8" autocomplete="off">
                     <div class="form-group">
                         <span class="col-md-2 control-label">Photo</span>
                         <div class="col-md-10">

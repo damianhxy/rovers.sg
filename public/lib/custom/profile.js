@@ -26,7 +26,7 @@ $(document).ready(function() {
                     callback: function() {
                         $.ajax({
                             method: "DELETE",
-                            url: "/short",
+                            url: "/s",
                             data: { id: id }
                         })
                         .done(function() {

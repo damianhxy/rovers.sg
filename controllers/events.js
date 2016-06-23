@@ -16,9 +16,6 @@ router.get("/", function(req, res, next) {
 router.get("/feed", function(req, res, next) {
     event.range(req.query.start, req.query.end)
     .then(function(events) {
-        /*events.forEach(function(e) {
-            e.url = "/events/" + e._id;
-        });*/
         res.json(events);
     });
 });
@@ -64,18 +61,6 @@ router.put("/", admin, function(req, res) {
     });
 });
 
-router.post("/mark/:event", function(req, res) {
-    event.mark(req.params.event, req.body.name)
-    .then(function() {
-        res.redirect("/events/" + req.params.event);
-    })
-    .catch(function(err) {
-        console.error(err);
-        req.session.error = err.message;
-        res.status(400).redirect("/events/" + req.params.event);
-    });
-});
-
 router.get("/:event", function(req, res) {
     event.get(req.params.event)
     .then(function(info) {
@@ -108,6 +93,18 @@ router.post("/:event", admin, function(req, res) {
             });
         }
         res.redirect("/events/" + req.params.event);
+    });
+});
+
+router.put("/:event", function(req, res) {
+    event.mark(req.params.event, req.body.name)
+    .then(function() {
+        res.redirect("/events/" + req.params.event);
+    })
+    .catch(function(err) {
+        console.error(err);
+        req.session.error = err.message;
+        res.status(400).redirect("/events/" + req.params.event);
     });
 });
 

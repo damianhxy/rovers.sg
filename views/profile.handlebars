@@ -38,7 +38,7 @@
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <p class="text-center">*All fields are required</p>
-                <form class="form-horizontal" action="/short" method="post" accept-charset="UTF-8" autocomplete="off">
+                <form class="form-horizontal" action="/s" method="post" accept-charset="UTF-8" autocomplete="off">
                     <div class="form-group">
                         <span class="col-md-2 control-label">Original URL</span>
                         <div class="col-md-10">
@@ -86,7 +86,7 @@
                         <tr>
                             <td><a href="{{orgurl}}">{{orgurl}}</a></td>
                             <td class="hidden-xs">
-                                <a href="/short/{{newurl}}">{{newurl}}</a>
+                                <a href="/s/{{newurl}}">{{newurl}}</a>
                             </td>
                             <td class="hidden-xs">
                                 {{#if embed}}
