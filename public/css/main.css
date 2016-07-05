@@ -182,6 +182,7 @@ p, div {
 }
 
 .footer__title,
+.footer__links,
 .footer__copyright {
     margin: 2px 0;
 }
