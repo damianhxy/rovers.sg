@@ -63,7 +63,8 @@
 }
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus {
-  background-color: #fb0000;
+  /*background-color: #fb0000;*/
+  background-color: #ffffff;
 }
 .navbar-default .navbar-toggle .icon-bar {
   background-color: #ee1e1e;
@@ -93,10 +94,6 @@
     color: #b20d0d;
     background-color: #fb0000;
   }
-}
-
-#homepage-logo {
-    padding-top: 75px;
 }
 
 html {
@@ -209,6 +206,10 @@ p, div {
 
 .section {
     border-bottom: 1px solid #e5e5e5;
+    padding-bottom: 75px;
+}
+
+.section__borderless {
     padding-bottom: 75px;
 }
 
