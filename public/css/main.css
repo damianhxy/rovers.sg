@@ -118,6 +118,19 @@ p, div {
     font-family: "Lato", sans-serif;
 }
 
+.banner-container {
+    position: relative;
+}
+
+.banner-text {
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    right: 10%;
+    max-width: 100%;
+    color: white;
+}
+
 .btn-file {
     position: relative;
     overflow: hidden;
