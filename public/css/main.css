@@ -204,8 +204,7 @@ p, div {
 .footer,
 .footer a {
     color: #f7f7f7;
-    -webkit-transition: color 0.2s ease 0s;
-            transition: color 0.2s ease 0s;
+    transition: color 0.2s ease 0s;
 }
 
 .footer a {
