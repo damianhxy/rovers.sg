@@ -1,4 +1,5 @@
 var express = require("express");
+var os = require("os");
 var passport = require("passport");
 var router = express.Router();
 var short = require("../models/shortener.js")
@@ -26,8 +27,11 @@ router.get("/profile", auth, function(req, res) {
             user: req.user,
             info: {
                 "Node Version": process.version,
-                "Architecture": process.arch,
-                "Platform": process.platform
+                "Platform": os.type(),
+                "Architecture": os.arch(),
+                "OS Version": os.release(),
+                "Total Memory": Math.round(os.totalmem() / Math.pow(1024, 3)) + " GB",
+                "Uptime": os.uptime() + " Seconds"
             },
             links: links
         });
