@@ -23,7 +23,9 @@ exports.add = function(req) {
 };
 
 exports.all = function() {
-    return files.find({}).sort({ time: -1 }).execAsync();
+    return files.find({})
+    .sort({ time: -1 })
+    .execAsync();
 };
 
 exports.delete = function(id) {

@@ -50,7 +50,6 @@ $(document).ready(function() {
                     end[curProp](start[curProp]());
             // $end comes first to prevent infinite recursion
             $end.combodate("setValue", moment(end).format(MOMENT_FORMAT));
-            $start.combodate("setValue", moment(start).format(MOMENT_FORMAT));
         }
         if (!title)
             return clearEvent();

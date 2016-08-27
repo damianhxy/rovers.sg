@@ -17,7 +17,10 @@ exports.add = function(req) {
 };
 
 exports.all = function() {
-    return short.find({}).sort({ url: 1 }).execAsync();
+    return short
+    .find({})
+    .sort({ url: 1 })
+    .execAsync();
 };
 
 exports.delete = function(id) {
@@ -27,7 +30,7 @@ exports.delete = function(id) {
 exports.get = function(url) {
     return short.findOneAsync({ newurl: url })
     .then(function(info) {
-        if (!info) return Promise.reject(Error("Invalid link"));
-        return Promise.resolve(info);
+        if (!info) throw Error("Invalid link");
+        return info;
     });
 };

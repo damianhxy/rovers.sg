@@ -91,7 +91,6 @@
     {{#if user.admin}}
     <div class="section">
         <div class="page-header text-center"><h2>Upload Photos</h2></div>
-        <p class="text-center">*Non-images will be ignored</p>
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <form class="form-horizontal" action="/events/{{info._id}}" method="post" accept-charset="UTF-8" enctype="multipart/form-data" autocomplete="off" id="uploadForm">
@@ -106,7 +105,7 @@
                                 <span class="input-group-btn">
                                     <span class="btn btn-info btn-file">
                                         <span>Browse...</span>
-                                        <input type="file" name="file" multiple>
+                                        <input type="file" name="file" accept="image/*" multiple>
                                     </span>
                                 </span>
                             </div>

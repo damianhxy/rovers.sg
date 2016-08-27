@@ -43,8 +43,9 @@ $(document).ready(function() {
     $(".nav-pills li:eq(0) a").tab("show");
 
 	// Active Link
-    var active = $("nav a[href='/" + location.pathname.split("/")[1] + "']").parent();
+    var active = $("nav a[href='" + location.pathname + "']").parent();
 	active.addClass("active");
+    // Highlight parent too
     active.closest("li.dropdown").addClass("active");
 
     // Full Calendar

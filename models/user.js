@@ -8,7 +8,7 @@ Promise.promisifyAll(bcryptjs);
 exports.add = function(name, username, password) {
     return users.findOneAsync({ username: username })
     .then(function(user) {
-        if (user) return Promise.reject(Error("User already exists"));
+        if (user) throw Error("User already exists");
         return bcryptsjs.hashAsync(password, 10)
         .then(function(hash) {
             var user = {
@@ -29,11 +29,11 @@ exports.all = function() {
 exports.authenticate = function(username, password) {
     return users.findOneAsync({ username: username })
     .then(function(user) {
-        if (!user) return Promise.reject(Error("User does not exist"));
+        if (!user) throw Error("User does not exist");
         return bcryptjs.compareAsync(password, user.hash)
         .then(function(res) {
-            if (!res) return Promise.reject(Error("Wrong password"));
-            return Promise.resolve(user);
+            if (!res) throw Error("Wrong password");
+            return user;
         });
     });
 };
@@ -43,7 +43,7 @@ exports.editPassword = function(req) {
         return Promise.reject(Error("New passwords do not match"));
     return bcryptjs.compareAsync(req.body.currentPassword, req.user.hash)
     .then(function(res) {
-        if (!res) return Promise.reject(Error("Wrong password"));
+        if (!res) throw Error("Wrong password");
         return bcryptjs.hashAsync(req.body.newPass, req.user.hash.substr(0, 29))
     })
     .then(function(hash) {

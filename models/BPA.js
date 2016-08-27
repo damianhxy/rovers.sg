@@ -15,7 +15,9 @@ exports.add = function(req) {
 };
 
 exports.all = function() {
-    return BPAs.find({}).sort({ name: 1 }).execAsync();
+    return BPAs.find({})
+    .sort({ name: 1 })
+    .execAsync();
 };
 
 exports.delete = function(id) {

@@ -5,7 +5,7 @@ var moment = require("moment-timezone");
 var normalizeURL = require("normalize-url");
 var settings = require("../controllers/settings.js");
 var events = new nedb({ filename: "./database/events", autoload: true });
-var rimraf = require("rimraf");
+var rimrafAsync = Promise.promisify(require("rimraf"));
 require("moment-duration-format");
 Promise.promisifyAll(fs);
 Promise.promisifyAll(events);
@@ -37,7 +37,7 @@ exports.add = function(req) {
         return events.updateAsync({ _id: event._id }, { $set: event })
         .then(fs.mkdirAsync("./public/uploads/" + event._id))
         .then(function() {
-            return Promise.resolve(event._id);
+            return event._id;
         });
     });
 };
@@ -61,12 +61,7 @@ exports.all = function() {
 };
 
 exports.delete = function(id) {
-    return new Promise(function(resolve, reject) {
-        rimraf("./public/uploads/" + id, function(err) {
-            if (err) reject(err);
-            else resolve();
-        });
-    })
+    return rimrafAsync("./public/uploads/" + id)
     .then(events.removeAsync({ _id: id }));
 };
 
@@ -74,10 +69,9 @@ exports.delete = function(id) {
 exports.deletePhoto = function(id, name) {
     return events.findOneAsync({ _id: id })
     .then(function(event) {
-        var index;
-        for (index = 0; index < event.photos.length; ++index) {
-            if (event.photos[index].name === name) break;
-        }
+        var index = event.photos.findIndex(function(e) {
+            return e.name === name;
+        });
         if (event.photos[index].path === event.favourite)
             event.favourite = {};
         return fs.unlinkAsync("./public" + event.photos[index].path)
@@ -113,15 +107,15 @@ exports.edit = function(id, field, value) {
         return events.updateAsync({ _id: id }, { $set: event });
     })
     .then(function() {
-        return Promise.resolve({ field: field, value: value });
+        return { field: field, value: value };
     });
 };
 
 exports.get = function(id) {
     return events.findOneAsync({ _id: id })
     .then(function(event) {
-        if (!event) return Promise.reject(Error("Event does not exist"));
-        return Promise.resolve(event);
+        if (!event) throw Error("Event does not exist");
+        return event;
     });
 };
 
@@ -137,11 +131,9 @@ exports.mark = function(id, name) {
         if (name === "del") {
             event.favourite = {};
         } else {
-            var index;
-            for (index = 0; index < event.photos.length; ++index) {
-                if (event.photos[index].name === name) break;
-            }
-            event.favourite = event.photos[index];
+            event.favourite = event.photos.find(function(e) {
+                return e.name === name;
+            });
         }
         return events.updateAsync({ _id: id }, { $set: event });
     });
@@ -159,5 +151,7 @@ exports.range = function(start, end) {
 exports.upcoming = function(date) {
     return events.find({
         $where: function() { return moment.tz(this.end, "Asia/Singapore").isAfter(date); }
-    }).sort({ start: 1, end: 1 }).execAsync();
+    })
+    .sort({ start: 1, end: 1 })
+    .execAsync();
 };
