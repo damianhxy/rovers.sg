@@ -1,7 +1,7 @@
 <div class="section text-center container">
     <div class="page-header"><h2>Category: {{title}}</h2></div>
     {{#if events}}
-    <div class="row">
+    <div class="overflow">
         {{#each events}}
         <div class="panel panel-info card">
             {{#if favourite.name}}
@@ -25,7 +25,7 @@
         {{/each}}
     </div>
     {{else}}
-    <h3>There are currently no events</h3>
+    <h4>There are currently no events</h4>
     {{/if}}
 </div>
 {{#each events}}

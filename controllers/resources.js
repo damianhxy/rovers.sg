@@ -11,7 +11,8 @@ router.get("/", function(req, res) {
         var categories = {
             "Latest Information": { name: "info", icon: "inbox", fileList: [] },
             "Forms": { name: "forms", icon: "newspaper-o", fileList: [] },
-            "NRC": { name: "nrc", icon: "institution", fileList: [] }
+            "NRC": { name: "nrc", icon: "institution", fileList: [] },
+            "Rover Journey": { name: "rj", icon: "map", fileList: [] }
         };
         files.forEach(function(e) {
             categories[e.category].fileList.push(e);
@@ -55,7 +56,7 @@ router.post("/", function(req, res) {
         } else {
             resource.add(req)
             .then(function() {
-                req.session.success = "File uploaded";
+                req.session.success = "Resource uploaded";
                 res.redirect("/resources#upload");
             })
             .catch(function(err) {

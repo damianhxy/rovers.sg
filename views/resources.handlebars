@@ -14,33 +14,35 @@
             <div class="section text-center">
                 <div class="page-header"><h2>{{@key}}</h2></div>
                 {{#if fileList}}
+                <div class="overflow">
                     {{#each fileList}}
-                        <div class="panel panel-info card">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-{{fileType url}}"></i> <a class="field-edit" data-type="text" data-pk="{{_id}}" data-name="name" data-url="/resources" href="javascript:void(0);">{{name}}</a></h3>
-                            </div>
-                            <div class="panel-body">
-                                <small>Description</small>
-                                <p><a class="field-edit" data-type="textarea" data-pk="{{_id}}" data-name="description" data-url="/resources" href="javascript:void(0);">{{description}}</a></p>
-                            </div>
-                            <div class="panel-footer">
-                                <div class="btn-group">
-                                    <a href="{{url}}" class="btn btn-info btn-xs">
-                                        <i class="fa fa-cloud-download"></i> Download
-                                    </a>
-                                    {{#if ../../user.admin}}
-                                    <button class="btn btn-success btn-xs btn-edit"><i class="fa fa-edit"></i> Edit</button>
-                                    <button class="btn btn-danger btn-xs btn-delete" data-name="{{name}}" data-time="{{time}}" data-id="{{_id}}"><i class="fa fa-times-circle"></i> Delete</button>
-                                    {{/if}}
-                                </div>
-                            </div>
-                            <div class="panel-footer">
-                                <small>Last modified <span data-livestamp="{{time}}"></span></small>
+                    <div class="panel panel-info card">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-{{fileType url}}"></i> <a class="field-edit" data-type="text" data-pk="{{_id}}" data-name="name" data-url="/resources" href="javascript:void(0);">{{name}}</a></h3>
+                        </div>
+                        <div class="panel-body">
+                            <small>Description</small>
+                            <p><a class="field-edit" data-type="textarea" data-pk="{{_id}}" data-name="description" data-url="/resources" href="javascript:void(0);">{{description}}</a></p>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="btn-group">
+                                <a href="{{url}}" class="btn btn-info btn-xs">
+                                    <i class="fa fa-cloud-download"></i> Download
+                                </a>
+                                {{#if ../../user.admin}}
+                                <button class="btn btn-success btn-xs btn-edit"><i class="fa fa-edit"></i> Edit</button>
+                                <button class="btn btn-danger btn-xs btn-delete" data-name="{{name}}" data-time="{{time}}" data-id="{{_id}}"><i class="fa fa-times-circle"></i> Delete</button>
+                                {{/if}}
                             </div>
                         </div>
+                        <div class="panel-footer">
+                            <small>Last modified <span data-livestamp="{{time}}"></span></small>
+                        </div>
+                    </div>
                     {{/each}}
-                    {{else}}
-                    <h3>There are currently no resources in this category</h3>
+                </div>
+                {{else}}
+                <h4>There are currently no resources in this category</h4>
                 {{/if}}
             </div> <!-- /.section -->
             {{/each}}
@@ -48,67 +50,65 @@
             <a class="anchor" id="upload-file"></a>
             <div class="section">
                 <div class="page-header text-center"><h2>Upload Resource</h2></div>
-                <div class="row">
-                    <form id="uploadForm" class="form-horizontal" action="/resources" method="post" accept-charset="UTF-8" enctype="multipart/form-data" autocomplete="off">
-                        <p class="text-center">*This field is required</p>
-                        <div class="form-group">
-                            <span class="col-md-2 control-label">File</span>
-                            <div class="col-md-10">
-                                <div class="input-group">
-                                    <div class="input-group-addon">Max Size: 25MB</div>
-                                    <input id="uploadName" type="text" class="form-control" value="No File Selected" readonly>
-                                    <span class="input-group-btn">
-                                        <span class="btn btn-info btn-file">
-                                            <span>Browse...</span>
-                                            <input type="file" name="file">
-                                        </span>
+                <form id="uploadForm" class="form-horizontal" action="/resources" method="post" accept-charset="UTF-8" enctype="multipart/form-data" autocomplete="off">
+                    <h4 class="text-center">*This field is required</h4>
+                    <div class="form-group">
+                        <span class="col-md-2 control-label">File</span>
+                        <div class="col-md-10">
+                            <div class="input-group">
+                                <div class="input-group-addon">Max Size: 25MB</div>
+                                <input id="uploadName" type="text" class="form-control" value="No File Selected" readonly>
+                                <span class="input-group-btn">
+                                    <span class="btn btn-info btn-file">
+                                        <span>Browse...</span>
+                                        <input type="file" name="file">
                                     </span>
-                                </div>
-                            </div>
-                        </div> <!-- /.form-group -->
-                        <h3 class="text-center">OR</h3>
-                        <div class="form-group">
-                            <span class="col-md-2 control-label">URL</span>
-                            <div class="col-md-10">
-                                <input type="text" class="form-control" name="url">
+                                </span>
                             </div>
                         </div>
-                        <hr class="separator">
-                        <div class="form-group">
-                            <span class="col-md-2 control-label">Name</span>
-                            <div class="col-md-10">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" name="name" required>
-                                    <div class="input-group-addon">*</div>
-                                </div>
+                    </div> <!-- /.form-group -->
+                    <h3 class="text-center">OR</h3>
+                    <div class="form-group">
+                        <span class="col-md-2 control-label">URL</span>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" name="url">
+                        </div>
+                    </div>
+                    <hr class="separator">
+                    <div class="form-group">
+                        <span class="col-md-2 control-label">Name</span>
+                        <div class="col-md-10">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="name" required>
+                                <div class="input-group-addon">*</div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <span class="col-md-2 control-label">Category</span>
-                            <div class="col-md-10">
-                                <select class="form-control" name="category" required>
-                                    {{#each categories}}
-                                    <option value="{{@key}}">{{@key}}</option>
-                                    {{/each}}
-                                </select>
+                    </div>
+                    <div class="form-group">
+                        <span class="col-md-2 control-label">Category</span>
+                        <div class="col-md-10">
+                            <select class="form-control" name="category" required>
+                                {{#each categories}}
+                                <option value="{{@key}}">{{@key}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                    </div> <!-- /.form-group -->
+                    <div class="form-group">
+                        <span class="col-md-2 control-label">Description</span>
+                        <div class="col-md-10">
+                            <textarea class="form-control" name="description" rows="3"></textarea>
+                        </div>
+                    </div> <!-- /.form-group -->
+                    <div class="form-group">
+                        <div class="col-md-10 col-md-offset-2">
+                            <div class="btn-group">
+                                <button type="submit" class="btn btn-success"><i class="fa fa-cloud-upload"></i> Upload Resource</button>
+                                <button type="reset" class="btn btn-danger"><i class="fa fa-times-circle"></i> Reset Form</button>
                             </div>
-                        </div> <!-- /.form-group -->
-                        <div class="form-group">
-                            <span class="col-md-2 control-label">Description</span>
-                            <div class="col-md-10">
-                                <textarea class="form-control" name="description" rows="3"></textarea>
-                            </div>
-                        </div> <!-- /.form-group -->
-                        <div class="form-group">
-                            <div class="col-md-10 col-md-offset-2">
-                                <div class="btn-group">
-                                    <button type="submit" class="btn btn-success"><i class="fa fa-cloud-upload"></i> Upload Resource</button>
-                                    <button type="reset" class="btn btn-danger"><i class="fa fa-times-circle"></i> Reset Form</button>
-                                </div>
-                            </div>
-                        </div> <!-- /.form-group -->
-                    </form>
-                </div> <!-- /.row -->
+                        </div>
+                    </div> <!-- /.form-group -->
+                </form>
             </div> <!-- /.section -->
             {{/if}}
         </div> <!-- /.col-md-9 -->

@@ -4,6 +4,7 @@ var moment = require("moment-timezone");
 var router = express.Router();
 var notification = require("../middlewares/notification.js");
 var event = require("../models/event.js");
+var resource = require("../models/resource.js");
 var settings = require("./settings.js");
 var admin = require("../middlewares/admin.js");
 router.use(notification);
@@ -47,9 +48,14 @@ router.use("/activities", require("./activities.js"));
 router.use("/about", require("./BPAs.js"));
 
 router.get("/rjourney", function(req, res) {
-    res.render("rjourney", {
-        title: "A Rover's Journey",
-        user: req.user
+    resource.get("Rover Journey")
+    .then(function(files) {
+        console.log(files);
+        res.render("rjourney", {
+            title: "A Rover's Journey",
+            user: req.user,
+            files: files
+        });
     });
 });
 

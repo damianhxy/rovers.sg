@@ -48,3 +48,9 @@ exports.edit = function(id, field, value) {
         return files.updateAsync({ _id: id }, { $set: file });
     });
 };
+
+exports.get = function(category) {
+    return files.find({ category: category })
+    .sort({ time: -1 })
+    .execAsync();
+};

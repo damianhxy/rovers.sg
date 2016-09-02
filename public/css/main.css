@@ -106,7 +106,7 @@ blockquote {
 }
 
 body {
-    margin-bottom: 84px; /* Footer */
+    margin-bottom: 114.5px; /* Footer */
     margin-top: 50px; /* Navbar */
 }
 
@@ -116,19 +116,6 @@ h1, h2, h3, h4, h5, h6 {
 
 p, div {
     font-family: "Lato", sans-serif;
-}
-
-.banner-container {
-    position: relative;
-}
-
-.banner-text {
-    position: absolute;
-    top: 20%;
-    left: 10%;
-    right: 10%;
-    max-width: 100%;
-    color: white;
 }
 
 .btn-file {
@@ -250,7 +237,25 @@ textarea[readonly] {
 }
 
 .banner {
+    position: relative;
     width: 100%;
+    min-height: 75vh;
+}
+
+.banner--dark {
+    filter: brightness(50%);
+}
+
+.banner-container {
+    position: relative;
+}
+
+.banner-text {
+    position: absolute;
+    left: 10vh;
+    right: 10vh;
+    top: 10vh;
+    color: white;
 }
 
 .constrain {
@@ -260,6 +265,12 @@ textarea[readonly] {
 .link {
     cursor: pointer !important;
     color: #337ab7 !important;
+}
+
+.overflow {
+    overflow-x: scroll;
+    width: auto;
+    white-space: nowrap;
 }
 
 #shortcuts {
