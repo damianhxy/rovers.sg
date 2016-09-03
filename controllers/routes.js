@@ -66,17 +66,6 @@ router.get("/faq", function(req, res) {
     });
 });
 
-router.get("/join", function(req, res) {
-    res.render("join", {
-        title: "Join",
-        user: req.user
-    });
-});
-
-router.post("/join", function(req, res) {
-    request.post(settings.JOIN_FORM_URL).form(req.body).pipe(res);
-});
-
 router.get("/contact", function(req, res) {
     res.render("contact", {
         title: "Contact",
@@ -85,9 +74,12 @@ router.get("/contact", function(req, res) {
 });
 
 router.post("/contact", function(req, res) {
-    request.post(settings.FEEDBACK_FORM_URL).form(req.body).pipe(res);
+    request.post(settings.CONTACT_FORM_URL).form(req.body).pipe(res);
 });
 
+router.post("/feedback", function(req, res) {
+    request.post(settings.FEEDBACK_FORM_URL).form(req.body).pipe(res);
+});
 
 /* User */
 router.use("/users", require("./users.js"));

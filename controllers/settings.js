@@ -4,8 +4,8 @@ exports.FILE_SIZE_LIMIT = 25 * 1024 * 1024;
 exports.PHOTO_SIZE_LIMIT = 5 * 1024 * 1024;
 exports.TIME_FORMAT = "dd mmm HH:MM:ss";
 exports.EVENT_TIME_FORMAT = "D MMM YY | HH:mm[h]";
+exports.CONTACT_FORM_URL = "https://docs.google.com/forms/d/1c90uh2-n3mIFVkTenDKl8Zd_wqiUMJFxnlh1VMsQnzE/formResponse";
 exports.FEEDBACK_FORM_URL = "https://docs.google.com/forms/d/1zjb3DchxXPAlBRPALm8Pm6dkJq6LuMWPo_uXkHEwZig/formResponse";
-exports.JOIN_FORM_URL = "https://docs.google.com/forms/d/1c90uh2-n3mIFVkTenDKl8Zd_wqiUMJFxnlh1VMsQnzE/formResponse";
 exports.NRC = [
     {
         title: "NRC 2016 (Current)"
