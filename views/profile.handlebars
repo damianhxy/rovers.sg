@@ -3,24 +3,32 @@
         <div class="text-center page-header"><h2>Update Password</h2></div>
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
-                <p class="text-center">*All fields are required</p>
                 <form class="form-horizontal" action="/users/editPassword" method="post" accept-charset="UTF-8" autocomplete="off">
                     <div class="form-group">
                         <span class="col-md-2 control-label">Current</span>
                         <div class="col-md-10">
-                            <input name="currentPassword" class="form-control" type="password" required>
+                            <div class="input-group">
+                                <input name="currentPassword" class="form-control" type="password" required>
+                                <div class="input-group-addon">*</div>
+                            </div>
                         </div>
                     </div> <!-- /.form-group -->
                     <div class="form-group">
                         <span class="col-md-2 control-label">New</span>
                         <div class="col-md-10">
-                            <input name="newPass" class="form-control" type="password" required>
+                            <div class="input-group">
+                                <input name="newPass" class="form-control" type="password" required>
+                                <div class="input-group-addon">*</div>
+                            </div>
                         </div>
                     </div> <!-- /.form-group -->
                     <div class="form-group">
-                        <span class="col-md-2 control-label">Repeat New</span>
+                        <span class="col-md-2 control-label">Repeat</span>
                         <div class="col-md-10">
-                            <input name="newPass2" class="form-control" type="password" required>
+                            <div class="input-group">
+                                <input name="newPass2" class="form-control" type="password" required>
+                                <div class="input-group-addon">*</div>
+                            </div>
                         </div>
                     </div> <!-- /.form-group -->
                     <div class="form-group">
@@ -37,24 +45,32 @@
         <div class="page-header text-center"><h2>Link Shortener</h2></div>
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
-                <p class="text-center">*All fields are required</p>
                 <form class="form-horizontal" action="/s" method="post" accept-charset="UTF-8" autocomplete="off">
                     <div class="form-group">
                         <span class="col-md-2 control-label">Original URL</span>
                         <div class="col-md-10">
-                            <input type="text" class="form-control" name="orgurl" required>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="orgurl" required>
+                                <div class="input-group-addon">*</div>
+                            </div>
                         </div>
                     </div> <!-- /.form-group -->
                     <div class="form-group">
                         <span class="col-md-2 control-label">Short URL</span>
                         <div class="col-md-10">
-                            <input type="text" class="form-control" name="newurl" required>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="newurl" required>
+                                <div class="input-group-addon">*</div>
+                            </div>
                         </div>
                     </div> <!-- /.form-group -->
                     <div class="form-group">
-                        <span class="col-md-2 control-label">Embed</span>
-                        <div class="col-md-10">
-                            <input type="checkbox" class="form-control" name="embed">
+                        <div class="checkbox">
+                            <div class="col-md-10 col-md-offset-2">
+                                <label>
+                                    <input type="checkbox" name="embed"> Embedded Link
+                                </label>
+                            </div>
                         </div>
                     </div> <!-- /.form-group -->
                     <div class="form-group">
@@ -108,7 +124,7 @@
             </div> <!-- /.col-md-6 -->
         </div> <!-- /.row -->
         {{else}}
-        <h3 class="text-center">There are currently no links</h3>
+        <h4 class="text-center">There are currently no links</h4>
         {{/if}}
     </div>
     <div class="section text-center">

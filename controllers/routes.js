@@ -50,7 +50,6 @@ router.use("/about", require("./BPAs.js"));
 router.get("/rjourney", function(req, res) {
     resource.get("Rover Journey")
     .then(function(files) {
-        console.log(files);
         res.render("rjourney", {
             title: "A Rover's Journey",
             user: req.user,

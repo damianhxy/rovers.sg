@@ -57,7 +57,7 @@
                                 </tbody>
                             </table> <!-- /.table -->
                             {{else}}
-                            <img alt="Information Unavailable" class="center-block constrain" src="/img/NotFound.png">
+                            <img alt="Information Unavailable" class="center-block" src="/img/NotFound.png">
                             {{/if}}
                         </div>
                         {{/each}}
@@ -161,25 +161,31 @@
                                 <div class="form-group">
                                     <span class="col-md-2 control-label">Name</span>
                                     <div class="col-md-10">
-                                        <input type="text" class="form-control" name="name" required>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="name" required>
+                                            <div class="input-group-addon">*</div>
+                                        </div>
                                     </div>
                                 </div> <!-- /.form-group -->
                                 <div class="form-group">
                                     <span class="col-md-2 control-label">Unit</span>
                                     <div class="col-md-10">
-                                        <input type="text" class="form-control" name="unit" placeholder="Optional">
+                                        <input type="text" class="form-control" name="unit">
                                     </div>
                                 </div> <!-- /.form-group -->
                                 <div class="form-group">
                                     <span class="col-md-2 control-label">Year</span>
                                     <div class="col-md-10">
-                                        <input type="number" class="form-control" name="year" placeholder="Optional">
+                                        <input type="number" class="form-control" name="year">
                                     </div>
                                 </div> <!-- /.form-group -->
                                 <div class="form-group">
-                                    <span class="col-md-2 control-label">Honorary</span>
-                                    <div class="col-md-10">
-                                        <input type="checkbox" class="form-control" name="honorary">
+                                    <div class="checkbox">
+                                        <div class="col-md-10 col-md-offset-2">
+                                            <label>
+                                                <input type="checkbox" name="honorary"> Honorary Awardee
+                                            </label>
+                                        </div>
                                     </div>
                                 </div> <!-- /.form-group -->
                                 <div class="form-group">

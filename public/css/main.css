@@ -237,9 +237,8 @@ textarea[readonly] {
 }
 
 .banner {
-    position: relative;
-    width: 100%;
     min-height: 75vh;
+    width: 100%;
 }
 
 .banner--dark {
@@ -261,10 +260,6 @@ textarea[readonly] {
 .btn-outline {
     background: none;
     color: white;
-}
-
-.constrain {
-    max-width: 100%;
 }
 
 .link {
