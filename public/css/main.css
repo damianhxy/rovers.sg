@@ -258,6 +258,12 @@ textarea[readonly] {
     color: white;
 }
 
+.btn-outline {
+    background: none;
+    padding: 12px 22px;
+    color: white;
+}
+
 .constrain {
     max-width: 100%;
 }
@@ -271,6 +277,10 @@ textarea[readonly] {
     overflow-x: scroll;
     width: auto;
     white-space: nowrap;
+}
+
+.wrap {
+    white-space: pre-wrap;
 }
 
 #shortcuts {
