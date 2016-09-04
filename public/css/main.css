@@ -236,7 +236,11 @@ textarea[readonly] {
 
 /* Custom Classes */
 #homepageBanner {
-    background-image: url("../img/cropped/HomeBanner.jpg");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url("../img/cropped/HomeBanner.jpg");
+}
+
+#homepageBannerText {
+    margin-bottom: 30px;
 }
 
 #roverjourneyBanner {
