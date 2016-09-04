@@ -8,7 +8,15 @@ exports.CONTACT_FORM_URL = "https://docs.google.com/forms/d/1c90uh2-n3mIFVkTenDK
 exports.FEEDBACK_FORM_URL = "https://docs.google.com/forms/d/1zjb3DchxXPAlBRPALm8Pm6dkJq6LuMWPo_uXkHEwZig/formResponse";
 exports.NRC = [
     {
-        title: "NRC 2016 (Current)"
+        title: "NRC 2016 (Current)",
+        members: {
+            "Chairman": ["Sunil Ravinder Gill"],
+            "Vice Chairman (Programmes)": ["Muhammad Haziq"],
+            "Vice Chairman (Relations)": ["James Mansfield Page"],
+            "Head Secretary": ["Pang Yao Ming"],
+            "Treasurer": ["Hulbert Teng"],
+            "Member": ["Alan Yip", "Jacky Chong", "Kelvin Lee", "Tseng Tzu Chieh", "Madhan s/o Elavalahan", "Bobby Yee Kok Hui", "Goh Wei Xuan"]
+        }
     },
     {
         title: "NRC 2015",
@@ -16,7 +24,7 @@ exports.NRC = [
             "Chairman": ["Goh Wei Xuan"],
             "Vice Chairman (Programmes)": ["Koh Rui Yang"],
             "Vice Chairman (Relations)": ["Tseng Tzu Chieh"],
-            "Head (Secreteriat)": ["Sunil Ravinder Gill"],
+            "Head Secretary": ["Sunil Ravinder Gill"],
             "Relations Secretary": ["Seah Kia Wee", "Kelvin Lee Wen Jie"],
             "Programmes Secretary": ["Madhan s/o Elahavalan"],
             "Treasurer": ["Alan Yip Keen Wah"]
@@ -28,7 +36,7 @@ exports.NRC = [
             "Chairman": ["Edieusdi Bin Ahmad"],
             "Vice Chairman (Programmes)": ["Goh Wei Xuan"],
             "Vice Chairman (Relations)": ["Leong Kwang Yeh, Kelvin"],
-            "Head (Secreteriat)": ["Heng Jiang Li"],
+            "Head Secretary": ["Heng Jiang Li"],
             "Relations Secretary": ["Toh Chee Wei Jeffery"],
             "Programmes Secretary": ["Koh Rui Yang", "Low Kee Guan"],
             "Treasurer": ["Lim Yu Jason"]

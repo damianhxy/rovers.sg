@@ -114,6 +114,14 @@ h1, h2, h3, h4, h5, h6 {
     font-family: "Roboto", sans-serif;
 }
 
+/* h2 = Large header */
+/* h3 = Small header */
+/* h4 = body text */
+h4 {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
 p, div {
     font-family: "Lato", sans-serif;
 }
