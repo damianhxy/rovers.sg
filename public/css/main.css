@@ -117,7 +117,9 @@ h1, h2, h3, h4, h5, h6 {
 /* h2 = Large header */
 /* h3 = Small header */
 /* h4 = body text */
-h4, dd, dt, th, td, .section ul, .shortcuts {
+h4, dd, dt, th, td,
+.section ul, .section ol,
+.shortcuts {
     font-size: 16px;
     line-height: 1.5;
 }
@@ -233,6 +235,14 @@ textarea[readonly] {
 }
 
 /* Custom Classes */
+#homepageBanner {
+    background-image: url("../img/cropped/HomeBanner.jpg");
+}
+
+#roverjourneyBanner {
+    background-image: url("../img/cropped/RJBanner.jpg");
+}
+
 .anchor,
 .anchor--header {
     display: block;
@@ -251,14 +261,6 @@ textarea[readonly] {
     justify-content: center;
     min-height: 75vh;
     width: 100%;
-}
-
-#homepageBanner {
-    background-image: url("../img/cropped/HomeBanner.jpg");
-}
-
-#roverjourneyBanner {
-    background-image: url("../img/cropped/RJBanner.jpg");
 }
 
 .banner-text {
