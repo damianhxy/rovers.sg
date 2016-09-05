@@ -94,8 +94,12 @@ module.exports = function(app, express) {
     var hbs = exphbs.create({
         defaultLayout: "default",
         helpers: {
-            fileType: require("../helpers/filetype.js"),
-            rowspan: require("../helpers/rowspan.js")
+            fileType: require("../helpers/fileType.js"),
+            rowSpan: require("../helpers/rowSpan.js")
+        },
+        partials: {
+            eventCard: require("../views/partials/eventCard.handlebars"),
+            eventCardList: require("../views/partials/eventCardList.handlebars")
         }
     });
 

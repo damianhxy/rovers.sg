@@ -18,16 +18,15 @@
                     {{#each fileList}}
                     <div class="panel panel-info card">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-{{fileType url}}"></i> <a class="field-edit" data-type="textarea" data-pk="{{_id}}" data-name="name" data-url="/resources" href="javascript:void(0);">{{name}}</a></h3>
+                            <h3 class="panel-title"><i class="fa fa-{{fileType url}}"></i> <a class="field-edit link" data-type="textarea" data-pk="{{_id}}" data-name="name" data-url="/resources" href="{{url}}" target="_blank">{{name}}</a></h3>
                         </div>
                         <div class="panel-body">
-                            <small>Description</small>
                             <p><a class="field-edit" data-type="textarea" data-pk="{{_id}}" data-name="description" data-url="/resources" href="javascript:void(0);">{{description}}</a></p>
                         </div>
                         <div class="panel-footer">
                             <div class="btn-group">
-                                <a href="{{url}}" class="btn btn-info btn-xs">
-                                    <i class="fa fa-cloud-download"></i> Download
+                                <a href="{{url}}" class="btn btn-info btn-xs" target="_blank">
+                                    <i class="fa fa-cloud"></i> Go To Resource
                                 </a>
                                 {{#if ../../user.admin}}
                                 <button class="btn btn-success btn-xs btn-edit"><i class="fa fa-edit"></i> Edit</button>

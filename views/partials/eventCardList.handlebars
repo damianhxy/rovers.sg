@@ -1,0 +1,9 @@
+{{#if this}}
+<div class="overflow">
+    {{#each this}}
+    {{> eventCard this}}
+    {{/each}}
+</div>
+{{else}}
+<h4>There are currently no upcoming events</h4>
+{{/if}}

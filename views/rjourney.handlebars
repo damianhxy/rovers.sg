@@ -99,16 +99,15 @@
             {{#each files}}
             <div class="panel panel-info card">
                 <div class="panel-heading">
-                    <h3 class="panel-title wrap"><i class="fa fa-{{fileType url}}"></i> {{name}}</h3>
+                    <h3 class="panel-title wrap"><i class="fa fa-{{fileType url}}"></i> <a href="{{url}}">{{name}}</a></h3>
                 </div>
                 <div class="panel-body">
-                    <small>Description</small>
                     <p class="wrap">{{description}}</p>
                 </div>
                 <div class="panel-footer">
                     <div class="btn-group">
-                        <a href="{{url}}" class="btn btn-info btn-xs">
-                            <i class="fa fa-cloud-download"></i> Download
+                        <a href="{{url}}" class="btn btn-info btn-xs" target="_blank">
+                            <i class="fa fa-cloud"></i> Go To Resource
                         </a>
                     </div>
                 </div>

@@ -279,7 +279,11 @@ textarea[readonly] {
 
 .link {
     cursor: pointer !important;
-    color: #337ab7 !important;
+    color: #31708f !important;
+}
+
+.link:hover {
+    text-decoration: underline !important;
 }
 
 .overflow {
@@ -290,7 +294,7 @@ textarea[readonly] {
 
 .shortcuts {
     position: fixed;
-    top: 165px;
+    top: 143px;
     width: 20%;
     z-index: 1;
 }

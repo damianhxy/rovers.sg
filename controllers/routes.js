@@ -9,7 +9,7 @@ var settings = require("./settings.js");
 var admin = require("../middlewares/admin.js");
 router.use(notification);
 
-/* Normal Pages */
+/* Homepage */
 router.get("/", function(req, res) {
     event.upcoming(moment.tz("Asia/Singapore").format())
     .then(function(events) {
@@ -42,7 +42,23 @@ router.use("/s", require("./shortener.js"));
 router.use("/resources", require("./resources.js"));
 
 /* Activities */
-router.use("/activities", require("./activities.js"));
+router.get("/activities", function(req, res) {
+    Promise.all([
+        event.getCategory("adventure"),
+        event.getCategory("service"),
+        event.getCategory("fellowship"),
+        event.getCategory("courses")
+    ]).then(function(ret) {
+        res.render("activities", {
+            title: "Activities",
+            user: req.user,
+            adventure: ret[0],
+            service: ret[1],
+            fellowship: ret[2],
+            courses: ret[3]
+        });
+    });
+});
 
 /* Information */
 router.use("/about", require("./BPAs.js"));

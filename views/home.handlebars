@@ -12,33 +12,7 @@
     </div>
     <div class="section text-center">
         <div class="page-header"><h2>Upcoming Events</h2></div>
-        {{#if upcoming}}
-        <div class="overflow">
-            {{#each upcoming}}
-            <div class="panel panel-default card">
-                {{#if favourite.name}}
-                <a data-toggle="lightbox" data-title="{{favourite.name}}" href="{{favourite.path}}" class="thumbnail">
-                    <img src="{{favourite.path}}" alt="{{favourite.name}}">
-                </a>
-                {{else}}
-                <a data-toggle="lightbox" data-title="Placeholder" href="/img/EventPicture.png" class="thumbnail">
-                    <img src="/img/EventPicture.png" alt="Placeholder">
-                </a>
-                {{/if}}
-                <div class="panel-body">
-                    <strong class="wrap">{{title}}</strong>
-                    <p>{{startPretty}}</p>
-                    <p>({{duration}})</p>
-                </div>
-                <div class="panel-footer">
-                    <a href="/upcoming#{{_id}}">View Information</a>
-                </div>
-            </div>
-            {{/each}}
-        </div>
-        {{else}}
-        <h4>There are currently no upcoming events</h4>
-        {{/if}}
+        {{> eventCardList upcoming}}
     </div>
     <div class="section">
         <div class="page-header"><h2>Adventure <small>‘Life without adventure would be deadly dull’ | Lord Baden-Powell</small></h2></div>

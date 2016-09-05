@@ -1,81 +1,66 @@
-<div class="section text-center container">
-    <div class="page-header"><h2>Category: {{title}}</h2></div>
-    {{#if events}}
-    <div class="overflow">
-        {{#each events}}
-        <div class="panel panel-info card">
-            {{#if favourite.name}}
-            <a data-toggle="lightbox" data-title="{{favourite.name}}" href="{{favourite.path}}" class="thumbnail">
-                <img src="{{favourite.path}}" alt="{{favourite.name}}">
-            </a>
-            {{else}}
-            <a data-toggle="lightbox" data-title="Placeholder" href="/img/EventPicture.png" class="thumbnail">
+<div class="container">
+    <div class="page-header"><h2>Activities &amp; Courses</h2></div>
+    <div class="section">
+        <a href="/activities/adventure"><h3 class="text-center">Adventure</h3></a>
+        <div class="row">
+            <div class="col-md-3">
                 <img src="/img/EventPicture.png" alt="Placeholder">
-            </a>
-            {{/if}}
-            <div class="panel-body">
-                <strong class="wrap">{{title}}</strong>
-                <p>{{startPretty}}</p>
-                <p>({{duration}})</p>
-            </div>
-            <div class="panel-footer">
-                <a href="#{{this._id}}">View Information</a>
-            </div>
+            </div> <!-- /.col-md-3 -->
+            <div class="col-md-9">
+                <h4>For those of us who love adventure, there are plenty of adventurous activities which we can participate in. Every year, we organize different activities based on what Rovers have shown interest in, such as scuba diving &amp; kayaking, to name a few.</h4>
+                <h4>Rovers can also join/form interest groups based on their own interests, such as Photography, Climbing, Kayaking, Cycling and anything else under the sun. These interest groups are a casual platform for you to pursue your interests, try new things and meet like-minded people from all walks of life!</h4>
+            </div> <!-- /.col-md-9 -->
+        </div> <!-- /.row -->
+    </div>
+    <div class="section text-center">
+        <div class="page-header"><h2>Upcoming Events</h2></div>
+        {{> eventCardList adventure}}
+    </div>
+    <div class="section">
+        <a href="/activities/service"><h3 class="text-center">Service</h3></a>
+        <div class="row">
+            <div class="col-md-3">
+                <img src="/img/EventPicture.png" alt="Placeholder">
+            </div> <!-- /.col-md-3 -->
+            <div class="col-md-9">
+                <h4>Some of us have this innate desire to serve those around us. Others, might wake up one morning and feel inspired to do a good turn. Either way, if you wanna do something good for someone else, we’re here to support you.</h4>
+                <h4>Rovers can participate in/plan projects organized by other Rovers, do collaborations with the non-Scouting community, &amp; plan and participate in global international service projects! Check out Project Rigel, our annual collaboration with the Scouts with Special Needs.</h4>
+            </div> <!-- /.col-md-9 -->
         </div>
-        {{/each}}
     </div>
-    {{else}}
-    <h4>There are currently no events</h4>
-    {{/if}}
-</div>
-{{#each events}}
-<a class="anchor" id="{{_id}}"></a>
-<div class="section text-center container">
-    <div class="page-header">
-        <a href="/events/{{_id}}"><h2>{{title}}</h2></a>
+    <div class="section text-center">
+        <div class="page-header"><h2>Upcoming Events</h2></div>
+        {{> eventCardList service}}
     </div>
-    <div class="row">
-        <div class="col-md-3">
-            {{#if favourite.name}}
-            <a data-toggle="lightbox" data-title="{{favourite.name}}" href="{{favourite.path}}" class="thumbnail">
-                <img src="{{favourite.path}}" alt="{{favourite.name}}">
-            </a>
-            {{else}}
-            <a data-toggle="lightbox" data-title="Placeholder" href="/img/EventPicture.png" class="thumbnail">
+    <div class="section">
+        <a href="/activities/fellowship"><h3 class="text-center">Fellowship</h3></a>
+        <div class="row">
+            <div class="col-md-3">
                 <img src="/img/EventPicture.png" alt="Placeholder">
-            </a>
-            {{/if}}
-        </div> <!-- /.col-md-3 -->
-        <div class="col-md-9">
-            <dl class="dl-horizontal">
-                {{#if location}}
-                <dt>Location</dt>
-                <dd>{{location}}</dd>
-                {{/if}}
-                <dt>Start</dt>
-                <dd>{{startPretty}}</dd>
-                <dt>Duration</dt>
-                <dd>{{duration}}</dd>
-                {{#if details}}
-                <dt>Additional Details</dt>
-                <dd>{{details}}</dd>
-                {{/if}}
-                {{#if link}}
-                <dt>Link</dt>
-                <dd><a href="{{link}}">{{link}}</a></dd>
-                {{/if}}
-                {{#if category}}
-                <dt>Categories</dt>
-                <dd>
-                {{#each category}}
-                    <a href="/activities/{{this}}" class="label label-info">{{this}}</a>
-                {{/each}}
-                </dd>
-                {{/if}}
-                <dt>Last Modified</dt>
-                <dd data-livestamp="{{time}}"></dd>
-            </dl>
-        </div> <!-- /.col-md-9 -->
-    </div> <!-- /.row -->
+            </div> <!-- /.col-md-3 -->
+            <div class="col-md-9">
+                <h4>Rovers is all about the community. Meet like-minded people, hang with your friends, chill together and just gave a good time. Every activity & event of ours is an opportunity to chill with one of the highlights being our annual Singapore Rovers BBQ!</h4>
+                <h4>Another great thing about the Rover community is there are thousands of Rovers all over the world, with numerous international Rovering events & projects you can participate in. Look out for our announcements on upcoming visits from Rovers from abroad or international events you can join us for!</h4>
+            </div> <!-- /.col-md-9 -->
+        </div>
+    </div>
+    <div class="section text-center">
+        <div class="page-header"><h2>Upcoming Events</h2></div>
+        {{> eventCardList fellowship}}
+    </div>
+    <div class="section">
+        <a href="/activities/courses"><h3 class="text-center">Courses</h3></a>
+        <div class="row">
+            <div class="col-md-3">
+                <img src="/img/EventPicture.png" alt="Placeholder">
+            </div> <!-- /.col-md-3 -->
+            <div class="col-md-9">
+                <h4>We organize a large variety of courses for Rovers to participate in. These can range from adventure-based skills like kayaking and climbing courses to life-skill courses such as for investing &amp; financial planning. Rovers can also participate in scouting leadership &amp; skill proficiency courses, which are held on a regular basis. What’s more, as a Rover, you will get to participate in some of these courses at a subsidized rate!</h4>
+            </div> <!-- /.col-md-9 -->
+        </div>
+    </div>
+    <div class="section text-center">
+        <div class="page-header"><h2>Upcoming Events</h2></div>
+        {{> eventCardList courses}}
+    </div>
 </div>
-{{/each}}
