@@ -1,7 +1,7 @@
 <div class="container">
     <div class="section">
         <div class="row">
-            <div class="col-md-6 col-md-offset-3">
+            <div class="col-md-6 col-md-offset-3" data-id="{{info._id}}">
                 <div class="page-header text-center">
                     <h2><a class="field-edit" data-type="text" data-name="title" href="javascript:void(0);">{{info.title}}</a></h2>
                     {{#if user.admin}}
@@ -25,7 +25,7 @@
                             </th>
                         </tr>
                     </thead>
-                    <tbody data-id="{{info._id}}">
+                    <tbody>
                         <tr {{#unless info.location}}class="field-hidden"{{/unless}}>
                             <td class="col-md-3 text-center">Location</td>
                             <td class="col-md-9">
