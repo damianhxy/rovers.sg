@@ -279,11 +279,6 @@ textarea[readonly] {
 
 .link {
     cursor: pointer !important;
-    color: #31708f !important;
-}
-
-.link:hover {
-    text-decoration: underline !important;
 }
 
 .overflow {

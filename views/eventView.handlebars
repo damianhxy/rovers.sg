@@ -59,24 +59,19 @@
                         <tr {{#unless info.link}}class="field-hidden"{{/unless}}>
                             <td class="col-md-3 text-center">Link</td>
                             <td class="col-md-9">
-                                <a class="field-edit hidden-xs link" data-type="text" data-name="link" href="{{info.link}}">{{info.link}}</a>
-                                <a class="field-edit visible-xs link" data-type="text" data-name="link" href="{{info.link}}">Click Here</a>
+                                <a class="field-edit hidden-xs link" data-type="text" data-name="link" href="{{info.link}}" target="_blank">{{info.link}}</a>
+                                <a class="field-edit visible-xs link" data-type="text" data-name="link" href="{{info.link}}" target="_blank">External Link</a>
                             </td>
                         </tr>
                         <!-- x-editable doesn't work with select v4 -->
                         <tr>
+                        <tr {{#unless info.category}}class="field-hidden"{{/unless}}>
                             <td class="col-md-3 text-center">Categories</td>
-                            {{#if info.category}}
                             <td class="col-md-9">
                                 {{#each info.category}}
                                     <a href="/activities/{{this}}" class="label label-info">{{this}}</a>
                                 {{/each}}
                             </td>
-                            {{else}}
-                            <td class="col-md-9">
-                                (None)
-                            </td>
-                            {{/if}}
                         </tr>
                     </tbody>
                 </table> <!-- /.table -->
