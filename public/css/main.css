@@ -138,7 +138,7 @@ p, div {
 
 #contactBanner {
     background-image: url("../img/Activities/General 1.jpg");
-    background-position: 0% 25%;
+    background-position: 0 25%;
 }
 /* Activities */
     #ActivitiesAdventureBanner {
@@ -148,12 +148,12 @@ p, div {
 
     #ActivitiesServiceBanner {
         background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url("../img/Activities/Service 1.jpg");
-        background-position: 0% 25%;
+        background-position: 0 25%;
     }
 
     #ActivitiesFellowshipBanner {
         background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url("../img/Activities/Fellowship 1.jpg");
-        background-position: 0% 25%;
+        background-position: 0 25%;
     }
 
     #ActivitiesCoursesBanner {
@@ -167,7 +167,7 @@ p, div {
 
     #RJFellowshipBanner {
         background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("../img/RoverJourney/Fellowship.jpg");
-        background-position: center;
+        background-position: 0 25%;
     }
 
     #RJOpenAirBanner {
@@ -181,7 +181,7 @@ p, div {
 
     #RJRoveringSuccessBanner {
         background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url("../img/RoverJourney/RoveringToSuccess.jpg");
-        background-position: 0% 25%;
+        background-position: 0 25%;
     }
 
     #RJBackScoutingBanner {
@@ -199,7 +199,7 @@ p, div {
 }
 
 .banner-text {
-    width: 75vw;
+    width: 66.67vw;
     color: white;
 }
 
