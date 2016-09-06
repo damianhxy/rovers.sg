@@ -128,47 +128,114 @@ p, div {
     font-family: "Lato", sans-serif;
 }
 
+#homepageBanner {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url("../img/cropped/HomeBanner.jpg");
+}
+
+    #homepageBannerText {
+        margin-bottom: 30px;
+    }
+
+#contactBanner {
+    background-image: url("../img/Activities/General 1.jpg");
+}
+/* Activities */
+    #ActivitiesAdventureBanner {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url("../img/Activities/Adventure 1.jpg");
+    }
+
+    #ActivitiesServiceBanner {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url("../img/Activities/Service 1.jpg");
+    }
+
+    #ActivitiesFellowshipBanner {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url("../img/Activities/Fellowship 1.jpg");
+    }
+
+    #ActivitiesCoursesBanner {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("../img/Activities/Courses 1.jpg");
+    }
+
+/* Rover Journey */
+#RJBanner {
+    background-image: url("../img/cropped/RJBanner.jpg");
+}
+
+    #RJFellowshipBanner {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url("../img/RoverJourney/Fellowship.jpg");
+    }
+
+    #RJOpenAirBanner {
+        background-image: url("../img/RoverJourney/OpenAir.jpg");
+    }
+
+    #RJServiceCitizenshipBanner {
+        background-image: url("../img/RoverJourney/ServiceCitizenship.jpg");
+    }
+
+    #RJRoveringSuccessBanner {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url("../img/RoverJourney/RoveringToSuccess.jpg");
+    }
+
+    #RJBackScoutingBanner {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url("../img/RoverJourney/BackToScouting.jpeg");
+    }
+
+.banner-container {
+    align-items: center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    min-height: 75vh;
+    width: 100%;
+}
+
+.banner-text {
+    width: 75vw;
+    color: white;
+}
+
 .btn-file {
     position: relative;
     overflow: hidden;
 }
 
-.btn-file input[type=file] {
-    background: white;
-    cursor: inherit;
-    display: block;
-    font-size: 100px;
-    min-height: 100%;
-    min-width: 100%;
-    opacity: 0;
-    outline: none;
-    position: absolute;
-    right: 0;
-    text-align: right;
-    top: 0;
-}
+    .btn-file input[type=file] {
+        background: white;
+        cursor: inherit;
+        display: block;
+        font-size: 100px;
+        min-height: 100%;
+        min-width: 100%;
+        opacity: 0;
+        outline: none;
+        position: absolute;
+        right: 0;
+        text-align: right;
+        top: 0;
+    }
 
 .card {
     display: inline-block;
     width: 250px;
 }
 
-.card > .panel-heading {
-    height: 55px;
-}
+    .card > .panel-heading {
+        height: 55px;
+    }
 
-.card > .thumbnail {
-    margin: 0;
-    height: 200px;
-}
+    .card > .thumbnail {
+        margin: 0;
+        height: 200px;
+    }
 
-.card > .thumbnail > img {
-    max-height: 100%;
-}
+    .card > .thumbnail > img {
+        max-height: 100%;
+    }
 
-.card > .panel-body {
-    height: 125px;
-}
+    .card > .panel-body {
+        height: 125px;
+    }
 
 .dropdown-menu form {
     padding: 15px;
@@ -188,30 +255,30 @@ p, div {
     width: 100%;
 }
 
-.footer__title,
-.footer__links,
-.footer__copyright {
-    margin: 2px 0;
-}
+    .footer__title,
+    .footer__links,
+    .footer__copyright {
+        margin: 2px 0;
+    }
 
-.footer__title {
-    font-size: 1.5em;
-}
+    .footer__title {
+        font-size: 1.5em;
+    }
 
-.footer,
-.footer a {
-    color: #f7f7f7;
-    transition: color 0.2s ease 0s;
-}
+    .footer,
+    .footer a {
+        color: #f7f7f7;
+        transition: color 0.2s ease 0s;
+    }
 
-.footer a {
-    border-bottom: 1px solid #ccc7c7;
-}
+    .footer a {
+        border-bottom: 1px solid #ccc7c7;
+    }
 
-.footer a:hover {
-    color: #ccc7c7;
-    text-decoration: none;
-}
+    .footer a:hover {
+        color: #ccc7c7;
+        text-decoration: none;
+    }
 
 .section {
     border-bottom: 1px solid #e5e5e5;
@@ -235,18 +302,6 @@ textarea[readonly] {
 }
 
 /* Custom Classes */
-#homepageBanner {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url("../img/cropped/HomeBanner.jpg");
-}
-
-#homepageBannerText {
-    margin-bottom: 30px;
-}
-
-#roverjourneyBanner {
-    background-image: url("../img/cropped/RJBanner.jpg");
-}
-
 .anchor,
 .anchor--header {
     display: block;
@@ -256,20 +311,6 @@ textarea[readonly] {
 
 .anchor {
     top: -50px;
-}
-
-.banner-container {
-    align-items: center;
-    background-size: cover;
-    display: flex;
-    justify-content: center;
-    min-height: 75vh;
-    width: 100%;
-}
-
-.banner-text {
-    width: 75vw;
-    color: white;
 }
 
 .btn-outline {
