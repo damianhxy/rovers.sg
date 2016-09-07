@@ -132,10 +132,6 @@ p, div {
     background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url("../img/cropped/HomeBanner.jpg");
 }
 
-    #homepageBannerText {
-        margin-bottom: 30px;
-    }
-
 #contactBanner {
     background-image: url("../img/Activities/General 1.jpg");
     background-position: 0 25%;
@@ -171,12 +167,12 @@ p, div {
     }
 
     #RJOpenAirBanner {
-        background-image: url("../img/RoverJourney/OpenAir.jpg");
+        background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url("../img/RoverJourney/OpenAir.jpg");
         background-position: center;
     }
 
     #RJServiceCitizenshipBanner {
-        background-image: url("../img/RoverJourney/ServiceCitizenship.jpg");
+        background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url("../img/RoverJourney/ServiceCitizenship.jpg");
     }
 
     #RJRoveringSuccessBanner {
@@ -198,9 +194,14 @@ p, div {
     width: 100%;
 }
 
+.banner-container h2 {
+    margin-bottom: 20px;
+}
+
 .banner-text {
     width: 66.67vw;
     color: white;
+    text-shadow: 1px 1px black;
 }
 
 .btn-file {
@@ -310,8 +311,7 @@ textarea[readonly] {
 }
 
 /* Custom Classes */
-.anchor,
-.anchor--header {
+.anchor {
     display: block;
     position: relative;
     visibility: hidden;

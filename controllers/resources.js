@@ -9,9 +9,8 @@ router.get("/", function(req, res) {
     resource.all()
     .then(function(files) {
         var categories = {
-            "Latest Information": { name: "info", icon: "inbox", fileList: [] },
             "Forms": { name: "forms", icon: "newspaper-o", fileList: [] },
-            "NRC": { name: "nrc", icon: "institution", fileList: [] },
+            "General Information": { name: "info", icon: "inbox", fileList: [] },
             "Rover Journey": { name: "rj", icon: "map", fileList: [] }
         };
         files.forEach(function(e) {
