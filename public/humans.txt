@@ -15,6 +15,6 @@
 
 # TECHNOLOGY COLOPHON
 
-Last updated: 5/9/2016
+Last updated: 7/9/2016
 Standards: HTML5, CSS3, ES5
 Softwares: Atom, SourceTree
