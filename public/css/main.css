@@ -129,7 +129,7 @@ p, div {
 }
 
 #homepageBanner {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url("../img/cropped/HomeBanner.jpg");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/cropped/HomeBanner.jpg");
 }
 
 #contactBanner {
@@ -138,50 +138,50 @@ p, div {
 }
 /* Activities */
     #ActivitiesAdventureBanner {
-        background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url("../img/Activities/Adventure 1.jpg");
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/Activities/Adventure 1.jpg");
         background-position: center;
     }
 
     #ActivitiesServiceBanner {
-        background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url("../img/Activities/Service 1.jpg");
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/Activities/Service 1.jpg");
         background-position: 0 25%;
     }
 
     #ActivitiesFellowshipBanner {
-        background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url("../img/Activities/Fellowship 1.jpg");
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/Activities/Fellowship 1.jpg");
         background-position: 0 25%;
     }
 
     #ActivitiesCoursesBanner {
-        background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("../img/Activities/Courses 1.jpg");
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/Activities/Courses 1.jpg");
     }
 
 /* Rover Journey */
 #RJBanner {
-    background-image: url("../img/cropped/RJBanner.jpg");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/cropped/RJBanner.jpg");
 }
 
     #RJFellowshipBanner {
-        background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("../img/RoverJourney/Fellowship.jpg");
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/RoverJourney/Fellowship.jpg");
         background-position: 0 25%;
     }
 
     #RJOpenAirBanner {
-        background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url("../img/RoverJourney/OpenAir.jpg");
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/RoverJourney/OpenAir.jpg");
         background-position: center;
     }
 
     #RJServiceCitizenshipBanner {
-        background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url("../img/RoverJourney/ServiceCitizenship.jpg");
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/RoverJourney/ServiceCitizenship.jpg");
     }
 
     #RJRoveringSuccessBanner {
-        background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url("../img/RoverJourney/RoveringToSuccess.jpg");
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/RoverJourney/RoveringToSuccess.jpg");
         background-position: 0 25%;
     }
 
     #RJBackScoutingBanner {
-        background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("../img/RoverJourney/BackToScouting.jpeg");
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/RoverJourney/BackToScouting.jpeg");
         background-position: center;
     }
 
