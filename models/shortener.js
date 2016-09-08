@@ -8,6 +8,7 @@ Promise.promisifyAll(short.find().constructor.prototype);
 
 exports.add = function(req) {
     var formInfo = {
+        name: req.body.name,
         orgurl: normalizeURL(req.body.orgurl),
         newurl: req.body.newurl,
         embed: req.body.embed,
