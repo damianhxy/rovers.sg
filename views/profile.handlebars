@@ -99,19 +99,22 @@
                 <thead>
                     <tr>
                         <th class="col-md-2 hidden-xs">Name</th>
-                        <th class="col-md-3 col-xs-4">Original URL</th>
-                        <th class="col-md-2 hidden-xs">Short URL</th>
+                        <th class="col-md-3 col-xs-5">Original URL</th>
+                        <th class="col-md-2 col-xs-5">Short URL</th>
                         <th class="col-md-1 hidden-xs">Embed</th>
-                        <th class="col-md-2 col-xs-4" data-defaultsort="desc" data-firstsort="asc">Added</th>
-                        <th class="col-md-2 col-xs-4" data-defaultsort="disabled">Delete</th>
+                        <th class="col-md-2 hidden-xs" data-defaultsort="desc" data-firstsort="asc">Added</th>
+                        <th class="col-md-2 col-xs-2" data-defaultsort="disabled">Delete</th>
                     </tr>
                 </thead>
                 <tbody>
                     {{#each links}}
                     <tr>
-                        <td>{{name}}</td>
-                        <td><a href="{{orgurl}}">{{orgurl}}</a></td>
-                        <td class="hidden-xs">
+                        <td class="hidden-xs">{{name}}</td>
+                        <td>
+                            <a class="hidden-xs" href="{{orgurl}}">{{orgurl}}</a>
+                            <a class="visible-xs" href="{{orgurl}}">Click here</a>
+                        </td>
+                        <td>
                             <a href="/s/{{newurl}}">{{newurl}}</a>
                         </td>
                         <td class="hidden-xs">
@@ -121,7 +124,7 @@
                             &#x2717;
                             {{/if}}
                         </td>
-                        <td data-value="{{time}}" data-livestamp="{{time}}"></td>
+                        <td data-value="{{time}}" data-livestamp="{{time}}" class="hidden-xs"></td>
                         <td>
                             <button class="btn btn-danger btn-xs btn-delete" data-name="{{newurl}}" data-time="{{time}}" data-id="{{_id}}">
                                 <i class="fa fa-times-circle"></i> Delete
