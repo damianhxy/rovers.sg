@@ -43,11 +43,12 @@ router.use("/resources", require("./resources.js"));
 
 /* Activities */
 router.get("/activities", function(req, res) {
+    var date = moment.tz("Asia/Singapore");
     Promise.all([
-        event.getCategory("adventure"),
-        event.getCategory("service"),
-        event.getCategory("fellowship"),
-        event.getCategory("courses")
+        event.getCategoryUpcoming("adventure", date),
+        event.getCategoryUpcoming("service", date),
+        event.getCategoryUpcoming("fellowship", date),
+        event.getCategoryUpcoming("courses", date)
     ]).then(function(ret) {
         res.render("activities", {
             title: "Activities",

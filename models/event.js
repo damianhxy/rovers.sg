@@ -119,10 +119,14 @@ exports.get = function(id) {
     });
 };
 
-exports.getCategory = function(category) {
-    return events.findAsync({
-        $where: function() { return this.category.indexOf(category) !== -1; }
-    });
+exports.getCategoryUpcoming = function(category, date) {
+    return events.find({
+        $where: function() {
+            return moment.tz(this.end, "Asia/Singapore").isAfter(date) && this.category.indexOf(category) !== -1;
+        }
+    })
+    .sort({ start: 1, end: 1 })
+    .execAsync();
 };
 
 exports.mark = function(id, name) {
