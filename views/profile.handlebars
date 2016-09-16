@@ -94,47 +94,45 @@
     <div class="section">
         <div class="text-center page-header"><h2>Manage link(s)</h2></div>
         {{#if links}}
-        <div class="row">
-            <table class="table table-striped table-bordered sortable" data-sortable>
-                <thead>
-                    <tr>
-                        <th class="col-md-2 hidden-xs">Name</th>
-                        <th class="col-md-3 col-xs-5">Original URL</th>
-                        <th class="col-md-2 col-xs-5">Short URL</th>
-                        <th class="col-md-1 hidden-xs">Embed</th>
-                        <th class="col-md-2 hidden-xs" data-defaultsort="desc" data-firstsort="asc">Added</th>
-                        <th class="col-md-2 col-xs-2" data-defaultsort="disabled">Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each links}}
-                    <tr>
-                        <td class="hidden-xs">{{name}}</td>
-                        <td>
-                            <a class="hidden-xs" href="{{orgurl}}">{{orgurl}}</a>
-                            <a class="visible-xs" href="{{orgurl}}">Click here</a>
-                        </td>
-                        <td>
-                            <a href="/s/{{newurl}}">{{newurl}}</a>
-                        </td>
-                        <td class="hidden-xs">
-                            {{#if embed}}
-                            &checkmark;
-                            {{else}}
-                            &#x2717;
-                            {{/if}}
-                        </td>
-                        <td data-value="{{time}}" data-livestamp="{{time}}" class="hidden-xs"></td>
-                        <td>
-                            <button class="btn btn-danger btn-xs btn-delete" data-name="{{newurl}}" data-time="{{time}}" data-id="{{_id}}">
-                                <i class="fa fa-times-circle"></i> Delete
-                            </button>
-                        </td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table> <!-- /.table -->
-        </div> <!-- /.row -->
+        <table class="table table-striped table-bordered sortable" data-sortable>
+            <thead>
+                <tr>
+                    <th class="col-md-2 hidden-xs">Name</th>
+                    <th class="col-md-3 col-xs-5">Original URL</th>
+                    <th class="col-md-2 col-xs-5">Short URL</th>
+                    <th class="col-md-1 hidden-xs">Embed</th>
+                    <th class="col-md-2 hidden-xs" data-defaultsort="desc" data-firstsort="asc">Added</th>
+                    <th class="col-md-2 col-xs-2" data-defaultsort="disabled">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each links}}
+                <tr>
+                    <td class="hidden-xs">{{name}}</td>
+                    <td>
+                        <a class="hidden-xs" href="{{orgurl}}">{{orgurl}}</a>
+                        <a class="visible-xs" href="{{orgurl}}">Click here</a>
+                    </td>
+                    <td>
+                        <a href="/s/{{newurl}}">{{newurl}}</a>
+                    </td>
+                    <td class="hidden-xs">
+                        {{#if embed}}
+                        &checkmark;
+                        {{else}}
+                        &#x2717;
+                        {{/if}}
+                    </td>
+                    <td data-value="{{time}}" data-livestamp="{{time}}" class="hidden-xs"></td>
+                    <td>
+                        <button class="btn btn-danger btn-xs btn-delete" data-name="{{newurl}}" data-time="{{time}}" data-id="{{_id}}">
+                            <i class="fa fa-times-circle"></i> Delete
+                        </button>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table> <!-- /.table -->
         {{else}}
         <h4 class="text-center">There are currently no links</h4>
         {{/if}}
