@@ -33,7 +33,7 @@ router.get("/:url", function(req, res) {
     .then(function(info) {
         if (info.embed) {
             res.render("embed", {
-                title: info.newurl,
+                title: info.name,
                 user: req.user,
                 info: info
             });
