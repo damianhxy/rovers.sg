@@ -195,15 +195,16 @@ p, div {
 .banner-container {
     align-items: center;
     background-size: cover;
+    background-attachment: fixed;
     display: flex;
     justify-content: center;
     min-height: 75vh;
     width: 100%;
 }
 
-.banner-container h2 {
-    margin-bottom: 20px;
-}
+    .banner-container h2 {
+        margin-bottom: 20px;
+    }
 
 .banner-text {
     width: 66.67vw;
@@ -294,6 +295,15 @@ p, div {
         color: #ccc7c7;
         text-decoration: none;
     }
+
+iframe {
+    display: block;
+    border: none;
+    height: 100vh;
+    width: 90vw;
+    margin: auto;
+    border: 1px solid black;
+}
 
 .section {
     border-bottom: 1px solid #e5e5e5;
