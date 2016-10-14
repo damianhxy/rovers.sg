@@ -1,10 +1,10 @@
-$(document).ready(function() {
+$(function() {
     console.info("[info] resources.js is running.");
 
     var MOMENT_FORMAT = "D MMM YY | HH:mm[h]";
 
     // Bootbox
-    $(".btn-delete").on("click", function(e) {
+    $(".btn-delete").click(function(e) {
         var $data = $(e.target);
         var name = $data.data("name");
         var time = moment($data.data("time")).format(MOMENT_FORMAT);
@@ -29,10 +29,10 @@ $(document).ready(function() {
                             url: "/s",
                             data: { id: id }
                         })
-                        .done(function() {
+                        .then(function() {
                             location.reload();
                         })
-                        .fail(function(err) {
+                        .catch(function(err) {
                             new PNotify({
                                 title: "Error",
                                 text: err.message,

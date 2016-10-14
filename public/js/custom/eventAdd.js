@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(function() {
     console.info("[info] eventAdd.js is running.");
 
     // For use in fullcalendar

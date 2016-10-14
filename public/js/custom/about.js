@@ -1,8 +1,8 @@
-$(document).ready(function() {
+$(function() {
     console.info("[info] about.js is running.");
 
     // Bootbox
-    $(".btn-delete").on("click", function(e) {
+    $(".btn-delete").click(function(e) {
         var $data = $(e.target);
         var name = $data.data("name");
         var id = $data.data("id");
@@ -25,10 +25,10 @@ $(document).ready(function() {
                             url: "/about",
                             data: { id: id }
                         })
-                        .done(function() {
+                        .then(function() {
                             location.reload();
                         })
-                        .fail(function(err) {
+                        .catch(function(err) {
                             new PNotify({
                                 title: "Error",
                                 text: err.message,

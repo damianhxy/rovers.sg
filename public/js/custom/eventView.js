@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(function() {
     console.info("[info] eventView.js is running.");
 
     var MOMENT_FORMAT = "D MMM YY | HH:mm[h]";
@@ -55,7 +55,7 @@ $(document).ready(function() {
     });
 
     // Bootbox - Event
-    $(".btn-delete").on("click", function(e) {
+    $(".btn-delete").click(function(e) {
         var $data = $(e.target);
         var name = $data.data("name");
         var time = moment($data.data("time")).format(MOMENT_FORMAT);
@@ -80,10 +80,10 @@ $(document).ready(function() {
                             url: "/events",
                             data: { id: id }
                         })
-                        .done(function() {
+                        .then(function() {
                             location.assign("/upcoming");
                         })
-                        .fail(function(err) {
+                        .catch(function(err) {
                             new PNotify({
                                 title: "Error",
                                 text: err.message,
@@ -97,7 +97,7 @@ $(document).ready(function() {
     });
 
     // Bootbox - photos
-    $(".btn-delete-photo").on("click", function(e) {
+    $(".btn-delete-photo").click(function(e) {
         var $data = $(e.target);
         var name = $data.data("name");
         var time = moment($data.data("time")).format(MOMENT_FORMAT);
@@ -122,10 +122,10 @@ $(document).ready(function() {
                             url: "/events/" + eventid,
                             data: { name: name }
                         })
-                        .done(function() {
+                        .then(function() {
                             location.reload();
                         })
-                        .fail(function(err) {
+                        .catch(function(err) {
                             new PNotify({
                                 title: "Error",
                                 text: err.message,
@@ -139,7 +139,7 @@ $(document).ready(function() {
     });
 
     // File name(s) text
-    $(".btn-file :file").on("change", function(e) {
+    $(".btn-file :file").change(function(e) {
         var fileNames = "";
         file = $(e.target).get(0);
         for (var a = 0; a < file.files.length; ++a) {
@@ -149,7 +149,7 @@ $(document).ready(function() {
         $("#uploadName").val(fileNames);
     });
 
-    $("#uploadForm button[type='reset']").on("click", function(e) {
+    $("#uploadForm button[type='reset']").click(function(e) {
         $("#uploadName").attr("rows", 1);
     });
 });

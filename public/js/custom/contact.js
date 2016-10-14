@@ -1,7 +1,7 @@
-$(document).ready(function() {
+$(function() {
     console.info("[info] contact.js is running.");
 
-    $("#contactForm").on("submit", function(e) {
+    $("#contactForm").submit(function(e) {
         e.preventDefault();
         $.ajax({
             method: "POST",
@@ -16,7 +16,7 @@ $(document).ready(function() {
             });
             $(e.target).trigger("reset");
         })
-        .fail(function(err) {
+        .catch(function(err) {
             new PNotify({
                 title: "Error",
                 text: "There was an error recording your feedback",
@@ -25,7 +25,7 @@ $(document).ready(function() {
         });
     });
 
-    $("#feedbackForm").on("submit", function(e) {
+    $("#feedbackForm").submit(function(e) {
         e.preventDefault();
         $.ajax({
             method: "POST",
@@ -40,7 +40,7 @@ $(document).ready(function() {
             });
             $(e.target).trigger("reset");
         })
-        .fail(function(err) {
+        .catch(function(err) {
             new PNotify({
                 title: "Error",
                 text: "There was an error recording your feedback",

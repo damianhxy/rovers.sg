@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(function() {
     console.info("[info] resources.js is running.");
 
     var MOMENT_FORMAT = "D MMM YY | HH:mm[h]";
@@ -31,7 +31,7 @@ $(document).ready(function() {
     });
 
     // Bootbox
-    $(".btn-delete").on("click", function(e) {
+    $(".btn-delete").click(function(e) {
         var $data = $(e.target);
         var name = $data.data("name");
         var time = moment($data.data("time")).format(MOMENT_FORMAT);
@@ -56,10 +56,10 @@ $(document).ready(function() {
                             url: "/resources",
                             data: { id: id }
                         })
-                        .done(function() {
+                        .then(function() {
                             location.reload();
                         })
-                        .fail(function(err) {
+                        .catch(function(err) {
                             new PNotify({
                                 title: "Error",
                                 text: err.message,
@@ -73,17 +73,17 @@ $(document).ready(function() {
     });
 
     // File Name Text
-    $("#uploadForm [name='url']").on("keyup", function() {
+    $("#uploadForm [name='url']").keyup(function() {
         $("#uploadForm [name='name']").val($(this).val());
     });
 
-    $(".btn-file :file").on("change", function() {
+    $(".btn-file :file").change(function() {
         $("#uploadForm [name='name']").val($(this).val());
         $("#uploadName").val($(this).val());
     });
 
     // Form Validation
-    $("#uploadForm").on("submit", function(e) {
+    $("#uploadForm").submit(function(e) {
         e.preventDefault();
         if ($("#uploadForm :file").val() && $("#uploadForm [name='url']").val())
             new PNotify({

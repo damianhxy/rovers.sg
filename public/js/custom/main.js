@@ -12,11 +12,11 @@ PNotify.prototype.options.stack = {
 	push: "top"
 };
 
-$(document).ready(function() {
+$(function() {
 	console.info("[info] main.js is running.");
 
 	// Lightbox
-	$("[data-toggle='lightbox']").on("click", function(e) {
+	$("[data-toggle='lightbox']").click(function(e) {
 	    e.preventDefault();
 	    $(this).ekkoLightbox();
 	});
