@@ -106,7 +106,7 @@ blockquote {
 }
 
 body {
-    margin-bottom: 114.5px; /* Footer */
+    margin-bottom: 166.5px; /* Footer */
     margin-top: 50px; /* Navbar */
 }
 
@@ -130,7 +130,7 @@ p, div {
 
 #homepageBanner {
     position: relative;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/cropped/HomeBanner.jpg");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url("../img/cropped/HomeBanner.jpg");
 }
 
     #homepageText {
@@ -140,55 +140,58 @@ p, div {
     }
 
 #contactBanner {
-    background-image: url("../img/Activities/General 1.jpg");
-    background-position: 0 25%;
+    background-image: url("../img/ContactUs.jpg");
+}
+
+#joinBanner {
+    background-image: url("../img/JoinUs.jpg");
 }
 /* Activities */
     #ActivitiesAdventureBanner {
-        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/Activities/Adventure 1.jpg");
+        background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url("../img/Activities/Adventure.jpg");
         background-position: 0 75%;
     }
 
     #ActivitiesServiceBanner {
-        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/Activities/Service 1.jpg");
+        background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url("../img/Activities/Service.jpg");
         background-position: 0 25%;
     }
 
     #ActivitiesFellowshipBanner {
-        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/Activities/Fellowship 1.jpg");
+        background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url("../img/Activities/Fellowship.jpg");
         background-position: 0 25%;
     }
 
     #ActivitiesCoursesBanner {
-        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/Activities/Courses 1.jpg");
+        background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url("../img/Activities/Courses 1.jpg");
     }
 
 /* Rover Journey */
 #RJBanner {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/cropped/RJBanner.jpg");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url("../img/cropped/RJBanner.jpg");
 }
 
     #RJFellowshipBanner {
-        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/RoverJourney/Fellowship.jpg");
+        background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url("../img/RoverJourney/Fellowship.jpg");
         background-position: 0 25%;
     }
 
     #RJOpenAirBanner {
-        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/RoverJourney/OpenAir.jpg");
+        background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url("../img/RoverJourney/OpenAir.jpg");
         background-position: center;
     }
 
     #RJServiceCitizenshipBanner {
-        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/RoverJourney/ServiceCitizenship.jpg");
+        background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url("../img/RoverJourney/ServiceCitizenship.jpg");
     }
 
     #RJRoveringSuccessBanner {
-        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/RoverJourney/RoveringToSuccess.jpg");
+        background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url("../img/RoverJourney/RoveringToSuccess.jpg");
         background-position: 0 25%;
     }
 
     #RJBackScoutingBanner {
-        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/RoverJourney/BackToScouting.jpeg");
+        background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url("../img/RoverJourney/BackToScouting.jpeg");
         background-position: center;
     }
 
@@ -272,6 +275,7 @@ p, div {
 }
 
     .footer__title,
+    .footer__image,
     .footer__links,
     .footer__copyright {
         margin: 2px 0;
@@ -279,6 +283,10 @@ p, div {
 
     .footer__title {
         font-size: 1.5em;
+    }
+
+    .footer__image img {
+        height: 50px;
     }
 
     .footer,

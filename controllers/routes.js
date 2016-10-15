@@ -93,7 +93,14 @@ router.post("/contact", function(req, res) {
     request.post(settings.CONTACT_FORM_URL).form(req.body).pipe(res);
 });
 
-router.post("/feedback", function(req, res) {
+router.get("/join", function(req, res) {
+    res.render("join", {
+        title: "Join",
+        user: req.user
+    });
+});
+
+router.post("/join", function(req, res) {
     request.post(settings.FEEDBACK_FORM_URL).form(req.body).pipe(res);
 });
 

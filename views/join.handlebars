@@ -1,0 +1,57 @@
+<div class="banner-container" id="joinBanner"></div>
+<div class="container">
+    <div class="section">
+        <div class="page-header text-center">
+            <h2>Interested in becoming a Rover?</h2>
+            {{#if user.admin}}
+            <div class="text-center">
+                <a href="https://docs.google.com/spreadsheets/d/1Wkclzley4TV66tca4nCf5Bvx4QwFPKLCQxz-OmdpAdE/edit#gid=1940455798" class="btn btn-sm btn-info" target="_blank">
+                    <i class="fa fa-commenting-o"></i> View Responses
+                </a>
+            </div>
+            {{/if}}
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <h4 class="text-center">Enter your details here</h4>
+                <h4 class="text-center">One of our team members will contact you shortly to assist</h4>
+                <form id="joinForm" class="form-horizontal" accept-charset="UTF-8" autocomplete="off">
+                    <div class="form-group">
+                        <span class="col-md-2 control-label">Name</span>
+                        <div class="col-md-10">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="entry.1734249932" required>
+                                <div class="input-group-addon">*</div>
+                            </div>
+                        </div>
+                    </div> <!-- /.form-group -->
+                    <div class="form-group">
+                        <span class="col-md-2 control-label">Email</span>
+                        <div class="col-md-10">
+                            <div class="input-group">
+                                <input type="email" class="form-control" name="entry.1571395661" required>
+                                <div class="input-group-addon">*</div>
+                            </div>
+                        </div>
+                    </div> <!-- /.form-group -->
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <div class="col-md-10 col-md-offset-2">
+                                <label>
+                                    <input type="checkbox" name="entry.314276064" value="Yes"> I already have a Crew I'd like to join
+                                </label>
+                            </div>
+                        </div>
+                    </div> <!-- /.form-group -->
+                    <div class="form-group">
+                        <div class="col-md-10 col-md-offset-2">
+                            <button type="submit" class="btn btn-success"><i class="fa fa-envelope"></i> Send Particulars</button>
+                            <span class="help-block">Alternatively, drop us an email at <a href="mailto:nrc@rovers.sg">nrc@rovers.sg</a></span>
+                        </div> <!-- /.col-md-10 -->
+                    </div> <!-- /.form-group -->
+                </form>
+            </div> <!-- /.col-md-6 -->
+        </div> <!-- /.col-md-offset-3 -->
+    </div>
+</div>
+<script src="/js/custom/join.js"></script>
