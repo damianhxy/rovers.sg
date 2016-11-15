@@ -36,43 +36,51 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="/"><i class="fa fa-home"></i> Home</a></li>
-                    <li><a href="/upcoming"><i class="fa fa-calendar"></i> Upcoming</a></li>
-                    <li><a href="/activities"><i class="fa fa-bicycle"></i> Activities</a></li>
-                    <li><a href="/rjourney"><i class="fa fa-map"></i> Rover Journey</a></li>
-                    <li><a href="/join"><i class="fa fa-users"></i> Join Us</a></li>
-                    <li><a href="/contact"><i class="fa fa-phone-square"></i> Contact Us</a></li>
-                    <li><a href="/resources"><i class="fa fa-archive"></i> Resources</a></li>
+                    <li><a href="/">Home</a></li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-                            <i class="fa fa-info-circle"></i> Information
+                            Events
                             <i class="caret"></i>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="/about"><i class="fa fa-institution"></i> About</a></li>
-                            <li><a href="/faq"><i class="fa fa-question-circle"></i> FAQ</a></li>
+                            <li><a href="/activities">Activities &amp; Courses</a></li>
+                            <li><a href="/upcoming"> Upcoming</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/rjourney">Rover Journey</a></li>
+                    <li><a href="/join">Join Us</a></li>
+                    <li><a href="/contact">Contact Us</a></li>
+                    <li><a href="/resources">Resources</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                            Information
+                            <i class="caret"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/about">About</a></li>
+                            <li><a href="/faq">FAQ</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-                            <i class="fa fa-external-link"></i> Links
+                            Links
                             <i class="caret"></i>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="http://www.moot.rovers.sg/" target="_blank"><i class="fa fa-globe"></i> Moot</a></li>
-                            <li><a href="http://forum.rovers.sg/" target="_blank"><i class="fa fa-comments"></i> Forum</a></li>
-                            <li><a href="http://intranet.scout.org.sg/" target="_blank"><i class="fa fa-dashboard"></i> Scout Membership Portal</a></li>
+                            <li><a href="http://www.moot.rovers.sg/" target="_blank">Moot</a></li>
+                            <li><a href="http://forum.rovers.sg/" target="_blank">Forum</a></li>
+                            <li><a href="http://intranet.scout.org.sg/" target="_blank">Scout Membership Portal</a></li>
                         </ul>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                 {{#if user}}
-                    <li><a href="/users/profile"><i class="fa fa-user"></i> {{user.username}}</a></li>
-                    <li><a href="/users/signout"><i class="fa fa-sign-out"></i> Sign Out</a></li>
+                    <li><a href="/users/profile">{{user.username}}</a></li>
+                    <li><a href="/users/signout">Sign Out</a></li>
                 {{else}}
                     <li class="dropdown">
                         <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-                            <i class="fa fa-sign-in"></i> Sign In
+                            Sign In
                             <i class="caret"></i>
                         </a>
                         <div class="dropdown-menu">

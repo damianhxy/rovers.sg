@@ -260,6 +260,11 @@ p, div {
     padding: 15px;
 }
 
+.event-description {
+    text-align: left;
+    white-space: pre-line;
+}
+
 .fc-day-grid-event .fc-content {
     white-space: normal;
 }

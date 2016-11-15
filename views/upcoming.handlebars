@@ -11,8 +11,8 @@
     </div>
     {{#each upcoming}}
     <a class="anchor" id="{{_id}}"></a>
-    <div class="section text-center">
-        <div class="page-header">
+    <div class="section">
+        <div class="page-header text-center">
             <a href="/events/{{_id}}"><h2>{{title}}</h2></a>
         </div>
         <div class="row">
@@ -39,7 +39,7 @@
                     <dd>{{duration}}</dd>
                     {{#if details}}
                     <dt>Additional Details</dt>
-                    <dd><pre>{{details}}</pre></dd>
+                    <dd><span class="event-description">{{details}}</span></dd>
                     {{/if}}
                     {{#if link}}
                     <dt>Link</dt>
