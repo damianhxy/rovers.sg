@@ -8,6 +8,7 @@ $(function() {
     var ROUNDING = 5 * 60 * 1000; // Round up to closest 5 minutes
     var $calendar = $("#calendar");
     var $start = $("[name='start']");
+    var $duration = $("[name='duration']");
     var $end = $("[name='end']");
     var defaultMoment = moment(Math.ceil(uniqueID / ROUNDING) * ROUNDING);
 
@@ -25,7 +26,10 @@ $(function() {
         maxYear: CURRENT_YEAR + 1
     });
 
+    // Init
     $(".combodate").addClass("form-control");
+    updateDuration();
+
 
     // Check for existence
     function getEvent() {
@@ -36,6 +40,13 @@ $(function() {
     function clearEvent() {
         if (getEvent())
             $calendar.fullCalendar("removeEvents", uniqueID);
+    }
+
+    // Update Duration
+    function updateDuration() {
+        var start = moment($start.combodate("getValue"), MOMENT_FORMAT);
+        var end = moment($end.combodate("getValue"), MOMENT_FORMAT);
+        $duration.val(moment.duration(end.diff(start)).format("d [days] h [hours] m [minutes]"));
     }
 
     // Preview
@@ -51,6 +62,7 @@ $(function() {
             // $end comes first to prevent infinite recursion
             $end.combodate("setValue", moment(end).format(MOMENT_FORMAT));
         }
+        updateDuration();
         if (!title)
             return clearEvent();
         var event = getEvent();
