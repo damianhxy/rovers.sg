@@ -5,7 +5,9 @@
                 {{#each categories}}
                 <a class="list-group-item" href="#{{name}}">{{@key}}</a>
                 {{/each}}
+                {{#if user.admin}}
                 <a class="list-group-item" href="#upload-file">Upload Resource</a>
+                {{/if}}
             </div>
         </div> <!-- /.col-md-3 -->
         <div class="col-md-9">
