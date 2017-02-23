@@ -309,7 +309,7 @@ p, div {
         text-decoration: none;
     }
 
-iframe {
+iframe.embed {
     display: block;
     border: none;
     height: 100vh;
