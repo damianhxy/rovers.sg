@@ -21,6 +21,10 @@ router.get("/", function(req, res) {
     });
 });
 
+router.post("/mailing", function(req, res) {
+    request.post(settings.MAILING_FORM_URL).form(req.body).pipe(res);
+});
+
 /* Events */
 router.get("/upcoming", function(req, res) {
     event.upcoming(moment.tz("Asia/Singapore"))
@@ -101,7 +105,7 @@ router.get("/join", function(req, res) {
 });
 
 router.post("/join", function(req, res) {
-    request.post(settings.FEEDBACK_FORM_URL).form(req.body).pipe(res);
+    request.post(settings.JOIN_FORM_URL).form(req.body).pipe(res);
 });
 
 /* User */

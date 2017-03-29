@@ -1,11 +1,11 @@
 $(function() {
-    console.info("[info] join.js is running.");
+    console.info("[info] home.js is running.");
 
-    $("#joinForm").submit(function(e) {
+    $("#mailingForm").submit(function(e) {
         e.preventDefault();
         $.ajax({
             method: "POST",
-            url: "/contact",
+            url: "/mailing",
             data: $(this).serialize()
         })
         .then(function() {
