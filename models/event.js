@@ -97,7 +97,7 @@ exports.edit = function(id, field, value) {
         if (field === "start" || field === "end") {
             var start = moment(event.start);
             var end = moment(event.end);
-            value = event.duration = moment.duration(end.diff(start)).format("d [days] h [hours] m [minutes]");
+            value = event.duration = moment.duration(end.diff(start)).format("d [days] h [hours] m [minutes]").replace(/\ 0 minutes$/, "").replace(/\ 0 hours$/, "");
         }
         event.time = moment.tz("Asia/Singapore").format();
         if (moment(event.start).isAfter(moment(event.end)))
