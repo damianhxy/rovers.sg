@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var settings = require("./settings.js");
+var NRC = require("./NRC.js");
 var BPA = require("../models/BPA.js");
 var admin = require("../middlewares/admin.js");
 
@@ -11,7 +11,7 @@ router.get("/", function(req, res) {
             title: "About",
             user: req.user,
             BPAs: BPAs,
-            NRC: settings.NRC
+            NRC: NRC.NRC
         });
     });
 });
