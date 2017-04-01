@@ -15,7 +15,7 @@ exports.NRC = [
         members: {
             "Chairperson": ["Sunil Ravinder Gill"],
             "Vice Chairperson (Programmes)": ["Muhammad Haziq Bin Modh Ali"],
-            "Vice Chairperson (Relations)": ["James George Mohamed Farhan Mansfield-Page"],
+            "Vice Chairperson (Relations)": ["James Mansfield-Page"],
             "Head Secretary": ["Pang Yao Ming"],
             "Treasurer": ["Hulbert Teng"],
             "Member": ["Alan Yip", "Chong Kian Wee Jacky", "Kelvin Lee", "Tseng Tzu Chieh", "Madhan s/o Elavalahan", "Yee Kok Hui, Bobby", "Goh Wei Xuan"]
