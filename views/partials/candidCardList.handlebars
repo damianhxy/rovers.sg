@@ -1,0 +1,13 @@
+{{#each this}}
+    {{#each this}}
+    <div class="panel panel-default card candid-card">
+        <a data-toggle="lightbox" data-title="{{this}}" href="img/Candid/{{this}}.jpg" class="thumbnail">
+            <img src="img/Candid/{{this}}.jpg" alt="{{this}}">
+        </a>
+        <div class="panel-body text-center">
+            <strong>{{this}}</strong>
+            <p><strong>{{@../key}}</strong>
+        </div>
+    </div>
+    {{/each}}
+{{/each}}

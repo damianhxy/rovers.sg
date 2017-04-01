@@ -49,7 +49,6 @@
                                     <tr><td rowspan="{{rowSpan this}}">{{@key}}</td></tr>
                                     {{#each this}}
                                     <tr>
-
                                         <td>{{this}}</td>
                                     </tr>
                                     {{/each}}
@@ -57,12 +56,16 @@
                                 </tbody>
                             </table> <!-- /.table -->
                             {{else}}
-                            <img alt="Information Unavailable" class="center-block" src="/img/NotFound.png">
+                            <span>Information Unavailable...</span>
                             {{/if}}
                         </div>
                         {{/each}}
                     </div> <!-- /.col-md-9 -->
                 </div> <!-- /.row -->
+            </div>
+            <div class="section">
+                <h3>NRC 2017</h3>
+                {{> candidCardList NRC2017}}
             </div>
             <div class="section">
                 <h3>NRC 2016</h3>
@@ -105,7 +108,7 @@
                 <h3>Insignia</h3>
                 <div class="row">
                     <div class="col-md-3">
-                        <img alt="BPA logo" src="/img/cropped/BPA.jpg">
+                        <img alt="BPA logo" src="/img/Cropped/BPA.jpg">
                     </div> <!-- /.col-md-3 -->
                     <div class="col-md-9">
                         <h4>The fleur-de-lis being a symbol of Scouting is represents the North point of a compass reminding Rovers to lead the way for others to follow. The tri-foil represents the three parts of the Scout Promise: Duty to God, Service to Others and Obedience to the Scout Law. The middle portion represents the Rovers’ belief in God. The two side-portions of the fleur-de-lis are equal and balanced, reminding Rovers that humanity is equal and balanced. The two stars on either side represent the eyes of the Rover and the original ten parts of the Scout Law. The three parts of the Promise are bound together by a circle symbolising Fellowship.</h4>

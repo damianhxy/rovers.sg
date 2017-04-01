@@ -124,13 +124,17 @@ h4, dd, dt, th, td,
     line-height: 1.5;
 }
 
+img {
+    image-orientation: from-image;
+}
+
 p, div {
     font-family: "Lato", sans-serif;
 }
 
 #homepageBanner {
     position: relative;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url("../img/cropped/HomeBanner.jpg");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url("../img/Cropped/HomeBanner.jpg");
 }
 
     #homepageText {
@@ -140,11 +144,11 @@ p, div {
     }
 
 #contactBanner {
-    background-image: url("../img/ContactUs.jpg");
+    background-image: url("../img/Originals/ContactUs.jpg");
 }
 
 #joinBanner {
-    background-image: url("../img/JoinUs.jpg");
+    background-image: url("../img/Originals/JoinUs.jpg");
 }
 /* Activities */
     #ActivitiesAdventureBanner {
@@ -168,7 +172,7 @@ p, div {
 
 /* Rover Journey */
 #RJBanner {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url("../img/cropped/RJBanner.jpg");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url("../img/Cropped/RJBanner.jpg");
 }
 
     #RJFellowshipBanner {
@@ -255,6 +259,10 @@ p, div {
     .card > .panel-body {
         height: 150px;
     }
+
+.card.candid-card > .panel-body {
+    height: 75px;
+}
 
 .dropdown-menu form {
     padding: 15px;

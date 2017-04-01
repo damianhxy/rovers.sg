@@ -11,7 +11,8 @@ router.get("/", function(req, res) {
             title: "About",
             user: req.user,
             BPAs: BPAs,
-            NRC: NRC.NRC
+            NRC: NRC.NRC,
+            NRC2017: NRC.NRC[0].members
         });
     });
 });
