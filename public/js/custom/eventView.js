@@ -24,14 +24,13 @@ $(function() {
             },
             success: function(data) {
                 $("[data-name='" + data.field + "']").parent().parent().toggleClass("field-hidden", !data.value);
-                if (data.field === "start" || data.field === "end") {
-                    $("[data-name='duration']").text(data.value);
-                } else if (data.field === "link") {
+                if (data.field === "link") {
                     setTimeout(function () {
                         $("[data-name='link']").editable("setValue", data.value);
                         $("[data-name='link']").attr("href", data.value);
                     }, 500);
                 } else if (data.field === "title") {
+                    $(".btn-delete").first().data("name", data.value);
                     document.title = data.value + " | Rover.sg";
                     $("[href='#deleteModal']").data("title", data.value);
                 }
@@ -147,9 +146,5 @@ $(function() {
         }
         $("#uploadName").attr("rows", file.files.length);
         $("#uploadName").val(fileNames);
-    });
-
-    $("#uploadForm button[type='reset']").click(function(e) {
-        $("#uploadName").attr("rows", 1);
     });
 });

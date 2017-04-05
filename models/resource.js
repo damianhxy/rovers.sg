@@ -46,6 +46,9 @@ exports.edit = function(id, field, value) {
         file[field] = value;
         file.time = moment.tz("Asia/Singapore").format();
         return files.updateAsync({ _id: id }, { $set: file });
+    })
+    .then(function() {
+        return { field: field, value : value};
     });
 };
 

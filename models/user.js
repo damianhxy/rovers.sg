@@ -44,7 +44,7 @@ exports.editPassword = function(req) {
     return bcryptjs.compareAsync(req.body.currentPassword, req.user.hash)
     .then(function(res) {
         if (!res) throw Error("Wrong password");
-        return bcryptjs.hashAsync(req.body.newPass, req.user.hash.substr(0, 29))
+        return bcryptjs.hashAsync(req.body.newPass, req.user.hash.substr(0, 29));
     })
     .then(function(hash) {
         return users.updateAsync({ _id: req.user._id }, { $set: {hash: hash} });

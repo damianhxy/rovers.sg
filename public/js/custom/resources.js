@@ -20,6 +20,12 @@ $(function() {
                 type: "put",
                 dataType: "json"
             },
+            success: function(data) {
+                console.log(data);
+                if (data.field === "name") {
+                    $(this).closest(".card").find(".btn-delete").data("name", data.value);
+                }
+            },
             error: function(data) {
                 new PNotify({
                     title: "Error",

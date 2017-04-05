@@ -37,8 +37,8 @@ router.delete("/", admin, function(req, res) {
 
 router.put("/", admin, function(req, res) {
     resource.edit(req.body.pk, req.body.name, req.body.value)
-    .then(function() {
-        res.json({});
+    .then(function(response) {
+        res.json(response);
     })
     .catch(function(err) {
         console.error(err);

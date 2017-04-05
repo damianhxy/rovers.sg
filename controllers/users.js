@@ -2,7 +2,7 @@ var express = require("express");
 var os = require("os");
 var passport = require("passport");
 var router = express.Router();
-var short = require("../models/shortener.js")
+var short = require("../models/shortener.js");
 var user = require("../models/user.js");
 var auth = require("../middlewares/auth.js");
 
