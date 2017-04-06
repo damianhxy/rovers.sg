@@ -2,98 +2,97 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:300|Roboto:300);
 
 .navbar-default {
-  background-color: #f7f7f7;
-  border-color: #fb0000;
+    background-color: #f7f7f7;
+    border-color: #fb0000;
 }
 .navbar-default .navbar-brand {
-  color: #ee1e1e;
+    color: #ee1e1e;
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
-  color: #b20d0d;
+    color: #b20d0d;
 }
 .navbar-default .navbar-text {
-  color: #ee1e1e;
+    color: #ee1e1e;
 }
 .navbar-default .navbar-nav > li > a {
-  color: #ee1e1e;
+    color: #ee1e1e;
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
-  color: #b20d0d;
+    color: #b20d0d;
 }
 .navbar-default .navbar-nav > li > .dropdown-menu {
-  background-color: #f7f7f7;
+    background-color: #f7f7f7;
 }
 .navbar-default .navbar-nav > li > .dropdown-menu > li > a {
-  color: #ee1e1e;
+    color: #ee1e1e;
 }
 .navbar-default .navbar-nav > li > .dropdown-menu > li > a:hover,
 .navbar-default .navbar-nav > li > .dropdown-menu > li > a:focus {
-  /*color: #b20d0d;*/
-  color: #f7f7f7;
-  background-color: #fb0000;
+    color: #b20d0d;
 }
 .navbar-default .navbar-nav > li > .dropdown-menu > li > .divider {
-  background-color: #fb0000;
+    background-color: #fb0000;
 }
 .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
 .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
 .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
-  /*color: #b20d0d;*/
-  color: #f7f7f7;
-  background-color: #fb0000;
+    /*color: #b20d0d;*/
+    color: #f7f7f7;
+    background-color: #fb0000;
 }
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
-  /*color: #b20d0d;*/
-  color: #f7f7f7;
-  background-color: #fb0000;
+    /*color: #b20d0d;*/
+    color: #f7f7f7;
+    background-color: #fb0000;
 }
 .navbar-default .navbar-nav > .open > a,
 .navbar-default .navbar-nav > .open > a:hover,
 .navbar-default .navbar-nav > .open > a:focus {
-  /*color: #b20d0d;*/
-  color: #f7f7f7;
-  background-color: #fb0000;
+    /*color: #b20d0d;*/
+    color: #f7f7f7;
+    background-color: #fb0000;
 }
 .navbar-default .navbar-toggle {
-  border-color: #fb0000;
+    border-color: #fb0000;
 }
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus {
-  /*background-color: #fb0000;*/
-  background-color: #ffffff;
+    /*background-color: #fb0000;*/
+    background-color: #ffffff;
 }
 .navbar-default .navbar-toggle .icon-bar {
-  background-color: #ee1e1e;
+    background-color: #ee1e1e;
 }
 .navbar-default .navbar-collapse,
 .navbar-default .navbar-form {
-  border-color: #ee1e1e;
+    border-color: #ee1e1e;
 }
 .navbar-default .navbar-link {
-  color: #ee1e1e;
+    color: #ee1e1e;
 }
 .navbar-default .navbar-link:hover {
-  color: #b20d0d;
+    color: #b20d0d;
 }
 
 @media (max-width: 767px) {
-  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
-    color: #ee1e1e;
-  }
-  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
-  .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
-    color: #b20d0d;
-  }
-  .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
-  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
-  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
-    color: #b20d0d;
-    background-color: #fb0000;
-  }
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+        color: #ee1e1e;
+    }
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+        color: #b20d0d;
+    }
+    .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+    .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
+    .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+        /*color: #b20d0d;*/
+        color: #f7f7f7;
+        background-color: #fb0000;
+    }
 }
 
 html {
@@ -323,6 +322,10 @@ iframe.embed {
     width: 90vw;
     margin: auto;
     border: 1px solid black;
+}
+
+iframe.constrain {
+    max-width: 90vw;
 }
 
 .section {
