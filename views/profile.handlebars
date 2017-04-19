@@ -137,6 +137,19 @@
         <h4 class="text-center">There are currently no links</h4>
         {{/if}}
     </div>
+    <div class="section">
+        <div class="text-center page-header"><h2>Manage NRCs (WIP)</h2></div>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <pre id="editor" class="ace_editor">{{{NRC}}}</pre>
+                <textarea hidden>{{{NRC}}}</textarea>
+                <div class="btn-group">
+                    <button class="btn btn-info"><i class="fa fa-cloud-upload"></i> Update</button>
+                    <button class="btn btn-danger"><i class="fa fa-times-circle"></i> Revert Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="section text-center">
         <div class="page-header"><h2>Server Information</h2></div>
         <div class="row">
@@ -152,4 +165,5 @@
     </div>
     {{/if}}
 </div>
+<script src="/js/ace/ace.js"></script>
 <script src="/js/custom/profile.js"></script>

@@ -266,6 +266,14 @@ p, div {
     padding: 15px;
 }
 
+.ace_editor {
+    height: 350px;
+}
+
+    .ace_editor div {
+        font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+    }
+
 .event-description {
     text-align: left;
     white-space: pre-line;

@@ -63,22 +63,13 @@ exports.NRC = [
     {
         title: "1st NRC",
         members: {
-            // ACS Barker Wind's Rover Crew
             "Chairperson": ["Boey Mao Jie"],
-            // Yeung Ching Open Scout Group
             "Vice Chairperson (Programmes)": ["Chew Kang Wei"],
-            // St. Andrew's 'STAR' Rover Crew
             "Vice Chairperson (Relations)": ["Sarah Ho Wing Kei"],
-            // Mayflower Secondary Scout Group
             "Information Technology Secretary": ["Chen Zhao Cheng Alan"],
-            // Griffin Rovers
             "Scouts of the World Programmes Secretary": ["Tan Si Jie"],
-            // Serangoon Eagle Scout Group, Griffin Rovers, Hwa Chong Ventures and Rovers
             "Secretary": ["Tan Jing Yi Jean", "Ong Wei Soon Wilson", "Bryan Yap Jia Wei"],
-            // Southernwaves Sea Scout Group
             "Treasurer": ["Elwayne Tan Yan Hao"],
-            // Singapore Polytechnic Sabre Shark, St. Andrew’s ‘STAR’ Rover Crew
-            // Eagle Scout Group, Tao Nan Marlin
             "Member": ["Chen Tian Han", "Stephanie Bay Hui Min", "V K K Arumugam", "Ye Bingjia"]
         }
     }

@@ -1,6 +1,5 @@
 var express = require("express");
 var router = express.Router();
-var moment = require("moment-timezone");
 var event = require("../models/event.js");
 var settings = require("./settings.js");
 var admin = require("../middlewares/admin.js");

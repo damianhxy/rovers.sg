@@ -1,7 +1,13 @@
 $(function() {
-    console.info("[info] resources.js is running.");
+    console.info("[info] profile.js is running.");
 
     var MOMENT_FORMAT = "D MMM YY | HH:mm[h]";
+
+    // Ace Editor
+    var editor = ace.edit("editor");
+    editor.$blockScrolling = Infinity;
+    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/json");
 
     // Bootbox
     $(".btn-delete").click(function(e) {

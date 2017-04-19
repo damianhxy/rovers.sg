@@ -2,6 +2,7 @@ var express = require("express");
 var os = require("os");
 var passport = require("passport");
 var router = express.Router();
+var NRC = require("./NRC.js");
 var short = require("../models/shortener.js");
 var user = require("../models/user.js");
 var auth = require("../middlewares/auth.js");
@@ -25,6 +26,7 @@ router.get("/profile", auth, function(req, res) {
         res.render("profile", {
             title: "Profile",
             user: req.user,
+            NRC: JSON.stringify(NRC.NRC, null, 4),
             info: {
                 "Node Version": process.version,
                 "Platform": os.type(),
