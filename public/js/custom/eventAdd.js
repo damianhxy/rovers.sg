@@ -12,6 +12,15 @@ $(function() {
     var $end = $("[name='end']");
     var defaultMoment = moment(Math.ceil(uniqueID / ROUNDING) * ROUNDING);
 
+    function strip(str) {
+        str = str.replace(/\ 0 minutes$/, "");
+        str = str.replace(/\ 0 hours$/, "");
+        str = str.replace("1 minutes", "1 minute");
+        str = str.replace("1 hours", "1 hour");
+        str = str.replace("1 days", "1 day");
+        return str;
+    }
+
     // Combodate
     $start.combodate({
         smartDays: "true",
@@ -30,7 +39,6 @@ $(function() {
     $(".combodate").addClass("form-control");
     updateDuration();
 
-
     // Check for existence
     function getEvent() {
         return $calendar.fullCalendar("clientEvents", uniqueID)[0];
@@ -46,7 +54,7 @@ $(function() {
     function updateDuration() {
         var start = moment($start.combodate("getValue"), MOMENT_FORMAT);
         var end = moment($end.combodate("getValue"), MOMENT_FORMAT);
-        $duration.val(moment.duration(end.diff(start)).format("d [days] h [hours] m [minutes]"));
+        $duration.val(strip(moment.duration(end.diff(start)).format("d [days] h [hours] m [minutes]")));
     }
 
     // Preview

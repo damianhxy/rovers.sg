@@ -42,7 +42,7 @@ router.get("/:url", function(req, res) {
         }
     })
     .catch(function(err) {
-        console.log(err);
+        console.error(err);
         req.session.error = err.message;
         res.redirect(req.headers.referrer || "/");
     });

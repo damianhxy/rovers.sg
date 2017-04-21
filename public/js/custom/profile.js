@@ -5,9 +5,14 @@ $(function() {
 
     // Ace Editor
     var editor = ace.edit("editor");
+    var $data = $("[name='data']");
+    var $form = $("#NRCForm");
     editor.$blockScrolling = Infinity;
     editor.setTheme("ace/theme/monokai");
     editor.getSession().setMode("ace/mode/json");
+    editor.getSession().on("change", function() {
+        $data.val(editor.getSession().getValue());
+    });
 
     // Bootbox
     $(".btn-delete").click(function(e) {

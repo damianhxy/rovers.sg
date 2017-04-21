@@ -66,7 +66,7 @@ router.get("/activities", function(req, res) {
 });
 
 /* Information */
-router.use("/about", require("./BPAs.js"));
+router.use("/about", require("./about.js"));
 
 router.get("/rjourney", function(req, res) {
     resource.get("Rover Journey")

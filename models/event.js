@@ -11,6 +11,15 @@ Promise.promisifyAll(fs);
 Promise.promisifyAll(events);
 Promise.promisifyAll(events.find().constructor.prototype);
 
+function strip(str) {
+    str = str.replace(/\ 0 minutes$/, "");
+    str = str.replace(/\ 0 hours$/, "");
+    str = str.replace("1 minutes", "1 minute");
+    str = str.replace("1 hours", "1 hour");
+    str = str.replace("1 days", "1 day");
+    return str;
+}
+
 exports.add = function(req) {
     var start = moment.tz(req.body.start, settings.EVENT_TIME_FORMAT, "Asia/Singapore");
     var end = moment.tz(req.body.end, settings.EVENT_TIME_FORMAT, "Asia/Singapore");
@@ -22,7 +31,7 @@ exports.add = function(req) {
         end: end.format(),
         startPretty: moment.tz(start, "Asia/Singapore").format(settings.EVENT_TIME_FORMAT),
         endPretty: moment.tz(end, "Asia/Singapore").format(settings.EVENT_TIME_FORMAT),
-        duration: moment.duration(end.diff(start)).format("d [days] h [hours] m [minutes]"),
+        duration: strip(moment.duration(end.diff(start)).format("d [days] h [hours] m [minutes]")),
         location: req.body.location,
         details: req.body.details,
         category: req.body.category ? [].concat(req.body.category) : [],
@@ -97,7 +106,7 @@ exports.edit = function(id, field, value) {
         if (field === "start" || field === "end") {
             var start = moment(event.start);
             var end = moment(event.end);
-            value = event.duration = moment.duration(end.diff(start)).format("d [days] h [hours] m [minutes]").replace(/\ 0 minutes$/, "").replace(/\ 0 hours$/, "");
+            value = event.duration = strip(moment.duration(end.diff(start)).format("d [days] h [hours] m [minutes]"));
         }
         event.time = moment.tz("Asia/Singapore").format();
         if (moment(event.start).isAfter(moment(event.end)))

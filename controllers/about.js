@@ -1,23 +1,40 @@
 var express = require("express");
+var decache = require('decache');
 var router = express.Router();
-var NRC = require("./NRC.js");
 var BPA = require("../models/BPA.js");
+var NRC = require("../models/NRC.js");
+var NRCs = require("./NRCs.js");
 var admin = require("../middlewares/admin.js");
 
 router.get("/", function(req, res) {
     BPA.all()
     .then(function(BPAs) {
+        decache("./NRCs.js");
+        NRCs = require("./NRCs.js");
         res.render("about", {
             title: "About",
             user: req.user,
             BPAs: BPAs,
-            NRC: NRC.NRC,
-            NRC2017: NRC.NRC[0].members
+            NRC: NRCs.NRC,
+            NRC2017: NRCs.NRC[0].members
         });
     });
 });
 
-router.post("/", admin, function(req, res) {
+router.post("/NRC", admin, function(req, res) {
+    NRC.update(req.body.data)
+    .then(function() {
+        req.session.success = "NRCs updated";
+        res.redirect("/users/profile");
+    })
+    .catch(function(err) {
+        console.error(err);
+        req.session.error = err.message;
+        res.status(400).redirect("/users/profile");
+    });
+});
+
+router.post("/BPA", admin, function(req, res) {
     BPA.add(req)
     .then(function() {
         req.session.success = "Awardee added";
@@ -30,7 +47,7 @@ router.post("/", admin, function(req, res) {
     });
 });
 
-router.delete("/", admin, function(req, res) {
+router.delete("/BPA", admin, function(req, res) {
     BPA.delete(req.body.id)
     .then(function() {
         res.end();

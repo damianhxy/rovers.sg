@@ -138,15 +138,15 @@
         {{/if}}
     </div>
     <div class="section">
-        <div class="text-center page-header"><h2>Manage NRCs (WIP)</h2></div>
+        <div class="text-center page-header"><h2>Manage NRCs</h2></div>
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
-                <pre id="editor" class="ace_editor">{{{NRC}}}</pre>
-                <textarea hidden>{{{NRC}}}</textarea>
-                <div class="btn-group">
-                    <button class="btn btn-info"><i class="fa fa-cloud-upload"></i> Update</button>
-                    <button class="btn btn-danger"><i class="fa fa-times-circle"></i> Revert Changes</button>
-                </div>
+                <h4 class="text-center text-danger"><i class="fa fa-exclamation-circle"></i> Use with caution</h4>
+                <form id="NRCForm" class="form-horizontal" action="/about/NRC" method="post" accept-charset="UTF-8" autocomplete="off">
+                    <pre id="editor" class="ace_editor">{{{NRC}}}</pre>
+                    <textarea name="data" hidden>{{{NRC}}}</textarea>
+                    <button type="submit" class="btn btn-info"><i class="fa fa-cloud-upload"></i> Update</button>
+                </form>
             </div>
         </div>
     </div>

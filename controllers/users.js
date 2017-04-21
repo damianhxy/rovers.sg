@@ -1,10 +1,11 @@
 var express = require("express");
 var os = require("os");
 var passport = require("passport");
+var decache = require('decache');
 var router = express.Router();
-var NRC = require("./NRC.js");
 var short = require("../models/shortener.js");
 var user = require("../models/user.js");
+var NRCs = require("./NRCs.js");
 var auth = require("../middlewares/auth.js");
 
 router.post("/editPassword", auth, function(req, res) {
@@ -23,10 +24,12 @@ router.post("/editPassword", auth, function(req, res) {
 router.get("/profile", auth, function(req, res) {
     short.all()
     .then(function(links) {
+        decache("./NRCs.js");
+        NRCs = require("./NRCs.js");
         res.render("profile", {
             title: "Profile",
             user: req.user,
-            NRC: JSON.stringify(NRC.NRC, null, 4),
+            NRC: JSON.stringify(NRCs.NRC, null, 4),
             info: {
                 "Node Version": process.version,
                 "Platform": os.type(),

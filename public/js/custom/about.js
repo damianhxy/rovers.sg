@@ -22,7 +22,7 @@ $(function() {
                     callback: function() {
                         $.ajax({
                             method: "DELETE",
-                            url: "/about",
+                            url: "/about/BPA",
                             data: { id: id }
                         })
                         .then(function() {
