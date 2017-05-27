@@ -6,7 +6,7 @@ exports.NRC = [
                 "Sunil Ravinder Gill"
             ],
             "Vice Chairperson (Programmes)": [
-                "Muhammad Haziq Bin Modh Ali"
+                "Muhammad Haziq Bin Mohd Ali"
             ],
             "Vice Chairperson (Relations)": [
                 "James Mansfield-Page"
@@ -34,7 +34,7 @@ exports.NRC = [
                 "Sunil Ravinder Gill"
             ],
             "Vice Chairperson (Programmes)": [
-                "Muhammad Haziq Bin Modh Ali"
+                "Muhammad Haziq Bin Mohd Ali"
             ],
             "Vice Chairperson (Relations)": [
                 "James Mansfield-Page"

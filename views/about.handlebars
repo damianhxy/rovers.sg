@@ -4,7 +4,7 @@
             <div class="list-group text-center shortcuts">
                 <a class="list-group-item" href="#rovering">Rovering</a>
                 <a class="list-group-item" href="#organisation">Organisation</a>
-                <a class="list-group-item" href="#NRC" data-toggle="collapse" data-target="#nrc-menu" aria-expanded="false"><i class="fa fa-bars"></i> NRC</a>
+                <a class="list-group-item" href="#NRC" data-toggle="collapse" data-target="#nrc-menu" aria-expanded="false"><i class="fa fa-bars"></i> National Rover Council</a>
                 <ul id="nrc-menu" class="collapse nav nav-pills nav-stacked">
                     {{#each NRC}}
                     <li><a href="#council-{{@index}}" class="small" data-toggle="pill">{{title}}</a></li>
@@ -30,7 +30,7 @@
                 <h4>The National Rover Council (NRC), are Rovers who have been elected to lead the Rover community and ensure the smooth day-to-day running of the movement.</h4>
             </div>
             <div class="section">
-                <h3>NRAC</h3>
+                <h3>National Rover Advisory Committee</h3>
                 <h4>The NRAC consists of the following members.</h4>
                 <div class="row">
                     <div class="col-md-4">
@@ -57,6 +57,11 @@
             </div>
             <a class="anchor" id="NRC"></a>
             <div class="section">
+                <ul class="nav nav-pills visible-sm visible-xs">
+                    {{#each NRC}}
+                    <li><a href="#council-{{@index}}" data-toggle="pill">{{title}}</a></li>
+                    {{/each}}
+                </ul>
                 <div class="tab-content">
                     {{#each NRC}}
                     <div id="council-{{@index}}" class="tab-pane fade">

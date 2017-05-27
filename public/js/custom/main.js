@@ -40,7 +40,7 @@ $(function() {
 	$(".fa").attr("aria-hidden", true);
 
     // Show first pill
-    $(".nav-pills li:eq(0) a").tab("show");
+    $(".nav-pills li:first-child a").tab("show");
 
 	// Active Link
     var active = $("nav a[href='" + location.pathname + "']").parent();
