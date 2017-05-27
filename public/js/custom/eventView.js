@@ -2,6 +2,18 @@ $(function() {
     console.info("[info] eventView.js is running.");
 
     var MOMENT_FORMAT = "D MMM YY | HH:mm[h]";
+    var $start = $("[data-name='start']");
+    var $end = $("[data-name='end']");
+    var $duration = $("[data-name='duration']");
+
+    function strip(str) {
+        str = str.replace(/\ 0 minutes$/, "");
+        str = str.replace(/\ 0 hours$/, "");
+        str = str.replace("1 minutes", "1 minute");
+        str = str.replace("1 hours", "1 hour");
+        str = str.replace("1 days", "1 day");
+        return str;
+    }
 
     // Hide empty fields
     $(".field-hidden").hide();
@@ -24,7 +36,13 @@ $(function() {
             },
             success: function(data) {
                 $("[data-name='" + data.field + "']").parent().parent().toggleClass("field-hidden", !data.value);
-                if (data.field === "link") {
+                if (data.field === "start" || data.field === "end") {
+                    setTimeout(function () {
+                        var start = moment($start.text(), MOMENT_FORMAT);
+                        var end = moment($end.text(), MOMENT_FORMAT);
+                        $duration.text(strip(moment.duration(end.diff(start)).format("d [days] h [hours] m [minutes]")));
+                    }, 500);
+                } else if (data.field === "link") {
                     setTimeout(function () {
                         $("[data-name='link']").editable("setValue", data.value);
                         $("[data-name='link']").attr("href", data.value);

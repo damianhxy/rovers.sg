@@ -1,6 +1,6 @@
 exports.NRC = [
     {
-        "title": "NRC 2017 (Current)",
+        "title": "NRC 2017",
         "members": {
             "Chairperson": [
                 "Sunil Ravinder Gill"

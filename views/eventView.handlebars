@@ -64,9 +64,10 @@
                             </td>
                         </tr>
                         <!-- x-editable doesn't work with select v4 -->
-                        <tr {{#unless info.category}}class="field-hidden"{{/unless}}>
+                        <tr>
                             <td class="col-md-3 text-center">Categories</td>
                             <td class="col-md-9">
+                                {{#unless info.category}}<span class="label label-danger">None</span>{{/unless}}
                                 {{#each info.category}}
                                     <a href="/activities#{{this}}" class="label label-info">{{this}}</a>
                                 {{/each}}
