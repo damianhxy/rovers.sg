@@ -361,9 +361,6 @@ textarea[readonly] {
     display: block;
     position: relative;
     visibility: hidden;
-}
-
-.anchor {
     top: -50px;
 }
 
@@ -392,7 +389,6 @@ textarea[readonly] {
 .shortcuts {
     position: fixed;
     top: 143px;
-    width: 20%;
     z-index: 1;
 }
 

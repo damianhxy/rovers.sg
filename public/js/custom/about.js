@@ -1,6 +1,18 @@
 $(function() {
     console.info("[info] about.js is running.");
 
+    // Init to NRC 2017
+    showNRCPhoto("#council-0-photo");
+
+    function showNRCPhoto(target) {
+        $(".NRC-photo").hide();
+        $(target).show();
+    }
+
+    $("[data-toggle='pill']").click(function(e) {
+        showNRCPhoto(e.target.getAttribute("href") + "-photo");
+    });
+
     // Bootbox
     $(".btn-delete").click(function(e) {
         var $data = $(e.target);
