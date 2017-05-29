@@ -12,7 +12,7 @@ router.post("/", function(req, res) {
     .catch(function(err) {
         console.error(err);
         req.session.error = err.message;
-        res.redirect(req.headers.referrer || "/");
+        res.status(400).redirect("/users/profile");
     });
 });
 

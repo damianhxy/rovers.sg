@@ -10,11 +10,15 @@ exports.add = function(req) {
     var formInfo = {
         name: req.body.name,
         orgurl: normalizeURL(req.body.orgurl),
-        newurl: req.body.newurl,
+        newurl: req.body.newurl.trim(),
         embed: req.body.embed,
         time: moment.tz("Asia/Singapore").format()
     };
-    return short.insertAsync(formInfo);
+    return short.findOneAsync({ newurl: formInfo.newurl })
+    .then(function(url) {
+        if (url) throw Error("Short URL already exists");
+        return short.insertAsync(formInfo);
+    });
 };
 
 exports.all = function() {

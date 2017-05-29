@@ -20,6 +20,7 @@
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
+    background-color: #f5f5f5;
     color: #b20d0d;
 }
 .navbar-default .navbar-nav > li > .dropdown-menu {
@@ -84,6 +85,7 @@
     }
     .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
     .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+        background-color: #f5f5f5;
         color: #b20d0d;
     }
     .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
@@ -147,7 +149,7 @@ p, div {
 }
 
 #joinBanner {
-    background-image: url("../img/Originals/JoinUs.jpg");
+    background-image: url("../img/Cropped/JoinUs.jpg");
 }
 /* Activities */
     #ActivitiesAdventureBanner {
@@ -372,9 +374,14 @@ textarea[readonly] {
 
 .btn-outline {
     background: none;
-    border-color: #ccc;
+    border-color: #ccc7c7;
     color: white;
+    transition: color 0.2s ease 0s;
 }
+
+    .btn-outline:hover {
+        color: #ccc7c7;
+    }
 
 .link {
     cursor: pointer !important;
