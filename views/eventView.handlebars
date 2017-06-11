@@ -69,14 +69,14 @@
                             <td class="col-md-9">
                                 {{#unless info.category}}<span class="label label-danger">None</span>{{/unless}}
                                 {{#each info.category}}
-                                    <a href="/activities#{{this}}" class="label label-info">{{this}}</a>
+                                    <a href="/activities#{{this}}" class="label label-primary">{{this}}</a>
                                 {{/each}}
                             </td>
                         </tr>
                     </tbody>
                 </table> <!-- /.table -->
                 <div class="text-center">
-                    <div class="label label-info">
+                    <div class="label label-primary">
                         <span>Event last modified </span><span data-livestamp="{{info.time}}"></span>
                     </div>
                 </div>
@@ -98,7 +98,7 @@
                                 <div class="input-group-addon">Max Size: 5MB</div>
                                 <textarea id="uploadName" type="textarea" class="form-control" rows="1" readonly>No File(s) Selected</textarea>
                                 <span class="input-group-btn">
-                                    <span class="btn btn-info btn-file">
+                                    <span class="btn btn-primary btn-file">
                                         <span>Browse...</span>
                                         <input type="file" name="file" accept="image/*" multiple>
                                     </span>
@@ -184,8 +184,8 @@
             <div class="col-md-6 col-md-offset-3">
                 <div class="text-center">
                     <div class="btn-group">
-                        <button class="btn btn-info carousel-prev">Prev</button>
-                        <button class="btn btn-info carousel-next">Next</button>
+                        <button class="btn btn-primary carousel-prev">Prev</button>
+                        <button class="btn btn-primary carousel-next">Next</button>
                     </div>
                 </div>
                 <div class="slick">

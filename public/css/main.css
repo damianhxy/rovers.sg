@@ -1,99 +1,128 @@
 /* Template */
 @import url(https://fonts.googleapis.com/css?family=Lato:300|Roboto:300);
 
+/* Color Scheme
+ * Navbar
+ * * Border: #fb0000
+ * * Background-Color: #ee1e1e
+ * * * Hover: #b20d0d
+ * * Text: #f5f5f5
+ * * * Hover: #ccc7c7
+*/
+
 .navbar-default {
-    background-color: #f7f7f7;
-    border-color: #fb0000;
+    background-color: #ee1e1e;
+    border-color: #f5f5f5;
 }
+
+.navbar-default * {
+    transition: color 0.2s ease 0s;
+}
+
+/* Navbar Brand - Unused */
 .navbar-default .navbar-brand {
-    color: #ee1e1e;
+    color: #f5f5f5;
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
-    color: #b20d0d;
+    color: #ccc7c7;
 }
+
+/* Navbar Text - Unused */
 .navbar-default .navbar-text {
-    color: #ee1e1e;
+    color: #f5f5f5;
 }
+
+/* Navbar Links */
 .navbar-default .navbar-nav > li > a {
-    color: #ee1e1e;
+    color: #f5f5f5;
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
-    background-color: #f5f5f5;
-    color: #b20d0d;
+    color: #ccc7c7;
 }
+
+/* Dropdown */
 .navbar-default .navbar-nav > li > .dropdown-menu {
-    background-color: #f7f7f7;
+    background-color: #ee1e1e; /* Override default style */
 }
 .navbar-default .navbar-nav > li > .dropdown-menu > li > a {
-    color: #ee1e1e;
+    color: #f5f5f5;
 }
 .navbar-default .navbar-nav > li > .dropdown-menu > li > a:hover,
 .navbar-default .navbar-nav > li > .dropdown-menu > li > a:focus {
-    color: #b20d0d;
+    background-color: #ee1e1e; /* Override default style */
+    color: #ccc7c7;
 }
+
+/* Dropdown Divider - Unused */
 .navbar-default .navbar-nav > li > .dropdown-menu > li > .divider {
-    background-color: #fb0000;
+    background-color: #ccc7c7;
 }
+
+/* Active Dropdown Items */
 .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
 .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
 .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
-    /*color: #b20d0d;*/
-    color: #f7f7f7;
-    background-color: #fb0000;
+    color: #ccc7c7;
+    background-color: #b20d0d;
 }
+
+/* Active Navbar Item  */
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
-    /*color: #b20d0d;*/
-    color: #f7f7f7;
-    background-color: #fb0000;
+    color: #ccc7c7;
+    background-color: #b20d0d;
 }
+
+/* Currently Open Dropdown's Navbar Item */
 .navbar-default .navbar-nav > .open > a,
 .navbar-default .navbar-nav > .open > a:hover,
 .navbar-default .navbar-nav > .open > a:focus {
-    /*color: #b20d0d;*/
-    color: #f7f7f7;
-    background-color: #fb0000;
+    color: #ccc7c7;
+    background-color: #b20d0d;
 }
+
+/* Navbar Toggle */
 .navbar-default .navbar-toggle {
-    border-color: #fb0000;
+    border-color: #f5f5f5;
+}
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #f5f5f5;
 }
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus {
-    /*background-color: #fb0000;*/
-    background-color: #ffffff;
+    background-color: #b20d0d;
 }
-.navbar-default .navbar-toggle .icon-bar {
-    background-color: #ee1e1e;
-}
+
 .navbar-default .navbar-collapse,
-.navbar-default .navbar-form {
-    border-color: #ee1e1e;
+.navbar-default .navbar-form { /* Unused */
+    border-color: #f5f5f5;
 }
+
+/* Unused */
 .navbar-default .navbar-link {
-    color: #ee1e1e;
+    color: #f5f5f5;
 }
 .navbar-default .navbar-link:hover {
-    color: #b20d0d;
+    color: #ccc7c7;
 }
 
 @media (max-width: 767px) {
     .navbar-default .navbar-nav .open .dropdown-menu > li > a {
-        color: #ee1e1e;
+        color: #f5f5f5;
     }
     .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
     .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
-        background-color: #f5f5f5;
-        color: #b20d0d;
+        color: #ccc7c7;
     }
+    /* Unused */
     .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
     .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
     .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
-        /*color: #b20d0d;*/
-        color: #f7f7f7;
-        background-color: #fb0000;
+        color: #ccc7c7;
+        background-color: #b20d0d;
     }
 }
 
@@ -335,6 +364,11 @@ iframe.embed {
 
 iframe.constrain {
     max-width: 90vw;
+}
+
+.panel-primary .panel-title .field-edit,
+.panel-primary .panel-title .field-edit:hover {
+    color: #f5f5f5;
 }
 
 .section {

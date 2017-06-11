@@ -6,7 +6,7 @@
             {{#if user.admin}}
             <a href="/events/add" class="btn btn-success"><i class="fa fa-plus"></i> Create Event</a>
             {{/if}}
-            <a href="/events" class="btn btn-info"><i class="fa fa-history"></i> All Events</a>
+            <a href="/events" class="btn btn-primary"><i class="fa fa-history"></i> All Events</a>
         </div>
     </div>
     {{#each upcoming}}
@@ -51,7 +51,7 @@
                     <dt>Categories</dt>
                     <dd>
                     {{#each category}}
-                        <a href="/activities#{{this}}" class="label label-info">{{this}}</a>
+                        <a href="/activities#{{this}}" class="label label-primary">{{this}}</a>
                     {{/each}}
                     </dd>
                     {{/if}}

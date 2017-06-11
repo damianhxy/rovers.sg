@@ -18,7 +18,7 @@
                 {{#if fileList}}
                 <div class="overflow">
                     {{#each fileList}}
-                    <div class="panel panel-info card">
+                    <div class="panel panel-primary card">
                         <div class="panel-heading">
                             <h3 class="panel-title"><i class="fa fa-{{fileType url}}"></i> <a class="field-edit wrap link" data-type="text" data-pk="{{_id}}" data-name="name" data-url="/resources" href="{{url}}" target="_blank">{{name}}</a></h3>
                         </div>
@@ -27,7 +27,7 @@
                         </div>
                         <div class="panel-footer">
                             <div class="btn-group">
-                                <a href="{{url}}" class="btn btn-info btn-xs" target="_blank">
+                                <a href="{{url}}" class="btn btn-primary btn-xs" target="_blank">
                                     <i class="fa fa-cloud"></i> Go To Resource
                                 </a>
                                 {{#if ../../user.admin}}
@@ -59,7 +59,7 @@
                                 <div class="input-group-addon">Max Size: 25MB</div>
                                 <input id="uploadName" type="text" class="form-control" value="No File Selected" readonly>
                                 <span class="input-group-btn">
-                                    <span class="btn btn-info btn-file">
+                                    <span class="btn btn-primary btn-file">
                                         <span>Browse...</span>
                                         <input type="file" name="file">
                                     </span>
