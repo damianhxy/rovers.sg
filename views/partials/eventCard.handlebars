@@ -12,7 +12,13 @@
         <strong class="wrap">{{title}}</strong>
         <p><strong>Start: </strong>{{startPretty}}
         <br><strong>End: </strong>{{endPretty}}
-        <br><strong>Duration: </strong>{{duration}}</p>
+        <br><strong>Duration: </strong>{{duration}}
+        <br><strong>Categories: </strong>
+        {{#unless category}}<span class="label label-danger">None</span>{{/unless}}
+        {{#each category}}
+            <a href="/activities#{{this}}" class="label label-primary">{{this}}</a>
+        {{/each}}</p>
+
     </div>
     <div class="panel-footer">
         <a href="/upcoming#{{_id}}">View Information</a>

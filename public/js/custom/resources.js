@@ -84,8 +84,9 @@ $(function() {
     });
 
     $(".btn-file :file").change(function() {
-        $("#uploadForm [name='name']").val($(this).val());
-        $("#uploadName").val($(this).val());
+        var name = $(this).get(0).files.item(0).name
+        $("#uploadForm [name='name']").val(name);
+        $("#uploadName").val(name);
     });
 
     // Form Validation

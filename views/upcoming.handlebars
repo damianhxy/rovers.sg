@@ -47,14 +47,13 @@
                     <dt>Link</dt>
                     <dd><a href="{{link}}" target="_blank">{{link}}</a></dd>
                     {{/if}}
-                    {{#if category}}
                     <dt>Categories</dt>
                     <dd>
+                    {{#unless category}}<span class="label label-danger">None</span>{{/unless}}
                     {{#each category}}
                         <a href="/activities#{{this}}" class="label label-primary">{{this}}</a>
                     {{/each}}
                     </dd>
-                    {{/if}}
                     <dt>Last Modified</dt>
                     <dd data-livestamp="{{time}}"></dd>
                 </dl>

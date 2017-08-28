@@ -9,7 +9,7 @@ exports.add = function(name, username, password) {
     return users.findOneAsync({ username: username })
     .then(function(user) {
         if (user) throw Error("User already exists");
-        return bcryptsjs.hashAsync(password, 10)
+        return bcryptjs.hashAsync(password, 10)
         .then(function(hash) {
             var user = {
                 "name": name,
