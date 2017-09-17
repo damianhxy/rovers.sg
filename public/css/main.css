@@ -162,12 +162,18 @@ p, div {
     font-family: "Lato", sans-serif;
 }
 
-#homepageBanner {
-    position: relative;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url("../img/Cropped/HomeBanner.jpg");
+.homepageBanner {
+    max-height: 75vh;
+    width: 100%;
+    filter: grayscale(0.1);
 }
 
-    #homepageText {
+    #homepageCarousel .homepageLogo {
+        height: 100px;
+        width: 114px;
+    }
+
+    #homepageCarousel .homepageText {
         position: absolute;
         right: 5px;
         bottom: 5px;

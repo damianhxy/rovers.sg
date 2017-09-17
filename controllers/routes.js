@@ -16,7 +16,8 @@ router.get("/", function(req, res) {
         res.render("home", {
             title: "Home",
             user: req.user,
-            upcoming: events
+            upcoming: events,
+            slideshow: settings.HOMEPAGE_SLIDESHOW
         });
     });
 });

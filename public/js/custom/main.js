@@ -42,6 +42,10 @@ $(function() {
     // Show first pill
     $(".nav-pills li:first-child a").tab("show");
 
+	// Show first carousel slide
+	$(".carousel ol li:first-child").addClass("active");
+	$(".carousel-inner div:first-child").addClass("active");
+
 	// Active Link
     var active = $("nav a[href='" + location.pathname + "']").parent();
 	active.addClass("active");

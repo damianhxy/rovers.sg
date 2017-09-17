@@ -6,3 +6,10 @@ exports.TIME_FORMAT = "dd mmm HH:MM:ss";
 exports.EVENT_TIME_FORMAT = "D MMM YY | HH:mm[h]";
 exports.MAILING_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSf24xB77bXz4Zzf9cpj6nXOWjBfMpaFktouuxama4GXhd5j0Q/formResponse";
 exports.CONTACT_FORM_URL = "https://docs.google.com/forms/d/1c90uh2-n3mIFVkTenDKl8Zd_wqiUMJFxnlh1VMsQnzE/formResponse";
+exports.HOMEPAGE_SLIDESHOW = [
+    "/img/Cropped/HomeBanner.jpg",
+    "/img/Activities/Adventure.jpg",
+    "/img/Activities/Service.jpg",
+    "/img/Activities/Fellowship.jpg",
+    "/img/Activities/Courses.jpg"
+];

@@ -1,11 +1,29 @@
 <div class="section__borderless">
-    <div class="banner-container" id="homepageBanner">
-        <div class="banner-text text-center">
-            <img src="/img/Cropped/LogoWhite.png" alt="Logo">
-            <h2>Singapore Rovers</h2>
-            <h3>Be part of something great.</h3>
-            <p id="homepageText"><em>Fellowship of the open air &amp; service</em></p>
+    <div id="homepageCarousel" class="carousel slide banner-container" data-ride="carousel" data-interval="5000">
+        <ol class="carousel-indicators">
+            {{#each slideshow}}
+            <li data-target="#homepageCarousel" data-slide-to="{{@index}}"></li>
+            {{/each}}
+        </ol>
+        <div class="carousel-inner">
+            {{#each slideshow}}
+            <div class="item">
+                <img src="{{this}}" class="homepageBanner">
+                <div class="carousel-caption">
+                    <img src="/img/Cropped/LogoWhite.png" alt="Logo" class="homepageLogo">
+                    <h2>Singapore Rovers</h2>
+                    <h3>Be part of something great.</h3>
+                    <p class="homepageText"><em>Fellowship of the open air &amp; service</em></p>
+                </div>
+            </div>
+            {{/each}}
         </div>
+        <a class="left carousel-control" href="#homepageCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="right carousel-control" href="#homepageCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
     </div>
 </div>
 <div class="container">
