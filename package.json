@@ -15,7 +15,7 @@
   "dependencies": {
     "bcryptjs": "^2.1.0",
     "bluebird": "^3.4.1",
-    "body-parser": "^1.15.1",
+    "body-parser": "^1.18.1",
     "compression": "^1.6.2",
     "console-stamp": "^0.2.2",
     "cookie-parser": "^1.4.3",
@@ -36,6 +36,6 @@
     "passport": "^0.3.0",
     "passport-local": "^1.0.0",
     "request": "^2.70.0",
-    "rimraf": "^2.5.2"
+    "rimraf": "^2.6.2"
   }
 }
