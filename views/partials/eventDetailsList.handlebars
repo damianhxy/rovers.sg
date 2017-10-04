@@ -1,0 +1,52 @@
+{{#each this}}
+<a class="anchor" id="{{_id}}"></a>
+<div class="section">
+    <div class="page-header text-center">
+        <a href="/events/{{_id}}"><h2>{{title}}</h2></a>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            {{#if favourite.name}}
+            <a data-toggle="lightbox" data-title="{{favourite.name}}" href="{{favourite.path}}" class="thumbnail">
+                <img src="{{favourite.path}}" alt="{{favourite.name}}">
+            </a>
+            {{else}}
+            <a data-toggle="lightbox" data-title="Placeholder" href="/img/EventPicture.png" class="thumbnail">
+                <img src="/img/EventPicture.png" alt="Placeholder">
+            </a>
+            {{/if}}
+        </div> <!-- /.col-md-3 -->
+        <div class="col-md-9">
+            <dl class="dl-horizontal">
+                {{#if location}}
+                <dt>Location</dt>
+                <dd>{{location}}</dd>
+                {{/if}}
+                <dt>Start</dt>
+                <dd>{{startPretty}}</dd>
+                <dt>End</dt>
+                <dd>{{endPretty}}</dd>
+                <dt>Duration</dt>
+                <dd>{{duration}}</dd>
+                {{#if details}}
+                <dt>Additional Details</dt>
+                <dd><span class="event-description">{{details}}</span></dd>
+                {{/if}}
+                {{#if link}}
+                <dt>Link</dt>
+                <dd><a href="{{link}}" target="_blank">{{link}}</a></dd>
+                {{/if}}
+                <dt>Categories</dt>
+                <dd>
+                {{#unless category}}<span class="label label-danger">None</span>{{/unless}}
+                {{#each category}}
+                    <a href="/events/category/{{this}}" class="label label-primary">{{this}}</a>
+                {{/each}}
+                </dd>
+                <dt>Last Modified</dt>
+                <dd data-livestamp="{{time}}"></dd>
+            </dl>
+        </div> <!-- /.col-md-9 -->
+    </div> <!-- /.row -->
+</div>
+{{/each}}

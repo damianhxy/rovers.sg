@@ -27,17 +27,6 @@ router.post("/mailing", function(req, res) {
 });
 
 /* Events */
-router.get("/upcoming", function(req, res) {
-    event.upcoming(moment.tz("Asia/Singapore"))
-    .then(function(events) {
-        res.render("upcoming", {
-            title: "Upcoming",
-            user: req.user,
-            upcoming: events
-        });
-    });
-});
-
 router.use("/events", require("./events.js"));
 
 /* Link Shortener */
@@ -47,7 +36,7 @@ router.use("/s", require("./shortener.js"));
 router.use("/resources", require("./resources.js"));
 
 /* Activities */
-router.get("/activities", function(req, res) {
+/*router.get("/activities", function(req, res) {
     var date = moment.tz("Asia/Singapore");
     Promise.all([
         event.getCategoryUpcoming("adventure", date),
@@ -64,7 +53,7 @@ router.get("/activities", function(req, res) {
             courses: ret[3]
         });
     });
-});
+});*/
 
 /* Information */
 router.use("/about", require("./about.js"));

@@ -1,21 +1,19 @@
 var express = require("express");
 var router = express.Router();
 var event = require("../models/event.js");
+var moment = require("moment-timezone");
 var settings = require("./settings.js");
 var admin = require("../middlewares/admin.js");
 var upload = require("../middlewares/uploadPhoto.js");
 
-router.get("/", function(req, res, next) {
-    res.render("events", {
-        title: "Events",
-        user: req.user
-    });
-});
-
-router.get("/feed", function(req, res, next) {
-    event.range(req.query.start, req.query.end)
+router.get("/", function(req, res) {
+    event.upcoming(moment.tz("Asia/Singapore"))
     .then(function(events) {
-        res.json(events);
+        res.render("events", {
+            title: "Events",
+            user: req.user,
+            upcoming: events
+        });
     });
 });
 
@@ -23,6 +21,32 @@ router.get("/add", admin, function(req, res, next) {
     res.render("eventAdd", {
         title: "Add Event",
         user: req.user
+    });
+});
+
+router.get("/all", function(req, res, next) {
+    res.render("eventCalendar", {
+        title: "All Events",
+        user: req.user
+    });
+});
+
+router.get("/category/:category", function(req, res, next) {
+    var date = moment.tz("Asia/Singapore");
+    event.getCategoryUpcoming(req.params.category, date)
+    .then(function(events) {
+        res.render("eventCategory", {
+            title: req.params.category,
+            user: req.user,
+            events: events
+        });
+    });
+});
+
+router.get("/feed", function(req, res, next) {
+    event.range(req.query.start)
+    .then(function(events) {
+        res.json(events);
     });
 });
 

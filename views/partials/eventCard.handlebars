@@ -16,11 +16,11 @@
         <br><strong>Categories: </strong>
         {{#unless category}}<span class="label label-danger">None</span>{{/unless}}
         {{#each category}}
-            <a href="/activities#{{this}}" class="label label-primary">{{this}}</a>
+            <a href="/events/category/{{this}}" class="label label-primary">{{this}}</a>
         {{/each}}</p>
 
     </div>
     <div class="panel-footer">
-        <a href="/upcoming#{{_id}}">View Information</a>
+        <a href="/events#{{_id}}">View Information</a>
     </div>
 </div>

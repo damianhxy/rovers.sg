@@ -99,7 +99,8 @@ module.exports = function(app, express) {
         },
         partials: {
             eventCard: require("../views/partials/eventCard.handlebars"),
-            eventCardList: require("../views/partials/eventCardList.handlebars")
+            eventCardList: require("../views/partials/eventCardList.handlebars"),
+            eventDetailsList: require("../views/partials/eventDetailsList.handlebars")
         }
     });
 
