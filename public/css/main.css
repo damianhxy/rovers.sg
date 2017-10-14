@@ -169,8 +169,8 @@ p, div {
 }
 
     #homepageCarousel .homepageLogo {
-        height: 100px;
-        width: 114px;
+        height: 114px;
+        width: 100px;
     }
 
     #homepageCarousel .homepageText {
@@ -416,11 +416,11 @@ textarea[readonly] {
     background: none;
     border-color: #ccc7c7;
     color: white;
-    transition: color 0.2s ease 0s;
 }
 
     .btn-outline:hover {
-        color: #ccc7c7;
+        background: white;
+        color: black;
     }
 
 .link {

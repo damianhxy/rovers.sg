@@ -113,3 +113,12 @@
     </div>
 </div>
 <script src="/js/custom/home.js"></script>
+<script>
+    $(function() {
+        var images = []
+        {{#each slideshow}}
+        images[{{@index}}] = new Image();
+        images[{{@index}}].src = "{{this}}";
+        {{/each}}
+    });
+</script>

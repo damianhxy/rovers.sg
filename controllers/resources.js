@@ -4,8 +4,7 @@ var router = express.Router();
 var fs = require("fs");
 var resource = require("../models/resource.js");
 var admin = require("../middlewares/admin.js");
-var upload = require("../middlewares/uploadResource.js");
-Promise.promisifyAll(fs);
+var uploadResource = require("../middlewares/uploadResource.js");
 
 router.get("/", function(req, res) {
     var categories = {
@@ -52,7 +51,7 @@ router.put("/", admin, function(req, res) {
 });
 
 router.post("/", function(req, res) {
-    upload.single("file")(req, res, function(err) {
+    uploadResource(req, res, function(err) {
         if (err) {
             console.error(err);
             req.session.error = err.message;
@@ -66,7 +65,7 @@ router.post("/", function(req, res) {
             .catch(function(err) {
                 console.error(err);
                 req.session.error = err.message;
-                fs.unlinkAsync(req.file.path);
+                fs.unlink(req.file.path); // Ignore any errors
                 res.status(400).redirect("/resources#upload");
             });
         }

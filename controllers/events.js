@@ -4,7 +4,7 @@ var event = require("../models/event.js");
 var moment = require("moment-timezone");
 var settings = require("./settings.js");
 var admin = require("../middlewares/admin.js");
-var upload = require("../middlewares/uploadPhoto.js");
+var uploadPhoto = require("../middlewares/uploadPhoto.js");
 
 router.get("/", function(req, res) {
     event.upcoming(moment.tz("Asia/Singapore"))
@@ -101,7 +101,7 @@ router.get("/:event", function(req, res) {
 });
 
 router.post("/:event", admin, function(req, res) {
-    upload.array("file")(req, res, function(err) {
+    uploadPhoto(req, res, function(err) {
         if (err) {
             console.error(err);
             req.session.error = err.message;

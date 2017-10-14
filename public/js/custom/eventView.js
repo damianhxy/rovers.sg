@@ -157,12 +157,12 @@ $(function() {
 
     // File name(s) text
     $(".btn-file :file").change(function(e) {
-        var fileNames = "";
-        file = $(e.target).get(0);
-        for (var a = 0; a < file.files.length; ++a) {
-            fileNames += file.files[a].name + "\n";
+        var fileNames = [];
+        var fileList = $(e.target).get(0).files;
+        for (var file of fileList) {
+            fileNames.push(file.name);
         }
-        $("#uploadName").attr("rows", file.files.length);
-        $("#uploadName").val(fileNames);
+        $("#uploadName").attr("rows", fileList.length);
+        $("#uploadName").val(fileNames.join("\n"));
     });
 });
