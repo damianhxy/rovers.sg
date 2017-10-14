@@ -63,7 +63,7 @@ $(function() {
                             data: { id: id }
                         })
                         .then(function() {
-                            location.reload();
+                            $(e.target).closest(".panel").remove();
                         })
                         .catch(function(err) {
                             new PNotify({

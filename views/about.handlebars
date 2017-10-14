@@ -4,7 +4,10 @@
             <div class="list-group text-center shortcuts">
                 <a class="list-group-item" href="#rovering">Rovering</a>
                 <a class="list-group-item" href="#organisation">Organisation</a>
-                <a class="list-group-item" href="#NRC" data-toggle="collapse" data-target="#nrc-menu" aria-expanded="true"><i class="fa fa-bars"></i> National Rover Council</a>
+                <div class="container-fluid"><div class="row">
+                <a class="list-group-item col-md-3" data-toggle="collapse" data-target="#nrc-menu" aria-expanded="true"><i class="fa fa-bars"></i></a>
+                <a class="list-group-item col-md-9" href="#NRC">NRC</a>
+                </div></div>
                 <ul id="nrc-menu" class="collapse in nav nav-pills nav-stacked">
                     {{#each NRC}}
                     <li><a href="#council-{{@index}}" class="small" data-toggle="pill">{{title}}</a></li>

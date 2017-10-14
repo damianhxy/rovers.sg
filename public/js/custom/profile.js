@@ -41,7 +41,7 @@ $(function() {
                             data: { id: id }
                         })
                         .then(function() {
-                            location.reload();
+                            $(e.target).closest("tr").remove();
                         })
                         .catch(function(err) {
                             new PNotify({
