@@ -29,7 +29,7 @@ router.get("/profile", auth, function(req, res) {
         res.render("profile", {
             title: "Profile",
             user: req.user,
-            NRC: JSON.stringify(NRCs.NRC, null, 4),
+            NRCStr: JSON.stringify(NRCs.NRC, null, 4),
             info: {
                 "Node Version": process.version,
                 "Platform": os.type(),
@@ -38,7 +38,8 @@ router.get("/profile", auth, function(req, res) {
                 "Total Memory": Math.round(os.totalmem() / Math.pow(1024, 3)) + " GB",
                 "Uptime": os.uptime() + " Seconds"
             },
-            links: links
+            links: links,
+            linksStr: JSON.stringify(links, null, 4)
         });
     });
 });

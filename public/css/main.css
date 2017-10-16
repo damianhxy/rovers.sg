@@ -162,22 +162,26 @@ p, div {
     font-family: "Lato", sans-serif;
 }
 
-.homepageBanner {
+#homepageCarousel .homepageBanner {
     max-height: 75vh;
     width: 100%;
     filter: grayscale(0.1);
 }
 
-    #homepageCarousel .homepageLogo {
-        height: 114px;
-        width: 100px;
-    }
+#homepageCarousel .homepageLogo {
+    height: 114px;
+    width: 100px;
+}
 
-    #homepageCarousel .homepageText {
-        position: absolute;
-        right: 5px;
-        bottom: 5px;
-    }
+#homepageCarousel .bannerText {
+    text-shadow: 2px 2px 0px rgba(5, 5, 5, 1);
+}
+
+#homepageCarousel .slogan {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+}
 
 #contactBanner {
     background-image: url("../img/Originals/ContactUs.jpg");
