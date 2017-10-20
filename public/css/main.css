@@ -165,7 +165,7 @@ p, div {
 #homepageCarousel .homepageBanner {
     max-height: 75vh;
     width: 100%;
-    filter: grayscale(0.1);
+    filter: contrast(0.8);
 }
 
 #homepageCarousel .homepageLogo {
