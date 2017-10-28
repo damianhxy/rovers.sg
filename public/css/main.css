@@ -382,8 +382,7 @@ iframe.constrain {
 }
 
 .section {
-    border-bottom: 1px solid #e5e5e5;
-    padding-bottom: 75px;
+    padding-bottom: 35px;
 }
 
 .section__borderless {
