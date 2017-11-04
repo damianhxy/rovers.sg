@@ -152,10 +152,11 @@ exports.mark = function(id, name) {
     });
 };
 
-exports.range = function(start) {
+exports.range = function(start, end) {
     return events.findAsync({
         $where: function() {
-            return moment.tz(this.start, "Asia/Singapore").format("YYYY-MM-DD") <= start;
+            return moment.tz(this.start, "Asia/Singapore").format("YYYY-MM-DD") < end
+            && moment.tz(this.end, "Asia/Singapore").format("YYYY-MM-DD") >= start;
         }
     });
 };

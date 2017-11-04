@@ -279,8 +279,39 @@ p, div {
 
 .card {
     display: inline-block;
+    position: relative;
     width: 250px;
 }
+    .date {
+        position: absolute;
+        top: -6px;
+        right: 8px;
+        width: 67px;
+        height: 79px;
+        font-family: Helvetica;
+        font-weight: bold;
+        background: url(../img/date-badge.png) no-repeat;
+        text-align: center;
+    }
+
+        .date .day {
+            font-size: 1.663em;
+        }
+
+        .date .month {
+            font-size: 0.963em;
+        }
+
+        .date .year {
+            font-size: 0.963em;
+            margin-top: 8px;
+        }
+
+        .date span {
+            color: white;
+            display: block;
+            line-height: 18px;
+        }
 
     .card > .panel-heading {
         height: 55px;
@@ -296,7 +327,7 @@ p, div {
     }
 
     .card > .panel-body {
-        height: 150px;
+        height: 125px;
     }
 
 .card.candid-card > .panel-body {

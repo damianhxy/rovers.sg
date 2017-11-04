@@ -44,7 +44,7 @@ router.get("/category/:category", function(req, res, next) {
 });
 
 router.get("/feed", function(req, res, next) {
-    event.range(req.query.start)
+    event.range(req.query.start, req.query.end)
     .then(function(events) {
         res.json(events);
     });

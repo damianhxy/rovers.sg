@@ -1,4 +1,12 @@
 <div class="panel panel-default card">
+    <!--div class="date">
+        <span class="year">YYYY</span>
+        <span class="month">MMM</span>
+        <span class="day">DD</span>
+    </div-->
+    <div class="panel-heading">
+        <h3 class="panel-title"><a href="/events#{{_id}}">{{title}}</a></h3>
+    </div>
     {{#if favourite.name}}
     <a data-toggle="lightbox" data-title="{{favourite.name}}" href="{{favourite.path}}" class="thumbnail">
         <img src="{{favourite.path}}" alt="{{favourite.name}}">
@@ -9,18 +17,14 @@
     </a>
     {{/if}}
     <div class="panel-body">
-        <strong class="wrap">{{title}}</strong>
-        <p><strong>Start: </strong>{{startPretty}}
-        <br><strong>End: </strong>{{endPretty}}
-        <br><strong>Duration: </strong>{{duration}}
-        <br><strong>Categories: </strong>
-        {{#unless category}}<span class="label label-danger">None</span>{{/unless}}
+        <p><strong>From </strong>{{startPretty}}
+        <br><strong>To </strong>{{endPretty}}
+        <br><strong>Duration </strong>{{duration}}
+        <br>
+        {{#unless category}}<span class="label label-danger">no category</span>{{/unless}}
         {{#each category}}
             <a href="/events/category/{{this}}" class="label label-primary">{{this}}</a>
         {{/each}}</p>
 
-    </div>
-    <div class="panel-footer">
-        <a href="/events#{{_id}}">View Information</a>
     </div>
 </div>
