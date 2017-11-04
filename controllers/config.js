@@ -96,11 +96,6 @@ module.exports = function(app, express) {
         helpers: {
             fileType: require("../helpers/fileType.js"),
             rowSpan: require("../helpers/rowSpan.js")
-        },
-        partials: {
-            eventCard: require("../views/partials/eventCard.handlebars"),
-            eventCardList: require("../views/partials/eventCardList.handlebars"),
-            eventDetailsList: require("../views/partials/eventDetailsList.handlebars")
         }
     });
 

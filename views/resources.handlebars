@@ -15,36 +15,7 @@
             <a class="anchor" id="{{name}}"></a>
             <div class="section text-center">
                 <div class="page-header"><h2>{{@key}}</h2></div>
-                {{#if fileList}}
-                <div class="overflow">
-                    {{#each fileList}}
-                    <div class="panel panel-primary card">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-{{fileType url}}"></i> <a class="field-edit wrap link" data-type="text" data-pk="{{_id}}" data-name="name" data-url="/resources" href="{{url}}" target="_blank">{{name}}</a></h3>
-                        </div>
-                        <div class="panel-body">
-                            <p><span class="field-edit" data-type="textarea" data-pk="{{_id}}" data-name="description" data-url="/resources">{{description}}</span></p>
-                        </div>
-                        <div class="panel-footer">
-                            <div class="btn-group">
-                                <a href="{{url}}" class="btn btn-primary btn-xs" target="_blank">
-                                    <i class="fa fa-cloud"></i> Go To Resource
-                                </a>
-                                {{#if ../../user.admin}}
-                                <button class="btn btn-success btn-xs btn-edit"><i class="fa fa-edit"></i> Edit</button>
-                                <button class="btn btn-danger btn-xs btn-delete" data-name="{{name}}" data-time="{{time}}" data-id="{{_id}}"><i class="fa fa-times-circle"></i> Delete</button>
-                                {{/if}}
-                            </div>
-                        </div>
-                        <div class="panel-footer">
-                            <small>Last modified <span data-livestamp="{{time}}"></span></small>
-                        </div>
-                    </div>
-                    {{/each}}
-                </div>
-                {{else}}
-                <h4>There are currently no resources in this category</h4>
-                {{/if}}
+                {{> resourceCardList fileList}}
             </div> <!-- /.section -->
             {{/each}}
             {{#if user.admin}}
