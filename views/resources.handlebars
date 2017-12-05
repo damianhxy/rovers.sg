@@ -15,7 +15,11 @@
             <a class="anchor" id="{{name}}"></a>
             <div class="section text-center">
                 <div class="page-header"><h2>{{@key}}</h2></div>
-                {{> resourceCardList fileList}}
+                {{#if ../user.admin}}
+                    {{> resourceCardListAdmin fileList}}
+                {{else}}
+                    {{> resourceCardList fileList}}
+                {{/if}}
             </div> <!-- /.section -->
             {{/each}}
             {{#if user.admin}}

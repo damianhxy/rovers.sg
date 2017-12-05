@@ -107,31 +107,10 @@
     <div class="section text-center">
         <div class="page-header"><h2>Find Out More!</h2></div>
         <h4>Interested to find out more? Take a look at our extensive list of modules as well as the framework and idea behind the Rover Journey.</h4>
-        {{#if files}}
-        <div class="overflow">
-            {{#each files}}
-            <div class="panel panel-primary card">
-                <div class="panel-heading">
-                    <h3 class="panel-title wrap"><i class="fa fa-{{fileType url}}"></i> <a href="{{url}}" target="_blank">{{name}}</a></h3>
-                </div>
-                <div class="panel-body">
-                    <p class="wrap">{{description}}</p>
-                </div>
-                <div class="panel-footer">
-                    <div class="btn-group">
-                        <a href="{{url}}" class="btn btn-primary btn-xs" target="_blank">
-                            <i class="fa fa-cloud"></i> Go To Resource
-                        </a>
-                    </div>
-                </div>
-                <div class="panel-footer">
-                    <small>Last modified <span data-livestamp="{{time}}"></span></small>
-                </div>
-            </div>
-            {{/each}}
-        </div>
+        {{#if user.admin}}
+            {{> resourceCardListAdmin files}}
         {{else}}
-        <h4>There are currently no resources in this category</h4>
+            {{> resourceCardList files}}
         {{/if}}
     </div>
     <div class="page-header text-center"><h2>Frequently Asked Questions</h2></div>

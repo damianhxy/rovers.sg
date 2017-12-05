@@ -1,0 +1,9 @@
+{{#if this}}
+<div class="overflow">
+    {{#each this}}
+    {{> resourceCardAdmin this}}
+    {{/each}}
+</div>
+{{else}}
+<h4>There are currently no resources in this category</h4>
+{{/if}}
