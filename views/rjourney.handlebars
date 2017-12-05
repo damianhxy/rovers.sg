@@ -107,11 +107,7 @@
     <div class="section text-center">
         <div class="page-header"><h2>Find Out More!</h2></div>
         <h4>Interested to find out more? Take a look at our extensive list of modules as well as the framework and idea behind the Rover Journey.</h4>
-        {{#if user.admin}}
-            {{> resourceCardListAdmin files}}
-        {{else}}
-            {{> resourceCardList files}}
-        {{/if}}
+        {{> resourceCardList files}}
     </div>
     <div class="page-header text-center"><h2>Frequently Asked Questions</h2></div>
     <div class="section">
