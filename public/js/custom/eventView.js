@@ -34,31 +34,25 @@ $(function() {
                 type: "put",
                 dataType: "json"
             },
-            success: function(data) {
-                $("[data-name='" + data.field + "']").parent().parent().toggleClass("field-hidden", !data.value);
-                if (data.field === "start" || data.field === "end") {
+            success: function(response) {
+                $("[data-name='" + response.field + "']").closest("tr").toggleClass("field-hidden", !response.value);
+                if (response.field === "start" || response.field === "end") {
                     setTimeout(function () {
                         var start = moment($start.text(), MOMENT_FORMAT);
                         var end = moment($end.text(), MOMENT_FORMAT);
                         $duration.text(strip(moment.duration(end.diff(start)).format("d [days] h [hours] m [minutes]")));
                     }, 500);
-                } else if (data.field === "link") {
-                    setTimeout(function () {
-                        $("[data-name='link']").editable("setValue", data.value);
-                        $("[data-name='link']").attr("href", data.value);
-                    }, 500);
-                } else if (data.field === "title") {
-                    $(".btn-delete").first().data("name", data.value);
-                    document.title = data.value + " | Rover.sg";
-                    $("[href='#deleteModal']").data("title", data.value);
+                } else if (response.field === "link") {
+                    $("[data-name='link']").attr("href", response.value);
+                    return response;
+                } else if (response.field === "title") {
+                    $(".btn-delete").first().data("name", response.value);
+                    document.title = response.value + " | Rover.sg";
+                    $("[href='#deleteModal']").data("title", response.value);
                 }
             },
-            error: function(data) {
-                new PNotify({
-                    title: "Error",
-                    text: data.responseJSON.error,
-                    type: "error"
-                });
+            error: function(response) {
+                return response.responseJSON.error;
             },
             /* For combodate */
             format: MOMENT_FORMAT,

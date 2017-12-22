@@ -21,17 +21,12 @@ $(function() {
                 dataType: "json"
             },
             success: function(data) {
-                console.log(data);
                 if (data.field === "name") {
                     $(this).closest(".card").find(".btn-delete").data("name", data.value);
                 }
             },
-            error: function(data) {
-                new PNotify({
-                    title: "Error",
-                    text: data.responseJSON.error,
-                    type: "error"
-                });
+            error: function(response) {
+                return response.responseJSON.error;
             }
         });
     });

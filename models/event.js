@@ -128,7 +128,7 @@ exports.edit = function(id, field, value) {
         return events.updateAsync({ _id: id }, { $set: event });
     })
     .then(function() {
-        return { field: field, value: value };
+        return { success: "true", field: field, newValue: value };
     });
 };
 
