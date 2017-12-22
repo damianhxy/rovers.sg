@@ -98,7 +98,7 @@ $(function() {
                             data: { id: id }
                         })
                         .then(function() {
-                            location.assign("/upcoming");
+                            location.assign("/events");
                         })
                         .catch(function(err) {
                             new PNotify({

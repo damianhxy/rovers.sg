@@ -1,30 +1,26 @@
 <div class="panel panel-default card">
-    <!--div class="date">
-        <span class="year">YYYY</span>
-        <span class="month">MMM</span>
-        <span class="day">DD</span>
-    </div-->
     <div class="panel-heading">
-        <h3 class="panel-title"><strong><a class="wrap" href="/events#{{_id}}">{{title}}</a></strong></h3>
+        <h3 class="panel-title"><strong class="wrap">{{title}}</strong></h3>
+    </div>
+    <div class="date">
+        <span class="month">{{date.month}}</span>
+        <span class="day">{{date.day}}</span>
     </div>
     {{#if favourite.name}}
-    <a data-toggle="lightbox" data-title="{{favourite.name}}" href="{{favourite.path}}" class="thumbnail">
+    <a data-title="Event Image" href="/events#{{_id}}">
         <img src="{{favourite.path}}" alt="{{favourite.name}}">
     </a>
     {{else}}
-    <a data-toggle="lightbox" data-title="No Image Available" href="/img/EventPicture.png" class="thumbnail">
+    <a data-title="No Image Available" href="/events#{{_id}}">
         <img src="/img/EventPicture.png" alt="No Image Available">
     </a>
     {{/if}}
-    <div class="panel-body">
-        <p><strong>From </strong>{{startPretty}}
-        <br><strong>To </strong>{{endPretty}}
-        <br><strong>Duration </strong>{{duration}}
-        <br>
-        {{#unless category}}<span class="label label-danger">no category</span>{{/unless}}
-        {{#each category}}
-            <a href="/events/category/{{this}}" class="label label-primary">{{this}}</a>
-        {{/each}}</p>
-
-    </div>
+    <table class="table">
+        <tr>
+            {{#unless category}}<td class="danger"><strong>uncategorised</strong></td>{{/unless}}
+            {{#each category}}
+            <td class="info"><strong><a href="/events/category/{{this}}">{{this}}</a></strong></td>
+            {{/each}}
+        </td></tr>
+    </table>
 </div>

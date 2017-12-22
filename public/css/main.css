@@ -126,6 +126,12 @@
     }
 }
 
+/* Highlight Rover Journey */
+.navbar-default .navbar-nav > li > a[href='/rjourney'] {
+    background-color: #f5f5f5;
+    color: #ee1e1e;
+}
+
 html {
     position: relative;
     min-height: 100%;
@@ -284,27 +290,25 @@ p, div {
 }
     .date {
         position: absolute;
-        top: -6px;
-        right: 8px;
-        width: 67px;
-        height: 79px;
+        top: 54px;
+        right: 2px;
+        width: 60px;
+        height: 75px;
         font-family: Helvetica;
         font-weight: bold;
         background: url(../img/date-badge.png) no-repeat;
         text-align: center;
     }
 
-        .date .day {
+        .date .day {            
+            margin-top: 4px;
             font-size: 1.663em;
         }
 
         .date .month {
+            margin-top: 4px;
             font-size: 0.963em;
-        }
-
-        .date .year {
-            font-size: 0.963em;
-            margin-top: 8px;
+            text-transform: uppercase;
         }
 
         .date span {
@@ -327,7 +331,7 @@ p, div {
     }
 
     .card > .panel-body {
-        height: 125px;
+        height: 100px;
     }
 
 .card.candid-card > .panel-body {
@@ -405,6 +409,11 @@ iframe.embed {
 
 iframe.constrain {
     max-width: 90vw;
+}
+
+.navbar-brand img {
+    height: 28.5px;
+    width: 25px;
 }
 
 .panel-primary .panel-title .field-edit,

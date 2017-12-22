@@ -25,18 +25,24 @@ exports.add = function(req) {
     var end = moment.tz(req.body.end, settings.EVENT_TIME_FORMAT, "Asia/Singapore");
     if (start.isAfter(end))
         return Promise.reject(Error("Start time must be before end time"));
+    var startMoment = moment.tz(start, "Asia/Singapore");
+    var endMoment = moment.tz(end, "Asia/Singapore");
     var eventInfo = {
         title: req.body.title,
         start: start.format(),
         end: end.format(),
-        startPretty: moment.tz(start, "Asia/Singapore").format(settings.EVENT_TIME_FORMAT),
-        endPretty: moment.tz(end, "Asia/Singapore").format(settings.EVENT_TIME_FORMAT),
+        startPretty: startMoment.format(settings.EVENT_TIME_FORMAT),
+        endPretty: endMoment.format(settings.EVENT_TIME_FORMAT),
         duration: strip(moment.duration(end.diff(start)).format("d [days] h [hours] m [minutes]")),
         location: req.body.location,
         details: req.body.details,
         category: req.body.category ? [].concat(req.body.category) : [],
         link: req.body.link && normalizeURL(req.body.link),
         time: moment.tz("Asia/Singapore").format(),
+        date: {
+            day: startMoment.date(),
+            month: startMoment.format("MMM")
+        },
         photos: [],
         favourite: {}
     };
@@ -74,7 +80,7 @@ exports.delete = function(id) {
     .then(events.removeAsync({ _id: id }));
 };
 
-// Delete by name, since there shouldn't be duplicates and there's no _id
+// Delete by name, since there are not duplicates (and we don't have _id)
 exports.deletePhoto = function(id, name) {
     return events.findOneAsync({ _id: id })
     .then(function(event) {
@@ -96,8 +102,14 @@ exports.edit = function(id, field, value) {
     .then(function(event) {
         if (field === "start" || field === "end")
             value = moment.tz(value, settings.EVENT_TIME_FORMAT, "Asia/Singapore").format();
-        if (field === "start")
-            event.startPretty = moment.tz(value, "Asia/Singapore").format(settings.EVENT_TIME_FORMAT);
+        if (field === "start") {
+            var startMoment = moment.tz(value, "Asia/Singapore");
+            event.startPretty = startMoment.format(settings.EVENT_TIME_FORMAT);
+            event.date = {
+                day: startMoment.date(),
+                month: startMoment.format("MMM")
+            };
+        }
         if (field === "end")
             event.endPretty = moment.tz(value, "Asia/Singapore").format(settings.EVENT_TIME_FORMAT);
         if (field === "link" && value)
