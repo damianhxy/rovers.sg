@@ -13,7 +13,7 @@
         <div class="col-md-9">
             {{#each categories}}
             <a class="anchor" id="{{name}}"></a>
-            <div class="section text-center">
+            <div class="section text-center overflow">
                 <div class="page-header"><h2>{{@key}}</h2></div>
                 {{#if ../user.admin}}
                     {{> resourceCardListAdmin fileList}}

@@ -29,7 +29,6 @@ $(function() {
         $(this).editable({
             pk: $(this).closest("[data-id]").data("id"),
             url: "/events",
-            disabled: true,
             ajaxOptions: {
                 type: "put",
                 dataType: "json"
@@ -59,8 +58,8 @@ $(function() {
             template: "D / MMM / YY | HH : mm",
             combodate: {
                 smartDays: "true",
-                minYear: new Date().getFullYear(),
-                maxYear: new Date().getFullYear() + 1
+                minYear: new Date().getFullYear() - 5,
+                maxYear: new Date().getFullYear() + 5
             }
         });
     });

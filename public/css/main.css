@@ -300,7 +300,7 @@ p, div {
         text-align: center;
     }
 
-        .date .day {            
+        .date .day {
             margin-top: 4px;
             font-size: 1.663em;
         }
@@ -331,7 +331,7 @@ p, div {
     }
 
     .card > .panel-body {
-        height: 100px;
+        height: 150px;
     }
 
 .card.candid-card > .panel-body {
