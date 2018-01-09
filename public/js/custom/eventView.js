@@ -29,6 +29,7 @@ $(function() {
         $(this).editable({
             pk: $(this).closest("[data-id]").data("id"),
             url: "/events",
+            disabled: true,
             ajaxOptions: {
                 type: "put",
                 dataType: "json"

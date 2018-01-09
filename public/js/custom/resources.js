@@ -15,6 +15,7 @@ $(function() {
     // X-editable
     $(".field-edit").each(function() {
         $(this).editable({
+            disabled: true,
             ajaxOptions: {
                 type: "put",
                 dataType: "json"
