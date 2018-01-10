@@ -35,26 +35,6 @@ router.use("/s", require("./shortener.js"));
 /* Resources */
 router.use("/resources", require("./resources.js"));
 
-/* Activities */
-/*router.get("/activities", function(req, res) {
-    var date = moment.tz("Asia/Singapore");
-    Promise.all([
-        event.getCategoryUpcoming("adventure", date),
-        event.getCategoryUpcoming("service", date),
-        event.getCategoryUpcoming("fellowship", date),
-        event.getCategoryUpcoming("courses", date)
-    ]).then(function(ret) {
-        res.render("activities", {
-            title: "Activities",
-            user: req.user,
-            adventure: ret[0],
-            service: ret[1],
-            fellowship: ret[2],
-            courses: ret[3]
-        });
-    });
-});*/
-
 /* Information */
 router.use("/about", require("./about.js"));
 
@@ -74,17 +54,6 @@ router.get("/faq", function(req, res) {
         title: "FAQ",
         user: req.user
     });
-});
-
-router.get("/contact", function(req, res) {
-    res.render("contact", {
-        title: "Contact",
-        user: req.user
-    });
-});
-
-router.post("/contact", function(req, res) {
-    request.post(settings.CONTACT_FORM_URL).form(req.body).pipe(res);
 });
 
 router.get("/join", function(req, res) {

@@ -43,16 +43,6 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="/">Home</a></li>
-                    <!--li class="dropdown">
-                        <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-                            Events
-                            <i class="caret"></i>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="/activities">Activities &amp; Courses</a></li>
-                            <li><a href="/upcoming"> Upcoming</a></li>
-                        </ul>
-                    </li-->
                     <li class="dropdown">
                         <a class="dropdown-toggle" href="#" data-toggle="dropdown">
                             About Us
@@ -65,7 +55,6 @@
                     </li>
                     <li><a href="/events">Events</a></li>
                     <li><a href="/join">Join Us</a></li>
-                    <li><a href="/contact">Contact Us</a></li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" href="#" data-toggle="dropdown">
                             Links
@@ -82,9 +71,6 @@
                     <li><a href="/rjourney"><strong>Rover Journey</strong></a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="https://www.facebook.com/singaporeroverscouts/" target="_blank"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="https://www.youtube.com/channel/UCicRSvsEPrk7vwCIldiUfpQ" target="_blank"><i class="fa fa-youtube"></i></a></li>
-                    <li><a href="https://www.instagram.com/sgrovers/" target="_blank"><i class="fa fa-instagram"></i></a></li>
                 {{#if user}}
                     <li><a href="/users/profile">{{user.username}}</a></li>
                     <li><a href="/users/signout">Sign Out</a></li>
@@ -140,17 +126,56 @@
     {{{body}}}
     <!-- PAGE FOOTER -->
     <footer class="footer">
-        <p class="footer__title">
-            <a href="/">rovers.sg</a>
-        </p>
-        <p class="footer__image">
-            <img src="/img/Originals/LogoWhite.png" alt="Logo">
-        </p>
-        <p class="footer__copyright">
-            <small>
-                &copy; 2015 ~ 2018
-            </small>
-        </p>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <p class="footer__title">
+                        <a href="/">rovers.sg</a>
+                    </p>
+                    <p class="footer__image">
+                        <img src="/img/Originals/LogoWhite.png" alt="Logo">
+                    </p>
+                    <p class="footer__copyright">
+                        <small>
+                            &copy; 2015 ~ 2018
+                        </small>
+                    </p>
+                </div> <!-- /.col-md-3 -->
+                <div class="col-md-3">
+                    <p><strong>Newsletter</strong>
+                        {{#if user.admin}}
+                        <a href="https://docs.google.com/spreadsheets/d/11NzXVqGNGvusU9MJlEdqoUa-fc-NaT9aNJ2r7p9Wd9k/edit" target="_blank">(View Responses)</a>
+                        {{/if}}
+                    </p>
+                    <form id="mailingForm" class="form-inline" accept-charset="UTF-8" autocomplete="off">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="email" class="form-control" name="entry.157598053" placeholder="Email Address" required>
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-success"><i class="fa fa-envelope"></i> Sign Up</button>
+                                </span>
+                            </div>
+                        </div> <!-- /.form-group -->
+                    </form>
+                </div> <!-- /.col-md-3 -->
+                <div class="col-md-3">
+                    <p><strong>About Us</strong></p>
+                    <p>We are a community of youths with a vision to create a better world through adventure and service!</p>
+                </div> <!-- /.col-md-3 -->
+                <div class="col-md-3">
+                    <p><strong>Contact Us</strong></p>
+                    {{#if user.admin}}
+                    {{/if}}
+                    <p><i class="fa fa-envelope"></i> <a href="mailto:hq@scout.org.sg">hq@scout.org.sg</a></p>
+                    <p><i class="fa fa-envelope"></i> <a href="mailto:nrc@rovers.sg">nrc@rovers.sg</a></p>
+                    <div class="footer__icons">
+                        <a href="https://www.facebook.com/singaporeroverscouts/" target="_blank"><i class="fa fa-facebook-square"></i></a>
+                        <a href="https://www.youtube.com/channel/UCicRSvsEPrk7vwCIldiUfpQ" target="_blank"><i class="fa fa-youtube-square"></i></a>
+                        <a href="https://www.instagram.com/sgrovers/" target="_blank"><i class="fa fa-instagram"></i></a>
+                    </div>
+                </div> <!-- /.col-md-3 -->
+            </div> <!-- /.row -->
+        </div> <!-- /.container -->
     </footer> <!-- /footer -->
     <!-- /PAGE FOOTER -->
     <!-- SCRIPTS -->
