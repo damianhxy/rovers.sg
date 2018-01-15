@@ -48,7 +48,7 @@ exports.edit = function(id, field, value) {
         return files.updateAsync({ _id: id }, { $set: file });
     })
     .then(function() {
-        return { field: field, value : value};
+        return { field: field, value : value };
     });
 };
 
