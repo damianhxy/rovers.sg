@@ -7,11 +7,11 @@
         <span class="day">{{date.day}}</span>
     </div>
     {{#if favourite.name}}
-    <a data-title="Event Image" href="/events#{{_id}}">
+    <a class="thumbnail" data-title="Event Image" href="/events#{{_id}}">
         <img src="{{favourite.path}}" alt="{{favourite.name}}">
     </a>
     {{else}}
-    <a data-title="No Image Available" href="/events#{{_id}}">
+    <a class="thumbnail" data-title="No Image Available" href="/events#{{_id}}">
         <img src="/img/EventPicture.png" alt="No Image Available">
     </a>
     {{/if}}
