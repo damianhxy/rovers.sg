@@ -62,14 +62,14 @@ router.get("/signout", auth, function(req, res) {
     res.redirect("/");
 });
 /*
-router.post("/signup", auth, function(req, res) {
+router.post("/signup", function(req, res, next) {
     passport.authenticate("local-signup", function(err, user, info) {
         if (err) return next(err);
-        req.login(user, function(err) {
+        return req.login(user, function(err) {
             if (err) return next(err);
-            res.redirect(req.headers.referer || "/");
+            res.redirect("/home");
         });
-    })(req, res);
+    })(req, res, next);
 });
 */
 module.exports = router;
