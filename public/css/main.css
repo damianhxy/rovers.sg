@@ -318,7 +318,7 @@ p, div {
         }
 
     .card > .panel-heading {
-        height: 55px;
+        height: 70px;
     }
 
     .card > .thumbnail {
@@ -336,6 +336,11 @@ p, div {
 
 .card.candid-card > .panel-body {
     height: 75px;
+}
+
+.eventCardContainer {
+    display: flex;
+    justify-content: center;
 }
 
 .dropdown-menu form {
