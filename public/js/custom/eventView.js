@@ -6,15 +6,6 @@ $(function() {
     var $end = $("[data-name='end']");
     var $duration = $("[data-name='duration']");
 
-    function strip(str) {
-        str = str.replace(/\ 0 minutes$/, "");
-        str = str.replace(/\ 0 hours$/, "");
-        str = str.replace("1 minutes", "1 minute");
-        str = str.replace("1 hours", "1 hour");
-        str = str.replace("1 days", "1 day");
-        return str;
-    }
-
     // Hide empty fields
     $(".field-hidden").hide();
 
@@ -40,7 +31,9 @@ $(function() {
                     setTimeout(function () {
                         var start = moment($start.text(), MOMENT_FORMAT);
                         var end = moment($end.text(), MOMENT_FORMAT);
-                        $duration.text(strip(moment.duration(end.diff(start)).format("d [days] h [hours] m [minutes]")));
+                        $duration.text(moment.duration(end.diff(start)).format("d [days] h [hours] m [minutes]", {
+                            trim: "both mid"
+                        }));
                     }, 500);
                 } else if (response.field === "link") {
                     $("[data-name='link']").attr("href", response.value);

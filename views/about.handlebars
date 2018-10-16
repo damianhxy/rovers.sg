@@ -62,7 +62,7 @@
             <div class="section">
                 <ul class="nav nav-pills visible-sm visible-xs">
                     {{#each NRC}}
-                    <li><a href="#council-{{@index}}" data-toggle="pill">{{title}}</a></li>
+                    <li><a href="#council-{{@index}}" data-toggle="pill" data-title="#{{title}}">{{title}}</a></li>
                     {{/each}}
                 </ul>
                 <div class="tab-content">
@@ -96,11 +96,11 @@
                 </div>
             </div>
             <!-- NRC Images -->
-            <div class="section NRC-photo" id="council-0-photo">
+            <div class="section NRC-photo" id="NRC-2017">
                 <h3>NRC 2017 Photo</h3>
                 {{> candidCardList NRC2017}}
             </div>
-            <div class="section NRC-photo" id="council-1-photo">
+            <div class="section NRC-photo" id="NRC-2016">
                 <h3>NRC 2016 Photo</h3>
                 <img class="img-responsive" src="/img/NRC 2016.jpg">
             </div>

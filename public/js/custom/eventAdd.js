@@ -12,27 +12,18 @@ $(function() {
     var $end = $("[name='end']");
     var defaultMoment = moment(Math.ceil(uniqueID / ROUNDING) * ROUNDING);
 
-    function strip(str) {
-        str = str.replace(/\ 0 minutes$/, "");
-        str = str.replace(/\ 0 hours$/, "");
-        str = str.replace("1 minutes", "1 minute");
-        str = str.replace("1 hours", "1 hour");
-        str = str.replace("1 days", "1 day");
-        return str;
-    }
-
     // Combodate
     $start.combodate({
         smartDays: "true",
         value: defaultMoment.format(MOMENT_FORMAT),
-        minYear: CURRENT_YEAR,
-        maxYear: CURRENT_YEAR + 1
+        minYear: CURRENT_YEAR - 5,
+        maxYear: CURRENT_YEAR + 5
     });
     $end.combodate({
         smartDays: "true",
         value: defaultMoment.add(1, 'hour').format(MOMENT_FORMAT),
-        minYear: CURRENT_YEAR,
-        maxYear: CURRENT_YEAR + 1
+        minYear: CURRENT_YEAR - 5,
+        maxYear: CURRENT_YEAR + 5
     });
 
     // Init
@@ -54,7 +45,9 @@ $(function() {
     function updateDuration() {
         var start = moment($start.combodate("getValue"), MOMENT_FORMAT);
         var end = moment($end.combodate("getValue"), MOMENT_FORMAT);
-        $duration.val(strip(moment.duration(end.diff(start)).format("d [days] h [hours] m [minutes]")));
+        $duration.val(moment.duration(end.diff(start)).format("d [days] h [hours] m [minutes]", {
+            trim: "both mid"
+        }));
     }
 
     // Preview

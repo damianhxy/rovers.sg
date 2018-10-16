@@ -11,15 +11,6 @@ Promise.promisifyAll(fs);
 Promise.promisifyAll(events);
 Promise.promisifyAll(events.find().constructor.prototype);
 
-function strip(str) {
-    str = str.replace(/\ 0 minutes$/, "");
-    str = str.replace(/\ 0 hours$/, "");
-    str = str.replace("1 minutes", "1 minute");
-    str = str.replace("1 hours", "1 hour");
-    str = str.replace("1 days", "1 day");
-    return str;
-}
-
 exports.add = function(req) {
     var start = moment.tz(req.body.start, settings.EVENT_TIME_FORMAT, "Asia/Singapore");
     var end = moment.tz(req.body.end, settings.EVENT_TIME_FORMAT, "Asia/Singapore");
@@ -33,7 +24,9 @@ exports.add = function(req) {
         end: end.format(),
         startPretty: startMoment.format(settings.EVENT_TIME_FORMAT),
         endPretty: endMoment.format(settings.EVENT_TIME_FORMAT),
-        duration: strip(moment.duration(end.diff(start)).format("d [days] h [hours] m [minutes]")),
+        duration: moment.duration(end.diff(start)).format("d [days] h [hours] m [minutes]", {
+            trim: "both mid"
+        }),
         location: req.body.location,
         details: req.body.details,
         category: req.body.category ? [].concat(req.body.category) : [],
