@@ -86,4 +86,14 @@ $(function() {
             });
         });
     });
+
+    // Overflow Tables
+    $(".table-overflow tr").each(function(i, e) {
+        if ($(e).children("td").length == 4) {
+            $(e).closest("table").css({
+                display: "block",
+                overflow: "scroll"
+            });
+        }
+    });
 });
