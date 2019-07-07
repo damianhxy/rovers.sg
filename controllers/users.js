@@ -67,7 +67,7 @@ router.post("/signup", function(req, res, next) {
         if (err) return next(err);
         return req.login(user, function(err) {
             if (err) return next(err);
-            res.redirect("/home");
+            res.redirect("/");
         });
     })(req, res, next);
 });

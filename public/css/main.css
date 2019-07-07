@@ -438,6 +438,11 @@ iframe.constrain {
     height: 200px;
 }
 
+.table.table-overflow {
+    display: block;
+    overflow: auto;
+}
+
 textarea {
     resize: vertical;
 }
