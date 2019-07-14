@@ -1,5 +1,20 @@
 exports.NRC = [
     {
+        "title": "Interim Rover Council 2019",
+        "members": {
+            "Rover Advisor": [
+                "Christopher John",
+                "Ang Wee Jin"
+            ],
+            "Member": [
+                "Rishab Patwari",
+                "Jouis Chua",
+                "Tay Hwee Tang",
+                "Lim Qing Yu, Michelle"
+            ]
+        }
+    },
+    {
         "title": "NRC 2017",
         "members": {
             "Chairperson": [

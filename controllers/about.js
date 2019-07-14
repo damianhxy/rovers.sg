@@ -6,6 +6,14 @@ var NRC = require("../models/NRC.js");
 var NRCs = require("./NRCs.js");
 var admin = require("../middlewares/admin.js");
 
+function findEntryWithTitle(collection, title) {
+    for (var entry of collection) {
+        if (entry.title === title) {
+            return entry;
+        }
+    }
+}
+
 router.get("/", function(req, res) {
     BPA.all()
     .then(function(BPAs) {
@@ -16,7 +24,7 @@ router.get("/", function(req, res) {
             user: req.user,
             BPAs: BPAs,
             NRC: NRCs.NRC,
-            NRC2017: NRCs.NRC[0].members
+            NRC2017: findEntryWithTitle(NRCs.NRC, "NRC 2017").members
         });
     });
 });

@@ -1,9 +1,6 @@
 $(function() {
     console.info("[info] about.js is running.");
 
-    // Init to NRC 2017
-    showNRCPhoto("#NRC-2017");
-
     function showNRCPhoto(target) {
         $(".NRC-photo").hide();
         $(target).show();
@@ -12,6 +9,9 @@ $(function() {
     $("[data-toggle='pill']").click(function(e) {
         showNRCPhoto(e.target.getAttribute("title").replace(" ", "-"));
     });
+
+    // Init to first pill
+    $("#nrc-menu").children().first().children().click();
 
     // Bootbox
     $(".btn-delete").click(function(e) {
