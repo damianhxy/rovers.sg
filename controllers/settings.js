@@ -13,3 +13,4 @@ exports.HOMEPAGE_SLIDESHOW = [
     "/img/Cropped/Fellowship.jpg",
     "/img/Cropped/Courses.jpg"
 ];
+exports.ENABLE_SIGNUP = false;

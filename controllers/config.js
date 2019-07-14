@@ -59,23 +59,24 @@ module.exports = function(app, express) {
             });
         }
     ));
-    /*
+
+    if (settings.ENABLE_SIGNUP)
     passport.use("local-signup", new localStrategy(
-        { passReqToCallback: true },
-        function(req, username, password, done) {
-            return user.add(req.body.name, username, password)
-            .then(function(user) {
-                console.info("Signed up", user.username);
-                done(null, user);
-            })
-            .catch(function(err) {
-                console.error(err);
-                req.session.error = err.message;
-                done(null, false);
-            });
-        }
-    ));
-    */
+            { passReqToCallback: true },
+            function(req, username, password, done) {
+                return user.add(req.body.name, username, password)
+                .then(function(user) {
+                    console.info("Signed up", user.username);
+                    done(null, user);
+                })
+                .catch(function(err) {
+                    console.error(err);
+                    req.session.error = err.message;
+                    done(null, false);
+                });
+            }
+        ));
+
     // Serialization
     passport.serializeUser(function(user, done) {
         done(null, user._id);

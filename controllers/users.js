@@ -6,6 +6,7 @@ var router = express.Router();
 var short = require("../models/shortener.js");
 var user = require("../models/user.js");
 var NRCs = require("./NRCs.js");
+var settings = require("./settings.js");
 var auth = require("../middlewares/auth.js");
 
 router.post("/editPassword", auth, function(req, res) {
@@ -61,7 +62,8 @@ router.get("/signout", auth, function(req, res) {
     req.logout();
     res.redirect("/");
 });
-/*
+
+if (settings.ENABLE_SIGNUP)
 router.post("/signup", function(req, res, next) {
     passport.authenticate("local-signup", function(err, user, info) {
         if (err) return next(err);
@@ -71,5 +73,5 @@ router.post("/signup", function(req, res, next) {
         });
     })(req, res, next);
 });
-*/
+
 module.exports = router;
