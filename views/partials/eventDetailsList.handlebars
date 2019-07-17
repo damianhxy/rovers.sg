@@ -38,7 +38,7 @@
                 {{/if}}
                 <dt>Categories</dt>
                 <dd>
-                {{#unless category}}<span class="label label-danger">Uncategorised</span>{{/unless}}
+                {{#unless category}}<span class="label label-warning">Uncategorised</span>{{/unless}}
                 {{#each category}}
                     <a href="/events/category/{{this}}" class="label label-primary">{{this}}</a>
                 {{/each}}
