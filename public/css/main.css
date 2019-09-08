@@ -134,15 +134,17 @@
 
 html {
     position: relative;
-    min-height: 100%;
 }
 
 blockquote {
     margin-bottom: 0;
 }
 
+main {
+    min-height: 100vh;
+}
+
 body {
-    margin-bottom: 166.5px; /* Footer */
     margin-top: 50px; /* Navbar */
 }
 
@@ -152,7 +154,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* h2 = Large header */
 /* h3 = Small header */
-/* h4 = body text */
+/* h4 = Body text */
 h4, dd, dt, th, td,
 .section ul, .section ol,
 .shortcuts {
@@ -169,7 +171,6 @@ p, div {
 }
 
 #homepageCarousel .homepageBanner {
-    max-height: 75vh;
     width: 100%;
     filter: contrast(0.8);
 }
@@ -243,19 +244,6 @@ p, div {
     #RJBackScoutingBanner {
         background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url("../img/RoverJourney/BackToScouting.jpeg");
         background-position: center;
-    }
-
-.banner-container {
-    align-items: center;
-    background-size: cover;
-    display: flex;
-    justify-content: center;
-    min-height: 75vh;
-    width: 100%;
-}
-
-    .banner-container h2 {
-        margin-bottom: 20px;
     }
 
 .banner-text {
@@ -366,10 +354,8 @@ p, div {
 
 .footer {
     background-color: #fb0000;
-    bottom: 0;
     padding-bottom: 14px;
     padding-top: 14px;
-    position: absolute;
     text-align: center;
     width: 100%;
 }
