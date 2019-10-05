@@ -64,10 +64,6 @@ router.get("/join", function(req, res) {
     });
 });
 
-router.post("/join", function(req, res) {
-    request.post(settings.JOIN_FORM_URL).form(req.body).pipe(res);
-});
-
 /* User */
 router.use("/users", require("./users.js"));
 

@@ -65,10 +65,17 @@ $(function() {
     // Newsletter
     $("#mailingForm").submit(function(e) {
         e.preventDefault();
+        var data = $(this).serialize();
+        $(e.target).trigger("reset");
+        new PNotify({
+            title: "Processing",
+            text: "Your details are being recorded",
+            type: "info"
+        });
         $.ajax({
             method: "POST",
             url: "/mailing",
-            data: $(this).serialize()
+            data
         })
         .then(function() {
             new PNotify({
@@ -76,7 +83,6 @@ $(function() {
                 text: "Your details have been recorded",
                 type: "success"
             });
-            $(e.target).trigger("reset");
         })
         .catch(function(err) {
             new PNotify({
