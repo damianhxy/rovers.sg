@@ -3,7 +3,7 @@ var router = express.Router();
 var short = require("../models/shortener.js");
 var admin = require("../middlewares/admin.js");
 
-router.post("/", function(req, res) {
+router.post("/", admin, function(req, res) {
     short.add(req)
     .then(function() {
         req.session.success = "Link created";
@@ -16,7 +16,7 @@ router.post("/", function(req, res) {
     });
 });
 
-router.delete("/", function(req, res) {
+router.delete("/", admin, function(req, res) {
     short.delete(req.body.id)
     .then(function() {
         res.end();

@@ -49,7 +49,7 @@ router.put("/", admin, function(req, res) {
     });
 });
 
-router.post("/", function(req, res) {
+router.post("/", admin, function(req, res) {
     uploadResource(req, res, function(err) {
         if (err) {
             console.error(err);

@@ -119,7 +119,7 @@ router.post("/:event", admin, function(req, res) {
     });
 });
 
-router.put("/:event", function(req, res) {
+router.put("/:event", admin, function(req, res) {
     event.mark(req.params.event, req.body.name)
     .then(function() {
         res.redirect("/events/" + req.params.event);
