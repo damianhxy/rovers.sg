@@ -471,7 +471,7 @@ textarea[readonly] {
 }
 
 .overflow {
-    overflow-x: scroll;
+    overflow-x: auto;
     width: auto;
     white-space: nowrap;
 }

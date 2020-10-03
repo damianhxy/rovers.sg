@@ -1,16 +1,37 @@
 exports.NRC = [
     {
+        "title": "NRC 2020 - 2021",
+        "members": {
+            "Chairperson": [
+                "Seng Hui"
+            ],
+            "Area Representative (North)": [
+                "Qi Xuan"
+            ],
+            "Area Representative (South)": [
+                "Mark Wee"
+            ],
+            "Area Representative (East)": [
+                "Rico"
+            ],
+            "Area Representative (West)": [
+                "Wei Song"
+            ]
+        }
+    },
+    {
         "title": "Interim Rover Council 2019",
         "members": {
             "Rover Advisor": [
                 "Christopher John",
                 "Ang Wee Jin"
             ],
+            "Chairperson": [
+                "Rishab Patwari"
+            ],
             "Member": [
-                "Rishab Patwari",
                 "Jouis Chua",
-                "Tay Hwee Tang",
-                "Lim Qing Yu, Michelle"
+                "Tay Hwee Tang"
             ]
         }
     },
