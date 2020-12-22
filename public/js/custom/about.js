@@ -7,7 +7,8 @@ $(function() {
     }
 
     $("[data-toggle='pill']").click(function(e) {
-        showNRCPhoto(e.target.getAttribute("title").replace(" ", "-"));
+        var title = e.target.getAttribute("title") || e.target.getAttribute("data-title");
+        showNRCPhoto(title.replace(" ", "-"));
     });
 
     // Init to first pill

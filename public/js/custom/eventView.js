@@ -41,7 +41,7 @@ $(function() {
                 } else if (response.field === "title") {
                     $(".btn-delete").first().data("name", response.value);
                     document.title = response.value + " | Rover.sg";
-                    $("[href='#deleteModal']").data("title", response.value);
+                    $(".btn-delete").data("name", response.value);
                 }
             },
             error: function(response) {
