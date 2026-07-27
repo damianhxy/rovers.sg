@@ -27,6 +27,7 @@
             <div class="section">
                 <div class="page-header text-center"><h2>Upload Resource</h2></div>
                 <form id="uploadForm" class="form-horizontal" action="/resources" method="post" accept-charset="UTF-8" enctype="multipart/form-data" autocomplete="off">
+                    <input type="hidden" name="_csrf" value="{{csrfToken}}">
                     <div class="form-group">
                         <span class="col-md-2 control-label">File</span>
                         <div class="col-md-10">

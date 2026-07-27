@@ -89,6 +89,7 @@
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <form class="form-horizontal" action="/events/{{info._id}}" method="post" accept-charset="UTF-8" enctype="multipart/form-data" autocomplete="off" id="uploadForm">
+                    <input type="hidden" name="_csrf" value="{{csrfToken}}">
                     <!-- For Multer -->
                     <input type="hidden" name="id" value="{{info._id}}">
                     <div class="form-group">
@@ -121,6 +122,7 @@
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <form class="form-horizontal" action="/events/{{info._id}}?_method=PUT" method="post" accept-charset="UTF-8" autocomplete="off">
+                    <input type="hidden" name="_csrf" value="{{csrfToken}}">
                     <div class="form-group">
                         <span class="col-md-2 control-label">Photo</span>
                         <div class="col-md-10">
