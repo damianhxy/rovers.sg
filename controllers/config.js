@@ -53,7 +53,7 @@ module.exports = function (app, express) {
     session({
       secret: settings.SECRET,
       resave: false,
-      saveUninitialized: true,
+      saveUninitialized: false,
       cookie: {
         httpOnly: true,
         sameSite: "lax",
@@ -66,29 +66,10 @@ module.exports = function (app, express) {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  app.use(function (req, res, next) {
-    const stored = req.session && req.session.csrfToken;
-    const received = req.body && req.body._csrf || req.headers["x-csrf-token"];
-    const sid = req.sessionID;
-    const keys = req.session ? Object.keys(req.session).join(",") : "no session";
-    if (req.method === "GET") {
-      console.log("[CSRF] GET " + req.path + " sid=" + (sid ? sid.substring(0, 16) + "..." : "none") + " stored=" + (stored ? stored.substring(0, 16) + "..." : "none") + " keys=" + keys);
-    }
-    if (req.method === "POST") {
-      console.log("[CSRF] POST " + req.path + " sid=" + (sid ? sid.substring(0, 16) + "..." : "none") + " stored=" + (stored ? stored.substring(0, 16) + "..." : "none") + " received=" + (received ? received.substring(0, 16) + "..." : "none") + " keys=" + keys);
-    }
-    next();
-  });
-
   app.use(csrfProtection.csrfSynchronisedProtection);
 
   app.use(function (req, res, next) {
     res.locals.csrfToken = csrfProtection.generateToken(req);
-    if (req.method === "GET") {
-      const sid = req.sessionID;
-      const keys = req.session ? Object.keys(req.session).join(",") : "no session";
-      console.log("[CSRF] GEN " + req.path + " sid=" + (sid ? sid.substring(0, 16) + "..." : "none") + " token=" + res.locals.csrfToken.substring(0, 16) + "..." + " keys=" + keys);
-    }
     next();
   });
 
