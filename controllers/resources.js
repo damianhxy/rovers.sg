@@ -13,10 +13,9 @@ router.get("/", function(req, res) {
     };
     resource.all()
     .then(function(files) {
-        return files;
-    })
-    .each(function(file) {
-        categories[file.category].fileList.push(file);
+        files.forEach(function(file) {
+            categories[file.category].fileList.push(file);
+        });
     })
     .then(function() {
         res.render("resources", {
