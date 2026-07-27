@@ -14,6 +14,13 @@ router.get("/", function(req, res) {
             user: req.user,
             upcoming: events
         });
+    })
+    .catch(function(err) {
+        console.error(err);
+        res.status(500).render("500", {
+            title: "Internal Server Error",
+            user: req.user
+        });
     });
 });
 
@@ -40,6 +47,13 @@ router.get("/category/:category", function(req, res, next) {
             user: req.user,
             events: events
         });
+    })
+    .catch(function(err) {
+        console.error(err);
+        res.status(500).render("500", {
+            title: "Internal Server Error",
+            user: req.user
+        });
     });
 });
 
@@ -47,6 +61,10 @@ router.get("/feed", function(req, res, next) {
     event.range(req.query.start, req.query.end)
     .then(function(events) {
         res.json(events);
+    })
+    .catch(function(err) {
+        console.error(err);
+        res.status(500).json({ "error": err.message });
     });
 });
 

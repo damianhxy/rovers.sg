@@ -1,12 +1,8 @@
-var Promise = require("bluebird");
 var nedb = require("@seald-io/nedb");
-var fs = require("fs");
+var fs = require("fs/promises");
 var moment = require("moment-timezone");
 var normalizeURL = require("normalize-url");
 var files = new nedb({ filename: "./database/resources", autoload: true });
-Promise.promisifyAll(fs);
-// Promise.promisifyAll(files);
-// Promise.promisifyAll(files.find().constructor.prototype);
 
 exports.add = function(req) {
     var filePath = req.file ? req.file.path : "";
@@ -32,7 +28,7 @@ exports.delete = function(id) {
     return files.findOneAsync({ _id: id })
     .then(function(file) {
         if (file.path) {
-            return fs.unlinkAsync(file.path)
+            return fs.unlink(file.path)
             .then(files.removeAsync({ _id: id }));
         } else {
             return files.removeAsync({ _id: id });

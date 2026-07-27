@@ -1,15 +1,10 @@
-var Promise = require("bluebird");
 var nedb = require("@seald-io/nedb");
-var fs = require("fs");
+var fs = require("fs/promises");
 var moment = require("moment-timezone");
 var normalizeURL = require("normalize-url");
 var settings = require("../controllers/settings.js");
 var events = new nedb({ filename: "./database/events", autoload: true });
-var rimrafAsync = Promise.promisify(require("rimraf"));
 require("moment-duration-format");
-Promise.promisifyAll(fs);
-// Promise.promisifyAll(events);
-// Promise.promisifyAll(events.find().constructor.prototype);
 
 exports.add = function(req) {
     var start = moment.tz(req.body.start, settings.EVENT_TIME_FORMAT, "Asia/Singapore");
@@ -43,7 +38,7 @@ exports.add = function(req) {
     .then(function(event) {
         event.url = "/events/" + event._id;
         return events.updateAsync({ _id: event._id }, { $set: event })
-        .then(fs.mkdirAsync("./public/uploads/" + event._id))
+        .then(fs.mkdir("./public/uploads/" + event._id))
         .then(function() {
             return event._id;
         });
@@ -69,7 +64,7 @@ exports.all = function() {
 };
 
 exports.delete = function(id) {
-    return rimrafAsync("./public/uploads/" + id)
+    return fs.rm("./public/uploads/" + id, { recursive: true })
     .then(events.removeAsync({ _id: id }));
 };
 
@@ -82,7 +77,7 @@ exports.deletePhoto = function(id, name) {
         });
         if (event.photos[index].path === event.favourite)
             event.favourite = {};
-        return fs.unlinkAsync("./public" + event.photos[index].path)
+        return fs.unlink("./public" + event.photos[index].path)
         .then(function() {
             event.photos.splice(index, 1);
             return events.updateAsync({ _id: id }, { $set: event });
@@ -111,7 +106,7 @@ exports.edit = function(id, field, value) {
         if (field === "start" || field === "end") {
             var start = moment(event.start);
             var end = moment(event.end);
-            value = event.duration = strip(moment.duration(end.diff(start)).format("d [days] h [hours] m [minutes]"));
+            value = event.duration = moment.duration(end.diff(start)).format("d [days] h [hours] m [minutes]").trim();
         }
         event.time = moment.tz("Asia/Singapore").format();
         if (moment(event.start).isAfter(moment(event.end)))

@@ -1,17 +1,15 @@
 var express = require("express");
-var request = require("request");
 var moment = require("moment-timezone");
 var router = express.Router();
 var notification = require("../middlewares/notification.js");
 var event = require("../models/event.js");
 var resource = require("../models/resource.js");
 var settings = require("./settings.js");
-var admin = require("../middlewares/admin.js");
 router.use(notification);
 
 /* Homepage */
 router.get("/", function(req, res) {
-    event.upcoming(moment.tz("Asia/Singapore").format())
+    event.upcoming(moment.tz("Asia/Singapore"))
     .then(function(events) {
         res.render("home", {
             title: "Home",
@@ -20,11 +18,32 @@ router.get("/", function(req, res) {
             slideshow: settings.HOMEPAGE_SLIDESHOW,
             ENABLE_SIGNUP: settings.ENABLE_SIGNUP
         });
+    })
+    .catch(function(err) {
+        console.error(err);
+        res.status(500).render("500", {
+            title: "Internal Server Error",
+            user: req.user
+        });
     });
 });
 
 router.post("/mailing", function(req, res) {
-    request.post(settings.MAILING_FORM_URL).form(req.body).pipe(res);
+    fetch(settings.MAILING_FORM_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(req.body).toString()
+    })
+    .then(function(response) {
+        return response.text();
+    })
+    .then(function(body) {
+        res.send(body);
+    })
+    .catch(function(err) {
+        console.error(err);
+        res.status(500).json({ "error": err.message });
+    });
 });
 
 /* Events */
@@ -46,6 +65,13 @@ router.get("/rjourney", function(req, res) {
             title: "A Rover's Journey",
             user: req.user,
             files: files
+        });
+    })
+    .catch(function(err) {
+        console.error(err);
+        res.status(500).render("500", {
+            title: "Internal Server Error",
+            user: req.user
         });
     });
 });

@@ -1,5 +1,5 @@
 exports.PORT = process.env.PORT || 5000;
-exports.SECRET = "roversingapore";
+exports.SECRET = process.env.SESSION_SECRET || "roversingapore";
 exports.FILE_SIZE_LIMIT = 25 * 1024 * 1024;
 exports.PHOTO_SIZE_LIMIT = 5 * 1024 * 1024;
 exports.TIME_FORMAT = "dd mmm HH:MM:ss";

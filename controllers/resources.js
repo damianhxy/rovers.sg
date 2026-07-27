@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var fs = require("fs");
+var fs = require("fs/promises");
 var resource = require("../models/resource.js");
 var admin = require("../middlewares/admin.js");
 var uploadResource = require("../middlewares/uploadResource.js");
@@ -22,6 +22,13 @@ router.get("/", function(req, res) {
             title: "Resources",
             user: req.user,
             categories: categories
+        });
+    })
+    .catch(function(err) {
+        console.error(err);
+        res.status(500).render("500", {
+            title: "Internal Server Error",
+            user: req.user
         });
     });
 });
@@ -63,7 +70,7 @@ router.post("/", admin, function(req, res) {
             .catch(function(err) {
                 console.error(err);
                 req.session.error = err.message;
-                fs.unlink(req.file.path); // Ignore any errors
+                fs.unlink(req.file.path).catch(function() {}); // Ignore any errors
                 res.status(400).redirect("/resources#upload");
             });
         }

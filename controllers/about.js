@@ -1,5 +1,4 @@
 var express = require("express");
-var decache = require('decache');
 var router = express.Router();
 var BPA = require("../models/BPA.js");
 var NRC = require("../models/NRC.js");
@@ -17,14 +16,22 @@ function findEntryWithTitle(collection, title) {
 router.get("/", function(req, res) {
     BPA.all()
     .then(function(BPAs) {
-        decache("./NRCs.js");
+        delete require.cache[require.resolve("./NRCs.js")];
         NRCs = require("./NRCs.js");
+        var nrc2017Entry = findEntryWithTitle(NRCs.NRC, "NRC 2017");
         res.render("about", {
             title: "About",
             user: req.user,
             BPAs: BPAs,
             NRC: NRCs.NRC,
-            NRC2017: findEntryWithTitle(NRCs.NRC, "NRC 2017").members
+            NRC2017: nrc2017Entry ? nrc2017Entry.members : null
+        });
+    })
+    .catch(function(err) {
+        console.error(err);
+        res.status(500).render("500", {
+            title: "Internal Server Error",
+            user: req.user
         });
     });
 });

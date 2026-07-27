@@ -1,10 +1,7 @@
-var Promise = require("bluebird");
 var nedb = require("@seald-io/nedb");
 var moment = require("moment-timezone");
 var normalizeURL = require("normalize-url");
 var short = new nedb({ filename: "./database/shortener", autoload: true });
-// Promise.promisifyAll(short);
-// Promise.promisifyAll(short.find().constructor.prototype);
 
 exports.add = function(req) {
     var formInfo = {

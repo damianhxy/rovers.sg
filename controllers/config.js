@@ -2,7 +2,6 @@ var bodyParser = require("body-parser");
 var user = require("../models/user.js");
 var morgan = require("morgan");
 var passport = require("passport");
-var moment = require("moment-timezone");
 var compression = require("compression");
 var cookieParser = require("cookie-parser");
 var settings = require("./settings.js");

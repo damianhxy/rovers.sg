@@ -1,7 +1,6 @@
 var express = require("express");
 var os = require("os");
 var passport = require("passport");
-var decache = require('decache');
 var router = express.Router();
 var short = require("../models/shortener.js");
 var user = require("../models/user.js");
@@ -25,7 +24,7 @@ router.post("/editPassword", auth, function(req, res) {
 router.get("/profile", auth, function(req, res) {
     short.all()
     .then(function(links) {
-        decache("./NRCs.js");
+        delete require.cache[require.resolve("./NRCs.js")];
         NRCs = require("./NRCs.js");
         res.render("profile", {
             title: "Profile",
@@ -41,6 +40,13 @@ router.get("/profile", auth, function(req, res) {
             },
             links: links,
             linksStr: JSON.stringify(links, null, 4)
+        });
+    })
+    .catch(function(err) {
+        console.error(err);
+        res.status(500).render("500", {
+            title: "Internal Server Error",
+            user: req.user
         });
     });
 });
@@ -59,8 +65,10 @@ router.post("/signin", function(req, res, next) {
 
 router.get("/signout", auth, function(req, res) {
     console.info("Signed out", req.user.username);
-    req.logout();
-    res.redirect("/");
+    req.logout(function(err) {
+        if (err) { console.error(err); }
+        res.redirect("/");
+    });
 });
 
 if (settings.ENABLE_SIGNUP)

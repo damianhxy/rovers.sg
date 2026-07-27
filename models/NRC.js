@@ -1,7 +1,5 @@
-var Promise = require("bluebird");
-var fs = require("fs");
-Promise.promisifyAll(fs);
+var fs = require("fs/promises");
 
 exports.update = function(data) {
-    return fs.writeFileAsync("./controllers/NRCs.js", "exports.NRC = " + data);
+    return fs.writeFile("./controllers/NRCs.js", "exports.NRC = " + data);
 };
