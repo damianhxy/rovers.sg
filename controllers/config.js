@@ -69,8 +69,12 @@ module.exports = function (app, express) {
     const stored = req.session && req.session.csrfToken;
     const received = req.body && req.body._csrf || req.headers["x-csrf-token"];
     const sid = req.sessionID;
+    const keys = req.session ? Object.keys(req.session).join(",") : "no session";
+    if (req.method === "GET") {
+      console.log("[CSRF] GET " + req.path + " sid=" + (sid ? sid.substring(0, 16) + "..." : "none") + " stored=" + (stored ? stored.substring(0, 16) + "..." : "none") + " keys=" + keys);
+    }
     if (req.method === "POST") {
-      console.log("[CSRF] " + req.method + " " + req.path + " sid=" + (sid ? sid.substring(0, 12) + "..." : "none") + " stored=" + (stored ? stored.substring(0, 16) + "..." : "none") + " received=" + (received ? received.substring(0, 16) + "..." : "none"));
+      console.log("[CSRF] POST " + req.path + " sid=" + (sid ? sid.substring(0, 16) + "..." : "none") + " stored=" + (stored ? stored.substring(0, 16) + "..." : "none") + " received=" + (received ? received.substring(0, 16) + "..." : "none") + " keys=" + keys);
     }
     next();
   });
@@ -80,7 +84,9 @@ module.exports = function (app, express) {
   app.use(function (req, res, next) {
     res.locals.csrfToken = csrfProtection.generateToken(req);
     if (req.method === "GET") {
-      console.log("[CSRF] " + req.method + " " + req.path + " generated token=" + res.locals.csrfToken.substring(0, 16) + "...");
+      const sid = req.sessionID;
+      const keys = req.session ? Object.keys(req.session).join(",") : "no session";
+      console.log("[CSRF] GEN " + req.path + " sid=" + (sid ? sid.substring(0, 16) + "..." : "none") + " token=" + res.locals.csrfToken.substring(0, 16) + "..." + " keys=" + keys);
     }
     next();
   });
