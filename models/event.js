@@ -1,5 +1,5 @@
 var Promise = require("bluebird");
-var nedb = require("nedb");
+var nedb = require("@seald-io/nedb");
 var fs = require("fs");
 var moment = require("moment-timezone");
 var normalizeURL = require("normalize-url");
@@ -8,8 +8,8 @@ var events = new nedb({ filename: "./database/events", autoload: true });
 var rimrafAsync = Promise.promisify(require("rimraf"));
 require("moment-duration-format");
 Promise.promisifyAll(fs);
-Promise.promisifyAll(events);
-Promise.promisifyAll(events.find().constructor.prototype);
+// Promise.promisifyAll(events);
+// Promise.promisifyAll(events.find().constructor.prototype);
 
 exports.add = function(req) {
     var start = moment.tz(req.body.start, settings.EVENT_TIME_FORMAT, "Asia/Singapore");

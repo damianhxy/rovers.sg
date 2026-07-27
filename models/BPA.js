@@ -1,8 +1,8 @@
 var Promise = require("bluebird");
-var nedb = require("nedb");
+var nedb = require("@seald-io/nedb");
 var BPAs = new nedb({ filename: "./database/BPAs", autoload: true });
-Promise.promisifyAll(BPAs);
-Promise.promisifyAll(BPAs.find().constructor.prototype);
+// Promise.promisifyAll(BPAs);
+// Promise.promisifyAll(BPAs.find().constructor.prototype);
 
 exports.add = function(req) {
     var BPAInfo = {

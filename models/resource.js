@@ -1,12 +1,12 @@
 var Promise = require("bluebird");
-var nedb = require("nedb");
+var nedb = require("@seald-io/nedb");
 var fs = require("fs");
 var moment = require("moment-timezone");
 var normalizeURL = require("normalize-url");
 var files = new nedb({ filename: "./database/resources", autoload: true });
 Promise.promisifyAll(fs);
-Promise.promisifyAll(files);
-Promise.promisifyAll(files.find().constructor.prototype);
+// Promise.promisifyAll(files);
+// Promise.promisifyAll(files.find().constructor.prototype);
 
 exports.add = function(req) {
     var filePath = req.file ? req.file.path : "";

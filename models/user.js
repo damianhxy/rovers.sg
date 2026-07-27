@@ -1,8 +1,8 @@
 var Promise = require("bluebird");
-var nedb = require("nedb");
+var nedb = require("@seald-io/nedb");
 var bcryptjs = require("bcryptjs");
 var users = new nedb({ filename: "./database/users", autoload: true });
-Promise.promisifyAll(users);
+// Promise.promisifyAll(users);
 Promise.promisifyAll(bcryptjs);
 
 exports.add = function(name, username, password) {
