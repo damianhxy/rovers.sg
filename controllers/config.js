@@ -9,7 +9,7 @@ var session = require("express-session");
 var exphbs = require("express-handlebars");
 var localStrategy = require("passport-local");
 var dateFormat = require("dateformat");
-var nedbStore = require("express-nedb-session")(session);
+var NedbStore = require("../models/sessionStore.js");
 var methodOverride = require("method-override");
 
 module.exports = function(app, express) {
@@ -36,7 +36,7 @@ module.exports = function(app, express) {
         secret: settings.SECRET,
         resave: false,
         saveUninitialized: false,
-        store: new nedbStore({ filename: "nedb_sessionstore" })
+        store: new NedbStore({ filename: "nedb_sessionstore" })
     }));
     app.use(methodOverride('_method'));
     app.use(passport.initialize());
