@@ -52,7 +52,7 @@ module.exports = function (app, express) {
     session({
       secret: settings.SECRET,
       resave: false,
-      saveUninitialized: false,
+      saveUninitialized: true,
       cookie: {
         httpOnly: true,
         sameSite: "lax",
