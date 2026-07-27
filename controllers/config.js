@@ -39,6 +39,7 @@ module.exports = function (app, express) {
   });
 
   // Middleware
+  app.set("trust proxy", 1);
   app.use(compression());
   app.use(helmet({ contentSecurityPolicy: false }));
   app.use(express.static("public"));
