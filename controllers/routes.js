@@ -93,6 +93,11 @@ router.get("/join", function(req, res) {
 /* User */
 router.use("/users", require("./users.js"));
 
+/* Healthcheck */
+router.get("/healthcheck", function(req, res) {
+    res.status(200).send("OK");
+});
+
 /* 404 & 500 */
 router.use(function(req, res) {
     res.status(404).render("404", {
