@@ -42,3 +42,20 @@ exports.editPassword = async function (req) {
 exports.get = function (id) {
   return users.findOneAsync({ _id: id });
 };
+
+exports.bootstrapAdmin = async function (username, password) {
+  if (!username || !password) return;
+  const existing = await users.findOneAsync({ username: username });
+  if (existing) {
+    console.info("Admin user '" + username + "' already exists");
+    return;
+  }
+  const hash = await hashAsync(password, 10);
+  await users.insertAsync({
+    name: username,
+    username: username,
+    hash: hash,
+    admin: true,
+  });
+  console.info("Created admin user '" + username + "'");
+};
