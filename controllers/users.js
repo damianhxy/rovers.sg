@@ -18,54 +18,50 @@ const passwordValidation = [
     .withMessage("Passwords do not match"),
 ];
 
-router.post("/editPassword", auth, passwordValidation, function (req, res) {
+router.post("/editPassword", auth, passwordValidation, async function (req, res) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     req.session.error = errors.array()[0].msg;
     return res.status(400).redirect("/users/profile");
   }
-  user
-    .editPassword(req)
-    .then(function () {
-      req.session.success = "Password Updated";
-      res.redirect("/users/profile");
-    })
-    .catch(function (err) {
-      console.error(err);
-      req.session.error = err.message;
-      res.status(400).redirect("/users/profile");
-    });
+  try {
+    await user.editPassword(req);
+    req.session.success = "Password Updated";
+    res.redirect("/users/profile");
+  } catch (err) {
+    console.error(err);
+    req.session.error = err.message;
+    res.status(400).redirect("/users/profile");
+  }
 });
 
-router.get("/profile", auth, function (req, res) {
-  short
-    .all()
-    .then(function (links) {
-      delete require.cache[require.resolve("./NRCs.js")];
-      NRCs = require("./NRCs.js");
-      res.render("profile", {
-        title: "Profile",
-        user: req.user,
-        NRCStr: JSON.stringify(NRCs.NRC, null, 4),
-        info: {
-          "Node Version": process.version,
-          Platform: os.type(),
-          Architecture: os.arch(),
-          "OS Version": os.release(),
-          "Total Memory": Math.round(os.totalmem() / Math.pow(1024, 3)) + " GB",
-          Uptime: os.uptime() + " Seconds",
-        },
-        links: links,
-        linksStr: JSON.stringify(links, null, 4),
-      });
-    })
-    .catch(function (err) {
-      console.error(err);
-      res.status(500).render("500", {
-        title: "Internal Server Error",
-        user: req.user,
-      });
+router.get("/profile", auth, async function (req, res) {
+  try {
+    const links = await short.all();
+    delete require.cache[require.resolve("./NRCs.js")];
+    NRCs = require("./NRCs.js");
+    res.render("profile", {
+      title: "Profile",
+      user: req.user,
+      NRCStr: JSON.stringify(NRCs.NRC, null, 4),
+      info: {
+        "Node Version": process.version,
+        Platform: os.type(),
+        Architecture: os.arch(),
+        "OS Version": os.release(),
+        "Total Memory": Math.round(os.totalmem() / Math.pow(1024, 3)) + " GB",
+        Uptime: os.uptime() + " Seconds",
+      },
+      links: links,
+      linksStr: JSON.stringify(links, null, 4),
     });
+  } catch (err) {
+    console.error(err);
+    res.status(500).render("500", {
+      title: "Internal Server Error",
+      user: req.user,
+    });
+  }
 });
 
 router.post("/signin", function (req, res, next) {

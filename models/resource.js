@@ -3,7 +3,7 @@ const fs = require("fs/promises");
 const dayjs = require("dayjs");
 const utc = require("dayjs/plugin/utc");
 const timezone = require("dayjs/plugin/timezone");
-const normalizeURL = require("normalize-url");
+const normalizeURL = require("normalize-url").default;
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
