@@ -1,169 +1,171 @@
-var nedb = require("@seald-io/nedb");
-var fs = require("fs/promises");
-var moment = require("moment-timezone");
-var normalizeURL = require("normalize-url");
-var settings = require("../controllers/settings.js");
-var events = new nedb({ filename: "./database/events", autoload: true });
-require("moment-duration-format");
+const nedb = require("@seald-io/nedb");
+const fs = require("fs/promises");
+const dayjs = require("dayjs");
+const utc = require("dayjs/plugin/utc");
+const timezone = require("dayjs/plugin/timezone");
+const normalizeURL = require("normalize-url");
+const settings = require("../controllers/settings.js");
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
-exports.add = function(req) {
-    var start = moment.tz(req.body.start, settings.EVENT_TIME_FORMAT, "Asia/Singapore");
-    var end = moment.tz(req.body.end, settings.EVENT_TIME_FORMAT, "Asia/Singapore");
-    if (start.isAfter(end))
-        return Promise.reject(Error("Start time must be before end time"));
-    var startMoment = moment.tz(start, "Asia/Singapore");
-    var endMoment = moment.tz(end, "Asia/Singapore");
-    var eventInfo = {
-        title: req.body.title,
-        start: start.format(),
-        end: end.format(),
-        startPretty: startMoment.format(settings.EVENT_TIME_FORMAT),
-        endPretty: endMoment.format(settings.EVENT_TIME_FORMAT),
-        duration: moment.duration(end.diff(start)).format("d [days] h [hours] m [minutes]", {
-            trim: "both mid"
-        }),
-        location: req.body.location,
-        details: req.body.details,
-        category: req.body.category ? [].concat(req.body.category) : [],
-        link: req.body.link && normalizeURL(req.body.link),
-        time: moment.tz("Asia/Singapore").format(),
-        date: {
-            day: startMoment.date(),
-            month: startMoment.format("MMM")
-        },
-        photos: [],
-        favourite: {}
+const events = new nedb({ filename: "./database/events", autoload: true });
+
+function formatDuration(start, end) {
+  const diffMs = end.diff(start);
+  const totalMinutes = Math.floor(diffMs / 60000);
+  const days = Math.floor(totalMinutes / 1440);
+  const hours = Math.floor((totalMinutes % 1440) / 60);
+  const minutes = totalMinutes % 60;
+  const parts = [];
+  if (days) parts.push(days + " day" + (days !== 1 ? "s" : ""));
+  if (hours) parts.push(hours + " hour" + (hours !== 1 ? "s" : ""));
+  if (minutes) parts.push(minutes + " minute" + (minutes !== 1 ? "s" : ""));
+  return parts.join(" ") || "0 minutes";
+}
+
+exports.add = function (req) {
+  const start = dayjs.tz(req.body.start, settings.EVENT_TIME_FORMAT, "Asia/Singapore");
+  const end = dayjs.tz(req.body.end, settings.EVENT_TIME_FORMAT, "Asia/Singapore");
+  if (start.isAfter(end)) return Promise.reject(Error("Start time must be before end time"));
+  const eventInfo = {
+    title: req.body.title,
+    start: start.format(),
+    end: end.format(),
+    startPretty: start.format(settings.EVENT_TIME_FORMAT),
+    endPretty: end.format(settings.EVENT_TIME_FORMAT),
+    duration: formatDuration(start, end),
+    location: req.body.location,
+    details: req.body.details,
+    category: req.body.category ? [].concat(req.body.category) : [],
+    link: req.body.link && normalizeURL(req.body.link),
+    time: dayjs().tz("Asia/Singapore").format(),
+    date: {
+      day: start.date(),
+      month: start.format("MMM"),
+    },
+    photos: [],
+    favourite: {},
+  };
+  return events.insertAsync(eventInfo).then(function (event) {
+    event.url = "/events/" + event._id;
+    return events
+      .updateAsync({ _id: event._id }, { $set: event })
+      .then(fs.mkdir("./public/uploads/" + event._id))
+      .then(function () {
+        return event._id;
+      });
+  });
+};
+
+exports.addPhotos = async function (id, photos) {
+  const event = await events.findOneAsync({ _id: id });
+  photos.forEach(function (e) {
+    event.photos.push({
+      name: e.originalname,
+      time: dayjs().tz("Asia/Singapore").format(),
+      path: e.path.slice(6),
+    });
+  });
+  return events.updateAsync({ _id: id }, { $set: event });
+};
+
+exports.all = function () {
+  return events.findAsync({});
+};
+
+exports.delete = function (id) {
+  return fs.rm("./public/uploads/" + id, { recursive: true }).then(events.removeAsync({ _id: id }));
+};
+
+exports.deletePhoto = async function (id, name) {
+  const event = await events.findOneAsync({ _id: id });
+  const index = event.photos.findIndex(function (e) {
+    return e.name === name;
+  });
+  if (event.photos[index].path === event.favourite) event.favourite = {};
+  await fs.unlink("./public" + event.photos[index].path);
+  event.photos.splice(index, 1);
+  return events.updateAsync({ _id: id }, { $set: event });
+};
+
+exports.edit = async function (id, field, value) {
+  const event = await events.findOneAsync({ _id: id });
+  if (field === "start" || field === "end")
+    value = dayjs.tz(value, settings.EVENT_TIME_FORMAT, "Asia/Singapore").format();
+  if (field === "start") {
+    const startMoment = dayjs.tz(value, "Asia/Singapore");
+    event.startPretty = startMoment.format(settings.EVENT_TIME_FORMAT);
+    event.date = {
+      day: startMoment.date(),
+      month: startMoment.format("MMM"),
     };
-    return events.insertAsync(eventInfo)
-    .then(function(event) {
-        event.url = "/events/" + event._id;
-        return events.updateAsync({ _id: event._id }, { $set: event })
-        .then(fs.mkdir("./public/uploads/" + event._id))
-        .then(function() {
-            return event._id;
-        });
-    });
+  }
+  if (field === "end")
+    event.endPretty = dayjs.tz(value, "Asia/Singapore").format(settings.EVENT_TIME_FORMAT);
+  if (field === "link" && value) value = normalizeURL(value);
+  event[field] = value;
+  if (field === "start" || field === "end") {
+    const start = dayjs(event.start);
+    const end = dayjs(event.end);
+    value = event.duration = formatDuration(start, end);
+  }
+  event.time = dayjs().tz("Asia/Singapore").format();
+  if (dayjs(event.start).isAfter(dayjs(event.end)))
+    throw Error("Start time must be before end time");
+  if (field === "title" && !value) throw Error("Title can not be empty");
+  await events.updateAsync({ _id: id }, { $set: event });
+  return { field: field, value: value };
 };
 
-exports.addPhotos = function(id, photos) {
-    return events.findOneAsync({ _id: id })
-    .then(function(event) {
-        photos.forEach(function(e) {
-            event.photos.push({
-                name: e.originalname,
-                time: moment.tz("Asia/Singapore").format(),
-                path: e.path.slice(6)
-            });
-        });
-        return events.updateAsync({ _id: id }, { $set: event });
-    });
+exports.get = async function (id) {
+  const event = await events.findOneAsync({ _id: id });
+  if (!event) throw Error("Event does not exist");
+  return event;
 };
 
-exports.all = function() {
-    return events.findAsync({});
-};
-
-exports.delete = function(id) {
-    return fs.rm("./public/uploads/" + id, { recursive: true })
-    .then(events.removeAsync({ _id: id }));
-};
-
-// Delete by name, since there are not duplicates (and we don't have _id)
-exports.deletePhoto = function(id, name) {
-    return events.findOneAsync({ _id: id })
-    .then(function(event) {
-        var index = event.photos.findIndex(function(e) {
-            return e.name === name;
-        });
-        if (event.photos[index].path === event.favourite)
-            event.favourite = {};
-        return fs.unlink("./public" + event.photos[index].path)
-        .then(function() {
-            event.photos.splice(index, 1);
-            return events.updateAsync({ _id: id }, { $set: event });
-        });
-    });
-};
-
-exports.edit = function(id, field, value) {
-    return events.findOneAsync({ _id: id })
-    .then(function(event) {
-        if (field === "start" || field === "end")
-            value = moment.tz(value, settings.EVENT_TIME_FORMAT, "Asia/Singapore").format();
-        if (field === "start") {
-            var startMoment = moment.tz(value, "Asia/Singapore");
-            event.startPretty = startMoment.format(settings.EVENT_TIME_FORMAT);
-            event.date = {
-                day: startMoment.date(),
-                month: startMoment.format("MMM")
-            };
-        }
-        if (field === "end")
-            event.endPretty = moment.tz(value, "Asia/Singapore").format(settings.EVENT_TIME_FORMAT);
-        if (field === "link" && value)
-            value = normalizeURL(value);
-        event[field] = value;
-        if (field === "start" || field === "end") {
-            var start = moment(event.start);
-            var end = moment(event.end);
-            value = event.duration = moment.duration(end.diff(start)).format("d [days] h [hours] m [minutes]").trim();
-        }
-        event.time = moment.tz("Asia/Singapore").format();
-        if (moment(event.start).isAfter(moment(event.end)))
-            throw Error("Start time must be before end time");
-        if (field === "title" && !value)
-            throw Error("Title can not be empty");
-        return events.updateAsync({ _id: id }, { $set: event });
-    })
-    .then(function() {
-        return { field: field, value : value };
-    });
-};
-
-exports.get = function(id) {
-    return events.findOneAsync({ _id: id })
-    .then(function(event) {
-        if (!event) throw Error("Event does not exist");
-        return event;
-    });
-};
-
-exports.getCategoryUpcoming = function(category, date) {
-    return events.find({
-        $where: function() {
-            return moment.tz(this.end, "Asia/Singapore").isAfter(date) && this.category.indexOf(category) !== -1;
-        }
+exports.getCategoryUpcoming = function (category, date) {
+  return events
+    .find({
+      $where: function () {
+        return (
+          dayjs.tz(this.end, "Asia/Singapore").isAfter(date) &&
+          this.category.indexOf(category) !== -1
+        );
+      },
     })
     .sort({ start: 1, end: 1 })
     .execAsync();
 };
 
-exports.mark = function(id, name) {
-    return events.findOneAsync({ _id: id })
-    .then(function(event) {
-        if (name === "del") {
-            event.favourite = {};
-        } else {
-            event.favourite = event.photos.find(function(e) {
-                return e.name === name;
-            });
-        }
-        return events.updateAsync({ _id: id }, { $set: event });
+exports.mark = async function (id, name) {
+  const event = await events.findOneAsync({ _id: id });
+  if (name === "del") {
+    event.favourite = {};
+  } else {
+    event.favourite = event.photos.find(function (e) {
+      return e.name === name;
     });
+  }
+  return events.updateAsync({ _id: id }, { $set: event });
 };
 
-exports.range = function(start, end) {
-    return events.findAsync({
-        $where: function() {
-            return moment.tz(this.start, "Asia/Singapore").format("YYYY-MM-DD") < end
-            && moment.tz(this.end, "Asia/Singapore").format("YYYY-MM-DD") >= start;
-        }
-    });
+exports.range = function (start, end) {
+  return events.findAsync({
+    $where: function () {
+      return (
+        dayjs.tz(this.start, "Asia/Singapore").format("YYYY-MM-DD") < end &&
+        dayjs.tz(this.end, "Asia/Singapore").format("YYYY-MM-DD") >= start
+      );
+    },
+  });
 };
 
-exports.upcoming = function(date) {
-    return events.find({
-        $where: function() { return moment.tz(this.end, "Asia/Singapore").isAfter(date); }
+exports.upcoming = function (date) {
+  return events
+    .find({
+      $where: function () {
+        return dayjs.tz(this.end, "Asia/Singapore").isAfter(date);
+      },
     })
     .sort({ start: 1, end: 1 })
     .execAsync();

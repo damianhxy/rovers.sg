@@ -1,51 +1,48 @@
-var express = require("express");
-var router = express.Router();
-var short = require("../models/shortener.js");
-var admin = require("../middlewares/admin.js");
+const express = require("express");
+const router = express.Router();
+const short = require("../models/shortener.js");
+const admin = require("../middlewares/admin.js");
 
-router.post("/", admin, function(req, res) {
-    short.add(req)
-    .then(function() {
-        req.session.success = "Link created";
-        res.redirect("/users/profile");
-    })
-    .catch(function(err) {
-        console.error(err);
-        req.session.error = err.message;
-        res.status(400).redirect("/users/profile");
-    });
+router.post("/", admin, async function (req, res) {
+  try {
+    await short.add(req);
+    req.session.success = "Link created";
+    res.redirect("/users/profile");
+  } catch (err) {
+    console.error(err);
+    req.session.error = err.message;
+    res.status(400).redirect("/users/profile");
+  }
 });
 
-router.delete("/", admin, function(req, res) {
-    short.delete(req.body.id)
-    .then(function() {
-        res.end();
-    })
-    .catch(function(err) {
-        console.error(err);
-        req.session.error = err.message;
-        res.redirect(req.headers.referrer || "/");
-    });
+router.delete("/", admin, async function (req, res) {
+  try {
+    await short.delete(req.body.id);
+    res.end();
+  } catch (err) {
+    console.error(err);
+    req.session.error = err.message;
+    res.redirect(req.headers.referrer || "/");
+  }
 });
 
-router.get("/:url", function(req, res) {
-    short.get(req.params.url)
-    .then(function(info) {
-        if (info.embed) {
-            res.render("embed", {
-                title: info.name,
-                user: req.user,
-                info: info
-            });
-        } else {
-            res.redirect(info.orgurl);
-        }
-    })
-    .catch(function(err) {
-        console.error(err);
-        req.session.error = err.message;
-        res.redirect(req.headers.referrer || "/");
-    });
+router.get("/:url", async function (req, res) {
+  try {
+    const info = await short.get(req.params.url);
+    if (info.embed) {
+      res.render("embed", {
+        title: info.name,
+        user: req.user,
+        info: info,
+      });
+    } else {
+      res.redirect(info.orgurl);
+    }
+  } catch (err) {
+    console.error(err);
+    req.session.error = err.message;
+    res.redirect(req.headers.referrer || "/");
+  }
 });
 
 module.exports = router;
