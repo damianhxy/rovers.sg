@@ -10,11 +10,11 @@ const localStrategy = require("passport-local");
 const dayjs = require("dayjs");
 const utc = require("dayjs/plugin/utc");
 const timezone = require("dayjs/plugin/timezone");
-const NedbStore = require("../models/sessionStore.js");
 const methodOverride = require("method-override");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const { csrfSync } = require("csrf-sync");
+const MemoryStore = require("memorystore")(session);
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -58,7 +58,7 @@ module.exports = function (app, express) {
         sameSite: "lax",
         secure: process.env.NODE_ENV === "production",
       },
-      store: new NedbStore({ filename: "nedb_sessionstore" }),
+      store: new MemoryStore({ checkPeriod: 86400000 }),
     }),
   );
   app.use(methodOverride("_method"));
