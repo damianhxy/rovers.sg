@@ -64,10 +64,24 @@ module.exports = function (app, express) {
   app.use(methodOverride("_method"));
   app.use(passport.initialize());
   app.use(passport.session());
+
+  app.use(function (req, res, next) {
+    const stored = req.session && req.session.csrfToken;
+    const received = req.body && req.body._csrf || req.headers["x-csrf-token"];
+    const sid = req.sessionID;
+    if (req.method === "POST") {
+      console.log("[CSRF] " + req.method + " " + req.path + " sid=" + (sid ? sid.substring(0, 12) + "..." : "none") + " stored=" + (stored ? stored.substring(0, 16) + "..." : "none") + " received=" + (received ? received.substring(0, 16) + "..." : "none"));
+    }
+    next();
+  });
+
   app.use(csrfProtection.csrfSynchronisedProtection);
 
   app.use(function (req, res, next) {
     res.locals.csrfToken = csrfProtection.generateToken(req);
+    if (req.method === "GET") {
+      console.log("[CSRF] " + req.method + " " + req.path + " generated token=" + res.locals.csrfToken.substring(0, 16) + "...");
+    }
     next();
   });
 
