@@ -1,7 +1,6 @@
 node_modules
 .env
 *.db
-nedb_sessionstore
 uploads
 database
 *.log

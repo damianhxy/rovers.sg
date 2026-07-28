@@ -12,8 +12,8 @@ const { body, validationResult } = require("express-validator");
 const passwordValidation = [
   body("newPass").isLength({ min: 8, max: 100 }).withMessage("Password must be 8-100 characters"),
   body("newPass2")
-    .custom(function (value, req) {
-      return value === req.req.body.newPass;
+    .custom(function (value, { req }) {
+      return value === req.body.newPass;
     })
     .withMessage("Passwords do not match"),
 ];
