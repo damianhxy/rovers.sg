@@ -4,7 +4,7 @@ const fs = require("fs");
 
 module.exports = multer({
   limits: {
-    fields: 1,
+    fields: 10,
     fileSize: settings.PHOTO_SIZE_LIMIT,
   },
   fileFilter: function (req, file, cb) {

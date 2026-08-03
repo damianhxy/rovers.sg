@@ -19,9 +19,9 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 
 module.exports = function (app, express) {
-    require("console-stamp")(console, {
-        format: ":date(ddd mmm HH:MM:ss).cyan :label.magenta"
-    });
+  require("console-stamp")(console, {
+    format: ":date(ddd mmm HH:MM:ss).cyan :label.magenta",
+  });
 
   morgan.token("time", function () {
     return dayjs().format(settings.TIME_FORMAT);

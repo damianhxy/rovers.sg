@@ -4,7 +4,7 @@ const passport = require("passport");
 const router = express.Router();
 const short = require("../models/shortener.js");
 const user = require("../models/user.js");
-let NRCs = require("./NRCs.js");
+const NRC = require("../models/NRC.js");
 const settings = require("./settings.js");
 const auth = require("../middlewares/auth.js");
 const { body, validationResult } = require("express-validator");
@@ -38,12 +38,11 @@ router.post("/editPassword", auth, passwordValidation, async function (req, res)
 router.get("/profile", auth, async function (req, res) {
   try {
     const links = await short.all();
-    delete require.cache[require.resolve("./NRCs.js")];
-    NRCs = require("./NRCs.js");
+    const NRCs = await NRC.get();
     res.render("profile", {
       title: "Profile",
       user: req.user,
-      NRCStr: JSON.stringify(NRCs.NRC, null, 4),
+      NRCStr: JSON.stringify(NRCs, null, 4),
       info: {
         "Node Version": process.version,
         Platform: os.type(),

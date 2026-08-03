@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const BPA = require("../models/BPA.js");
 const NRC = require("../models/NRC.js");
-let NRCs = require("./NRCs.js");
 const admin = require("../middlewares/admin.js");
 
 function findEntryWithTitle(collection, title) {
@@ -16,14 +15,13 @@ function findEntryWithTitle(collection, title) {
 router.get("/", async function (req, res) {
   try {
     const BPAs = await BPA.all();
-    delete require.cache[require.resolve("./NRCs.js")];
-    NRCs = require("./NRCs.js");
-    const nrc2017Entry = findEntryWithTitle(NRCs.NRC, "NRC 2017");
+    const NRCs = await NRC.get();
+    const nrc2017Entry = findEntryWithTitle(NRCs, "NRC 2017");
     res.render("about", {
       title: "About",
       user: req.user,
       BPAs: BPAs,
-      NRC: NRCs.NRC,
+      NRC: NRCs,
       NRC2017: nrc2017Entry ? nrc2017Entry.members : null,
     });
   } catch (err) {
@@ -36,8 +34,15 @@ router.get("/", async function (req, res) {
 });
 
 router.post("/NRC", admin, async function (req, res) {
+  let parsed;
   try {
-    await NRC.update(req.body.data);
+    parsed = JSON.parse(req.body.data);
+  } catch {
+    req.session.error = "Invalid JSON";
+    return res.status(400).redirect("/users/profile");
+  }
+  try {
+    await NRC.update(parsed);
     req.session.success = "NRCs updated";
     res.redirect("/users/profile");
   } catch (err) {
