@@ -112,7 +112,7 @@ exports.deletePhoto = async function (id, name) {
     return e.name === name;
   });
   if (index === -1) throw Error("Photo does not exist");
-  if (event.photos[index].path === event.favourite) event.favourite = {};
+  if (event.favourite && event.photos[index].path === event.favourite.path) event.favourite = {};
   await fs.unlink("./public" + event.photos[index].path);
   event.photos.splice(index, 1);
   return events.updateAsync({ _id: id }, { $set: event });
