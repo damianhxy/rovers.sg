@@ -18,6 +18,7 @@ const MemoryStore = require("memorystore")(session);
 const path = require("path");
 const admin = require("../middlewares/admin.js");
 const uploadPhoto = require("../middlewares/uploadPhoto.js");
+const uploadResource = require("../middlewares/uploadResource.js");
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -91,6 +92,7 @@ module.exports = function (app, express) {
 
   // Multipart fields must be parsed before csrf-sync can read the form token.
   // Keep files in memory until authentication and CSRF validation both pass.
+  app.post("/resources", admin, captureUpload(uploadResource));
   app.post("/events/:event", admin, captureUpload(uploadPhoto));
 
   app.use(csrfProtection.csrfSynchronisedProtection);
