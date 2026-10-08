@@ -3,7 +3,7 @@ const fs = require("fs/promises");
 const dayjs = require("dayjs");
 const utc = require("dayjs/plugin/utc");
 const timezone = require("dayjs/plugin/timezone");
-const normalizeURL = require("normalize-url").default;
+const normalizeHttpUrl = require("../helpers/httpUrl.js");
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -11,7 +11,7 @@ const files = new nedb({ filename: "./database/resources", autoload: true });
 
 exports.add = function (req) {
   const filePath = req.file ? req.file.path : "";
-  const url = req.body.url ? normalizeURL(req.body.url) : req.file.path.slice(6);
+  const url = req.body.url ? normalizeHttpUrl(req.body.url) : req.file.path.slice(6);
   const fileInfo = {
     name: req.body.name,
     path: filePath,

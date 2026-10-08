@@ -3,7 +3,7 @@ const fs = require("fs/promises");
 const dayjs = require("dayjs");
 const utc = require("dayjs/plugin/utc");
 const timezone = require("dayjs/plugin/timezone");
-const normalizeURL = require("normalize-url").default;
+const normalizeHttpUrl = require("../helpers/httpUrl.js");
 const settings = require("../controllers/settings.js");
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -37,7 +37,7 @@ exports.add = async function (req) {
     location: req.body.location,
     details: req.body.details,
     category: req.body.category ? [].concat(req.body.category) : [],
-    link: req.body.link && normalizeURL(req.body.link),
+    link: req.body.link && normalizeHttpUrl(req.body.link),
     time: dayjs().tz("Asia/Singapore").format(),
     date: {
       day: start.date(),
@@ -99,7 +99,7 @@ exports.edit = async function (id, field, value) {
   }
   if (field === "end")
     event.endPretty = dayjs.tz(value, "Asia/Singapore").format(settings.EVENT_TIME_FORMAT);
-  if (field === "link" && value) value = normalizeURL(value);
+  if (field === "link" && value) value = normalizeHttpUrl(value);
   event[field] = value;
   if (field === "start" || field === "end") {
     const start = dayjs(event.start);
