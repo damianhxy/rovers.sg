@@ -1,14 +1,31 @@
 const nedb = require("@seald-io/nedb");
 const fs = require("fs/promises");
 const dayjs = require("dayjs");
+const customParseFormat = require("dayjs/plugin/customParseFormat");
 const utc = require("dayjs/plugin/utc");
 const timezone = require("dayjs/plugin/timezone");
 const normalizeHttpUrl = require("../helpers/httpUrl.js");
 const settings = require("../controllers/settings.js");
+dayjs.extend(customParseFormat);
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
 const events = new nedb({ filename: "./database/events", autoload: true });
+
+// Add form (combodate), event page editor (x-editable combodate) and stored display format.
+const eventTimeFormats = [
+  settings.EVENT_INPUT_TIME_FORMAT,
+  settings.EVENT_EDITOR_TIME_FORMAT,
+  settings.EVENT_TIME_FORMAT,
+];
+
+function parseEventTime(value) {
+  for (const format of eventTimeFormats) {
+    const parsed = dayjs(value, format, true);
+    if (parsed.isValid()) return parsed.tz("Asia/Singapore", true);
+  }
+  throw Error("Invalid event time");
+}
 
 function formatDuration(start, end) {
   const diffMs = end.diff(start);
@@ -24,8 +41,8 @@ function formatDuration(start, end) {
 }
 
 exports.add = async function (req) {
-  const start = dayjs.tz(req.body.start, settings.EVENT_TIME_FORMAT, "Asia/Singapore");
-  const end = dayjs.tz(req.body.end, settings.EVENT_TIME_FORMAT, "Asia/Singapore");
+  const start = parseEventTime(req.body.start);
+  const end = parseEventTime(req.body.end);
   if (start.isAfter(end)) throw Error("Start time must be before end time");
   const eventInfo = {
     title: req.body.title,
@@ -87,18 +104,17 @@ exports.deletePhoto = async function (id, name) {
 
 exports.edit = async function (id, field, value) {
   const event = await events.findOneAsync({ _id: id });
-  if (field === "start" || field === "end")
-    value = dayjs.tz(value, settings.EVENT_TIME_FORMAT, "Asia/Singapore").format();
-  if (field === "start") {
-    const startMoment = dayjs.tz(value, "Asia/Singapore");
-    event.startPretty = startMoment.format(settings.EVENT_TIME_FORMAT);
-    event.date = {
-      day: startMoment.date(),
-      month: startMoment.format("MMM"),
-    };
+  if (field === "start" || field === "end") {
+    const time = parseEventTime(value);
+    value = time.format();
+    event[field + "Pretty"] = time.format(settings.EVENT_TIME_FORMAT);
+    if (field === "start") {
+      event.date = {
+        day: time.date(),
+        month: time.format("MMM"),
+      };
+    }
   }
-  if (field === "end")
-    event.endPretty = dayjs.tz(value, "Asia/Singapore").format(settings.EVENT_TIME_FORMAT);
   if (field === "link" && value) value = normalizeHttpUrl(value);
   event[field] = value;
   if (field === "start" || field === "end") {
