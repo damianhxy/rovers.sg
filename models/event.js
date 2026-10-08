@@ -4,6 +4,7 @@ const dayjs = require("dayjs");
 const customParseFormat = require("dayjs/plugin/customParseFormat");
 const utc = require("dayjs/plugin/utc");
 const timezone = require("dayjs/plugin/timezone");
+const path = require("path");
 const normalizeHttpUrl = require("../helpers/httpUrl.js");
 const settings = require("../controllers/settings.js");
 dayjs.extend(customParseFormat);
@@ -65,9 +66,16 @@ exports.add = async function (req) {
   };
   const event = await events.insertAsync(eventInfo);
   event.url = "/events/" + event._id;
-  await events.updateAsync({ _id: event._id }, { $set: event });
-  await fs.mkdir("./public/uploads/" + event._id);
-  return event._id;
+  const uploadDirectory = path.join("public", "uploads", event._id);
+  try {
+    await fs.mkdir(uploadDirectory, { recursive: true });
+    await events.updateAsync({ _id: event._id }, { $set: event });
+    return event._id;
+  } catch (err) {
+    await fs.rm(uploadDirectory, { force: true, recursive: true }).catch(function () {});
+    await events.removeAsync({ _id: event._id }).catch(function () {});
+    throw err;
+  }
 };
 
 exports.addPhotos = async function (id, photos) {
