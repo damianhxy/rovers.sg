@@ -15,6 +15,7 @@ const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const { csrfSync } = require("csrf-sync");
 const MemoryStore = require("memorystore")(session);
+const path = require("path");
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -42,7 +43,18 @@ module.exports = function (app, express) {
   app.set("trust proxy", 1);
   app.use(compression());
   app.use(helmet({ contentSecurityPolicy: false }));
-  app.use(express.static("public"));
+  // Uploaded files are user content: never let one run as script on this origin, however
+  // the URL is spelled (decided on the resolved file path, not the request path).
+  const uploadsRoot = (path.resolve("public", "uploads") + path.sep).toLowerCase();
+  app.use(
+    express.static("public", {
+      setHeaders: function (res, filePath) {
+        if (path.resolve(filePath).toLowerCase().startsWith(uploadsRoot)) {
+          res.setHeader("Content-Security-Policy", "sandbox; default-src 'none'");
+        }
+      },
+    }),
+  );
   app.use(
     morgan("[:time] :method :url :status :res[content-length] - :remote-addr - :response-time ms"),
   );
