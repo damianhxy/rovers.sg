@@ -98,8 +98,11 @@ exports.all = function () {
 };
 
 exports.delete = async function (id) {
-  await fs.rm("./public/uploads/" + id, { recursive: true });
-  return events.removeAsync({ _id: id });
+  const event = await events.findOneAsync({ _id: id });
+  if (!event) throw Error("Event does not exist");
+  // Derive the directory from the stored id, never from request input.
+  await fs.rm(path.join("public", "uploads", event._id), { force: true, recursive: true });
+  return events.removeAsync({ _id: event._id });
 };
 
 exports.deletePhoto = async function (id, name) {
