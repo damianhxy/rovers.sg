@@ -5,7 +5,6 @@ const dayjs = require("dayjs");
 const utc = require("dayjs/plugin/utc");
 const timezone = require("dayjs/plugin/timezone");
 const admin = require("../middlewares/admin.js");
-const uploadPhoto = require("../middlewares/uploadPhoto.js");
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -114,22 +113,21 @@ router.get("/:event", async function (req, res) {
   }
 });
 
-router.post("/:event", admin, function (req, res) {
-  uploadPhoto(req, res, async function (err) {
-    if (err) {
-      console.error(err);
-      req.session.error = err.message;
-    } else {
-      try {
-        await event.addPhotos(req.params.event, req.files);
-        req.session.success = "Photos uploaded";
-      } catch (err) {
-        console.error(err);
-        req.session.error = err.message;
-      }
-    }
+router.post("/:event", admin, async function (req, res) {
+  if (req.uploadError) {
+    console.error(req.uploadError);
+    req.session.error = req.uploadError.message;
+    return res.status(400).redirect("/events/" + req.params.event);
+  }
+  try {
+    await event.addPhotos(req.params.event, req.files);
+    req.session.success = "Photos uploaded";
     res.redirect("/events/" + req.params.event);
-  });
+  } catch (err) {
+    console.error(err);
+    req.session.error = err.message;
+    res.status(400).redirect("/events/" + req.params.event);
+  }
 });
 
 router.put("/:event", admin, async function (req, res) {

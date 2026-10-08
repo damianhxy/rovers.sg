@@ -5,6 +5,7 @@ const customParseFormat = require("dayjs/plugin/customParseFormat");
 const utc = require("dayjs/plugin/utc");
 const timezone = require("dayjs/plugin/timezone");
 const path = require("path");
+const crypto = require("crypto");
 const normalizeHttpUrl = require("../helpers/httpUrl.js");
 const settings = require("../controllers/settings.js");
 dayjs.extend(customParseFormat);
@@ -12,6 +13,14 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 
 const events = new nedb({ filename: "./database/events", autoload: true });
+
+const photoExtensions = {
+  "image/avif": ".avif",
+  "image/gif": ".gif",
+  "image/jpeg": ".jpg",
+  "image/png": ".png",
+  "image/webp": ".webp",
+};
 
 // Add form (combodate), event page editor (x-editable combodate) and stored display format.
 const eventTimeFormats = [
@@ -83,14 +92,40 @@ exports.add = async function (req) {
 
 exports.addPhotos = async function (id, photos) {
   const event = await events.findOneAsync({ _id: id });
-  photos.forEach(function (e) {
-    event.photos.push({
-      name: e.originalname,
-      time: dayjs().tz("Asia/Singapore").format(),
-      path: e.path.slice(6),
-    });
+  if (!event) throw Error("Event does not exist");
+  if (!photos || photos.length === 0) throw Error("Select at least one photo");
+
+  // Photos are deleted and marked favourite by name, so names must stay unique per event.
+  const names = new Set(event.photos.map((photo) => photo.name));
+  const incoming = photos.map(function (photo) {
+    const name = path.basename(photo.originalname).slice(0, 255);
+    if (names.has(name)) throw Error("Photo(s) already exist");
+    names.add(name);
+    return { name: name, photo: photo };
   });
-  return events.updateAsync({ _id: id }, { $set: event });
+
+  const uploadDirectory = path.join("public", "uploads", event._id);
+  const stored = [];
+  try {
+    await fs.mkdir(uploadDirectory, { recursive: true });
+    for (const { name, photo } of incoming) {
+      const extension = photoExtensions[photo.mimetype];
+      if (!extension) throw Error("File type not allowed");
+      const filename = crypto.randomUUID() + extension;
+      const filePath = path.join(uploadDirectory, filename);
+      await fs.writeFile(filePath, photo.buffer, { flag: "wx" });
+      stored.push(filePath);
+      event.photos.push({
+        name: name,
+        time: dayjs().tz("Asia/Singapore").format(),
+        path: "/uploads/" + event._id + "/" + filename,
+      });
+    }
+    return await events.updateAsync({ _id: id }, { $set: event });
+  } catch (err) {
+    await Promise.all(stored.map((filePath) => fs.rm(filePath, { force: true })));
+    throw err;
+  }
 };
 
 exports.all = function () {

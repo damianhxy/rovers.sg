@@ -16,6 +16,8 @@ const rateLimit = require("express-rate-limit");
 const { csrfSync } = require("csrf-sync");
 const MemoryStore = require("memorystore")(session);
 const path = require("path");
+const admin = require("../middlewares/admin.js");
+const uploadPhoto = require("../middlewares/uploadPhoto.js");
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -77,6 +79,19 @@ module.exports = function (app, express) {
   app.use(methodOverride("_method"));
   app.use(passport.initialize());
   app.use(passport.session());
+
+  function captureUpload(parser) {
+    return function (req, res, next) {
+      parser(req, res, function (err) {
+        req.uploadError = err;
+        next();
+      });
+    };
+  }
+
+  // Multipart fields must be parsed before csrf-sync can read the form token.
+  // Keep files in memory until authentication and CSRF validation both pass.
+  app.post("/events/:event", admin, captureUpload(uploadPhoto));
 
   app.use(csrfProtection.csrfSynchronisedProtection);
 
