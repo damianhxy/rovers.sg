@@ -44,6 +44,9 @@ function formatDuration(start, end) {
 exports.add = async function (req) {
   const start = parseEventTime(req.body.start);
   const end = parseEventTime(req.body.end);
+  if (!req.body.title || req.body.title.length > 200) {
+    throw Error("Title is required and must be under 200 characters");
+  }
   if (start.isAfter(end)) throw Error("Start time must be before end time");
   const eventInfo = {
     title: req.body.title,
@@ -101,9 +104,11 @@ exports.delete = async function (id) {
 
 exports.deletePhoto = async function (id, name) {
   const event = await events.findOneAsync({ _id: id });
+  if (!event) throw Error("Event does not exist");
   const index = event.photos.findIndex(function (e) {
     return e.name === name;
   });
+  if (index === -1) throw Error("Photo does not exist");
   if (event.photos[index].path === event.favourite) event.favourite = {};
   await fs.unlink("./public" + event.photos[index].path);
   event.photos.splice(index, 1);
@@ -112,6 +117,10 @@ exports.deletePhoto = async function (id, name) {
 
 exports.edit = async function (id, field, value) {
   const event = await events.findOneAsync({ _id: id });
+  if (!event) throw Error("Event does not exist");
+  if (!["details", "end", "link", "location", "start", "title"].includes(field)) {
+    throw Error("Field cannot be edited");
+  }
   if (field === "start" || field === "end") {
     const time = parseEventTime(value);
     value = time.format();
@@ -133,7 +142,9 @@ exports.edit = async function (id, field, value) {
   event.time = dayjs().tz("Asia/Singapore").format();
   if (dayjs(event.start).isAfter(dayjs(event.end)))
     throw Error("Start time must be before end time");
-  if (field === "title" && !value) throw Error("Title can not be empty");
+  if (field === "title" && (!value || value.length > 200)) {
+    throw Error("Title is required and must be under 200 characters");
+  }
   await events.updateAsync({ _id: id }, { $set: event });
   return { field: field, value: value };
 };
@@ -160,12 +171,14 @@ exports.getCategoryUpcoming = function (category, date) {
 
 exports.mark = async function (id, name) {
   const event = await events.findOneAsync({ _id: id });
+  if (!event) throw Error("Event does not exist");
   if (name === "del") {
     event.favourite = {};
   } else {
     event.favourite = event.photos.find(function (e) {
       return e.name === name;
     });
+    if (!event.favourite) throw Error("Photo does not exist");
   }
   return events.updateAsync({ _id: id }, { $set: event });
 };

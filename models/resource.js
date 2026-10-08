@@ -29,14 +29,20 @@ exports.all = function () {
 
 exports.delete = async function (id) {
   const file = await files.findOneAsync({ _id: id });
+  if (!file) throw Error("Resource does not exist");
   if (file.path) {
-    await fs.unlink(file.path);
+    await fs.rm(file.path, { force: true });
   }
   return files.removeAsync({ _id: id });
 };
 
 exports.edit = async function (id, field, value) {
   const file = await files.findOneAsync({ _id: id });
+  if (!file) throw Error("Resource does not exist");
+  if (!["description", "name"].includes(field)) throw Error("Field cannot be edited");
+  if (field === "name" && (!value || value.length > 200)) {
+    throw Error("Name is required and must be under 200 characters");
+  }
   file[field] = value;
   file.time = dayjs().tz("Asia/Singapore").format();
   await files.updateAsync({ _id: id }, { $set: file });
