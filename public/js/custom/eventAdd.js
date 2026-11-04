@@ -1,8 +1,8 @@
 $(function() {
     console.info("[info] eventAdd.js is running.");
 
-    // For use in fullcalendar
-    var uniqueID = Date.now();
+    // The preview's id in the calendar
+    var uniqueID = String(Date.now());
     var FIVE_MINUTES = 5 * 60 * 1000;
     var HOUR = 60 * 60 * 1000;
     var $calendar = $("#calendar");
@@ -11,7 +11,7 @@ $(function() {
     var $end = $("[name='end']");
 
     // Times are Singapore time. Default: now rounded up to 5 minutes, for an hour.
-    var defaultStart = Math.ceil(uniqueID / FIVE_MINUTES) * FIVE_MINUTES;
+    var defaultStart = Math.ceil(Date.now() / FIVE_MINUTES) * FIVE_MINUTES;
     $start.val(singaporeInputTime(new Date(defaultStart)));
     $end.val(singaporeInputTime(new Date(defaultStart + HOUR)));
     var lastStart = $start.val();
@@ -38,15 +38,9 @@ $(function() {
         $duration.val(backwards ? "End is before start" : formatDuration($start.val(), $end.val()));
     }
 
-    // Check for existence
-    function getEvent() {
-        return $calendar.fullCalendar("clientEvents", uniqueID)[0];
-    }
-
-    // Clear Event
-    function clearEvent() {
-        if (getEvent())
-            $calendar.fullCalendar("removeEvents", uniqueID);
+    // The calendar is set up by main.js once the page has loaded.
+    function calendar() {
+        return $calendar.data("calendar");
     }
 
     // Preview
@@ -55,21 +49,16 @@ $(function() {
         var start = $start.val();
         var end = $end.val();
         updateDuration();
-        if (!title || !start || !end || diff(start, end) < 0)
-            return clearEvent();
-        var event = getEvent();
+        var event = calendar().getEventById(uniqueID);
+        if (!title || !start || !end || diff(start, end) < 0) {
+            if (event) event.remove();
+            return;
+        }
         if (event) {
-            event.title = title;
-            event.start = start;
-            event.end = end;
-            $calendar.fullCalendar("updateEvent", event);
+            event.setProp("title", title);
+            event.setDates(start, end);
         } else {
-            $calendar.fullCalendar("renderEvent", {
-                id: uniqueID,
-                title: title,
-                start: start,
-                end: end
-            }, true);
+            calendar().addEvent({ id: uniqueID, title: title, start: start, end: end });
         }
     });
 });

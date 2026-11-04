@@ -388,10 +388,6 @@ p, div {
     white-space: pre-line;
 }
 
-.fc-day-grid-event .fc-content {
-    white-space: normal;
-}
-
 .footer {
     background-color: #fb0000;
     padding-bottom: 14px;
@@ -583,7 +579,8 @@ textarea[readonly] {
     padding: 0;
 }
 
-.confirm-dialog::backdrop {
+.confirm-dialog::backdrop,
+.lightbox::backdrop {
     background: rgba(0, 0, 0, 0.5);
 }
 
@@ -610,4 +607,164 @@ textarea[readonly] {
 
 #toasts .toast-hide {
     opacity: 0;
+}
+
+/* Sortable tables (see main.js). The look of the bootstrap-sortable plugin they replace. */
+table.sortable thead th:not([data-defaultsort=disabled]) {
+    cursor: pointer;
+    position: relative;
+}
+
+table.sortable thead th:hover:not([data-defaultsort=disabled]) {
+    background: #efefef;
+}
+
+table.sortable span.sign {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    margin-top: -2px;
+    border-style: solid;
+    border-width: 5px;
+    border-color: #ccc transparent transparent transparent;
+    width: 0;
+    height: 0;
+    font-size: 0;
+    line-height: 0;
+}
+
+table.sortable span.sign.up {
+    border-color: transparent transparent #ccc transparent;
+    margin-top: -7px;
+}
+
+/* Photo lightbox (see main.js) */
+.lightbox {
+    padding: 0;
+    max-width: calc(100vw - 32px);
+}
+
+.lightbox .modal-body {
+    position: relative;
+    padding: 0;
+    line-height: 0;
+}
+
+.lightbox img {
+    max-width: min(900px, calc(100vw - 34px));
+    max-height: calc(100vh - 140px);
+}
+
+.lightbox-prev,
+.lightbox-next {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 40%;
+    padding: 0 20px;
+    border: 0;
+    background: none;
+    color: #fff;
+    font-size: 32px;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.lightbox-prev {
+    left: 0;
+    text-align: left;
+}
+
+.lightbox-next {
+    right: 0;
+    text-align: right;
+}
+
+.lightbox-prev:hover,
+.lightbox-next:hover,
+.lightbox-prev:focus-visible,
+.lightbox-next:focus-visible {
+    opacity: 1;
+}
+
+/* Calendar (FullCalendar 6), in the site's Bootstrap style */
+#calendar {
+    text-align: left;
+    --fc-border-color: #ddd;
+    --fc-button-text-color: #333;
+    --fc-button-bg-color: #fff;
+    --fc-button-border-color: #ccc;
+    --fc-button-hover-bg-color: #e6e6e6;
+    --fc-button-hover-border-color: #adadad;
+    --fc-button-active-bg-color: #e6e6e6;
+    --fc-button-active-border-color: #adadad;
+    --fc-event-bg-color: #337ab7;
+    --fc-event-border-color: #2e6da4;
+    --fc-today-bg-color: #fcf8e3;
+}
+
+#calendar .fc-toolbar-title {
+    font-size: 24px;
+}
+
+#calendar .fc-button {
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+}
+
+#calendar .fc-button-primary:disabled {
+    opacity: 0.65;
+}
+
+#calendar .fc-button-active,
+#calendar .fc-button:active {
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+
+#calendar .fc-button:focus {
+    box-shadow: none;
+}
+
+#calendar .fc-col-header-cell-cushion,
+#calendar .fc-daygrid-day-number {
+    color: #333;
+}
+
+#calendar .fc-event {
+    text-align: left;
+}
+
+/* Wrap long titles (and the time, in narrow columns) instead of cutting them off */
+#calendar .fc-daygrid-event {
+    white-space: normal;
+}
+
+#calendar .fc-daygrid-event .fc-event-main-frame {
+    flex-wrap: wrap;
+}
+
+#calendar .fc-daygrid-event .fc-event-title {
+    overflow-wrap: anywhere;
+}
+
+#calendar a.fc-event:hover {
+    text-decoration: none;
+    opacity: 0.85;
+}
+
+@media (max-width: 767px) {
+    #calendar .fc-header-toolbar {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    #calendar .fc-toolbar-chunk:nth-child(2) {
+        order: -1;
+        width: 100%;
+        text-align: center;
+    }
 }

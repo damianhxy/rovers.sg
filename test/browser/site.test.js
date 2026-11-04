@@ -167,18 +167,32 @@ test("event page: inline edits of location and start time", async function () {
   assert.equal(await page.getAttribute("span[data-name=start]", "data-value"), DAY + "T09:00");
 });
 
-test("event page: upload a photo, relative time, lightbox", async function () {
-  const file = path.join(app.dir, "photo.png");
-  fs.writeFileSync(file, PNG);
-  await page.setInputFiles("#uploadForm input[type=file]", file);
+test("event page: upload photos, relative time, lightbox gallery", async function () {
+  const files = ["photo.png", "photo-2.png"].map(function (name) {
+    const file = path.join(app.dir, name);
+    fs.writeFileSync(file, PNG);
+    return file;
+  });
+  await page.setInputFiles("#uploadForm input[type=file]", files);
   await page.click("#uploadForm button[type=submit]");
   await page.waitForSelector("#toasts .toast:has-text('Photos uploaded')");
-  await page.waitForSelector("a[data-toggle=lightbox][data-gallery]");
   await page.waitForSelector("text=/a few seconds ago/");
-  await page.click("a[data-toggle=lightbox][data-gallery]");
-  await page.waitForSelector(".ekko-lightbox.in .modal-body img");
+  const links = page.locator("a[data-toggle=lightbox][data-gallery]");
+  assert.equal(await links.count(), 2);
+  const names = await links.evaluateAll((all) => all.map((a) => a.dataset.title));
+
+  // Opens on the photo clicked; arrow keys and buttons step through, wrapping round.
+  await links.first().click();
+  const title = page.locator("dialog.lightbox[open] .modal-title");
+  await title.filter({ hasText: names[0] }).waitFor();
+  const src = await page.$eval("dialog.lightbox img", (img) => img.src);
+  assert.equal(src, base + (await links.first().getAttribute("href")));
+  await page.keyboard.press("ArrowRight");
+  await title.filter({ hasText: names[1] }).waitFor();
+  await page.click("dialog.lightbox .lightbox-next", { force: true });
+  await title.filter({ hasText: names[0] }).waitFor();
   await page.keyboard.press("Escape");
-  await page.waitForSelector(".ekko-lightbox", { state: "detached" });
+  await page.waitForSelector("dialog.lightbox", { state: "detached" });
 });
 
 test("event page: delete dialogs show names as text and delete", async function () {
@@ -190,7 +204,7 @@ test("event page: delete dialogs show names as text and delete", async function 
     /Photo Name: photo\.pngUploaded on: \d+ \w{3} \d\d \| \d\d:\d\dh/,
   );
   await page.click("dialog .btn-danger");
-  await page.waitForSelector(".btn-delete-photo", { state: "detached" });
+  await page.waitForFunction(() => document.querySelectorAll(".btn-delete-photo").length === 1);
 
   // Cancel, Escape and a click outside the dialog all keep the event.
   await page.click(".btn-delete");
@@ -211,9 +225,25 @@ test("event page: delete dialogs show names as text and delete", async function 
   assert.ok(await page.isVisible(".btn-delete"), "event deleted");
 });
 
-test("calendar shows the event", async function () {
+test("calendar: shows the event in Singapore time, whole month visible, other views", async function () {
   await page.goto(base + "/events/all");
-  await page.waitForSelector("#calendar .fc-event");
+  const event = page.locator("#calendar a.fc-event", { hasText: XSS });
+  await event.waitFor();
+  assert.equal(await event.getAttribute("href"), eventUrl.replace(base, ""));
+  assert.match(await event.textContent(), /^9a/); // the start edited to 09:00 above
+  await noScriptRan();
+  // No inner scrollbar hiding the last week (FullCalendar 3 had a fixed height).
+  const clipped = await page.$$eval(
+    "#calendar .fc-scroller",
+    (all) => all.filter((e) => e.scrollHeight > e.clientHeight + 1).length,
+  );
+  assert.equal(clipped, 0);
+  await page.click("#calendar .fc-timeGridWeek-button");
+  await event.waitFor();
+  await page.click("#calendar .fc-next-button");
+  await page.click("#calendar .fc-today-button");
+  await page.click("#calendar .fc-dayGridMonth-button");
+  await event.waitFor();
 });
 
 test("events list and category pages", async function () {
