@@ -5,6 +5,8 @@ const users = new nedb({ filename: "./database/users", autoload: true });
 const hashAsync = promisify(bcryptjs.hash);
 const compareAsync = promisify(bcryptjs.compare);
 const BCRYPT_COST = 10;
+// Compared against when the username does not exist, so both failures take as long.
+const DUMMY_HASH = bcryptjs.hashSync("not-a-real-password", BCRYPT_COST);
 
 exports.add = async function (name, username, password) {
   const existing = await users.findOneAsync({ username: username });
@@ -25,9 +27,10 @@ exports.all = function () {
 
 exports.authenticate = async function (username, password) {
   const user = await users.findOneAsync({ username: username });
-  if (!user) throw Error("User does not exist");
-  const match = await compareAsync(password, user.hash);
-  if (!match) throw Error("Wrong password");
+  // Same message and same work for "no such user" and "wrong password", so sign-in does not
+  // reveal which usernames exist.
+  const match = await compareAsync(String(password), user ? user.hash : DUMMY_HASH);
+  if (!user || !match) throw Error("Invalid username or password");
   return user;
 };
 

@@ -26,17 +26,19 @@ function storedHash(username) {
   return lines[lines.length - 1].hash;
 }
 
-test("wrong password does not sign in", async function () {
-  const client = new Client(app.baseUrl);
-  await client.signIn(ADMIN.username, "wrong-password");
-  assert.equal(await isSignedIn(client), false);
-});
-
-test("unknown user does not sign in", async function () {
-  const client = new Client(app.baseUrl);
-  await client.signIn("nobody", ADMIN.password);
-  assert.equal(await isSignedIn(client), false);
-});
+for (const [name, username, password] of [
+  ["wrong password", ADMIN.username, "wrong-password"],
+  ["unknown user", "nobody", ADMIN.password],
+]) {
+  test(name + ": not signed in, and the same generic message", async function () {
+    const client = new Client(app.baseUrl);
+    await client.signIn(username, password);
+    const page = await client.get("/");
+    assert.match(page.text, /Invalid username or password/);
+    assert.doesNotMatch(page.text, /does not exist|Wrong password/);
+    assert.equal(await isSignedIn(client), false);
+  });
+}
 
 test("correct credentials sign in", async function () {
   const client = new Client(app.baseUrl);
