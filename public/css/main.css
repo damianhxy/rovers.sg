@@ -187,6 +187,18 @@ p, div {
     filter: contrast(0.8);
 }
 
+/* Fill the whole banner (min-height 75vh) and crop, instead of leaving grey bands above and below
+   the photo, which on phones left a thin strip with the caption overflowing it. */
+#homepageCarousel .carousel-inner,
+#homepageCarousel .item {
+    height: 75vh;
+}
+
+#homepageCarousel .homepageBanner {
+    height: 100%;
+    object-fit: cover;
+}
+
 #homepageCarousel .homepageLogo {
     height: 114px;
     width: 100px;
@@ -200,6 +212,13 @@ p, div {
     position: absolute;
     right: 5px;
     bottom: 5px;
+}
+
+@media (max-width: 767px) {
+    #homepageCarousel .slogan {
+        position: static;
+        margin-top: 12px;
+    }
 }
 
 #contactBanner {
