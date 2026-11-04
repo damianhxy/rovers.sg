@@ -5,6 +5,7 @@ const dayjs = require("dayjs");
 const utc = require("dayjs/plugin/utc");
 const timezone = require("dayjs/plugin/timezone");
 const admin = require("../middlewares/admin.js");
+const back = require("../helpers/back.js");
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -109,7 +110,7 @@ router.get("/:event", async function (req, res) {
   } catch (err) {
     console.error(err);
     req.session.error = err.message;
-    res.redirect(req.headers.referrer || "/");
+    res.redirect(back(req, "/events"));
   }
 });
 

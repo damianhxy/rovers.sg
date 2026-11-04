@@ -8,6 +8,7 @@ const NRC = require("../models/NRC.js");
 const settings = require("./settings.js");
 const auth = require("../middlewares/auth.js");
 const { body, validationResult } = require("express-validator");
+const back = require("../helpers/back.js");
 
 const passwordValidation = [
   body("newPass").isLength({ min: 8, max: 100 }).withMessage("Password must be 8-100 characters"),
@@ -66,10 +67,10 @@ router.get("/profile", auth, async function (req, res) {
 router.post("/signin", function (req, res, next) {
   passport.authenticate("local-signin", function (err, user) {
     if (err) return next(err);
-    if (!user) return res.status(400).redirect(req.headers.referer || "/");
+    if (!user) return res.redirect(back(req, "/"));
     return req.login(user, function (err) {
       if (err) return next(err);
-      res.redirect(req.headers.referer || "/");
+      res.redirect(back(req, "/"));
     });
   })(req, res, next);
 });
@@ -109,7 +110,7 @@ if (settings.ENABLE_SIGNUP)
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         req.session.error = errors.array()[0].msg;
-        return res.status(400).redirect(req.headers.referer || "/");
+        return res.redirect(back(req, "/"));
       }
       passport.authenticate("local-signup", function (err, user, _info) {
         if (err) return next(err);

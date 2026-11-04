@@ -45,7 +45,9 @@ module.exports = function (app, express) {
   // Middleware
   app.set("trust proxy", 1);
   app.use(compression());
-  app.use(helmet({ contentSecurityPolicy: false }));
+  // "same-origin" (helmet's default is "no-referrer") lets "go back" redirects see which page on
+  // this site the user came from, while still sending nothing to other sites.
+  app.use(helmet({ contentSecurityPolicy: false, referrerPolicy: { policy: "same-origin" } }));
   // Uploaded files are user content: never let one run as script on this origin, however
   // the URL is spelled (decided on the resolved file path, not the request path).
   const uploadsRoot = (path.resolve("public", "uploads") + path.sep).toLowerCase();

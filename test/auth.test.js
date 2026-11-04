@@ -32,6 +32,28 @@ test("correct credentials sign in", async function () {
   assert.equal(await isSignedIn(client), true);
 });
 
+test("sign-in returns to the page it was submitted from, but never off-site", async function () {
+  const cases = [
+    [app.baseUrl + "/resources?x=1", "/resources?x=1"],
+    ["https://evil.example/phish", "/"],
+    ["not a url", "/"],
+  ];
+  for (const [referer, expected] of cases) {
+    const client = new Client(app.baseUrl);
+    await client.get("/");
+    const res = await client.request("POST", "/users/signin", {
+      form: { _csrf: client.csrfToken, username: ADMIN.username, password: ADMIN.password },
+      headers: { referer },
+    });
+    assert.equal(res.location, expected, referer);
+  }
+});
+
+test("pages send a same-origin Referrer-Policy", async function () {
+  const res = await new Client(app.baseUrl).get("/");
+  assert.equal(res.headers.get("referrer-policy"), "same-origin");
+});
+
 test("sign-out cannot be triggered by a GET link", async function () {
   const client = new Client(app.baseUrl);
   await client.signIn(ADMIN.username, ADMIN.password);
