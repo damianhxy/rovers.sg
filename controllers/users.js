@@ -74,13 +74,21 @@ router.post("/signin", function (req, res, next) {
   })(req, res, next);
 });
 
-router.get("/signout", auth, function (req, res) {
-  console.info("Signed out", req.user.username);
+router.post("/signout", auth, function (req, res, next) {
+  const username = req.user.username;
   req.logout(function (err) {
-    if (err) {
-      console.error(err);
-    }
-    res.redirect("/");
+    if (err) return next(err);
+    req.session.destroy(function (err) {
+      if (err) return next(err);
+      res.clearCookie("connect.sid", {
+        httpOnly: true,
+        path: "/",
+        sameSite: "lax",
+        secure: process.env.NODE_ENV === "production",
+      });
+      console.info("Signed out", username);
+      res.redirect("/");
+    });
   });
 });
 
