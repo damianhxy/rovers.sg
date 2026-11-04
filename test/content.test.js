@@ -4,6 +4,9 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
 const { start, Client, ADMIN } = require("./helpers/app.js");
+const dayjs = require("dayjs");
+dayjs.extend(require("dayjs/plugin/utc"));
+dayjs.extend(require("dayjs/plugin/timezone"));
 
 // Smallest valid PNG (1x1 transparent pixel).
 const PNG = Buffer.from(
@@ -76,6 +79,30 @@ describe("events", function () {
     res = await admin.ajax("PUT", "/events", { pk: id, name: "title", value: "Hike 2" });
     assert.equal(res.status, 200);
     assert.match(await eventPage(id), /Hike 2/);
+  });
+
+  test("an event stays upcoming until it ends, and no longer", async function () {
+    // Times in the add-event form's format, in Singapore time, relative to now.
+    const sg = (minutes) =>
+      dayjs().tz("Asia/Singapore").add(minutes, "minute").format("D MMM YY HH:mm");
+    await createEvent({ title: "Ends soon", start: sg(-120), end: sg(60), category: "courses" });
+    await createEvent({ title: "Just ended", start: sg(-180), end: sg(-60), category: "courses" });
+    for (const url of ["/", "/events", "/events/category/courses"]) {
+      const page = (await admin.get(url)).text;
+      assert.match(page, /Ends soon/, url);
+      assert.doesNotMatch(page, /Just ended/, url);
+    }
+  });
+
+  test("calendar feed includes an early-morning event on the first day of the range", async function () {
+    const id = await createEvent({ start: "1 Dec 26 02:00", end: "1 Dec 26 03:00" });
+    const feed = JSON.parse((await admin.get("/events/feed?start=2026-12-01&end=2027-01-01")).text);
+    assert.ok(
+      feed.some((e) => e._id === id),
+      "event at 02:00 on 1 Dec missing from December",
+    );
+    const nov = JSON.parse((await admin.get("/events/feed?start=2026-11-01&end=2026-12-01")).text);
+    assert.ok(!nov.some((e) => e._id === id), "event at 02:00 on 1 Dec shown in November");
   });
 
   test("start after end is rejected", async function () {
