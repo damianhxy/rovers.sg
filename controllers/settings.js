@@ -6,8 +6,11 @@ exports.TIME_FORMAT = "ddd MMM HH:mm:ss";
 exports.EVENT_INPUT_TIME_FORMAT = "D MMM YY HH:mm";
 exports.EVENT_EDITOR_TIME_FORMAT = "D MMM YY | HH:mm[h]";
 exports.EVENT_TIME_FORMAT = "D MMM YY | HH:mm";
+// Google Form behind the footer's mailing-list sign-up. Overridable so tests can use a stub.
 exports.MAILING_FORM_URL =
+  process.env.MAILING_FORM_URL ||
   "https://docs.google.com/forms/d/e/1FAIpQLSf24xB77bXz4Zzf9cpj6nXOWjBfMpaFktouuxama4GXhd5j0Q/formResponse";
+exports.MAILING_EMAIL_FIELD = "entry.157598053";
 exports.HOMEPAGE_SLIDESHOW = [
   "/img/Cropped/HomeBanner.jpg",
   "/img/Cropped/Adventure.jpg",

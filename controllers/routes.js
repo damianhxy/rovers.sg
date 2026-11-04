@@ -32,18 +32,25 @@ router.get("/", async function (req, res) {
   }
 });
 
+// Forwards only the email address to the Google Form and reports whether Google accepted it.
 router.post("/mailing", async function (req, res) {
+  const field = settings.MAILING_EMAIL_FIELD;
+  const email = typeof req.body[field] === "string" ? req.body[field].trim() : "";
+  if (!email || email.length > 254 || !email.includes("@")) {
+    return res.status(400).json({ error: "A valid email address is required" });
+  }
   try {
     const response = await fetch(settings.MAILING_FORM_URL, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams(req.body).toString(),
+      body: new URLSearchParams({ [field]: email }).toString(),
+      signal: AbortSignal.timeout(10000),
     });
-    const body = await response.text();
-    res.send(body);
+    if (!response.ok) throw Error("Mailing form answered " + response.status);
+    res.status(204).end();
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: err.message });
+    res.status(502).json({ error: "Could not record your details" });
   }
 });
 
