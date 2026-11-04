@@ -2,7 +2,7 @@ const nedb = require("@seald-io/nedb");
 const dayjs = require("dayjs");
 const utc = require("dayjs/plugin/utc");
 const timezone = require("dayjs/plugin/timezone");
-const normalizeURL = require("normalize-url").default;
+const normalizeHttpUrl = require("../helpers/httpUrl.js");
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -11,7 +11,7 @@ const short = new nedb({ filename: "./database/shortener", autoload: true });
 exports.add = async function (req) {
   const formInfo = {
     name: req.body.name,
-    orgurl: normalizeURL(req.body.orgurl),
+    orgurl: normalizeHttpUrl(req.body.orgurl),
     newurl: req.body.newurl.trim(),
     embed: req.body.embed,
     time: dayjs().tz("Asia/Singapore").format(),

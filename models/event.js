@@ -1,14 +1,41 @@
 const nedb = require("@seald-io/nedb");
 const fs = require("fs/promises");
 const dayjs = require("dayjs");
+const customParseFormat = require("dayjs/plugin/customParseFormat");
 const utc = require("dayjs/plugin/utc");
 const timezone = require("dayjs/plugin/timezone");
-const normalizeURL = require("normalize-url").default;
+const path = require("path");
+const crypto = require("crypto");
+const normalizeHttpUrl = require("../helpers/httpUrl.js");
 const settings = require("../controllers/settings.js");
+dayjs.extend(customParseFormat);
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
 const events = new nedb({ filename: "./database/events", autoload: true });
+
+const photoExtensions = {
+  "image/avif": ".avif",
+  "image/gif": ".gif",
+  "image/jpeg": ".jpg",
+  "image/png": ".png",
+  "image/webp": ".webp",
+};
+
+// Add form (combodate), event page editor (x-editable combodate) and stored display format.
+const eventTimeFormats = [
+  settings.EVENT_INPUT_TIME_FORMAT,
+  settings.EVENT_EDITOR_TIME_FORMAT,
+  settings.EVENT_TIME_FORMAT,
+];
+
+function parseEventTime(value) {
+  for (const format of eventTimeFormats) {
+    const parsed = dayjs(value, format, true);
+    if (parsed.isValid()) return parsed.tz("Asia/Singapore", true);
+  }
+  throw Error("Invalid event time");
+}
 
 function formatDuration(start, end) {
   const diffMs = end.diff(start);
@@ -24,8 +51,11 @@ function formatDuration(start, end) {
 }
 
 exports.add = async function (req) {
-  const start = dayjs.tz(req.body.start, settings.EVENT_TIME_FORMAT, "Asia/Singapore");
-  const end = dayjs.tz(req.body.end, settings.EVENT_TIME_FORMAT, "Asia/Singapore");
+  const start = parseEventTime(req.body.start);
+  const end = parseEventTime(req.body.end);
+  if (!req.body.title || req.body.title.length > 200) {
+    throw Error("Title is required and must be under 200 characters");
+  }
   if (start.isAfter(end)) throw Error("Start time must be before end time");
   const eventInfo = {
     title: req.body.title,
@@ -37,7 +67,7 @@ exports.add = async function (req) {
     location: req.body.location,
     details: req.body.details,
     category: req.body.category ? [].concat(req.body.category) : [],
-    link: req.body.link && normalizeURL(req.body.link),
+    link: req.body.link && normalizeHttpUrl(req.body.link),
     time: dayjs().tz("Asia/Singapore").format(),
     date: {
       day: start.date(),
@@ -48,21 +78,54 @@ exports.add = async function (req) {
   };
   const event = await events.insertAsync(eventInfo);
   event.url = "/events/" + event._id;
-  await events.updateAsync({ _id: event._id }, { $set: event });
-  await fs.mkdir("./public/uploads/" + event._id);
-  return event._id;
+  const uploadDirectory = path.join("public", "uploads", event._id);
+  try {
+    await fs.mkdir(uploadDirectory, { recursive: true });
+    await events.updateAsync({ _id: event._id }, { $set: event });
+    return event._id;
+  } catch (err) {
+    await fs.rm(uploadDirectory, { force: true, recursive: true }).catch(function () {});
+    await events.removeAsync({ _id: event._id }).catch(function () {});
+    throw err;
+  }
 };
 
 exports.addPhotos = async function (id, photos) {
   const event = await events.findOneAsync({ _id: id });
-  photos.forEach(function (e) {
-    event.photos.push({
-      name: e.originalname,
-      time: dayjs().tz("Asia/Singapore").format(),
-      path: e.path.slice(6),
-    });
+  if (!event) throw Error("Event does not exist");
+  if (!photos || photos.length === 0) throw Error("Select at least one photo");
+
+  // Photos are deleted and marked favourite by name, so names must stay unique per event.
+  const names = new Set(event.photos.map((photo) => photo.name));
+  const incoming = photos.map(function (photo) {
+    const name = path.basename(photo.originalname).slice(0, 255);
+    if (names.has(name)) throw Error("Photo(s) already exist");
+    names.add(name);
+    return { name: name, photo: photo };
   });
-  return events.updateAsync({ _id: id }, { $set: event });
+
+  const uploadDirectory = path.join("public", "uploads", event._id);
+  const stored = [];
+  try {
+    await fs.mkdir(uploadDirectory, { recursive: true });
+    for (const { name, photo } of incoming) {
+      const extension = photoExtensions[photo.mimetype];
+      if (!extension) throw Error("File type not allowed");
+      const filename = crypto.randomUUID() + extension;
+      const filePath = path.join(uploadDirectory, filename);
+      await fs.writeFile(filePath, photo.buffer, { flag: "wx" });
+      stored.push(filePath);
+      event.photos.push({
+        name: name,
+        time: dayjs().tz("Asia/Singapore").format(),
+        path: "/uploads/" + event._id + "/" + filename,
+      });
+    }
+    return await events.updateAsync({ _id: id }, { $set: event });
+  } catch (err) {
+    await Promise.all(stored.map((filePath) => fs.rm(filePath, { force: true })));
+    throw err;
+  }
 };
 
 exports.all = function () {
@@ -70,16 +133,21 @@ exports.all = function () {
 };
 
 exports.delete = async function (id) {
-  await fs.rm("./public/uploads/" + id, { recursive: true });
-  return events.removeAsync({ _id: id });
+  const event = await events.findOneAsync({ _id: id });
+  if (!event) throw Error("Event does not exist");
+  // Derive the directory from the stored id, never from request input.
+  await fs.rm(path.join("public", "uploads", event._id), { force: true, recursive: true });
+  return events.removeAsync({ _id: event._id });
 };
 
 exports.deletePhoto = async function (id, name) {
   const event = await events.findOneAsync({ _id: id });
+  if (!event) throw Error("Event does not exist");
   const index = event.photos.findIndex(function (e) {
     return e.name === name;
   });
-  if (event.photos[index].path === event.favourite) event.favourite = {};
+  if (index === -1) throw Error("Photo does not exist");
+  if (event.favourite && event.photos[index].path === event.favourite.path) event.favourite = {};
   await fs.unlink("./public" + event.photos[index].path);
   event.photos.splice(index, 1);
   return events.updateAsync({ _id: id }, { $set: event });
@@ -87,19 +155,22 @@ exports.deletePhoto = async function (id, name) {
 
 exports.edit = async function (id, field, value) {
   const event = await events.findOneAsync({ _id: id });
-  if (field === "start" || field === "end")
-    value = dayjs.tz(value, settings.EVENT_TIME_FORMAT, "Asia/Singapore").format();
-  if (field === "start") {
-    const startMoment = dayjs.tz(value, "Asia/Singapore");
-    event.startPretty = startMoment.format(settings.EVENT_TIME_FORMAT);
-    event.date = {
-      day: startMoment.date(),
-      month: startMoment.format("MMM"),
-    };
+  if (!event) throw Error("Event does not exist");
+  if (!["details", "end", "link", "location", "start", "title"].includes(field)) {
+    throw Error("Field cannot be edited");
   }
-  if (field === "end")
-    event.endPretty = dayjs.tz(value, "Asia/Singapore").format(settings.EVENT_TIME_FORMAT);
-  if (field === "link" && value) value = normalizeURL(value);
+  if (field === "start" || field === "end") {
+    const time = parseEventTime(value);
+    value = time.format();
+    event[field + "Pretty"] = time.format(settings.EVENT_TIME_FORMAT);
+    if (field === "start") {
+      event.date = {
+        day: time.date(),
+        month: time.format("MMM"),
+      };
+    }
+  }
+  if (field === "link" && value) value = normalizeHttpUrl(value);
   event[field] = value;
   if (field === "start" || field === "end") {
     const start = dayjs(event.start);
@@ -109,7 +180,9 @@ exports.edit = async function (id, field, value) {
   event.time = dayjs().tz("Asia/Singapore").format();
   if (dayjs(event.start).isAfter(dayjs(event.end)))
     throw Error("Start time must be before end time");
-  if (field === "title" && !value) throw Error("Title can not be empty");
+  if (field === "title" && (!value || value.length > 200)) {
+    throw Error("Title is required and must be under 200 characters");
+  }
   await events.updateAsync({ _id: id }, { $set: event });
   return { field: field, value: value };
 };
@@ -136,12 +209,14 @@ exports.getCategoryUpcoming = function (category, date) {
 
 exports.mark = async function (id, name) {
   const event = await events.findOneAsync({ _id: id });
+  if (!event) throw Error("Event does not exist");
   if (name === "del") {
     event.favourite = {};
   } else {
     event.favourite = event.photos.find(function (e) {
       return e.name === name;
     });
+    if (!event.favourite) throw Error("Photo does not exist");
   }
   return events.updateAsync({ _id: id }, { $set: event });
 };

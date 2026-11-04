@@ -148,8 +148,8 @@
                 <h4 class="text-center text-danger"><i class="fa fa-exclamation-circle"></i> Use with caution</h4>
                 <form id="NRCForm" class="form-horizontal" action="/about/NRC" method="post" accept-charset="UTF-8" autocomplete="off">
                     <input type="hidden" name="_csrf" value="{{csrfToken}}">
-                    <pre id="editor" class="ace_editor">{{{NRCStr}}}</pre>
-                    <textarea name="data" hidden>{{{NRCStr}}}</textarea>
+                    <pre id="editor" class="ace_editor">{{NRCStr}}</pre>
+                    <textarea name="data" hidden>{{NRCStr}}</textarea>
                     <button type="submit" class="btn btn-primary"><i class="fa fa-cloud-upload"></i> Update</button>
                 </form>
             </div>

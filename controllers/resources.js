@@ -2,8 +2,6 @@ const express = require("express");
 const router = express.Router();
 const resource = require("../models/resource.js");
 const admin = require("../middlewares/admin.js");
-const uploadResource = require("../middlewares/uploadResource.js");
-const fs = require("fs/promises");
 
 router.get("/", async function (req, res) {
   try {
@@ -30,6 +28,19 @@ router.get("/", async function (req, res) {
   }
 });
 
+router.get("/:id/download", async function (req, res) {
+  try {
+    const file = await resource.getDownload(req.params.id);
+    res.download(file.path, file.filename || file.name, { root: process.cwd() });
+  } catch (err) {
+    console.error(err);
+    res.status(404).render("404", {
+      title: "Resource Not Found",
+      user: req.user,
+    });
+  }
+});
+
 router.delete("/", admin, async function (req, res) {
   try {
     await resource.delete(req.body.id);
@@ -50,25 +61,21 @@ router.put("/", admin, async function (req, res) {
   }
 });
 
-router.post("/", admin, function (req, res) {
-  uploadResource(req, res, async function (err) {
-    if (err) {
-      console.error(err);
-      req.session.error = err.message;
-      res.status(400).redirect("/resources#upload");
-    } else {
-      try {
-        await resource.add(req);
-        req.session.success = "Resource uploaded";
-        res.redirect("/resources#upload");
-      } catch (err) {
-        console.error(err);
-        req.session.error = err.message;
-        fs.unlink(req.file.path).catch(function () {});
-        res.status(400).redirect("/resources#upload");
-      }
-    }
-  });
+router.post("/", admin, async function (req, res) {
+  if (req.uploadError) {
+    console.error(req.uploadError);
+    req.session.error = req.uploadError.message;
+    return res.status(400).redirect("/resources#upload");
+  }
+  try {
+    await resource.add(req);
+    req.session.success = "Resource uploaded";
+    res.redirect("/resources#upload");
+  } catch (err) {
+    console.error(err);
+    req.session.error = err.message;
+    res.status(400).redirect("/resources#upload");
+  }
 });
 
 module.exports = router;
