@@ -22,11 +22,11 @@ const photoExtensions = {
   "image/webp": ".webp",
 };
 
-// Add form (combodate), event page editor (x-editable combodate) and stored display format.
+// What <input type="datetime-local"> submits (seconds appear only if the browser adds them).
+// The forms show Singapore wall-clock time, so the value is read as Singapore time.
 const eventTimeFormats = [
   settings.EVENT_INPUT_TIME_FORMAT,
-  settings.EVENT_EDITOR_TIME_FORMAT,
-  settings.EVENT_TIME_FORMAT,
+  settings.EVENT_INPUT_TIME_FORMAT + ":ss",
 ];
 
 function parseEventTime(value) {
@@ -159,8 +159,9 @@ exports.edit = async function (id, field, value) {
   if (!["details", "end", "link", "location", "start", "title"].includes(field)) {
     throw Error("Field cannot be edited");
   }
+  let time;
   if (field === "start" || field === "end") {
-    const time = parseEventTime(value);
+    time = parseEventTime(value);
     value = time.format();
     event[field + "Pretty"] = time.format(settings.EVENT_TIME_FORMAT);
     if (field === "start") {
@@ -172,11 +173,7 @@ exports.edit = async function (id, field, value) {
   }
   if (field === "link" && value) value = normalizeHttpUrl(value);
   event[field] = value;
-  if (field === "start" || field === "end") {
-    const start = dayjs(event.start);
-    const end = dayjs(event.end);
-    value = event.duration = formatDuration(start, end);
-  }
+  if (time) event.duration = formatDuration(dayjs(event.start), dayjs(event.end));
   event.time = dayjs().tz("Asia/Singapore").format();
   if (dayjs(event.start).isAfter(dayjs(event.end)))
     throw Error("Start time must be before end time");
@@ -184,7 +181,14 @@ exports.edit = async function (id, field, value) {
     throw Error("Title is required and must be under 200 characters");
   }
   await events.updateAsync({ _id: id }, { $set: event });
-  return { field: field, value: value };
+  if (!time) return { field: field, value: value };
+  // For the page: the value to refill the input with, the text to show, and the new duration.
+  return {
+    field: field,
+    value: time.format(settings.EVENT_INPUT_TIME_FORMAT),
+    text: event[field + "Pretty"],
+    duration: event.duration,
+  };
 };
 
 exports.get = async function (id) {

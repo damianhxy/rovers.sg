@@ -169,6 +169,7 @@ module.exports = function (app, express) {
     defaultLayout: "default",
     helpers: {
       fileType: require("../helpers/fileType.js"),
+      inputTime: require("../helpers/inputTime.js"),
       rowSpan: require("../helpers/rowSpan.js"),
     },
   });
