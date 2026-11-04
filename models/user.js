@@ -4,11 +4,12 @@ const { promisify } = require("util");
 const users = new nedb({ filename: "./database/users", autoload: true });
 const hashAsync = promisify(bcryptjs.hash);
 const compareAsync = promisify(bcryptjs.compare);
+const BCRYPT_COST = 10;
 
 exports.add = async function (name, username, password) {
   const existing = await users.findOneAsync({ username: username });
   if (existing) throw Error("User already exists");
-  const hash = await hashAsync(password, 10);
+  const hash = await hashAsync(password, BCRYPT_COST);
   const user = {
     name: name,
     username: username,
@@ -34,8 +35,8 @@ exports.editPassword = async function (req) {
   if (req.body.newPass !== req.body.newPass2) throw Error("New passwords do not match");
   const match = await compareAsync(req.body.currentPassword, req.user.hash);
   if (!match) throw Error("Wrong password");
-  const salt = req.user.hash.slice(0, 29);
-  const hash = await hashAsync(req.body.newPass, salt);
+  // A fresh salt for every new password (this used to reuse the old hash's salt).
+  const hash = await hashAsync(req.body.newPass, BCRYPT_COST);
   return users.updateAsync({ _id: req.user._id }, { $set: { hash: hash } });
 };
 
@@ -50,7 +51,7 @@ exports.bootstrapAdmin = async function (username, password) {
     console.info("Admin user '" + username + "' already exists");
     return;
   }
-  const hash = await hashAsync(password, 10);
+  const hash = await hashAsync(password, BCRYPT_COST);
   await users.insertAsync({
     name: username,
     username: username,

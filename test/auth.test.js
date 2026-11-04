@@ -1,5 +1,7 @@
 const { test, before, after } = require("node:test");
 const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const path = require("node:path");
 const { start, Client, ADMIN } = require("./helpers/app.js");
 
 let app;
@@ -11,6 +13,17 @@ after(() => app.stop());
 async function isSignedIn(client) {
   const res = await client.get("/users/profile");
   return res.status === 200;
+}
+
+// The latest stored bcrypt hash for a user (nedb appends a line per update).
+function storedHash(username) {
+  const lines = fs
+    .readFileSync(path.join(app.dir, "database", "users"), "utf8")
+    .split("\n")
+    .filter(Boolean)
+    .map((line) => JSON.parse(line))
+    .filter((doc) => doc.username === username);
+  return lines[lines.length - 1].hash;
 }
 
 test("wrong password does not sign in", async function () {
@@ -86,6 +99,7 @@ test("password change: wrong current password is rejected, right one works", asy
   await client.signIn(ADMIN.username, ADMIN.password);
   await client.get("/users/profile");
   const newPass = "another-password-456";
+  const oldHash = storedHash(ADMIN.username);
 
   await client.post("/users/editPassword", {
     currentPassword: "wrong",
@@ -105,6 +119,8 @@ test("password change: wrong current password is rejected, right one works", asy
   other = new Client(app.baseUrl);
   await other.signIn(ADMIN.username, newPass);
   assert.equal(await isSignedIn(other), true);
+  // bcrypt hashes start with "$2a$10$" plus a 22-character salt; a new password gets a new salt.
+  assert.notEqual(storedHash(ADMIN.username).slice(0, 29), oldHash.slice(0, 29));
 
   // Restore, so test order does not matter.
   await client.get("/users/profile");
