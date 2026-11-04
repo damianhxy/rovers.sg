@@ -38,8 +38,8 @@ $(function() {
         var time = moment($data.data("time")).format(MOMENT_FORMAT);
         var id = $data.data("id");
         var message = "";
-        message += "<p>Resource Name: <strong>" + name + "</strong></p>";
-        message += "<p>Uploaded on: <strong>" + time + "</strong></p>";
+        message += "<p>Resource Name: <strong>" + escapeHtml(name) + "</strong></p>";
+        message += "<p>Uploaded on: <strong>" + escapeHtml(time) + "</strong></p>";
         message += "<p>Are you sure? This resource will be <strong>permanently</strong> deleted!</p>";
         bootbox.dialog({
             title: "Delete resource",

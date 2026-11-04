@@ -21,8 +21,8 @@ $(function() {
         var time = moment($data.data("time")).format(MOMENT_FORMAT);
         var id = $data.data("id");
         var message = "";
-        message += "<p>Short URL: <strong>" + name + "</strong></p>";
-        message += "<p>Created on: <strong>" + time + "</strong></p>";
+        message += "<p>Short URL: <strong>" + escapeHtml(name) + "</strong></p>";
+        message += "<p>Created on: <strong>" + escapeHtml(time) + "</strong></p>";
         message += "<p>Are you sure? This link will be <strong>permanently</strong> deleted!</p>";
         bootbox.dialog({
             title: "Delete link",

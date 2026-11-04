@@ -65,8 +65,8 @@ $(function() {
         var time = moment($data.data("time")).format(MOMENT_FORMAT);
         var id = $data.data("id");
         var message = "";
-        message += "<p>Event Name: <strong>" + name + "</strong></p>";
-        message += "<p>Created on: <strong>" + time + "</strong></p>";
+        message += "<p>Event Name: <strong>" + escapeHtml(name) + "</strong></p>";
+        message += "<p>Created on: <strong>" + escapeHtml(time) + "</strong></p>";
         message += "<p>Are you sure? This event will be <strong>permanently</strong> deleted!</p>";
         bootbox.dialog({
             title: "Delete event",
@@ -107,8 +107,8 @@ $(function() {
         var time = moment($data.data("time")).format(MOMENT_FORMAT);
         var eventid = $(".btn-delete").data("id");
         var message = "";
-        message += "<p>Photo Name: <strong>" + name + "</strong></p>";
-        message += "<p>Uploaded on: <strong>" + time + "</strong></p>";
+        message += "<p>Photo Name: <strong>" + escapeHtml(name) + "</strong></p>";
+        message += "<p>Uploaded on: <strong>" + escapeHtml(time) + "</strong></p>";
         message += "<p>Are you sure? This photo will be <strong>permanently</strong> deleted!</p>";
         bootbox.dialog({
             title: "Delete photo",

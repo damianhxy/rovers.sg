@@ -1,3 +1,13 @@
+// Escape text before putting it into an HTML string (e.g. a bootbox dialog message).
+function escapeHtml(value) {
+	return String(value)
+		.replace(/&/g, "&amp;")
+		.replace(/</g, "&lt;")
+		.replace(/>/g, "&gt;")
+		.replace(/"/g, "&quot;")
+		.replace(/'/g, "&#39;");
+}
+
 // PNotify defaults
 PNotify.prototype.options.styling = "fontawesome";
 PNotify.prototype.options.delay = 2500;
