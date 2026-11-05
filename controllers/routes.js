@@ -35,7 +35,7 @@ router.get("/", async function (req, res) {
 // Forwards only the email address to the Google Form and reports whether Google accepted it.
 router.post("/mailing", async function (req, res) {
   const field = settings.MAILING_EMAIL_FIELD;
-  const email = typeof req.body[field] === "string" ? req.body[field].trim() : "";
+  const email = typeof req.body?.[field] === "string" ? req.body[field].trim() : "";
   if (!email || email.length > 254 || !email.includes("@")) {
     return res.status(400).json({ error: "A valid email address is required" });
   }
