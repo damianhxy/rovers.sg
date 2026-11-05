@@ -197,10 +197,7 @@ exports.getCategoryUpcoming = function (category, date) {
   return events
     .find({
       $where: function () {
-        return (
-          dayjs.tz(this.end, "Asia/Singapore").isAfter(date) &&
-          this.category.indexOf(category) !== -1
-        );
+        return dayjs(this.end).isAfter(date) && this.category.indexOf(category) !== -1;
       },
     })
     .sort({ start: 1, end: 1 })
@@ -221,13 +218,16 @@ exports.mark = async function (id, name) {
   return events.updateAsync({ _id: id }, { $set: event });
 };
 
+// Stored times carry their offset ("2026-11-04T14:30:00+08:00"). Convert them with
+// dayjs(t).tz(zone); dayjs.tz(t, zone) would ignore the offset and read them 8 hours early.
+function singaporeDate(time) {
+  return dayjs(time).tz("Asia/Singapore").format("YYYY-MM-DD");
+}
+
 exports.range = function (start, end) {
   return events.findAsync({
     $where: function () {
-      return (
-        dayjs.tz(this.start, "Asia/Singapore").format("YYYY-MM-DD") < end &&
-        dayjs.tz(this.end, "Asia/Singapore").format("YYYY-MM-DD") >= start
-      );
+      return singaporeDate(this.start) < end && singaporeDate(this.end) >= start;
     },
   });
 };
@@ -236,7 +236,7 @@ exports.upcoming = function (date) {
   return events
     .find({
       $where: function () {
-        return dayjs.tz(this.end, "Asia/Singapore").isAfter(date);
+        return dayjs(this.end).isAfter(date);
       },
     })
     .sort({ start: 1, end: 1 })

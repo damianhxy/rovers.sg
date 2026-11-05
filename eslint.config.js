@@ -25,4 +25,11 @@ module.exports = [
       "no-throw-literal": "error",
     },
   },
+  {
+    // Playwright scripts: callbacks passed to page.evaluate run in the browser.
+    files: ["scripts/**/*.js", "test/browser/**/*.js"],
+    languageOptions: {
+      globals: { ...globals.browser, jQuery: "readonly" },
+    },
+  },
 ];

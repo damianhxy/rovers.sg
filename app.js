@@ -15,5 +15,11 @@ app.use(require("./controllers/routes.js"));
 
 user.bootstrapAdmin(process.env.ADMIN_USERNAME, process.env.ADMIN_PASSWORD);
 
+if (process.env.SEED_DEMO_DATA === "true") {
+  require("./demo/seed.js")
+    .seedIfEmpty()
+    .catch((err) => console.error("Demo data: seeding failed", err));
+}
+
 app.listen(settings.PORT);
 console.info("Listening on port " + settings.PORT + " in " + app.get("env") + " mode.");

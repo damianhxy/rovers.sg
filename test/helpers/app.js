@@ -38,9 +38,10 @@ function makeSandbox() {
 
 exports.ADMIN = { username: "admin", password: "test-password-123" };
 
-// Resolves once the server is listening and the admin account exists. `env` adds variables.
-exports.start = async function (env = {}) {
-  const dir = makeSandbox();
+// Resolves once the server is listening and the admin account exists. `env` adds variables;
+// `options.dir` restarts in an existing sandbox (from a previous stop({ keep: true })).
+exports.start = async function (env = {}, options = {}) {
+  const dir = options.dir || makeSandbox();
   const port = await freePort();
   const child = spawn(process.execPath, ["app.js"], {
     cwd: dir,
@@ -61,7 +62,7 @@ exports.start = async function (env = {}) {
     const timer = setTimeout(() => reject(Error("App did not start:\n" + output)), 15000);
     function onData(chunk) {
       output += chunk;
-      if (output.includes("Created admin user")) {
+      if (/Created admin user|Admin user '.*' already exists/.test(output)) {
         clearTimeout(timer);
         resolve();
       }
@@ -78,14 +79,22 @@ exports.start = async function (env = {}) {
     dir,
     baseUrl: "http://127.0.0.1:" + port,
     output: () => output,
-    stop: async function () {
+    // Resolves when the app has logged text matching `pattern`.
+    waitForOutput: async function (pattern, timeout = 10000) {
+      const until = Date.now() + timeout;
+      while (!pattern.test(output)) {
+        if (Date.now() > until) throw Error("Timed out waiting for " + pattern + ":\n" + output);
+        await new Promise((resolve) => setTimeout(resolve, 50));
+      }
+    },
+    stop: async function ({ keep = false } = {}) {
       if (child.exitCode === null) {
         await new Promise(function (resolve) {
           child.once("exit", resolve);
           child.kill();
         });
       }
-      fs.rmSync(dir, { recursive: true, force: true });
+      if (!keep) fs.rmSync(dir, { recursive: true, force: true });
     },
   };
 };
