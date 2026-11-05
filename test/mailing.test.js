@@ -57,3 +57,14 @@ test("rejects a missing email without contacting the form", async function () {
   assert.equal(res.status, 400);
   assert.equal(received.length, 0);
 });
+
+test("a POST with no body is a 400, not a server error", async function () {
+  received.length = 0;
+  const client = new Client(app.baseUrl);
+  await client.get("/");
+  const res = await client.request("POST", "/mailing", {
+    headers: { "x-csrf-token": client.csrfToken },
+  });
+  assert.equal(res.status, 400);
+  assert.equal(received.length, 0);
+});
