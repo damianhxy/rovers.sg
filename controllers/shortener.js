@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const short = require("../models/shortener.js");
 const admin = require("../middlewares/admin.js");
+const back = require("../helpers/back.js");
 
 router.post("/", admin, async function (req, res) {
   try {
@@ -21,8 +22,7 @@ router.delete("/", admin, async function (req, res) {
     res.end();
   } catch (err) {
     console.error(err);
-    req.session.error = err.message;
-    res.redirect(req.headers.referrer || "/");
+    res.status(400).json({ error: err.message });
   }
 });
 
@@ -41,7 +41,7 @@ router.get("/:url", async function (req, res) {
   } catch (err) {
     console.error(err);
     req.session.error = err.message;
-    res.redirect(req.headers.referrer || "/");
+    res.redirect(back(req, "/"));
   }
 });
 

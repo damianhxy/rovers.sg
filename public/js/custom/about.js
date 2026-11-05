@@ -20,7 +20,7 @@ $(function() {
         var name = $data.data("name");
         var id = $data.data("id");
         var message = "";
-        message += "<p>Awardee Name: <strong>" + name + "</strong></p>";
+        message += "<p>Awardee Name: <strong>" + escapeHtml(name) + "</strong></p>";
         message += "<p>Are you sure? This record will be <strong>permanently</strong> deleted!</p>";
         bootbox.dialog({
             title: "Remove awardee",

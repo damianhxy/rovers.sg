@@ -3,6 +3,7 @@ const router = express.Router();
 const BPA = require("../models/BPA.js");
 const NRC = require("../models/NRC.js");
 const admin = require("../middlewares/admin.js");
+const back = require("../helpers/back.js");
 
 function findEntryWithTitle(collection, title) {
   for (const entry of collection) {
@@ -60,7 +61,7 @@ router.post("/BPA", admin, async function (req, res) {
   } catch (err) {
     console.error(err);
     req.session.error = err.message;
-    res.redirect(req.headers.referrer || "/");
+    res.redirect(back(req, "/about"));
   }
 });
 

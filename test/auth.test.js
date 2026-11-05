@@ -1,5 +1,7 @@
 const { test, before, after } = require("node:test");
 const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const path = require("node:path");
 const { start, Client, ADMIN } = require("./helpers/app.js");
 
 let app;
@@ -13,23 +15,62 @@ async function isSignedIn(client) {
   return res.status === 200;
 }
 
-test("wrong password does not sign in", async function () {
-  const client = new Client(app.baseUrl);
-  await client.signIn(ADMIN.username, "wrong-password");
-  assert.equal(await isSignedIn(client), false);
-});
+// The latest stored bcrypt hash for a user (nedb appends a line per update).
+function storedHash(username) {
+  const lines = fs
+    .readFileSync(path.join(app.dir, "database", "users"), "utf8")
+    .split("\n")
+    .filter(Boolean)
+    .map((line) => JSON.parse(line))
+    .filter((doc) => doc.username === username);
+  return lines[lines.length - 1].hash;
+}
 
-test("unknown user does not sign in", async function () {
-  const client = new Client(app.baseUrl);
-  await client.signIn("nobody", ADMIN.password);
-  assert.equal(await isSignedIn(client), false);
-});
+for (const [name, username, password] of [
+  ["wrong password", ADMIN.username, "wrong-password"],
+  ["unknown user", "nobody", ADMIN.password],
+]) {
+  test(name + ": not signed in, and the same generic message", async function () {
+    const client = new Client(app.baseUrl);
+    await client.signIn(username, password);
+    const page = await client.get("/");
+    assert.match(page.text, /Invalid username or password/);
+    assert.doesNotMatch(page.text, /does not exist|Wrong password/);
+    assert.equal(await isSignedIn(client), false);
+  });
+}
 
 test("correct credentials sign in", async function () {
   const client = new Client(app.baseUrl);
   const res = await client.signIn(ADMIN.username, ADMIN.password);
   assert.equal(res.status, 302);
   assert.equal(await isSignedIn(client), true);
+});
+
+test("sign-in returns to the page it was submitted from, but never off-site", async function () {
+  const cases = [
+    [app.baseUrl + "/resources?x=1", "/resources?x=1"],
+    ["https://evil.example/phish", "/"],
+    ["not a url", "/"],
+    // This site's own 404 pages (which have the sign-in form) at paths a browser would read as
+    // another host if redirected to.
+    [app.baseUrl + "//evil.example/phish", "/"],
+    [app.baseUrl + "/\\evil.example/phish", "/"],
+  ];
+  for (const [referer, expected] of cases) {
+    const client = new Client(app.baseUrl);
+    await client.get("/");
+    const res = await client.request("POST", "/users/signin", {
+      form: { _csrf: client.csrfToken, username: ADMIN.username, password: ADMIN.password },
+      headers: { referer },
+    });
+    assert.equal(res.location, expected, referer);
+  }
+});
+
+test("pages send a same-origin Referrer-Policy", async function () {
+  const res = await new Client(app.baseUrl).get("/");
+  assert.equal(res.headers.get("referrer-policy"), "same-origin");
 });
 
 test("sign-out cannot be triggered by a GET link", async function () {
@@ -64,6 +105,7 @@ test("password change: wrong current password is rejected, right one works", asy
   await client.signIn(ADMIN.username, ADMIN.password);
   await client.get("/users/profile");
   const newPass = "another-password-456";
+  const oldHash = storedHash(ADMIN.username);
 
   await client.post("/users/editPassword", {
     currentPassword: "wrong",
@@ -83,6 +125,8 @@ test("password change: wrong current password is rejected, right one works", asy
   other = new Client(app.baseUrl);
   await other.signIn(ADMIN.username, newPass);
   assert.equal(await isSignedIn(other), true);
+  // bcrypt hashes start with "$2a$10$" plus a 22-character salt; a new password gets a new salt.
+  assert.notEqual(storedHash(ADMIN.username).slice(0, 29), oldHash.slice(0, 29));
 
   // Restore, so test order does not matter.
   await client.get("/users/profile");
