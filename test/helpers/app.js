@@ -38,8 +38,8 @@ function makeSandbox() {
 
 exports.ADMIN = { username: "admin", password: "test-password-123" };
 
-// Resolves once the server is listening and the admin account exists.
-exports.start = async function () {
+// Resolves once the server is listening and the admin account exists. `env` adds variables.
+exports.start = async function (env = {}) {
   const dir = makeSandbox();
   const port = await freePort();
   const child = spawn(process.execPath, ["app.js"], {
@@ -52,6 +52,7 @@ exports.start = async function () {
       ADMIN_PASSWORD: exports.ADMIN.password,
       // Deliberately neither UTC nor Asia/Singapore: event times must not depend on the host zone.
       TZ: "America/New_York",
+      ...env,
     },
     stdio: ["ignore", "pipe", "pipe"],
   });
