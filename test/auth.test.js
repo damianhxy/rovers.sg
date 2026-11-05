@@ -1,0 +1,94 @@
+const { test, before, after } = require("node:test");
+const assert = require("node:assert/strict");
+const { start, Client, ADMIN } = require("./helpers/app.js");
+
+let app;
+before(async function () {
+  app = await start();
+});
+after(() => app.stop());
+
+async function isSignedIn(client) {
+  const res = await client.get("/users/profile");
+  return res.status === 200;
+}
+
+test("wrong password does not sign in", async function () {
+  const client = new Client(app.baseUrl);
+  await client.signIn(ADMIN.username, "wrong-password");
+  assert.equal(await isSignedIn(client), false);
+});
+
+test("unknown user does not sign in", async function () {
+  const client = new Client(app.baseUrl);
+  await client.signIn("nobody", ADMIN.password);
+  assert.equal(await isSignedIn(client), false);
+});
+
+test("correct credentials sign in", async function () {
+  const client = new Client(app.baseUrl);
+  const res = await client.signIn(ADMIN.username, ADMIN.password);
+  assert.equal(res.status, 302);
+  assert.equal(await isSignedIn(client), true);
+});
+
+test("sign-out cannot be triggered by a GET link", async function () {
+  const client = new Client(app.baseUrl);
+  await client.signIn(ADMIN.username, ADMIN.password);
+  const res = await client.get("/users/signout");
+  assert.equal(res.status, 404);
+  assert.equal(await isSignedIn(client), true);
+});
+
+test("sign-out needs the CSRF token", async function () {
+  const client = new Client(app.baseUrl);
+  await client.signIn(ADMIN.username, ADMIN.password);
+  const res = await client.request("POST", "/users/signout", { form: { _csrf: "wrong" } });
+  assert.equal(res.status, 403);
+  assert.equal(await isSignedIn(client), true);
+});
+
+test("sign-out clears the cookie and kills the old session", async function () {
+  const client = new Client(app.baseUrl);
+  await client.signIn(ADMIN.username, ADMIN.password);
+  await client.get("/users/profile");
+  const oldCookie = client.clone();
+  const res = await client.post("/users/signout", {});
+  assert.equal(res.status, 302);
+  assert.equal(client.cookies["connect.sid"], undefined, "cookie should be expired");
+  assert.equal(await isSignedIn(oldCookie), false, "old session cookie must not work");
+});
+
+test("password change: wrong current password is rejected, right one works", async function () {
+  const client = new Client(app.baseUrl);
+  await client.signIn(ADMIN.username, ADMIN.password);
+  await client.get("/users/profile");
+  const newPass = "another-password-456";
+
+  await client.post("/users/editPassword", {
+    currentPassword: "wrong",
+    newPass,
+    newPass2: newPass,
+  });
+  let other = new Client(app.baseUrl);
+  await other.signIn(ADMIN.username, newPass);
+  assert.equal(await isSignedIn(other), false);
+
+  const res = await client.post("/users/editPassword", {
+    currentPassword: ADMIN.password,
+    newPass,
+    newPass2: newPass,
+  });
+  assert.equal(res.status, 302);
+  other = new Client(app.baseUrl);
+  await other.signIn(ADMIN.username, newPass);
+  assert.equal(await isSignedIn(other), true);
+
+  // Restore, so test order does not matter.
+  await client.get("/users/profile");
+  await client.post("/users/editPassword", {
+    currentPassword: newPass,
+    newPass: ADMIN.password,
+    newPass2: ADMIN.password,
+  });
+});
