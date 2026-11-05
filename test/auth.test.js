@@ -52,6 +52,10 @@ test("sign-in returns to the page it was submitted from, but never off-site", as
     [app.baseUrl + "/resources?x=1", "/resources?x=1"],
     ["https://evil.example/phish", "/"],
     ["not a url", "/"],
+    // This site's own 404 pages (which have the sign-in form) at paths a browser would read as
+    // another host if redirected to.
+    [app.baseUrl + "//evil.example/phish", "/"],
+    [app.baseUrl + "/\\evil.example/phish", "/"],
   ];
   for (const [referer, expected] of cases) {
     const client = new Client(app.baseUrl);
