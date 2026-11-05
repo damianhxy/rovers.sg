@@ -1,74 +1,38 @@
 $(function() {
     console.info("[info] resources.js is running.");
 
-    var MOMENT_FORMAT = "D MMM YY | HH:mm[h]";
-
     // Hide empty descriptions
     $(".field-hidden").hide();
 
-    // Toggle editable
+    // Edit mode for one resource card (inline editing is in main.js)
     $(".btn-edit").click(function() {
         $(".field-hidden").toggle();
-        $(this).parent().parent().parent().find(".field-edit").editable("toggleDisabled");
+        $(this).closest(".card").toggleClass("editing");
     });
 
-    // X-editable
-    $(".field-edit").each(function() {
-        $(this).editable({
-            disabled: true,
-            ajaxOptions: {
-                type: "put",
-                dataType: "json"
-            },
-            success: function(data) {
-                if (data.field === "name") {
-                    $(this).closest(".card").find(".btn-delete").data("name", data.value);
-                }
-            },
-            error: function(response) {
-                return response.responseJSON.error;
-            }
-        });
+    $(".card").on("field-saved", function(e, response) {
+        if (response.field === "name") $(this).find(".btn-delete").data("name", response.value);
     });
 
-    // Bootbox
     $(".btn-delete").click(function(e) {
-        var $data = $(e.target);
-        var name = $data.data("name");
-        var time = moment($data.data("time")).format(MOMENT_FORMAT);
-        var id = $data.data("id");
-        var message = "";
-        message += "<p>Resource Name: <strong>" + escapeHtml(name) + "</strong></p>";
-        message += "<p>Uploaded on: <strong>" + escapeHtml(time) + "</strong></p>";
-        message += "<p>Are you sure? This resource will be <strong>permanently</strong> deleted!</p>";
-        bootbox.dialog({
+        var $button = $(e.currentTarget);
+        confirmDelete({
             title: "Delete resource",
-            message: message,
-            onEscape: function() {},
-            buttons: {
-                "Cancel": {
-                    className: "btn-default"
-                },
-                "Delete": {
-                    className: "btn-danger",
-                    callback: function() {
-                        $.ajax({
-                            method: "DELETE",
-                            url: "/resources",
-                            data: { id: id }
-                        })
-                        .then(function() {
-                            $(e.target).closest(".panel").remove();
-                        })
-                        .catch(function(err) {
-                            new PNotify({
-                                title: "Error",
-                                text: err.message,
-                                type: "error"
-                            });
-                        });
-                    }
-                }
+            what: "resource",
+            details: [
+                ["Resource Name", $button.data("name")],
+                ["Uploaded on", formatTime($button.data("time"))]
+            ],
+            onDelete: function() {
+                $.ajax({
+                    method: "DELETE",
+                    url: "/resources",
+                    data: { id: $button.data("id") }
+                })
+                .then(function() {
+                    $button.closest(".panel").remove();
+                })
+                .catch(notifyError);
             }
         });
     });
@@ -88,18 +52,10 @@ $(function() {
     $("#uploadForm").submit(function(e) {
         e.preventDefault();
         if ($("#uploadForm :file").val() && $("#uploadForm [name='url']").val())
-            new PNotify({
-                title: "Error",
-                text: "Please only add one resource.",
-                type: "error"
-            });
+            notify("error", "Error", "Please only add one resource.");
         else if ($("#uploadForm :file").val() || $("#uploadForm [name='url']").val())
             $(e.target).get(0).submit();
         else
-            new PNotify({
-                title: "Error",
-                text: "Please add a resource.",
-                type: "error"
-            });
+            notify("error", "Error", "Please add a resource.");
     });
 });

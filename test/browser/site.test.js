@@ -6,7 +6,16 @@ const fs = require("node:fs");
 const http = require("node:http");
 const path = require("node:path");
 const { chromium } = require("playwright");
+const dayjs = require("dayjs");
+dayjs.extend(require("dayjs/plugin/utc"));
+dayjs.extend(require("dayjs/plugin/timezone"));
 const { start, ADMIN } = require("../helpers/app.js");
+
+// The test event is tomorrow (Singapore time), so it is upcoming and on this month's calendar.
+const TOMORROW = dayjs().tz("Asia/Singapore").add(1, "day");
+const DAY = TOMORROW.format("YYYY-MM-DD");
+const DAY_AFTER = TOMORROW.add(1, "day").format("YYYY-MM-DD");
+const SHOWN = TOMORROW.format("D MMM YY"); // as the event page shows it
 
 // A name that runs script if any page puts it into HTML unescaped.
 const XSS = "<img src=x onerror=window.__xss=1>";
@@ -56,7 +65,11 @@ after(async function () {
 });
 
 async function dialogOpen() {
-  await page.waitForSelector(".bootbox.in");
+  await page.waitForSelector("dialog.confirm-dialog[open]");
+}
+
+async function dialogText() {
+  return page.textContent("dialog.confirm-dialog .modal-body");
 }
 
 async function noScriptRan() {
@@ -72,7 +85,7 @@ test("home: carousel changes slide", async function () {
 test("mailing-list sign-up reports success", async function () {
   await page.fill("#mailingForm input[type=email]", "rover@example.com");
   await page.click("#mailingForm button[type=submit]");
-  await page.waitForSelector(".ui-pnotify:has-text('details have been recorded')");
+  await page.waitForSelector("#toasts .toast:has-text('details have been recorded')");
 });
 
 test("sign in through the navbar", async function () {
@@ -84,43 +97,74 @@ test("sign in through the navbar", async function () {
 });
 
 let eventUrl;
-test("add an event: time pickers, duration, category picker, calendar preview", async function () {
+test("add an event: times, duration, categories, calendar preview", async function () {
   await page.goto(base + "/events/add");
   await page.waitForSelector("#calendar .fc-view");
   assert.equal(await page.inputValue("input[name=duration]"), "1 hour");
   await page.fill("input[name=title]", XSS);
+  await page.waitForSelector("#calendar .fc-event");
   await page.fill("input[name=location]", "MacRitchie");
-  await page.click(".select2-container");
-  await page.click(".select2-results__option:has-text('Adventure')");
+
+  // Moving the start keeps the duration; an end before the start is flagged.
+  await page.fill("input[name=start]", DAY + "T10:00");
+  assert.equal(await page.inputValue("input[name=end]"), DAY + "T11:00");
+  await page.fill("input[name=end]", DAY_AFTER + "T12:30");
+  assert.equal(await page.inputValue("input[name=duration]"), "1 day 2 hours 30 minutes");
+  await page.fill("input[name=end]", DAY + "T09:00");
+  assert.equal(await page.inputValue("input[name=duration]"), "End is before start");
+  assert.equal(await page.$eval("input[name=end]", (e) => e.validity.valid), false);
+  await page.fill("input[name=end]", DAY + "T12:00");
+
+  await page.check("input[name=category][value=adventure]");
   await page.click("button:has-text('Create Event')");
   await page.waitForURL(/\/events\/[A-Za-z0-9]{16}$/);
   eventUrl = page.url();
   assert.ok(await page.isVisible("text=/^adventure$/i"), "chosen category not saved");
+  assert.equal(await page.textContent("span[data-name=start]"), SHOWN + " | 10:00");
+  assert.equal((await page.textContent("[data-name=duration]")).trim(), "2 hours");
   await noScriptRan();
 });
 
 test("event page: inline edits of location and start time", async function () {
   await page.goto(eventUrl);
+  // Fields are plain text until Edit is pressed.
+  await page.click("span.field-edit[data-name=location]");
+  assert.equal(await page.$(".field-editor"), null);
   await page.click(".btn-edit");
   await page.click("span.field-edit[data-name=location]");
-  await page.fill(".editable-input input", "Bukit Timah");
-  await page.click(".editable-submit");
+  await page.fill(".field-editor input", "Bukit Timah");
+  await page.keyboard.press("Enter");
   await page.waitForSelector("span[data-name=location]:text-is('Bukit Timah')");
 
-  // Move the start an hour earlier with the combodate pickers.
-  const start = await page.textContent("span[data-name=start]");
-  const hour = Number(start.match(/\| (\d\d):/)[1]);
-  const earlier = String((hour + 23) % 24);
+  // Escape closes the editor without saving.
+  await page.click("span.field-edit[data-name=location]");
+  await page.fill(".field-editor input", "Somewhere else");
+  await page.keyboard.press("Escape");
+  await page.waitForSelector(".field-editor", { state: "detached" });
+  assert.equal(await page.textContent("span[data-name=location]"), "Bukit Timah");
+
+  // An empty field shows "Empty" while editing, and can be filled in.
+  await page.click("span.field-edit.field-empty[data-name=details]");
+  await page.fill(".field-editor textarea", "Bring water");
+  await page.click(".field-editor button[type=submit]");
+  await page.waitForSelector("span[data-name=details]:text-is('Bring water')");
+
+  // A start after the end is refused, with the server's message.
   await page.click("span.field-edit[data-name=start]");
-  if (hour === 0) {
-    const day = await page.inputValue(".editable-input select.day");
-    await page.selectOption(".editable-input select.day", String(Number(day) - 1));
-  }
-  await page.selectOption(".editable-input select.hour", earlier);
-  await page.click(".editable-submit");
+  await page.fill(".field-editor input", DAY + "T13:00");
+  await page.click(".field-editor button[type=submit]");
+  await page.waitForSelector(
+    ".field-editor .help-block:has-text('Start time must be before end time')",
+  );
+
+  // An hour earlier: the start and duration update on the page and are saved.
+  await page.fill(".field-editor input", DAY + "T09:00");
+  await page.click(".field-editor button[type=submit]");
+  await page.waitForSelector("span[data-name=start]:text-is('" + SHOWN + " | 09:00')");
+  assert.equal((await page.textContent("[data-name=duration]")).trim(), "3 hours");
   await page.reload();
-  const saved = await page.textContent("span[data-name=start]");
-  assert.match(saved, new RegExp("\\| " + earlier.padStart(2, "0") + ":"), "start not saved");
+  assert.equal(await page.textContent("span[data-name=start]"), SHOWN + " | 09:00");
+  assert.equal(await page.getAttribute("span[data-name=start]", "data-value"), DAY + "T09:00");
 });
 
 test("event page: upload a photo, relative time, lightbox", async function () {
@@ -128,6 +172,7 @@ test("event page: upload a photo, relative time, lightbox", async function () {
   fs.writeFileSync(file, PNG);
   await page.setInputFiles("#uploadForm input[type=file]", file);
   await page.click("#uploadForm button[type=submit]");
+  await page.waitForSelector("#toasts .toast:has-text('Photos uploaded')");
   await page.waitForSelector("a[data-toggle=lightbox][data-gallery]");
   await page.waitForSelector("text=/a few seconds ago/");
   await page.click("a[data-toggle=lightbox][data-gallery]");
@@ -140,14 +185,30 @@ test("event page: delete dialogs show names as text and delete", async function 
   await page.reload();
   await page.click(".btn-delete-photo");
   await dialogOpen();
-  await page.click(".bootbox .btn-danger");
+  assert.match(
+    await dialogText(),
+    /Photo Name: photo\.pngUploaded on: \d+ \w{3} \d\d \| \d\d:\d\dh/,
+  );
+  await page.click("dialog .btn-danger");
   await page.waitForSelector(".btn-delete-photo", { state: "detached" });
 
+  // Cancel, Escape and a click outside the dialog all keep the event.
   await page.click(".btn-delete");
   await dialogOpen();
-  assert.ok((await page.textContent(".bootbox .bootbox-body")).includes(XSS));
+  assert.ok((await dialogText()).includes(XSS));
   await noScriptRan();
-  await page.click(".bootbox .btn-default");
+  await page.click("dialog .btn-default");
+  await page.waitForSelector("dialog", { state: "detached" });
+  await page.click(".btn-delete");
+  await dialogOpen();
+  await page.keyboard.press("Escape");
+  await page.waitForSelector("dialog", { state: "detached" });
+  await page.click(".btn-delete");
+  await dialogOpen();
+  await page.mouse.click(5, 450);
+  await page.waitForSelector("dialog", { state: "detached" });
+  await page.reload();
+  assert.ok(await page.isVisible(".btn-delete"), "event deleted");
 });
 
 test("calendar shows the event", async function () {
@@ -162,7 +223,7 @@ test("events list and category pages", async function () {
   await noScriptRan();
 });
 
-test("resources: upload a file, delete dialog shows the name as text", async function () {
+test("resources: upload a file, rename it inline, delete dialog shows the name as text", async function () {
   await page.goto(base + "/resources");
   const file = path.join(app.dir, "form.pdf");
   fs.writeFileSync(file, "%PDF-1.4 test");
@@ -171,11 +232,23 @@ test("resources: upload a file, delete dialog shows the name as text", async fun
   await page.selectOption("#uploadForm select[name=category]", "Forms");
   await page.click("button:has-text('Upload Resource')");
   await page.waitForSelector(".btn-delete");
+
+  // The name links to the download; in edit mode a click edits it instead.
+  const card = page.locator(".card", { has: page.locator(".btn-delete") });
+  const href = await card.locator("a[data-name=name]").getAttribute("href");
+  await card.locator(".btn-edit").click();
+  await card.locator("a[data-name=name]").click();
+  await card.locator(".field-editor input").fill(XSS + " v2");
+  await card.locator(".field-editor input").press("Enter");
+  await card.locator("a[data-name=name]", { hasText: "v2" }).waitFor();
+  assert.equal(await card.locator("a[data-name=name]").getAttribute("href"), href);
+  await card.locator(".btn-edit").click();
+
   await page.click(".btn-delete");
   await dialogOpen();
-  assert.ok((await page.textContent(".bootbox .bootbox-body")).includes(XSS));
+  assert.ok((await dialogText()).includes(XSS + " v2"));
   await noScriptRan();
-  await page.click(".bootbox .btn-danger");
+  await page.click("dialog .btn-danger");
   await page.waitForSelector(".btn-delete", { state: "detached" });
 });
 
@@ -189,7 +262,7 @@ test("profile: NRC editor loads; create and delete a short link", async function
   await page.waitForSelector(".btn-delete");
   await page.click(".btn-delete");
   await dialogOpen();
-  await page.click(".bootbox .btn-danger");
+  await page.click("dialog .btn-danger");
   await page.waitForSelector(".btn-delete", { state: "detached" });
 });
 
@@ -212,9 +285,9 @@ test("about: add awardees, sort by year, delete dialog", async function () {
   assert.deepEqual(await years(), ["1999", "2001"]);
   await table.locator(".btn-delete").last().click();
   await dialogOpen();
-  assert.ok((await page.textContent(".bootbox .bootbox-body")).includes(XSS));
+  assert.ok((await dialogText()).includes(XSS));
   await noScriptRan();
-  await page.click(".bootbox .btn-default");
+  await page.click("dialog .btn-default");
 });
 
 test("faq, join and rover journey pages", async function () {

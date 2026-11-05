@@ -158,7 +158,7 @@ exports.Client = class Client {
     return this.request("POST", url, { form: { _csrf: this.csrfToken, ...fields } });
   }
 
-  // x-editable / AJAX style: token in the X-CSRF-Token header.
+  // AJAX style (inline edits, deletes): token in the X-CSRF-Token header.
   ajax(method, url, fields) {
     return this.request(method, url, { form: fields, headers: { "x-csrf-token": this.csrfToken } });
   }

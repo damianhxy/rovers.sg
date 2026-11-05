@@ -18,8 +18,8 @@ async function createEvent(fields = {}) {
   await admin.get("/events/add");
   const res = await admin.post("/events", {
     title: "Hike",
-    start: "10 Nov 26 10:00",
-    end: "10 Nov 26 12:30",
+    start: "2026-11-10T10:00",
+    end: "2026-11-10T12:30",
     ...fields,
   });
   assert.match(res.location, /^\/events\/[A-Za-z0-9]+$/, "event not created: " + res.location);
@@ -76,14 +76,14 @@ describe("events", function () {
   test("category pages list upcoming events of that category only", async function () {
     await createEvent({
       title: "Service Day",
-      start: "1 Jan 30 10:00",
-      end: "1 Jan 30 11:00",
+      start: "2030-01-01T10:00",
+      end: "2030-01-01T11:00",
       category: "service",
     });
     await createEvent({
       title: "Camp Night",
-      start: "1 Jan 30 10:00",
-      end: "1 Jan 30 11:00",
+      start: "2030-01-01T10:00",
+      end: "2030-01-01T11:00",
       category: "adventure",
     });
     const page = (await admin.get("/events/category/service")).text;
@@ -118,7 +118,7 @@ describe("resources", function () {
     });
     const page = (await admin.get("/resources")).text;
     const id = page.match(
-      /data-pk="([A-Za-z0-9]+)" data-name="name"[^>]*href="https:\/\/example.com\/guide"/,
+      /data-id="([A-Za-z0-9]+)" data-edit-url(?:(?!data-id=)[^])*data-name="name" href="https:\/\/example.com\/guide"/,
     )[1];
     for (const [name, value] of [
       ["name", "Journey Handbook"],
@@ -150,7 +150,7 @@ describe("anonymous visitors", function () {
     const visitor = new Client(app.baseUrl);
     await visitor.get("/");
     for (const [url, fields] of [
-      ["/events", { title: "Intruder", start: "10 Nov 26 10:00", end: "10 Nov 26 11:00" }],
+      ["/events", { title: "Intruder", start: "2026-11-10T10:00", end: "2026-11-10T11:00" }],
       ["/about/BPA", { name: "Intruder" }],
       ["/s", { name: "Intruder", orgurl: "https://example.com", newurl: "intruder" }],
       ["/resources", { name: "Intruder", category: "Forms", url: "https://example.com" }],

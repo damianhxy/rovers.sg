@@ -37,8 +37,8 @@ async function createEvent(fields = {}) {
   await admin.get("/events/add");
   const res = await admin.post("/events", {
     title: "Hike",
-    start: "10 Nov 26 10:00",
-    end: "10 Nov 26 12:30",
+    start: "2026-11-10T10:00",
+    end: "2026-11-10T12:30",
     location: "MacRitchie",
     link: "https://example.org/hike",
     category: "Adventure",
@@ -59,7 +59,7 @@ async function eventPage(id) {
 describe("events", function () {
   test("times are stored in Singapore time whatever the host zone", async function () {
     const id = await createEvent();
-    assert.match(await eventPage(id), /data-name="start">10 Nov 26 \| 10:00</);
+    assert.match(await eventPage(id), /data-name="start" data-value="[^"]+">10 Nov 26 \| 10:00</);
     const feed = JSON.parse((await admin.get("/events/feed?start=2026-11-01&end=2026-12-01")).text);
     const event = feed.find((e) => e._id === id);
     assert.equal(event.start, "2026-11-10T10:00:00+08:00");
@@ -67,15 +67,31 @@ describe("events", function () {
     assert.equal(event.duration, "2 hours 30 minutes");
   });
 
-  test("inline edits: start time (editor format), title", async function () {
+  test("the event page fills the time inputs in Singapore time", async function () {
+    const id = await createEvent();
+    assert.match(await eventPage(id), /data-name="start" data-value="2026-11-10T10:00"/);
+  });
+
+  test("inline edits: start time, title", async function () {
     const id = await createEvent();
     let res = await admin.ajax("PUT", "/events", {
       pk: id,
       name: "start",
-      value: "10 Nov 26 | 09:00h",
+      value: "2026-11-10T09:00",
     });
     assert.equal(res.status, 200, res.text);
-    assert.deepEqual(JSON.parse(res.text), { field: "start", value: "3 hours 30 minutes" });
+    assert.deepEqual(JSON.parse(res.text), {
+      field: "start",
+      value: "2026-11-10T09:00",
+      text: "10 Nov 26 | 09:00",
+      duration: "3 hours 30 minutes",
+    });
+    res = await admin.ajax("PUT", "/events", { pk: id, name: "end", value: "2026-11-10T13:00:00" });
+    assert.equal(JSON.parse(res.text).duration, "4 hours", "seconds in the value are accepted");
+    for (const value of ["10 Nov 26 10:00", "2026-11-10", "2026-13-10T10:00"]) {
+      res = await admin.ajax("PUT", "/events", { pk: id, name: "start", value });
+      assert.equal(res.status, 400, value);
+    }
     res = await admin.ajax("PUT", "/events", { pk: id, name: "title", value: "Hike 2" });
     assert.equal(res.status, 200);
     assert.match(await eventPage(id), /Hike 2/);
@@ -84,7 +100,7 @@ describe("events", function () {
   test("an event stays upcoming until it ends, and no longer", async function () {
     // Times in the add-event form's format, in Singapore time, relative to now.
     const sg = (minutes) =>
-      dayjs().tz("Asia/Singapore").add(minutes, "minute").format("D MMM YY HH:mm");
+      dayjs().tz("Asia/Singapore").add(minutes, "minute").format("YYYY-MM-DDTHH:mm");
     await createEvent({ title: "Ends soon", start: sg(-120), end: sg(60), category: "courses" });
     await createEvent({ title: "Just ended", start: sg(-180), end: sg(-60), category: "courses" });
     for (const url of ["/", "/events", "/events/category/courses"]) {
@@ -95,7 +111,7 @@ describe("events", function () {
   });
 
   test("calendar feed includes an early-morning event on the first day of the range", async function () {
-    const id = await createEvent({ start: "1 Dec 26 02:00", end: "1 Dec 26 03:00" });
+    const id = await createEvent({ start: "2026-12-01T02:00", end: "2026-12-01T03:00" });
     const feed = JSON.parse((await admin.get("/events/feed?start=2026-12-01&end=2027-01-01")).text);
     assert.ok(
       feed.some((e) => e._id === id),
@@ -109,8 +125,8 @@ describe("events", function () {
     await admin.get("/events/add");
     const res = await admin.post("/events", {
       title: "Backwards",
-      start: "10 Nov 26 12:00",
-      end: "10 Nov 26 10:00",
+      start: "2026-11-10T12:00",
+      end: "2026-11-10T10:00",
     });
     assert.equal(res.location, "/events/add");
   });
@@ -198,7 +214,9 @@ describe("resources", function () {
   async function listed() {
     const res = await admin.get("/resources");
     return [
-      ...res.text.matchAll(/data-pk="([A-Za-z0-9]+)" data-name="name"[^>]*href="([^"]+)"/g),
+      ...res.text.matchAll(
+        /data-id="([A-Za-z0-9]+)" data-edit-url[^]*?data-name="name" href="([^"]+)"/g,
+      ),
     ].map((m) => ({ id: m[1], href: m[2] }));
   }
 

@@ -25,7 +25,7 @@
                     <span class="col-md-2 control-label">Start</span>
                     <div class="col-md-10">
                         <div class="input-group">
-                            <input type="text" name="start" data-format="D MMM YY HH:mm" data-template="D MMM YY | HH : mm h" required>
+                            <input type="datetime-local" class="form-control" name="start" required>
                             <div class="input-group-addon">*</div>
                         </div>
                     </div>
@@ -40,7 +40,7 @@
                     <span class="col-md-2 control-label">End</span>
                     <div class="col-md-10">
                         <div class="input-group">
-                            <input type="text" name="end" data-format="D MMM YY HH:mm" data-template="D MMM YY | HH : mm h" required>
+                            <input type="datetime-local" class="form-control" name="end" required>
                             <div class="input-group-addon">*</div>
                         </div>
                     </div>
@@ -58,14 +58,12 @@
                     </div>
                 </div> <!-- /.form-group -->
                 <div class="form-group">
-                    <span class="col-md-2 control-label">Categories</span>
+                    <span class="col-md-2 control-label checkbox-label">Categories</span>
                     <div class="col-md-10">
-                        <select class="form-control" name="category" data-toggle="select2" multiple>
-                            <option value="service">Service</option>
-                            <option value="fellowship">Fellowship</option>
-                            <option value="adventure">Adventure</option>
-                            <option value="courses">Courses</option>
-                        </select>
+                        <label class="checkbox-inline"><input type="checkbox" name="category" value="service"> Service</label>
+                        <label class="checkbox-inline"><input type="checkbox" name="category" value="fellowship"> Fellowship</label>
+                        <label class="checkbox-inline"><input type="checkbox" name="category" value="adventure"> Adventure</label>
+                        <label class="checkbox-inline"><input type="checkbox" name="category" value="courses"> Courses</label>
                     </div>
                 </div> <!-- /.form-group -->
                 <div class="form-group">

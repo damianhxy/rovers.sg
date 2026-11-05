@@ -13,14 +13,10 @@
     <link rel="stylesheet" href="/css/bootstrap/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/ekko-lightbox.min.css">
-    <link rel="stylesheet" href="/css/pnotify.custom.min.css">
     <link rel="stylesheet" href="/css/bootstrap-sortable.css">
-    <link rel="stylesheet" href="/js/x-editable/css/bootstrap-editable.css">
     <link rel="stylesheet" href="/css/slick/slick.css">
     <link rel="stylesheet" href="/css/slick/slick-theme.css">
     <link rel="stylesheet" href="/css/fullcalendar.min.css">
-    <link rel="stylesheet" href="/css/select2/select2.min.css">
-    <link rel="stylesheet" href="/css/select2/select2-bootstrap.min.css">
     <link rel="stylesheet" href="/css/main.css">
     <script src="/js/jquery-3.7.1.min.js"></script>
     <script>
@@ -136,6 +132,7 @@
     </nav> <!-- /.navbar -->
     <!-- /NAVBAR -->
     <main>
+    <div id="flash" data-success="{{success}}" data-error="{{error}}" hidden></div>
     {{{body}}}
     </main>
     <!-- PAGE FOOTER -->
@@ -191,32 +188,10 @@
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/ekko-lightbox.min.js"></script>
     <script src="/js/moment.min.js"></script>
-    <script src="/js/moment-duration-format.min.js"></script>
     <script src="/js/fullcalendar.min.js"></script>
-    <script src="/js/x-editable/js/bootstrap-editable.min.js"></script>
-    <script src="/js/combodate.min.js"></script>
-    <script src="/js/pnotify.custom.min.js"></script>
     <script src="/js/bootstrap-sortable.min.js"></script>
     <script src="/js/livestamp.min.js"></script>
     <script src="/js/slick.min.js"></script>
-    <script src="/js/select2.min.js"></script>
-    <script src="/js/bootbox.min.js"></script>
     <script src="/js/custom/main.js"></script>
-    <script>
-        $(function() {
-            {{#if success}}
-            new PNotify({
-                title: "{{success}}",
-                type: "success"
-            });
-            {{/if}}
-            {{#if error}}
-            new PNotify({
-                title: "{{error}}",
-                type: "error"
-            });
-            {{/if}}
-        });
-    </script>
     <!-- /SCRIPTS -->
 </body>

@@ -1,7 +1,7 @@
 <div class="container">
     <div class="section">
         <div class="row">
-            <div class="col-md-6 col-md-offset-3" data-id="{{info._id}}">
+            <div class="col-md-6 col-md-offset-3" data-id="{{info._id}}" data-edit-url="/events">
                 <div class="page-header text-center">
                     <h2><span class="field-edit" data-type="text" data-name="title">{{info.title}}</span></h2>
                     {{#if user.admin}}
@@ -35,7 +35,7 @@
                         <tr>
                             <td class="col-md-3 text-center">Start</td>
                             <td class="col-md-9">
-                                <span class="field-edit" data-type="combodate" data-name="start">{{info.startPretty}}</span >
+                                <span class="field-edit" data-type="datetime" data-name="start" data-value="{{inputTime info.start}}">{{info.startPretty}}</span>
                             </td>
                         </tr>
                         <tr>
@@ -47,7 +47,7 @@
                         <tr>
                             <td class="col-md-3 text-center">End</td>
                             <td class="col-md-9">
-                                <span class="field-edit" data-type="combodate" data-name="end">{{info.endPretty}}</span>
+                                <span class="field-edit" data-type="datetime" data-name="end" data-value="{{inputTime info.end}}">{{info.endPretty}}</span>
                             </td>
                         </tr>
                         <tr {{#unless info.details}}class="field-hidden"{{/unless}}>
@@ -60,10 +60,9 @@
                             <td class="col-md-3 text-center">Link</td>
                             <td class="col-md-9">
                                 <a class="field-edit hidden-xs link" data-type="text" data-name="link" href="{{info.link}}" target="_blank">{{info.link}}</a>
-                                <a class="field-edit visible-xs link" data-type="text" data-name="link" href="{{info.link}}" target="_blank">External Link</a>
+                                <a class="field-edit visible-xs link" data-type="text" data-name="link" data-label="External Link" href="{{info.link}}" target="_blank">External Link</a>
                             </td>
                         </tr>
-                        <!-- x-editable doesn't work with select v4 -->
                         <tr>
                             <td class="col-md-3 text-center">Categories</td>
                             <td class="col-md-9">
@@ -158,7 +157,6 @@
                                 <a data-toggle="lightbox" data-title="{{name}}" href="{{path}}" data-gallery="eventGallery" class="thumbnail">
                                     <img src="{{path}}" alt="{{name}}">
                                 </a>
-                            </td>
                             </td>
                             <td data-value="{{time}}" data-livestamp="{{time}}"></td>
                             <td>

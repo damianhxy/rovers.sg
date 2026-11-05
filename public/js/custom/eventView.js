@@ -1,143 +1,70 @@
 $(function() {
     console.info("[info] eventView.js is running.");
 
-    var MOMENT_FORMAT = "D MMM YY | HH:mm[h]";
-    var $start = $("[data-name='start']");
-    var $end = $("[data-name='end']");
-    var $duration = $("[data-name='duration']");
+    var $event = $("[data-edit-url='/events']");
 
     // Hide empty fields
     $(".field-hidden").hide();
 
-    // Toggle editable
+    // Edit mode (inline editing is in main.js)
     $(".btn-edit").click(function() {
-        $(".field-edit").editable("toggleDisabled");
+        $event.toggleClass("editing");
         $(".field-hidden").toggle();
     });
 
-    // X-editable
-    $(".field-edit").each(function() {
-        $(this).editable({
-            pk: $(this).closest("[data-id]").data("id"),
-            url: "/events",
-            disabled: true,
-            ajaxOptions: {
-                type: "put",
-                dataType: "json"
-            },
-            success: function(response) {
-                $("[data-name='" + response.field + "']").closest("tr").toggleClass("field-hidden", !response.value);
-                if (response.field === "start" || response.field === "end") {
-                    setTimeout(function () {
-                        var start = moment($start.text(), MOMENT_FORMAT);
-                        var end = moment($end.text(), MOMENT_FORMAT);
-                        $duration.text(moment.duration(end.diff(start)).format("d [days] h [hours] m [minutes]", {
-                            trim: "both mid"
-                        }));
-                    }, 500);
-                } else if (response.field === "link") {
-                    $("[data-name='link']").attr("href", response.value);
-                    return response;
-                } else if (response.field === "title") {
-                    $(".btn-delete").first().data("name", response.value);
-                    document.title = response.value + " | Rover.sg";
-                    $(".btn-delete").data("name", response.value);
-                }
-            },
-            error: function(response) {
-                return response.responseJSON.error;
-            },
-            /* For combodate */
-            format: MOMENT_FORMAT,
-            template: "D / MMM / YY | HH : mm",
-            combodate: {
-                smartDays: "true",
-                minYear: new Date().getFullYear() - 5,
-                maxYear: new Date().getFullYear() + 5
-            }
-        });
+    $event.on("field-saved", function(e, response) {
+        $("[data-name='" + response.field + "']").closest("tr").toggleClass("field-hidden", !response.value);
+        if (response.duration) {
+            $("[data-name='duration']").text(response.duration);
+        } else if (response.field === "title") {
+            document.title = response.value + " | Rovers.sg";
+            $(".btn-delete").data("name", response.value);
+        }
     });
 
-    // Bootbox - Event
     $(".btn-delete").click(function(e) {
-        var $data = $(e.target);
-        var name = $data.data("name");
-        var time = moment($data.data("time")).format(MOMENT_FORMAT);
-        var id = $data.data("id");
-        var message = "";
-        message += "<p>Event Name: <strong>" + escapeHtml(name) + "</strong></p>";
-        message += "<p>Created on: <strong>" + escapeHtml(time) + "</strong></p>";
-        message += "<p>Are you sure? This event will be <strong>permanently</strong> deleted!</p>";
-        bootbox.dialog({
+        var $button = $(e.currentTarget);
+        confirmDelete({
             title: "Delete event",
-            message: message,
-            onEscape: function() {},
-            buttons: {
-                "Cancel": {
-                    className: "btn-default"
-                },
-                "Delete": {
-                    className: "btn-danger",
-                    callback: function() {
-                        $.ajax({
-                            method: "DELETE",
-                            url: "/events",
-                            data: { id: id }
-                        })
-                        .then(function() {
-                            location.assign("/events");
-                        })
-                        .catch(function(err) {
-                            new PNotify({
-                                title: "Error",
-                                text: err.message,
-                                type: "error"
-                            });
-                        });
-                    }
-                }
+            what: "event",
+            details: [
+                ["Event Name", $button.data("name")],
+                ["Created on", formatTime($button.data("time"))]
+            ],
+            onDelete: function() {
+                $.ajax({
+                    method: "DELETE",
+                    url: "/events",
+                    data: { id: $button.data("id") }
+                })
+                .then(function() {
+                    location.assign("/events");
+                })
+                .catch(notifyError);
             }
         });
     });
 
-    // Bootbox - photos
     $(".btn-delete-photo").click(function(e) {
-        var $data = $(e.target);
-        var name = $data.data("name");
-        var time = moment($data.data("time")).format(MOMENT_FORMAT);
-        var eventid = $(".btn-delete").data("id");
-        var message = "";
-        message += "<p>Photo Name: <strong>" + escapeHtml(name) + "</strong></p>";
-        message += "<p>Uploaded on: <strong>" + escapeHtml(time) + "</strong></p>";
-        message += "<p>Are you sure? This photo will be <strong>permanently</strong> deleted!</p>";
-        bootbox.dialog({
+        var $button = $(e.currentTarget);
+        var name = $button.data("name");
+        confirmDelete({
             title: "Delete photo",
-            message: message,
-            onEscape: function() {},
-            buttons: {
-                "Cancel": {
-                    className: "btn-default"
-                },
-                "Delete": {
-                    className: "btn-danger",
-                    callback: function() {
-                        $.ajax({
-                            method: "DELETE",
-                            url: "/events/" + eventid,
-                            data: { name: name }
-                        })
-                        .then(function() {
-                            $(e.target).closest("tr").remove();
-                        })
-                        .catch(function(err) {
-                            new PNotify({
-                                title: "Error",
-                                text: err.message,
-                                type: "error"
-                            });
-                        });
-                    }
-                }
+            what: "photo",
+            details: [
+                ["Photo Name", name],
+                ["Uploaded on", formatTime($button.data("time"))]
+            ],
+            onDelete: function() {
+                $.ajax({
+                    method: "DELETE",
+                    url: "/events/" + $(".btn-delete").data("id"),
+                    data: { name: name }
+                })
+                .then(function() {
+                    $button.closest("tr").remove();
+                })
+                .catch(notifyError);
             }
         });
     });

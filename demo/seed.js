@@ -157,9 +157,9 @@ function samplePdf(text) {
   return Buffer.from(pdf, "latin1");
 }
 
-// In the add-event form's format, "D MMM YY HH:mm", as Singapore time.
+// In the add-event form's format (a datetime-local value), as Singapore time.
 function eventTime(days, time) {
-  return dayjs().tz("Asia/Singapore").add(days, "day").format("D MMM YY") + " " + time;
+  return dayjs().tz("Asia/Singapore").add(days, "day").format("YYYY-MM-DD") + "T" + time;
 }
 
 async function isEmpty() {
